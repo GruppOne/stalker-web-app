@@ -1,0 +1,15 @@
+{
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "files.encoding": "utf8",
+  "git.autofetch": true,
+  "git.autorefresh": true,
+  "git.fetchOnPull": false,
+  "git.rebaseWhenSync": true,
+  "git.useForcePushWithLease": true,
+  "git-graph.dialog.rebase.ignoreDate": false,
+  "git-graph.dialog.rebase.launchInteractiveRebase": false,
+  "git-graph.fetchAndPrune": true,
+  "git-graph.useMailmap": true,
+}

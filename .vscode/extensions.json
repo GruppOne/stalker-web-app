@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "ban.spellright",
+    "DavidAnson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "ghmcadams.lintlens",
+    "GitHub.vscode-pull-request-github",
+    "Gruntfuggly.todo-tree",
+    "hbenl.vscode-jasmine-test-adapter",
+    "jebbs.plantuml",
+    "mhutchie.git-graph",
+    "ms-azuretools.vscode-docker",
+    "msjsdiag.debugger-for-chrome",
+    "pflannery.vscode-versionlens",
+    "redhat.vscode-yaml",
+    "ryanluker.vscode-coverage-gutters",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "wmaurer.vscode-jumpy",
+    "yzhang.markdown-all-in-one",
+  ]
+}

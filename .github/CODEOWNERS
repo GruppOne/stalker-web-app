@@ -1,0 +1,21 @@
+# in caso di glob sovrapposti, ha precedenza quello definito per ultimo (più in basso nel file)
+
+# default reviewer
+
+# * @erclu
+
+# teams
+
+# @GruppOne/everyone
+# @GruppOne/management
+
+# people
+
+# @erclu
+# @RiccardoAgatea
+# @TobiaApolloni
+# @RiccardoCestaro
+# @Alberto1598
+# @AlbertoGobbo
+# @AlexRizzus
+# @fabioscettro
