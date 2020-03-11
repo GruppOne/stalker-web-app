@@ -1,6 +1,18 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // some stricter compiler options
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "removeComments": true,
+    "strict": true,
+    // ------------------------------
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
