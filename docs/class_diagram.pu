@@ -1,0 +1,59 @@
+@startuml
+class User{
+  __ private data __
+  - string email
+  - string password
+  - UserData data
+  ==
+  + string getUsername()
+  + string getPasswor()
+  + UserData getData()
+}
+class UserData{
+  - string firstName
+  - string lastName
+  - date birthDate
+  ==
+  + string getfirstName()
+  + string getlastName()
+  + date getBirthDate()
+}
+class Organization{
+  - integer ID
+  - string organizationName
+  - string[] organizationMember
+  - bool known
+  - place[] places
+  - string description
+  ==
+  + integer getID()
+  + string getOrganizationName()
+  + string[] getOrganizationMember()
+  + bool getKnown()
+  + place[] getPlaces()
+  + string getDescription()
+
+}
+class OrganizationList{
+  - Organization[] list
+}
+class LoginComponent <<singleton>>{}
+class LoginService <<singleton>>{}
+class HttpConfiguration <<singleton>>{}
+class OrganizationListComponent <<singleton>>{}
+class OrganizationListService <<singleton>>{}
+class OrganizationDetailsComponent <<singleton>>{}
+class OrganizationDetailsService <<singleton>>{}
+LoginComponent <|.. LoginService
+LoginService ..|> User
+LoginComponent ..|> User
+HttpConfiguration o-- LoginService
+Organization *-- OrganizationList
+OrganizationListComponent --o OrganizationList
+OrganizationListService --o OrganizationList
+OrganizationListService --* User
+User --*  UserData
+OrganizationListService ..|> OrganizationListComponent
+OrganizationDetailsComponent --* OrganizationListComponent
+OrganizationDetailsComponent <|-- OrganizationDetailsService
+@enduml
