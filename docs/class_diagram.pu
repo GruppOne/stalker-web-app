@@ -35,15 +35,15 @@ class Organization{
 
 }
 class OrganizationList{
-  - Organization[] list
+  - organization[] list
 }
-class LoginComponent <<singleton>>{}
-class LoginService <<singleton>>{}
-class HttpConfiguration <<singleton>>{}
-class OrganizationListComponent <<singleton>>{}
-class OrganizationListService <<singleton>>{}
-class OrganizationDetailsComponent <<singleton>>{}
-class OrganizationDetailsService <<singleton>>{}
+class LoginComponent <<singleton>>
+class LoginService <<singleton>>
+class HttpConfiguration <<singleton>>
+class OrganizationListComponent <<singleton>>
+class OrganizationListService <<singleton>>
+class OrganizationDetailsComponent <<singleton>>
+class OrganizationDetailsService <<singleton>>
 LoginComponent <|.. LoginService
 LoginService ..|> User
 LoginComponent ..|> User
