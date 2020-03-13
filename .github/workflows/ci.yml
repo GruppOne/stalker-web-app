@@ -1,0 +1,56 @@
+name: Continuous Integration
+
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  check-format:
+    name: Check files formatting
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run ESLint using angular CLI
+        run: |
+          npm ci prettier
+          npm run check-format --silent
+
+  lint:
+    name: Lint the whole project
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run ESLint using angular CLI
+        run: |
+          npm ci @angular/cli
+          npx ng lint
+
+  unit-test:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run ESLint using angular CLI
+        run: |
+          npm ci @angular/cli
+          npx ng test --watch=false
+  #
+  # FIXME how to run in non-interactive mode?
+  # system-test:
+  #   name: Run system tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Run ESLint using angular CLI
+  #       run: |
+  #         npm ci @angular/cli
+  #         npx ng e2e --port 4202
