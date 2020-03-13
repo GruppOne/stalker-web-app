@@ -20,6 +20,11 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "jake.autoDetect": "off",
+  "grunt.autoDetect": "off",
+  "gulp.autoDetect": "off",
+  "typescript.tsc.autoDetect": "off",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
