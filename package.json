@@ -2,8 +2,8 @@
   "name": "stalker-web-app",
   "version": "0.0.0",
   "scripts": {
-    "format": "prettier --write **/*.ts **/*.js **/*.scss **/*.html **/*.yml **/*.md",
-    "check-format": "prettier --check **/*.ts **/*.js **/*.scss **/*.html **/*.yml **/*.md",
+    "check-format": "prettier --check **/**",
+    "format": "prettier --write **/**",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

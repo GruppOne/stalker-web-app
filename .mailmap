@@ -1,4 +1,4 @@
-# comando per ottenere tutti gli autori:
+# use the following command to get all authors for current repo
 # git shortlog -e -s -n --all
 
 Riccardo Agatea <riccardo.agatea@gmail.com>

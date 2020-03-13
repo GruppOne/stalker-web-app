@@ -1,4 +1,4 @@
-# Stalker Web App
+# Stalker - Web App
 
 Questo progetto è stato generato utilizzando [Angular CLI](https://github.com/angular/angular-cli) versione 9.0.5.
 

@@ -1,3 +1,22 @@
-.git
-dist
-node_modules
+.git/
+.vscode/
+dist/
+node_modules/
+
+# do not format json with prettier, we use vscode json language features
+**/*.json
+
+# ignore all non relevant file types here
+**/*.png
+**/*.ico
+
+.dockerignore
+.editorconfig
+.eslintignore
+.gitignore
+.mailmap
+.prettierignore
+browserslist
+CODEOWNERS
+Dockerfile
+LICENSE
