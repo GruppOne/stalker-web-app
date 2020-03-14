@@ -22,7 +22,8 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('stalker-web-app');
   });
 
-  it('should render title', () => {
+  // TODO: this test might be no longer useful, think about removing it
+  /* it("should render title", () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
@@ -30,4 +31,5 @@ describe('AppComponent', () => {
       'stalker-web-app app is running!',
     );
   });
+  */
 });
