@@ -1,4 +1,63 @@
 {
   "version": "2.0.0",
-  "tasks": []
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "check-format",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "format",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$tsc", "$node-sass"],
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "fix",
+      "presentation": {"reveal": "always", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "isBackground": true,
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "e2e",
+      "isBackground": true,
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "release",
+      "presentation": {"reveal": "always", "panel": "dedicated"},
+      "problemMatcher": []
+    }
+  ]
 }

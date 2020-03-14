@@ -2,9 +2,18 @@
   "arrowParens": "always",
   "bracketSpacing": false,
   "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "options": {
+        "printWidth": 90
+      }
+    }
+  ],
   "printWidth": 140,
   "proseWrap": "preserve",
+  "quoteProps": "as-needed",
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "trailingComma": "all"
 }

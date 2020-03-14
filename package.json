@@ -4,11 +4,11 @@
   "scripts": {
     "check-format": "prettier --check **/**",
     "format": "prettier --write **/**",
-    "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "start": "ng serve",
     "lint": "ng lint",
+    "fix": "ng lint --fix",
+    "test": "ng test",
     "e2e": "ng e2e",
     "release": "standard-version"
   },

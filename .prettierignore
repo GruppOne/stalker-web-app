@@ -1,10 +1,7 @@
 .git/
-.vscode/
+# .vscode/
 dist/
 node_modules/
-
-# do not format json with prettier, we use vscode json language features
-**/*.json
 
 # ignore all non relevant file types here
 **/*.png

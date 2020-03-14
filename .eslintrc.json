@@ -6,9 +6,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
@@ -22,6 +20,7 @@
         "sourceType": "module"
       },
       "plugins": [
+        // this comments keeps the array in multiple lines
         "@typescript-eslint",
         "@angular-eslint",
         "import",
@@ -55,7 +54,7 @@
         "@angular-eslint/no-output-on-prefix": "error",
         "@angular-eslint/no-output-rename": "error",
         "@angular-eslint/no-outputs-metadata-property": "error",
-        "@angular-eslint/use-lifecycle-interface": "warn",
+        "@angular-eslint/use-lifecycle-interface": "error",
         "@angular-eslint/use-pipe-transform-interface": "error",
         "@typescript-eslint/array-type": "off",
         "@typescript-eslint/consistent-type-definitions": "error",
@@ -95,6 +94,7 @@
           "error",
           {
             "default": [
+              // this comments keeps the array in multiple lines
               "static-field",
               "instance-field",
               "static-method",
@@ -118,38 +118,27 @@
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/quotes": [
           "error",
-          "double",
+          "single",
           {
             "allowTemplateLiterals": true,
             "avoidEscape": true
           }
         ],
-        "@typescript-eslint/semi": [
-          "error",
-          "always"
-        ],
+        "@typescript-eslint/semi": ["error", "always"],
         "@typescript-eslint/unified-signatures": "error",
         "arrow-body-style": "error",
-        "arrow-parens": [
-          "off",
-          "as-needed"
-        ],
+        "arrow-parens": ["off", "as-needed"],
         "camelcase": "error",
-        "comma-dangle": [
-          "error",
-          "always-multiline"
-        ],
+        "comma-dangle": ["error", "always-multiline"],
         "complexity": "off",
         "constructor-super": "error",
         "curly": "error",
         "dot-notation": "error",
         "eol-last": "error",
-        "eqeqeq": [
-          "error",
-          "smart"
-        ],
+        "eqeqeq": ["error", "smart"],
         "guard-for-in": "error",
         "id-blacklist": [
+          // this comments keeps the array in multiple lines
           "error",
           "any",
           "Number",
@@ -162,14 +151,14 @@
           "undefined"
         ],
         "id-match": "error",
-        "import/no-deprecated": "warn",
+        "import/no-deprecated": "error",
         "import/order": "off",
         "jsdoc/no-types": "error",
         "max-classes-per-file": "off",
         "max-len": [
           "error",
           {
-            "code": 140
+            "code": 90
           }
         ],
         "new-parens": "error",
@@ -180,6 +169,7 @@
           "error",
           {
             "allow": [
+              // this comments keeps the array in multiple lines
               "log",
               "warn",
               "dir",
@@ -241,16 +231,10 @@
         "no-unused-expressions": "error",
         "no-unused-labels": "error",
         "object-shorthand": "error",
-        "one-var": [
-          "error",
-          "never"
-        ],
+        "one-var": ["error", "never"],
         "prefer-arrow/prefer-arrow-functions": "error",
         "prefer-const": "error",
-        "quote-props": [
-          "error",
-          "as-needed"
-        ],
+        "quote-props": ["error", "as-needed"],
         "radix": "error",
         "sort-keys": "off",
         "space-before-function-paren": [
@@ -265,9 +249,7 @@
           "error",
           "always",
           {
-            "exceptions": [
-              "*"
-            ]
+            "exceptions": ["*"]
           }
         ],
         "use-isnan": "error",
@@ -275,16 +257,21 @@
       }
     },
     {
-      "files": [
-        "*.component.html"
-      ],
+      "files": ["*.component.html"],
       "parser": "@angular-eslint/template-parser",
       "plugins": [
+        // this comments keeps the array in multiple lines
         "@angular-eslint/template"
       ],
       "rules": {
         "@angular-eslint/template/banana-in-a-box": "error",
-        "@angular-eslint/template/no-negated-async": "error"
+        "@angular-eslint/template/no-negated-async": "error",
+        "max-len": [
+          "error",
+          {
+            "code": 140
+          }
+        ]
       }
     }
   ]
