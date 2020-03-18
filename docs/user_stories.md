@@ -1,0 +1,47 @@
+# User Stories
+
+- L&#39;utente generico vuole autenticarsi per accedere alla propria area personale
+  - L&#39;utente generale vuole inserire username e password e confermare l&#39;inserimento
+  - L&#39;utente generale vuole accedere alla propria area personale
+- L&#39;utente generico vuole disconnettersi dalla web-app
+- L&#39;utente generico vuole recuperare le proprie credenziali <!-- TODO discutere del recupero credenziali -->
+- L&#39;utente generico vuole accedere alle proprie informazioni personali
+  - visualizzare i dati del profilo
+  - modificare i dati del profilo
+  - cancellare il proprio account
+- L&#39;utente generico vuole creare un&#39;organizzazione
+  - invia una richiesta per creare la propria organizzazione
+  - specifica i dati fondamentali della creazione (nome, descrizione e configurazione IP server LDAP)
+  - specifica lo scopo della richiesta di creazione di una zona tracciata <!-- TODO discutere dello scopo -->
+  - conferma la creazione dell&#39;organizzazione
+- L&#39;utente generico vuole visualizzare la lista delle organizzazioni delle quali è visualizzatore, gestore o owner
+  - visualizza la lista
+  - seleziona una organizzazione per accedere alla pagina dell&#39;organizzazione
+- Il visualizzatore vuole visualizzare i dati generici dell&#39;organizzazione
+  - visualizza nome e descrizione
+- Il visualizzatore vuole monitorare l&#39;organizzazione
+  - visualizza la lista degli utenti collegati all&#39;organizzazione
+  - seleziona un utente dalla lista per visualizzare report dettagliati delle presenze
+  - visualizza il numero di utenti attualmente presenti in un luogo e in totale nei luoghi dell&#39;organizzazione.
+  - seleziona un luogo per visualizzare un report dettagliato del luogo
+  - visualizzare un report globale dell&#39;organizzazione
+- Il gestore vuole gestire i luoghi
+  - vuole visualizzare una mappa dove poter visualizzare i luoghi con i relativi perimetri
+  - vuole poter selezionare i luoghi sia dalla mappa, sia da una lista di luoghi
+  - dopo la selezione vuole poter modificare un luogo (le sue coordinate o ridisegnando il suo perimetro nella mappa)
+  - dopo la selezione vuole poter eliminare un luogo (dopo aver confermato l&#39;eliminazione)
+  - vuole poter aggiungere un luogo disegnando il perimetro di esso nella mappa, o specificando le sue coordinate
+- L&#39;owner vuole poter modificare le specifiche dell&#39;organizzazione
+  - modificare il nome dell&#39;organizzazione
+  - modificare la descrizione dell&#39;organizzazione
+  - modificare le configurazioni del server LDAP
+  - cancellare l&#39;organizzazione (deve poter confermare l&#39;eliminazione)
+- L&#39;owner vuole poter gestire i privilegi degli utenti
+  - aggiungere dei visualizzatori
+  - aggiungere dei gestori
+  - declassare i privilegi degli utenti
+  - bandire un utente dall&#39;organizzazione
+- L&#39;amministratore vuole accettare le richieste di creazione di organizzazione
+  - vuole far diventare un utente owner della propria organizzazione
+- L&#39;amministratore vuole rimuovere i privilegi di owner di un utente (dopo aver confermato) <!-- TODO discutere cancellazione organizzazione senza owner -->
+- L&#39;amministratore vuole eliminare un utente generico dal DB (dopo aver confermato)
