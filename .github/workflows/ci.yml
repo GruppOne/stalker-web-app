@@ -47,8 +47,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Run ESLint using angular CLI
-        run: npm run check-format --silent
+      - name: Run Prettier
+        run: npm run --silent check-format
 
   lint:
     name: Lint the whole project
@@ -72,8 +72,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Run ESLint using angular CLI
-        run: npx ng lint
+      - name: Run ESLint
+        run: npm run --silent lint
 
   run-unit-tests:
     name: Run unit tests
@@ -82,12 +82,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # - name: Cache node modules
-      #   id: cache
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - uses: actions/setup-node@v1
         with:
@@ -97,8 +97,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Run karma in non-interactive mode
-        run: npx ng test --configuration=ci
+      - name: Run karma
+        run: npm run --silent test -- --configuration=ci
 
   run-code-coverage:
     name: Run code coverage
@@ -107,12 +107,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # - name: Cache node modules
-      #   id: cache
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - uses: actions/setup-node@v1
         with:
@@ -122,8 +122,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Run karma in non-interactive mode
-        run: npx ng test --code-coverage --configuration=ci
+      - name: Run karma
+        run: npm run --silent test -- --code-coverage --configuration=ci
 
   run-system-tests:
     name: Run system tests
@@ -147,6 +147,5 @@ jobs:
         run: npm ci
 
       # FIXME how to run in non-interactive mode?
-      - name: Run protractor in non-interactive mode
-        # run: npx ng e2e
-        run: exit 1
+      - name: Run protractor
+        run: npm run --silent e2e -- --configuration
