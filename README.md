@@ -30,6 +30,10 @@ Scrivi `ng test` per eseguire i test di unità tramite [Karma](https://karma-run
 
 Scrivi `ng e2e` per eseguire i test end-to-end tramite[Protractor](http://www.protractortest.org/).
 
+## Configurazione
+
+Per eseguire comandi con una configurazione specifica scrivi `ng build|serve|test --configuration=your-configuration` con `your-configuration` la configurazione desiderata. Le configurazioni possibili sono `localhost|imola|production`, per eseguire la configurazione di default non è necessario aggiungere nulla ai comandi originali.
+
 ## Aiuto
 
 Per ricevere info sui comandi di Angular CLI scrivi `ng help` o controlla [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
