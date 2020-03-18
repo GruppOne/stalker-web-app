@@ -148,4 +148,4 @@ jobs:
 
       # FIXME how to run in non-interactive mode?
       - name: Run protractor
-        run: npm run --silent e2e -- --configuration
+        run: npm run --silent e2e -- --configuration=ci

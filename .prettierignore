@@ -1,5 +1,6 @@
 .git/
 # .vscode/
+coverage/
 dist/
 node_modules/
 
@@ -7,6 +8,9 @@ node_modules/
 **/*.png
 **/*.ico
 
+.vscode/snippets.code-snippets
+.vscode/spellright.dict
+.czrc
 .dockerignore
 .editorconfig
 .eslintignore

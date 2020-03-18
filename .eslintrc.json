@@ -158,7 +158,8 @@
         "max-len": [
           "error",
           {
-            "code": 90
+            "code": 90,
+            "ignoreComments": true
           }
         ],
         "new-parens": "error",
