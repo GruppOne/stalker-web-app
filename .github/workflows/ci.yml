@@ -100,6 +100,31 @@ jobs:
       - name: Run karma in non-interactive mode
         run: npx ng test --configuration=ci
 
+  run-code-coverage:
+    name: Run code coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Cache node modules
+      #   id: cache
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies if needed
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run karma in non-interactive mode
+        run: npx ng test --code-coverage --configuration=ci
+
   run-system-tests:
     name: Run system tests
     runs-on: ubuntu-latest
