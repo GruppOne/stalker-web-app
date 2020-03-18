@@ -32,19 +32,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node modules
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      # - name: Cache node modules
+      #   id: cache
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
       - name: Install dependencies if needed
-        if: steps.cache.outputs.cache-hit != 'true'
+        # if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Run Prettier
@@ -57,19 +57,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node modules
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Install dependencies if needed
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: npm ci
 
       - name: Run ESLint
@@ -82,19 +74,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node modules
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Install dependencies if needed
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: npm ci
 
       - name: Run karma
@@ -107,22 +91,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node modules
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Install dependencies if needed
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: npm ci
 
-      - name: Run karma
+      - name: Run karma with code coverage option
         run: npm run --silent test -- --code-coverage --configuration=ci
 
   run-system-tests:
@@ -131,21 +107,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node modules
-        id: cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Install dependencies if needed
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: npm ci
 
-      # FIXME how to run in non-interactive mode?
       - name: Run protractor
         run: npm run --silent e2e -- --configuration=ci
