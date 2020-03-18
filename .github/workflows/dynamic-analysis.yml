@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Dynamic analysis and testing
 
 # run jobs on any PRs and main branch changes
 on:

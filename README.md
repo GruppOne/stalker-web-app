@@ -2,7 +2,15 @@
 
 Questo progetto è stato generato utilizzando [Angular CLI](https://github.com/angular/angular-cli) versione 9.0.5.
 
-<!-- TODO add badges -->
+## Badges
+
+![Static code analysis](https://github.com/GruppOne/stalker-web-app/workflows/Static%20code%20analysis/badge.svg)
+
+![Continuous Integration](https://github.com/GruppOne/stalker-web-app/workflows/Continuous%20Integration/badge.svg)
+
+![Conventional Commits](https://github.com/GruppOne/stalker-web-app/workflows/Conventional%20Commits/badge.svg)
+
+![Best practices for source files](https://github.com/GruppOne/stalker-web-app/workflows/Best%20practices%20for%20source%20files/badge.svg)
 
 ## Setup dell'ambiente di lavoro
 
