@@ -51,6 +51,8 @@ jobs:
         with:
           node-version: '12.x'
 
+      - uses: nanasess/setup-chromedriver@v1.0.1
+
       - name: Run karma in non-interactive mode
         run: |
           npm ci @angular/cli
@@ -67,8 +69,8 @@ jobs:
         with:
           node-version: '12.x'
 
+      - uses: nanasess/setup-chromedriver@v1.0.1
+
       - name: Run protractor in non-interactive mode
-        run: exit 1
-        # run: |
-        #   npm ci @angular/cli
-        #   npx ng e2e --port 4202
+        run: npm ci @angular/cli
+          npx ng e2e --port 4202

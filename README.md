@@ -32,7 +32,7 @@ Scrivi `ng e2e` per eseguire i test end-to-end tramite[Protractor](http://www.pr
 
 ## Configurazione
 
-Per eseguire comandi con una configurazione specifica scrivi `ng build|serve|test --configuration=your-configuration` con `your-configuration` la configurazione desiderata. Le configurazioni possibili sono `localhost|imola|production`, per eseguire la configurazione di default non è necessario aggiungere nulla ai comandi originali.
+Per eseguire comandi con una configurazione specifica scrivi `ng build|serve|test --configuration=your-configuration` con `your-configuration` la configurazione desiderata. Le configurazioni possibili sono `localhost|imola|production`, per eseguire la configurazione di default è sufficiente non aggiungere nulla ai comandi originali.
 
 ## Aiuto
 
