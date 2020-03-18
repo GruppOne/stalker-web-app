@@ -22,10 +22,10 @@ on:
 #
 # we use npx to run ng, this way it should pick up the angular cli that was installed in the previous step
 
+# TODO cache npm ci
 # TODO find a way to reduce duplication in jobs (the first steps are repeated)
-# TODO add coverage job
 jobs:
-  run-unit-tests:
+  unit-tests:
     name: Unit tests
     runs-on: ubuntu-latest
 
@@ -51,12 +51,12 @@ jobs:
         run: npm run --silent test -- --configuration=ci
 
   # TODO upload results to either codecov or coveralls
-  run-code-coverage:
-    name: Coverage
+  coverage:
+    name: Coverage >80%
     runs-on: ubuntu-latest
 
     # runs only if unit-tests job succeeds
-    needs: run-unit-tests
+    needs: unit-tests
 
     steps:
       - uses: actions/checkout@v2
@@ -71,8 +71,8 @@ jobs:
       - name: Run karma with code coverage option
         run: npm run --silent coverage -- --configuration=ci
 
-  run-system-tests:
-    name: Run system tests
+  system-tests:
+    name: System tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
