@@ -25,8 +25,8 @@ on:
 # TODO find a way to reduce duplication in jobs (the first steps are repeated)
 # TODO add coverage job
 jobs:
-  check-format:
-    name: Check files formatting
+  run-unit-tests:
+    name: Unit tests
     runs-on: ubuntu-latest
 
     steps:
@@ -43,49 +43,16 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Install dependencies if needed
+      - name: Install dependencies
         # if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-
-      - name: Run Prettier
-        run: npm run --silent check-format
-
-  lint:
-    name: Lint the whole project
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run ESLint
-        run: npm run --silent lint
-
-  run-unit-tests:
-    name: Run unit tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install dependencies
         run: npm ci
 
       - name: Run karma
         run: npm run --silent test -- --configuration=ci
 
+  # TODO upload results to either codecov or coveralls
   run-code-coverage:
-    name: Run code coverage
+    name: Coverage
     runs-on: ubuntu-latest
 
     # runs only if unit-tests job succeeds
