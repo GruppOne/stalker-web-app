@@ -19,10 +19,17 @@ describe('workspace-project App', () => {
       .manage()
       .logs()
       .get(logging.Type.BROWSER);
+
     expect(logs).not.toContain(
       jasmine.objectContaining({
         level: logging.Level.SEVERE,
       } as logging.Entry),
     );
+  });
+});
+
+describe('a failing test', () => {
+  it('always fails', () => {
+    expect(true).toBe(false);
   });
 });

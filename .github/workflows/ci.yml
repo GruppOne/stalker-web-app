@@ -88,6 +88,9 @@ jobs:
     name: Run code coverage
     runs-on: ubuntu-latest
 
+    # runs only if unit-tests job succeeds
+    needs: run-unit-tests
+
     steps:
       - uses: actions/checkout@v2
 
@@ -99,7 +102,7 @@ jobs:
         run: npm ci
 
       - name: Run karma with code coverage option
-        run: npm run --silent test -- --code-coverage --configuration=ci
+        run: npm run --silent coverage -- --configuration=ci
 
   run-system-tests:
     name: Run system tests

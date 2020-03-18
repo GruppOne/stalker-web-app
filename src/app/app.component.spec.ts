@@ -31,3 +31,9 @@ describe('AppComponent', () => {
     );
   });
 });
+
+describe('a failing test', () => {
+  it('always fails', () => {
+    expect(true).toBe(false);
+  });
+});
