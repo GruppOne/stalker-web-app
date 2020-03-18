@@ -6,23 +6,34 @@ on: # rebuild any PRs and main branch changes
     branches:
       - master
 
+# TODO find a way to reduce duplication in jobs (the first steps are repeated)
 jobs:
   check-format:
     name: Check files formatting
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          # this key only changes when package-lock.json has been modified
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
       - name: Run ESLint using angular CLI
-        run: |
-          npm ci prettier
-          npm run check-format --silent
+        run: npm run check-format --silent
 
   lint:
     name: Lint the whole project
@@ -31,46 +42,82 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          # this key only changes when package-lock.json has been modified
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Run ESLint using angular CLI
-        run: |
-          npm ci @angular/cli
-          npx ng lint
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
 
-  unit-test:
+      - name: Run ESLint using angular CLI
+        # we use npx to run ng, this way it should pick up the angular cli that was installed in the previous step
+        run: npx ng lint
+
+  run-unit-tests:
     name: Run unit tests
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          # this key only changes when package-lock.json has been modified
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
       - uses: nanasess/setup-chromedriver@v1.0.1
 
+      # FIXME how to run in non-interactive mode?
       - name: Run karma in non-interactive mode
-        run: |
-          npm ci @angular/cli
-          npx ng test --watch=false
+        run: npx ng test
 
-  # FIXME how to run in non-interactive mode?
-  system-test:
+  run-system-tests:
     name: Run system tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          # this key only changes when package-lock.json has been modified
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
       - uses: nanasess/setup-chromedriver@v1.0.1
 
+      # FIXME how to run in non-interactive mode?
       - name: Run protractor in non-interactive mode
-        run: npm ci @angular/cli
-          npx ng e2e --port 4202
+        run: npx ng e2e
