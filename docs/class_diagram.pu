@@ -1,49 +1,146 @@
-@startuml
+@startuml Class Diagram
 class User{
   __ private data __
-  - string email
-  - string password
-  - UserData data
+  - id : number
+  - email : string
+  - password : string
+  - data : UserData
   ==
-  + string getUsername()
-  + string getPasswor()
-  + UserData getData()
+  + User(id : number, email : string, password : string, data : UserData)
+  + User(email : string, password : string)
+  + getId()
+  + getEmail()
+  + getPassword()
+  + getData()
+  + setPassword(newPassword : string)
 }
 class UserData{
-  - string firstName
-  - string lastName
-  - date birthDate
+  __ private data __
+  - firstName : string
+  - lastName : string
+  - birthDate : date
   ==
-  + string getfirstName()
-  + string getlastName()
-  + date getBirthDate()
+  + UserData(firstName : string, lastName : string, birthDate : date)
+  + getfirstName()
+  + getlastName()
+  + getBirthDate()
+  + setfirstName(newFirstName : string)
+  + setlastName(NewLastName : string)
+  + setBirthDate(NewBirthDate : date)
 }
-class Organization{
-  - integer ID
-  - string organizationName
-  - string[] organizationMember
-  - bool known
-  - place[] places
-  - string description
-  ==
-  + integer getID()
-  + string getOrganizationName()
-  + string[] getOrganizationMember()
-  + bool getKnown()
-  + place[] getPlaces()
-  + string getDescription()
 
+class UsersRole{
+  __ private data __
+  - userId : number
+  - role : Role
+  ==
+  + UsersRole(userId : number, role : Role)
+  + getUserId()
+  + getRole()
+  + setRole(role : Role)
+}
+enum Role {
+  GENERIC
+  VIEWER
+  MANAGER
+  OWNER
+  ADMIN
+}
+
+class Place{
+__ private data __
+- id : number
+- name : string
+- polyline : GeoPoint[]
+- data : PlaceData
+==
++ Place(id : number, name : string, polyline : GeoPoint[], data : PlaceData)
++ Place(name : string, polyline : GeoPoint[], data : PlaceData)
++ Place(id : number, name : string, polyline : GeoPoint[])
++ getPlaceId()
++ getName()
++ getPolyline()
++ setName(name : string)
++ setPolyline(polyline : GeoPoint[])
+}
+
+class GeoPoint{
+__ private data __
+- longitude : number
+- latitude : number
+==
++ GeoPoint(longitude : number, latitude : number)
++ getLongitude()
++ getLatitude()
+}
+
+class PlaceData{
+__ private data __
+- id : number
+- address : string
+- city : string
+- zipcode : string
+- state : string
+==
++ PlaceData(address : string, city : string, zipcode : string, state : string)
++ PlaceData(id : number, address : string, city : string, zipcode : string, state : string)
++ getId()
++ getAddress()
++ getCity()
++ getZipcode()
++ getState()
++ setAddress(address : string)
++ setCity(city : string)
++ setZipcode(zipcode : string)
++ setState(state : string)
+}
+
+
+class Organization{
+  __ private data __
+  - ID : integer
+  - organizationName : string
+  - known : bool
+  - places : Place[]
+  - description : string
+  - usersRole : UsersRole[]
+  ==
+  + Organization(name : string, known : bool, description : string)
+  + Organization(number: id, name : string, known : bool, places : Place[], description : string, usersRole : UsersRole[])
+  + getID()
+  + getOrganizationName()
+  + getKnown()
+  + getPlaces()
+  + getDescription()
+  + setOrganizationName(organizationName : string)
+  + setKnown(known : bool)
+  + setDescription(description : string)
+  + setPlaces(places : Place[])
 }
 class OrganizationList{
-  - organization[] list
+  __ private data __
+  - Organization[] list
 }
-class LoginComponent <<singleton>>
-class LoginService <<singleton>>
-class HttpConfiguration <<singleton>>
-class OrganizationListComponent <<singleton>>
-class OrganizationListService <<singleton>>
-class OrganizationDetailsComponent <<singleton>>
-class OrganizationDetailsService <<singleton>>
+class LoginComponent {
+  __ private data __
+  - User : user
+  ==
+  + login()
+  + loginError()
+}
+
+class LoginService {
+  + login()
+}
+class HomePageComponent {
+ __ private data __
+ - User : user
+}
+
+class OrganizationListComponent
+class OrganizationListService
+class OrganizationDetailsComponent
+class OrganizationDetailsService
 LoginComponent <|.. LoginService
 LoginService ..|> User
 LoginComponent ..|> User
