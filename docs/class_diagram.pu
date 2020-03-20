@@ -117,40 +117,112 @@ class Organization{
   + setDescription(description : string)
   + setPlaces(places : Place[])
 }
-class OrganizationList{
-  __ private data __
-  - Organization[] list
-}
+
 class LoginComponent {
   __ private data __
   - User : user
   ==
+  + constructor(auth : AuthenticationService)
   + login()
   + loginError()
 }
 
-class LoginService {
-  + login()
+class environment{
+  + apiUrl : string
 }
+class AuthenticationService {
+  __ private data __
+  - clientId : number
+  ==
+  + constructor(http : HttpClient)
+  + login(user : User)
+  + checkCookie()
+  + logout()
+  + getToken(code : any)
+  + saveToken()
+}
+
 class HomePageComponent {
+ + constructor(auth : AuthenticationService)
+}
+
+class TopBarComponent {
  __ private data __
  - User : user
+ ==
+ + constructor(auth : AuthenticationService, userService : UserService)
+ + getUser()
+ + getDate()
+ + getTime()
 }
+
+class ProfileComponent {
+  __ private data __
+  - User : user
+  ==
+  + constructor(auth : AuthenticationService, userService : UserService)
+  + getUser()
+}
+
+class UserService {
+  + constructor()
+  + getUser()
+}
+
+class ShowOrganizationComponent {
+  __ private data __
+  - organizations : Organization[]
+  ==
+  + constructor(auth : AuthenticationService, userService : UserService, organizationService : OrganizationService)
+  + getOrganizations( userId : number)
+}
+
+class OrganizationRequestComponent {
+  + constructor(auth : AuthenticationService, userService : UserService, organizationService : OrganizationService)
+  + sendRequest( organization : Organization)
+}
+
+class OrganizationService {
+ + constructor()
+ + getOrganization( userId : number)
+ + createOrganization( organization : Organization)
+}
+
+class MonitorOrganizationComponent
+class ShowEmployeesComponent
+class ShowPlacesComponent
+class ManagePlacesComponent
+class ManageOrganizationsComponent
+class ManageUsersComponent
 
 class OrganizationListComponent
 class OrganizationListService
 class OrganizationDetailsComponent
 class OrganizationDetailsService
-LoginComponent <|.. LoginService
-LoginService ..|> User
-LoginComponent ..|> User
-HttpConfiguration o-- LoginService
-Organization *-- OrganizationList
-OrganizationListComponent --o OrganizationList
-OrganizationListService --o OrganizationList
-OrganizationListService --* User
-User --*  UserData
-OrganizationListService ..|> OrganizationListComponent
-OrganizationDetailsComponent --* OrganizationListComponent
-OrganizationDetailsComponent <|-- OrganizationDetailsService
+LoginComponent o-- AuthenticationService
+AuthenticationService ..> User
+LoginComponent --> User
+Organization *-- UsersRole
+Organization *-- Place
+UsersRole --> Role
+Place *-- GeoPoint
+Place *-- PlaceData
+User *-- UserData
+HomePageComponent o-- AuthenticationService
+ProfileComponent o-- AuthenticationService
+TopBarComponent o-- AuthenticationService
+ShowOrganizationComponent o-- AuthenticationService
+OrganizationRequestComponent o-- AuthenticationService
+TopBarComponent --> User
+ProfileComponent --> User
+ShowOrganizationComponent --> Organization
+ShowOrganizationComponent ..> User
+OrganizationRequestComponent ..> Organization
+TopBarComponent o-- UserService
+ProfileComponent o-- UserService
+ShowOrganizationComponent o-- UserService
+ShowOrganizationComponent o-- OrganizationService
+OrganizationRequestComponent o-- OrganizationService
+UserService ..> User
+OrganizationService ..> Organization
 @enduml
