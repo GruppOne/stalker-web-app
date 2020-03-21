@@ -1,0 +1,87 @@
+name: Dynamic analysis and testing
+
+# run jobs on any PRs and main branch changes
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+# STEPS EXPLANATIONS
+
+# uses: actions/cache@v1
+# with:
+#   path: ~/.npm
+#   key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+#
+# npm cache files are stored in `~/.npm` on Linux/macOS
+# the given key changes ONLY when package.json changes
+
+# TODO cache npm ci
+# TODO find a way to reduce duplication in jobs (the first steps are repeated)
+jobs:
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Cache node modules
+      #   id: cache
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        # if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run karma
+        run: npm run --silent test -- --configuration=ci
+
+  # TODO upload results to either codecov or coveralls
+  coverage:
+    name: Coverage >80%
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run karma with code coverage option
+        run: npm run --silent coverage -- --configuration=ci
+
+      - name: Upload results to coveralls.io
+        if: always()
+        uses: coverallsapp/github-action@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/stalker-web-app/lcov.info
+
+  system-tests:
+    name: System tests
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run protractor
+        run: npm run --silent e2e -- --configuration=ci

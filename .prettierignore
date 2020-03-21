@@ -1,1 +1,25 @@
+.git/
+# .vscode/
+coverage/
+dist/
 node_modules/
+
+# ignore all non relevant file types here
+**/*.png
+**/*.ico
+
+# ignore specific irrelevant files here
+.vscode/snippets.code-snippets
+.vscode/spellright.dict
+.czrc
+.dockerignore
+.editorconfig
+.eslintignore
+.gitignore
+.mailmap
+.prettierignore
+browserslist
+CODEOWNERS
+Dockerfile
+LICENSE
+package-lock.json

@@ -23,16 +23,19 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
+            "imola": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.imola.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -69,6 +72,9 @@
             "browserTarget": "stalker-web-app:build"
           },
           "configurations": {
+            "imola": {
+              "browserTarget": "stalker-web-app:build:imola"
+            },
             "production": {
               "browserTarget": "stalker-web-app:build:production"
             }
@@ -87,27 +93,24 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
+          },
+          "configurations": {
+            "ci": {
+              "watch": false,
+              "progress": false,
+              "browsers": "ChromeHeadlessCI"
+            }
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "eslintConfig": ".eslintrc.json",
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -117,6 +120,10 @@
             "devServerTarget": "stalker-web-app:serve"
           },
           "configurations": {
+            "ci": {
+              "devServerTarget": "stalker-web-app:serve:production",
+              "protractorConfig": "e2e/protractor-ci.conf.js"
+            },
             "production": {
               "devServerTarget": "stalker-web-app:serve:production"
             }

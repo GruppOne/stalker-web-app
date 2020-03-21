@@ -1,15 +1,48 @@
 {
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.rulers": [90]
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "files.encoding": "utf8",
+  "git-graph.dialog.rebase.ignoreDate": false,
+  "git-graph.dialog.rebase.launchInteractiveRebase": false,
+  "git-graph.fetchAndPrune": true,
+  "git-graph.useMailmap": true,
   "git.autofetch": true,
   "git.autorefresh": true,
   "git.fetchOnPull": false,
   "git.rebaseWhenSync": true,
   "git.useForcePushWithLease": true,
-  "git-graph.dialog.rebase.ignoreDate": false,
-  "git-graph.dialog.rebase.launchInteractiveRebase": false,
-  "git-graph.fetchAndPrune": true,
-  "git-graph.useMailmap": true,
+  "grunt.autoDetect": "off",
+  "gulp.autoDetect": "off",
+  "jake.autoDetect": "off",
+  "typescript.tsc.autoDetect": "off",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

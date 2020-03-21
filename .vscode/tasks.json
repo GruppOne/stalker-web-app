@@ -3,10 +3,83 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "format",
-      "problemMatcher": [
-        "$eslint-stylish"
-      ]
+      "script": "check-format",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
     },
+    {
+      "type": "npm",
+      "script": "coverage",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "format",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$tsc", "$node-sass"],
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "fix",
+      "presentation": {"reveal": "always", "panel": "shared"},
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "presentation": {
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "applyTo": "closedDocuments",
+        "fileLocation": ["relative", "${cwd}"],
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "Compiled |Failed to compile."
+          }
+        }
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "isBackground": true,
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "e2e",
+      "isBackground": true,
+      "presentation": {"reveal": "silent", "panel": "shared"},
+      "problemMatcher": []
+    }
   ]
 }

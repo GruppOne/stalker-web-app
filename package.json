@@ -1,15 +1,18 @@
 {
   "name": "stalker-web-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
-    "format": "prettier --write **/*.ts **/*.js **/*.scss **/*.html **/*.yml **/*.md",
-    "check-format": "prettier --check **/*.ts **/*.js **/*.scss **/*.html **/*.yml **/*.md",
-    "ng": "ng",
-    "start": "ng serve",
+    "check-format": "prettier --check **/**",
+    "coverage": "ng test --no-watch --code-coverage",
+    "format": "prettier --write **/**",
     "build": "ng build",
-    "test": "ng test",
+    "start": "ng serve",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "fix": "ng lint --fix",
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "prepare-release": "standard-version --skip.tag",
+    "tag-release": "standard-version --skip.bump --skip.changelog --skip.commit"
   },
   "private": true,
   "dependencies": {
@@ -26,14 +29,24 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.5",
-    "@angular/cli": "~9.0.5",
+    "@angular-devkit/build-angular": "^0.900.7",
+    "@angular-eslint/builder": "0.0.1-alpha.20",
+    "@angular-eslint/eslint-plugin": "0.0.1-alpha.20",
+    "@angular-eslint/eslint-plugin-template": "0.0.1-alpha.20",
+    "@angular-eslint/template-parser": "0.0.1-alpha.20",
+    "@angular/cli": "^9.0.7",
     "@angular/compiler-cli": "~9.0.5",
     "@angular/language-service": "~9.0.5",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
+    "@types/node": "^12.12.30",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "angular-in-memory-web-api": "^0.10.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsdoc": "^22.0.1",
+    "eslint-plugin-prefer-arrow": "^1.1.7",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.3.0",
@@ -43,8 +56,8 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "prettier": "^1.19.1",
     "protractor": "~5.4.3",
+    "standard-version": "^7.1.0",
     "ts-node": "~8.3.0",
-    "tslint": "~5.18.0",
     "typescript": "~3.7.5"
   }
 }

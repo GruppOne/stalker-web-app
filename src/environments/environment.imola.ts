@@ -4,14 +4,14 @@
 
 import {Environment} from './environment.d';
 
-// production configuration
+// development configuration with live remote server
 
-// TODO define API URL
+// TODO what's the API URL for our vms? Imola Informatica server vms?
 const apiHost = 'localhost:11111';
 const apiUrl = `https://${apiHost}/api/v1`;
 
 export const environment: Environment = {
-  production: true,
+  production: false,
   apiHost,
   apiUrl,
 };
