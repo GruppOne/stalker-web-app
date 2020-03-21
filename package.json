@@ -11,7 +11,8 @@
     "fix": "ng lint --fix",
     "test": "ng test",
     "e2e": "ng e2e",
-    "release": "standard-version"
+    "prepare-release": "standard-version --skip.tag",
+    "tag-release": "standard-version --skip.bump --skip.changelog --skip.commit"
   },
   "private": true,
   "dependencies": {

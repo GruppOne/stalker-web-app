@@ -80,12 +80,6 @@
       "isBackground": true,
       "presentation": {"reveal": "silent", "panel": "shared"},
       "problemMatcher": []
-    },
-    {
-      "type": "npm",
-      "script": "release",
-      "presentation": {"reveal": "always", "panel": "dedicated"},
-      "problemMatcher": []
     }
   ]
 }
