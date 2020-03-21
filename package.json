@@ -1,6 +1,6 @@
 {
   "name": "stalker-web-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "check-format": "prettier --check **/**",
     "coverage": "ng test --no-watch --code-coverage",
