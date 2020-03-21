@@ -8,9 +8,9 @@ node_modules/
 **/*.png
 **/*.ico
 
+# ignore specific irrelevant files here
 .vscode/snippets.code-snippets
 .vscode/spellright.dict
-.czrc
 .dockerignore
 .editorconfig
 .eslintignore
