@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(
-      'stalker-web-app app is running!',
+      'stalker-web-app is running!',
     );
   });
 });
