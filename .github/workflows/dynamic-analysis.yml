@@ -17,11 +17,6 @@ on:
 # npm cache files are stored in `~/.npm` on Linux/macOS
 # the given key changes ONLY when package.json changes
 
-# - name: ...
-#   run: npx ng ..
-#
-# we use npx to run ng, this way it should pick up the angular cli that was installed in the previous step
-
 # TODO cache npm ci
 # TODO find a way to reduce duplication in jobs (the first steps are repeated)
 jobs:
@@ -55,9 +50,6 @@ jobs:
     name: Coverage >80%
     runs-on: ubuntu-latest
 
-    # runs only if unit-tests job succeeds
-    needs: unit-tests
-
     steps:
       - uses: actions/checkout@v2
 
@@ -70,6 +62,12 @@ jobs:
 
       - name: Run karma with code coverage option
         run: npm run --silent coverage -- --configuration=ci
+
+      - name: Upload results to coveralls.io
+        if: always()
+        uses: coverallsapp/github-action@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   system-tests:
     name: System tests

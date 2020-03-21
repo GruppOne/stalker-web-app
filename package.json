@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "check-format": "prettier --check **/**",
-    "coverage": "ng test --code-coverage",
+    "coverage": "ng test --no-watch --code-coverage",
     "format": "prettier --write **/**",
     "build": "ng build",
     "start": "ng serve",

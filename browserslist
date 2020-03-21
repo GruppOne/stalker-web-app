@@ -9,4 +9,8 @@
 last 2 versions
 Firefox ESR
 not dead
-not IE 9-11 # For IE 9-11 support, remove 'not'.
+
+# these two options are needed to use lighthouse to grade a PWA.
+# https://angular.io/guide/build#backward-compatibility-with-lighthouse
+not IE <= 10
+#not IE_Mob <= 10

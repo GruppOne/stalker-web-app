@@ -4,6 +4,8 @@ Questo progetto è stato generato utilizzando [Angular CLI](https://github.com/a
 
 ## Badges
 
+[![Coverage Status](https://coveralls.io/repos/github/GruppOne/stalker-web-app/badge.svg?branch=master)](https://coveralls.io/github/GruppOne/stalker-web-app?branch=master)
+
 ![Static code analysis](https://github.com/GruppOne/stalker-web-app/workflows/Static%20code%20analysis/badge.svg)
 
 ![Continuous Integration](https://github.com/GruppOne/stalker-web-app/workflows/Continuous%20Integration/badge.svg)

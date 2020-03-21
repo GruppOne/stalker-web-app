@@ -28,13 +28,6 @@
     },
     {
       "type": "npm",
-      "script": "start",
-      "isBackground": true,
-      "presentation": {"reveal": "silent", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "type": "npm",
       "script": "lint",
       "presentation": {"reveal": "silent", "panel": "shared"},
       "problemMatcher": ["$eslint-stylish"]
@@ -44,6 +37,35 @@
       "script": "fix",
       "presentation": {"reveal": "always", "panel": "shared"},
       "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "presentation": {
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "applyTo": "closedDocuments",
+        "fileLocation": ["relative", "${cwd}"],
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "Compiled |Failed to compile."
+          }
+        }
+      }
     },
     {
       "type": "npm",

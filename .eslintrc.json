@@ -130,7 +130,12 @@
         "arrow-parens": ["off", "as-needed"],
         "camelcase": "error",
         "comma-dangle": ["error", "always-multiline"],
-        "complexity": "off",
+        "complexity": [
+          "error",
+          {
+            "max": 10
+          }
+        ],
         "constructor-super": "error",
         "curly": "error",
         "dot-notation": "error",
@@ -268,7 +273,7 @@
         "@angular-eslint/template/banana-in-a-box": "error",
         "@angular-eslint/template/no-negated-async": "error",
         "max-len": [
-          "error",
+          "warn",
           {
             "code": 140
           }

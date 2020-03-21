@@ -1,12 +1,10 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
-// TODO move karma.conf.js inside src folder
 module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    // TODO should we add firefox?
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -18,7 +16,7 @@ module.exports = function(config) {
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/stalker-web-app'),
+      dir: require('path').join(__dirname, 'coverage'),
       reports: [
         //
         'html',
@@ -38,7 +36,6 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    // TODO which browsers do we use?
     browsers: ['Chrome'],
     customLaunchers: {
       ChromeHeadlessCI: {
