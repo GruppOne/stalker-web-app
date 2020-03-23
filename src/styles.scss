@@ -26,6 +26,7 @@ $stalker-web-app-theme: mat-light-theme($stalker-web-app-primary, $stalker-web-a
 @include angular-material-theme($stalker-web-app-theme);
 
 /* You can add global styles to this file, and also import other style files */
+$content-padding-side: 70px;
 
 html,
 body {
@@ -34,4 +35,5 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: #f5f5f5;
 }
