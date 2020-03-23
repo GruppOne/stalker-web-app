@@ -1,21 +1,36 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {CustomMaterialModule} from './core/material.module';
-import {AppRoutingModule} from './core/app.routing.module';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
+import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import {UserComponent} from './user/user.component';
+import {FormEmailComponent} from './form-email/form-email.component';
+import {FormPasswordComponent} from './form-password/form-password.component';
+
+const routes: Routes = [
+  {path: '', component: HomeComponent, data: {title: 'Stalker - Home'}},
+  {path: 'login', component: LoginComponent, data: {title: 'Stalker - Login'}},
+];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, UserComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    FormEmailComponent,
+    FormPasswordComponent,
+  ],
   imports: [
+    CustomMaterialModule,
     BrowserModule,
     BrowserAnimationsModule,
-    CustomMaterialModule,
     FormsModule,
-    AppRoutingModule,
+    RouterModule.forRoot(routes),
   ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

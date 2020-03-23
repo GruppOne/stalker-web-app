@@ -1,0 +1,29 @@
+.form-container {
+  width: 300px;
+  margin: 50px auto;
+
+  mat-card-header {
+    width: 100%;
+
+    ::ng-deep .mat-card-header-text {
+      width: 100% !important;
+    }
+
+    mat-card-title {
+      text-align: center !important;
+    }
+  }
+
+  ::ng-deep .mat-form-field {
+    width: 100% !important;
+  }
+
+  mat-card-content {
+    margin-top: 20px;
+
+    mat-card-actions {
+      text-align: center !important;
+      margin-bottom: 0;
+    }
+  }
+}
