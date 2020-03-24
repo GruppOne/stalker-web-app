@@ -1,26 +1,17 @@
+import {expect} from 'chai';
+import {Before, Given, Then} from 'cucumber';
 import {AppPage} from './app.po';
-import {browser, logging} from 'protractor';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+let app: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('stalker-web-app is running!');
-  });
-
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-
-    expect(logs).not.toContain(
-      jasmine.objectContaining({
-        level: logging.Level.SEVERE,
-      } as logging.Entry),
-    );
-  });
+Before(() => {
+  app = new AppPage();
 });
+
+Given('I am on the stalker site', () => app.navigateTo());
+
+Then('I should see the title to be Stalker-web-app', () =>
+  app
+    .getTitleText()
+    .then((elem) => expect(elem.toString()).to.be.equal('stalker-web-app is running!')),
+);
