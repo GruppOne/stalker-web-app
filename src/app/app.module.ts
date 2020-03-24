@@ -9,6 +9,7 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {FormEmailComponent} from './form-email/form-email.component';
 import {FormPasswordComponent} from './form-password/form-password.component';
+import { ButtonConfirmComponent } from './button-confirm/button-confirm.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {title: 'Stalker - Home'}},
@@ -22,6 +23,7 @@ const routes: Routes = [
     LoginComponent,
     FormEmailComponent,
     FormPasswordComponent,
+    ButtonConfirmComponent,
   ],
   imports: [
     CustomMaterialModule,
