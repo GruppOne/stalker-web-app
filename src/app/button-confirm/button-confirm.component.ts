@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-button-confirm',
   templateUrl: './button-confirm.component.html',
-  styleUrls: ['./button-confirm.component.scss']
+  styleUrls: ['./button-confirm.component.scss'],
 })
 export class ButtonConfirmComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

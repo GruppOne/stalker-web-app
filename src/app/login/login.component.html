@@ -3,10 +3,12 @@
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form class="login-form centered-form">
-      <app-form-email></app-form-email>
-      <app-form-password></app-form-password>
-      <app-button-confirm></app-button-confirm>
+    <form class="login-form centered-form" [formGroup]="nestedForm" (ngSubmit)="login()">
+      <app-form-email formControlName="emailForm"></app-form-email>
+      <app-form-password formControlName="passwordForm"></app-form-password>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </mat-card-actions>
     </form>
   </mat-card-content>
 </mat-card>
