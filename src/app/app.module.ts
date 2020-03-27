@@ -14,12 +14,19 @@ import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
 import {CustomMaterialModule} from './modules/material.module';
 import {OrganizationComponent} from './organization/organization.component';
+import {PlaceComponent} from './place/place.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent, data: {title: 'Stalker - Login'}},
+  {path: 'home', component: HomeComponent, data: {title: 'Stalker - Home'}},
   {path: 'profile', component: ProfileComponent},
+  {
+    path: 'organization',
+    component: OrganizationComponent,
+    data: {title: 'Stalker - Organization'},
+  },
+  {path: 'place', component: PlaceComponent, data: {title: 'Stalker - Place'}},
 ];
 
 @NgModule({
@@ -32,6 +39,7 @@ const routes: Routes = [
     ButtonConfirmComponent,
     ProfileComponent,
     OrganizationComponent,
+    PlaceComponent,
   ],
   imports: [
     CustomMaterialModule,
