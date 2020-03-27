@@ -8,8 +8,8 @@
 import 'zone.js/dist/zone-error'; // Included with Angular CLI.
 import {Environment} from './environment.d';
 
-const apiHost = 'localhost:11111';
-const apiUrl = `http://${apiHost}/api/v1`;
+const apiHost = '127.0.0.1:3100'; // prism mock server address
+const apiUrl = `http://${apiHost}`;
 
 // default development configuration
 export const environment: Environment = {
