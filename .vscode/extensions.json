@@ -1,24 +1,31 @@
 {
   "recommendations": [
+    // ANGULAR + TS
+    "angular.ng-template",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "msjsdiag.debugger-for-chrome",
+    // -------- COMMONS --------
+    // DOCKER
+    "exiasr.hadolint",
+    "ms-azuretools.vscode-docker",
+    // DOCUMENTATION
     "ban.spellright",
     "DavidAnson.vscode-markdownlint",
-    "dbaeumer.vscode-eslint",
-    "eamodio.gitlens",
-    "editorconfig.editorconfig",
-    "esbenp.prettier-vscode",
-    "ghmcadams.lintlens",
-    "GitHub.vscode-pull-request-github",
-    "Gruntfuggly.todo-tree",
-    "hbenl.vscode-jasmine-test-adapter",
     "jebbs.plantuml",
+    "yzhang.markdown-all-in-one",
+    // GIT
+    "GitHub.vscode-pull-request-github",
+    "eamodio.gitlens",
     "mhutchie.git-graph",
-    "ms-azuretools.vscode-docker",
-    "msjsdiag.debugger-for-chrome",
+    // OTHER
+    "editorconfig.editorconfig",
+    "Gruntfuggly.todo-tree",
     "pflannery.vscode-versionlens",
+    "redhat.vscode-xml",
     "redhat.vscode-yaml",
     "ryanluker.vscode-coverage-gutters",
     "VisualStudioExptTeam.vscodeintellicode",
-    "wmaurer.vscode-jumpy",
-    "yzhang.markdown-all-in-one"
+    "wmaurer.vscode-jumpy"
   ]
 }

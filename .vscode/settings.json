@@ -44,5 +44,7 @@
   "gulp.autoDetect": "off",
   "jake.autoDetect": "off",
   "typescript.tsc.autoDetect": "off",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.run": "onSave",
+  "eslint.alwaysShowStatus": true
 }

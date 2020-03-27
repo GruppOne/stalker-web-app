@@ -1,10 +1,11 @@
 version: '3.7'
 
 services:
-  angular:
-    build: '.'
-    # TODO find a way to get current version when building
-    image: stalker-web-app:latest
+  stalker-web-app:
+    build:
+      context: '.'
+      target: deploy-production
+    image: stalker-web-app:${VERSION_TAG:-latest}
 
     ports:
       - 80:80/tcp

@@ -80,6 +80,17 @@
       "isBackground": true,
       "presentation": {"reveal": "silent", "panel": "shared"},
       "problemMatcher": []
+    },
+    {
+      "label": "fix package-lock.json merge conflicts",
+      "detail": "run this task AFTER fixing conflicts in package.json",
+      "type": "shell",
+      "command": "npm install --package-lock-only",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
     }
   ]
 }
