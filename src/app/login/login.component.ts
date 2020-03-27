@@ -48,11 +48,10 @@ export class LoginComponent implements OnInit {
       this.nestedForm.value.passwordForm.pwd,
     );
     this.loginService.login(user).subscribe((response: any) => {
-      console.log(response.status);
-      this.router.navigate(['/home']);
-      /* if (response.status === 200) {
+      console.log(response);
+      if (response.status === 200) {
         this.router.navigate(['/home']);
-      } */
+      }
     });
   }
 }

@@ -1,17 +1,17 @@
 export class User {
   private id: number;
-  private email: string;
+  private mail: string;
   private password: string;
   constructor(email = 'default', password = 'default') {
     this.id = -1;
-    this.email = email;
+    this.mail = email;
     this.password = password;
   }
   getId(): number {
     return this.id;
   }
   getEmail(): string {
-    return this.email;
+    return this.mail;
   }
   getPassword(): string {
     return this.password;
