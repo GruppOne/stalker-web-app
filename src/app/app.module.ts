@@ -13,6 +13,7 @@ import {ButtonConfirmComponent} from './components/button-confirm/button-confirm
 import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
 import {CustomMaterialModule} from './modules/material.module';
+import {OrganizationComponent} from './organization/organization.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -30,6 +31,7 @@ const routes: Routes = [
     FormPasswordComponent,
     ButtonConfirmComponent,
     ProfileComponent,
+    OrganizationComponent,
   ],
   imports: [
     CustomMaterialModule,
