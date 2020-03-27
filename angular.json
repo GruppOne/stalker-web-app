@@ -99,9 +99,10 @@
           },
           "configurations": {
             "ci": {
-              "watch": false,
+              "browsers": "ChromeHeadlessCI",
+              "codeCoverage": true,
               "progress": false,
-              "browsers": "ChromeHeadlessCI"
+              "watch": false
             }
           }
         },
