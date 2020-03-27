@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/GruppOne/stalker-web-app/compare/v0.1.0...v0.1.1) (2020-03-27)
+
+
+### Configuration
+
+* use a different commitizen adapter ([36da9ef](https://github.com/GruppOne/stalker-web-app/commit/36da9ef4541d8cb7cc192086170f51873e8eb666))
+* **docker:** use build target in docker compose ([ec56ab0](https://github.com/GruppOne/stalker-web-app/commit/ec56ab0026df2adc4a942df9599e5cf48fee647d))
+* add dependencies for chai cucumber and cucumber-protractor ([fa195ef](https://github.com/GruppOne/stalker-web-app/commit/fa195ef694306f3293895e38a6c9f19c03341ddd))
+* add utility task and use restrictive eslint options ([366fc06](https://github.com/GruppOne/stalker-web-app/commit/366fc061bed9c3a1c461c7febf7f798f8ca42ebc))
+* configure protractor with cucumber-protractor framework ([6aa5d21](https://github.com/GruppOne/stalker-web-app/commit/6aa5d21bac2a1ae884a1f9761822b4b9488fb036))
+* fine-tune eslint options and fix errors ([c461637](https://github.com/GruppOne/stalker-web-app/commit/c461637abbd53ee5d99d6daba18ed69a0364b4fe))
+* fix some errors in the configuration and format all files ([1e1c26b](https://github.com/GruppOne/stalker-web-app/commit/1e1c26bfe00dfa60731d22ff6e7dc87e8f68646f))
+* simplify containerization and vscode recommended extensions ([02ae41f](https://github.com/GruppOne/stalker-web-app/commit/02ae41f3fb44eaf412a3a788fd63b46082d239b9))
+* update various dependencies ([d91ea69](https://github.com/GruppOne/stalker-web-app/commit/d91ea692db8305d9fe7185a276eae5fae123dcc9))
+
 ## 0.1.0 (2020-03-21)
 
 
