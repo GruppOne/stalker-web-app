@@ -21,7 +21,7 @@ on:
 # TODO find a way to reduce duplication in jobs (the first steps are repeated)
 jobs:
   unit-tests:
-    name: Unit tests
+    name: Unit tests passing and Coverage > 80%
     runs-on: ubuntu-18.04
 
     steps:
@@ -45,24 +45,6 @@ jobs:
       - name: Run karma
         run: npm run --silent test -- --configuration=ci
 
-  # TODO upload results to either codecov or coveralls
-  coverage:
-    name: Coverage >80%
-    runs-on: ubuntu-18.04
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run karma with code coverage option
-        run: npm run --silent coverage -- --configuration=ci
-
       - name: Upload results to coveralls.io
         if: always()
         uses: coverallsapp/github-action@v1.0.1
@@ -71,7 +53,7 @@ jobs:
           path-to-lcov: ./coverage/stalker-web-app/lcov.info
 
   system-tests:
-    name: System tests
+    name: System tests passing
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
