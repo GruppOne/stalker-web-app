@@ -9,7 +9,7 @@ export class UserData {
     lastName = 'rossi',
     birthDate = '1980-01-01',
     createdDate = '1980-01-01T09:01:01Z',
-    lastModifiedDate: '1980-01-01T09:01:01Z',
+    lastModifiedDate = '1980-01-01T09:01:01Z',
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
