@@ -12,7 +12,7 @@ import {FormEmailComponent} from './form-email/form-email.component';
 import {FormPasswordComponent} from './form-password/form-password.component';
 import {ButtonConfirmComponent} from './button-confirm/button-confirm.component';
 import {HttpClientModule} from '@angular/common/http';
-import {HttpStalker} from './http-stalker';
+import {HttpStalkerService} from './http-stalker.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -38,7 +38,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
   ],
-  providers: [HttpStalker],
+  providers: [HttpStalkerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
