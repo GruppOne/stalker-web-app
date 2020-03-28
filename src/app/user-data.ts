@@ -5,8 +5,8 @@ export class UserData {
   private createdDate: string;
   private lastModifiedDate: string;
   constructor(
-    firstName = 'mario',
-    lastName = 'rossi',
+    firstName = 'Mario',
+    lastName = 'Rossi',
     birthDate = '1980-01-01',
     createdDate = '1980-01-01T09:01:01Z',
     lastModifiedDate = '1980-01-01T09:01:01Z',

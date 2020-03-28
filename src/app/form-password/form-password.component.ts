@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-expressions */
 import {Component, OnInit, forwardRef} from '@angular/core';
 import {
   ControlValueAccessor,
@@ -27,14 +29,13 @@ export class FormPasswordComponent implements OnInit, ControlValueAccessor {
 
   hide = true;
 
-  constructor() {}
+  // constructor() {}
 
   ngOnInit(): void {}
 
   public onTouched: () => void = () => {};
 
   writeValue(val: any): void {
-    // eslint-disable-next-line no-unused-expressions
     val && this.pwdForm.setValue(val, {emitEvent: false});
   }
   registerOnChange(fn: any): void {

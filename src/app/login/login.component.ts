@@ -18,10 +18,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  public login() {
-    const email = this.nestedForm.value.emailForm.email;
-    const password = this.nestedForm.value.passwordForm.pwd;
+  public login(email: string, password: string): void {
+    /* const email = this.nestedForm.value.emailForm.email;
+    const password = this.nestedForm.value.passwordForm.pwd; */
     const regexMail = new RegExp(
       '^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9])+$',
     );
@@ -31,23 +30,20 @@ export class LoginComponent implements OnInit {
     );
     console.log('mail: ', email);
     console.log('pass: ', password);
-    console.log('mail-regexp: ', regexMail.test(email));
-    console.log('pass-regexp: ', regexPwd.test(password));
-    if (email === '' || typeof email === 'undefined') {
+    /* console.log('mail-regexp: ', regexMail.test(email));
+    console.log('pass-regexp: ', regexPwd.test(password)); */
+    /* if (email === '' || typeof email === 'undefined') {
       console.log('email vuota');
     }
     if (password === '' || typeof password === 'undefined') {
       console.log('password vuota');
-    }
-    console.log('################################################');
+    } */
+    // console.log('################################################');
     if (!regexMail.test(email) || !regexPwd.test(password)) {
       return;
     }
-    const user = new User(
-      this.nestedForm.value.emailForm.email,
-      this.nestedForm.value.passwordForm.pwd,
-    );
-    this.loginService.login(user).subscribe((response: any) => {
+    const user = new User(email, password);
+    this.loginService.login(user).subscribe((response: Response) => {
       console.log(response);
       if (response.status === 200) {
         this.router.navigate(['/home']);

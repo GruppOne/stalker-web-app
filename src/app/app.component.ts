@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
   title = 'stalker-web-app';
-  constructor(private router: Router) {}
-  getRoute() {
+  constructor(public router: Router) {}
+  getRoute(): string {
     return this.router.url;
   }
 }

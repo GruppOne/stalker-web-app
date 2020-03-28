@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-expressions */
 import {Component, OnInit, forwardRef} from '@angular/core';
 import {
   ControlValueAccessor,
@@ -25,13 +27,12 @@ export class FormEmailComponent implements OnInit, ControlValueAccessor {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor() {}
+  // constructor() {}
 
   ngOnInit(): void {}
 
   public onTouched: () => void = () => {};
   writeValue(val: any): void {
-    // eslint-disable-next-line no-unused-expressions
     val && this.emailForm.setValue(val, {emitEvent: false});
   }
   registerOnChange(fn: any): void {

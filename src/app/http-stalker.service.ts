@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Injectable} from '@angular/core';
 import {User} from './user';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
