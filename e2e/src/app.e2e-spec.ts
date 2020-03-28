@@ -10,8 +10,6 @@ Before(() => {
 
 Given('I am on the stalker site', async () => app.navigateTo());
 
-Then('I should see the title to be Stalker-web-app', async () =>
-  app
-    .getTitleText()
-    .then((elem) => expect(elem.toString()).to.be.equal('stalker-web-app is running!')),
+Then('I should see the Login Page', async () =>
+  app.getLoginText().then((elem) => expect(elem.toString()).to.be.equal('Login')),
 );
