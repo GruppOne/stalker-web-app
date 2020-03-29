@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/GruppOne/stalker-web-app/compare/v0.1.1...v0.1.2) (2020-03-29)
+
+
+### Configuration
+
+* configure jscpd and add some eslint rules ([f789d42](https://github.com/GruppOne/stalker-web-app/commit/f789d42c7e8b7534ed2a2b0076584f991ba47904))
+* **npm:** add copy paste detector ([10491da](https://github.com/GruppOne/stalker-web-app/commit/10491da94b19b60123c229e6660712ff5cebaa5f))
+* **vscode:** simplify working with plantuml ([8b4dd0d](https://github.com/GruppOne/stalker-web-app/commit/8b4dd0d89792eb59fbfcf35fb77672771b91ca6d))
+
 ### [0.1.1](https://github.com/GruppOne/stalker-web-app/compare/v0.1.0...v0.1.1) (2020-03-27)
 
 
