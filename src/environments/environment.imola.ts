@@ -8,7 +8,7 @@ import {Environment} from './environment.d';
 
 // TODO what's the API URL for our vms? Imola Informatica server vms?
 const apiHost = 'localhost:11111';
-const apiUrl = `https://${apiHost}/api/v1`;
+const apiUrl = `https://${apiHost}/v1`;
 
 export const environment: Environment = {
   production: false,
