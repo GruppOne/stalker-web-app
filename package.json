@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "check-format": "prettier --check .",
+    "cpd": "jscpd -c .jscpd.json .",
     "format": "prettier --write .",
     "build": "ng build",
     "start": "ng serve",
