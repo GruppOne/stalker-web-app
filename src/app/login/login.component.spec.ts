@@ -38,10 +38,10 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should validate correct input', () => {
+  it('should not validate correct input', () => {
     expect(component.validateInput('mariorossi', 'casualpass')).toBeFalse();
   });
-  it('should not validate incorrect input', () => {
+  it('should validate incorrect input', () => {
     expect(component.validateInput('mariorossi@gmail.com', 'Casua1pass!')).toBeTrue();
   });
   it('should redirect to home page', () => {
