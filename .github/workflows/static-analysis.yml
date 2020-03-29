@@ -3,9 +3,10 @@ name: Static code analysis
 # run jobs on any PRs and main branch changes
 on:
   pull_request:
-  push:
-    branches:
-      - master
+  # this isn't that useful: no way to check results easily
+  # push:
+  #   branches:
+  #     - master
 
 jobs:
   check-format:
