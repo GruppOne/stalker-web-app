@@ -16,7 +16,8 @@ Questo progetto è stato generato utilizzando [Angular CLI](https://github.com/a
 
 ## Setup dell'ambiente di lavoro
 
-Prima di effettuare qualsiasi operazione scrivi da linea di comando `npm install`, in questo modo saranno installate tutte le dipende necessarie per il progetto.
+Prima di effettuare qualsiasi operazione scrivi da linea di comando `npm install`, in questo modo saranno installate
+tutte le dipendenze necessarie per il progetto.
 
 ## Development server
 
@@ -30,7 +31,8 @@ Puoi anche usare `ng generate directive|pipe|service|class|guard|interface|enum|
 
 ## Build
 
-Scrivi `ng build` per effettuare la build del progetto. L'artefatto di build si troverà nella cartella `dist/`. Usa la flag `--prod` per una build di produzione.
+Scrivi `ng build` per effettuare la build del progetto. L'artefatto di build si troverà nella cartella `dist/`. Usa la
+flag `--prod` per una build di produzione.
 
 ## Eseguire i test di unità
 
@@ -42,7 +44,10 @@ Scrivi `ng e2e` per eseguire i test end-to-end tramite[Protractor](http://www.pr
 
 ## Configurazione
 
-Per eseguire comandi con una configurazione specifica scrivi `ng build|serve|test --configuration=your-configuration` con `your-configuration` la configurazione desiderata. Le configurazioni possibili sono `localhost|imola|production`, per eseguire la configurazione di default è sufficiente non aggiungere nulla ai comandi originali.
+Per eseguire comandi con una configurazione specifica scrivi `ng build|serve|test --configuration=your-configuration`
+con `your-configuration` la configurazione desiderata.
+Le configurazioni possibili sono `localhost|imola|production`, per eseguire la configurazione di default è sufficiente
+non aggiungere nulla ai comandi originali.
 
 ## Aiuto
 
@@ -50,5 +55,6 @@ Per ricevere info sui comandi di Angular CLI scrivi `ng help` o controlla [Angul
 
 ## Incremento di versione
 
-Per incrementare rilasciare una nuova versione è sufficiente scrivere `npm run release`: questo comando aumenterà il numero di versione e creerà un CHANGELOG per la versione corrente basandosi sui commit presenti.
+Per incrementare rilasciare una nuova versione è sufficiente scrivere `npm run release`: questo comando aumenterà il
+numero di versione e creerà un CHANGELOG per la versione corrente basandosi sui commit presenti.
 Per pubblicare la release bisogna scrivere `git push`.
