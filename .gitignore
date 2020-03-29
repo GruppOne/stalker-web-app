@@ -14,23 +14,6 @@
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
 # misc
 /.sass-cache
 /connect.lock
@@ -45,10 +28,31 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/scripts/
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 # dotenv environment variables file
 .env
 .env.test
 
-# SpellRight dictionary file
-.vscode/spellright.dict
+# Generated PlantUML diagrams
+**/diagrams/img/**
+
+# Copy Paste Detector report
+.jscpd/
+.jscpd-report/

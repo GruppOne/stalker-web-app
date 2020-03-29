@@ -1,9 +1,10 @@
 {
   "name": "stalker-web-app",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "check-format": "prettier --check .",
+    "cpd": "jscpd -c .jscpd.json .",
     "format": "prettier --write .",
     "build": "ng build",
     "start": "ng serve",
@@ -55,6 +56,7 @@
     "eslint-plugin-prefer-arrow": "^1.1.7",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "jscpd": "^3.1.0",
     "karma": "~4.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.0",

@@ -24,7 +24,14 @@
         "project": "./tsconfig.json",
         "sourceType": "module"
       },
-      "plugins": ["@typescript-eslint", "@angular-eslint", "import", "jsdoc", "prefer-arrow"],
+      "plugins": [
+        // this comment keeps the array on multiple lines
+        "@typescript-eslint",
+        "@angular-eslint",
+        "import",
+        "jsdoc",
+        "prefer-arrow"
+      ],
       "rules": {
         "@angular-eslint/component-class-suffix": "error",
         "@angular-eslint/component-selector": [
@@ -175,6 +182,7 @@
         "import/no-deprecated": "error",
         "import/order": "error",
         "jsdoc/no-types": "error",
+        "line-comment-position": ["error", {"position": "above"}],
         "max-classes-per-file": "off",
         "max-len": [
           "error",
@@ -218,6 +226,7 @@
         "no-eval": "error",
         "no-fallthrough": "error",
         "no-invalid-this": "off",
+        "no-inline-comments": "error",
         "no-multiple-empty-lines": "off",
         "no-new-wrappers": "error",
         "no-restricted-imports": [
@@ -251,6 +260,7 @@
         "no-unsafe-finally": "error",
         "no-unused-expressions": "error",
         "no-unused-labels": "error",
+        "no-warning-comments": "warn",
         "object-shorthand": "error",
         "one-var": ["error", "never"],
         "prefer-arrow/prefer-arrow-functions": "error",
@@ -292,5 +302,6 @@
         ]
       }
     }
-  ]
+  ],
+  "reportUnusedDisableDirectives": true
 }
