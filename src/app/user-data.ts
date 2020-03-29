@@ -18,34 +18,34 @@ export class UserData {
     this.lastModifiedDate = lastModifiedDate;
   }
 
-  getFirstName(): string {
+  get FirstName(): string {
     return this.firstName;
   }
-  getLastName(): string {
-    return this.lastName;
-  }
-  getBirthDate(): string {
-    return this.birthDate;
-  }
-  getCreatedDate(): string {
-    return this.createdDate;
-  }
-  getLastModifiedDate(): string {
-    return this.lastModifiedDate;
-  }
-  setFirstName(firstName: string): void {
+  set FirstName(firstName: string) {
     this.firstName = firstName;
   }
-  setLastName(lastName: string): void {
+  get LastName(): string {
+    return this.lastName;
+  }
+  set LastName(lastName: string) {
     this.lastName = lastName;
   }
-  setBirthDate(birthDate: string): void {
+  get BirthDate(): string {
+    return this.birthDate;
+  }
+  set BirthDate(birthDate: string) {
     this.birthDate = birthDate;
   }
-  setCreatedDate(createdDate: string): void {
+  get CreatedDate(): string {
+    return this.createdDate;
+  }
+  set CreatedDate(createdDate: string) {
     this.createdDate = createdDate;
   }
-  setLastModifiedDate(lastModifiedDate: string): void {
+  get LastModifiedDate(): string {
+    return this.lastModifiedDate;
+  }
+  set LastModifiedDate(lastModifiedDate: string) {
     this.lastModifiedDate = lastModifiedDate;
   }
 }
