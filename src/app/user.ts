@@ -15,28 +15,28 @@ export class User {
     this.password = password;
     this.userData = userData;
   }
-  getId(): number {
+  get Id(): number {
     return this.id;
   }
-  getEmail(): string {
-    return this.mail;
-  }
-  getPassword(): string {
-    return this.password;
-  }
-  getUserData(): UserData {
-    return this.userData;
-  }
-  setId(id: number): void {
+  set Id(id: number) {
     this.id = id;
   }
-  setEmail(mail: string): void {
+  get Email(): string {
+    return this.mail;
+  }
+  set Email(mail: string) {
     this.mail = mail;
   }
-  setPassword(password: string): void {
+  get Password(): string {
+    return this.password;
+  }
+  set Password(password: string) {
     this.password = password;
   }
-  setUserData(userData: UserData): void {
+  get UserData(): UserData {
+    return this.userData;
+  }
+  set UserData(userData: UserData) {
     this.userData = userData;
   }
 }
