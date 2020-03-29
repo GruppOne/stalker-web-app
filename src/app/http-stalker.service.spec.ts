@@ -6,7 +6,9 @@ import {HttpStalkerService} from './http-stalker.service';
 describe('HttpStalkerService', () => {
   let service: HttpStalkerService;
   beforeEach(() => {
-    TestBed.configureTestingModule({imports: [HttpClientTestingModule]});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
     service = TestBed.inject(HttpStalkerService);
   });
 
