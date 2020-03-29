@@ -1,0 +1,12 @@
+<div *ngIf="fetched">
+  <h1 class="mat-display-3">Hi, {{ user.getUserData().getFirstName() }}</h1>
+  <p class="mat-body">e-mail: {{ user.getEmail() }}</p>
+  <p class="mat-body">password: <button mat-raised-button color="primary">Reset Password</button></p>
+  <mat-divider></mat-divider>
+  <p class="mat-body">firs name: {{ user.getUserData().getFirstName() }}</p>
+  <p class="mat-body">last name: {{ user.getUserData().getLastName() }}</p>
+  <p class="mat-body">birth date: {{ user.getUserData().getBirthDate() }}</p>
+</div>
+<div *ngIf="!fetched">
+  Failed to load your profile data, try again!
+</div>
