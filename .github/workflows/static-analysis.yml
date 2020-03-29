@@ -3,9 +3,10 @@ name: Static code analysis
 # run jobs on any PRs and main branch changes
 on:
   pull_request:
-  push:
-    branches:
-      - master
+  # this isn't that useful: no way to check results easily
+  # push:
+  #   branches:
+  #     - master
 
 jobs:
   check-format:
@@ -42,3 +43,20 @@ jobs:
 
       - name: Run ESLint
         run: npm run --silent lint
+
+  cpd:
+    name: Check duplicated code
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run jscpd
+        run: npm run --silent cpd

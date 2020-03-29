@@ -1,0 +1,34 @@
+name: Documentation
+
+on:
+  pull_request:
+  # push:
+  #   branches:
+  #     - '!master'
+
+# TODO add PlantUML job
+# TODO add spellcheck job: https://github.com/marketplace/actions/spellcheck-action
+jobs:
+  # plantuml:
+  #   name: Generate PlantUML diagrams
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     # - name: PlantUML Action
+  #     #   uses: Timmy/plantuml-action@v1
+  #     #   with:
+  #     #     args:
+  # the idea was to run git status -s to verify that diagrams are up to date, so that no git commit/push is needed
+
+  lint:
+    name: Lint *.md
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: markdownlint-cli
+        uses: nosborn/github-action-markdown-cli@v1.1.1
+        with:
+          files: .
+          ignore_files: 'CHANGELOG.md'

@@ -43,6 +43,10 @@ module.exports = {
       name: 'build:      Changes that affect the build system or external dependencies',
     },
     {
+      value: 'ci',
+      name: 'ci:         Changes to our CI configuration files and scripts',
+    },
+    {
       value: 'chore',
       name: "chore:      Other changes that don't modify src or test files",
     },
@@ -70,7 +74,6 @@ module.exports = {
     ],
     ci: [
       // this comments forces prettier to keep the array on multiple lines
-      emptyScope,
       'actions',
     ],
     chore: [

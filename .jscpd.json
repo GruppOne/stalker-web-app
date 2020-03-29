@@ -1,0 +1,10 @@
+{
+  "gitignore": true,
+  "ignore": ["**/.git/**", "**/node_modules/**", "**/.github/**", "**/.vscode/**"],
+  "min-lines": 1,
+  "min-tokens": 5,
+  "mode": "strict",
+  "output": ".jscpd-report",
+  "reporters": ["console", "html"],
+  "threshold": 0.05
+}
