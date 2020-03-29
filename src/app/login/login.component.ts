@@ -21,13 +21,7 @@ export class LoginComponent implements OnInit {
   public login(email: string, password: string): void {
     /* const email = this.nestedForm.value.emailForm.email;
     const password = this.nestedForm.value.passwordForm.pwd; */
-    const regexMail = new RegExp(
-      '^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9])+$',
-    );
-    const regexPwd = new RegExp(
-      // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
-      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
-    );
+
     console.log('mail: ', email);
     console.log('pass: ', password);
     /* console.log('mail-regexp: ', regexMail.test(email));
@@ -39,7 +33,7 @@ export class LoginComponent implements OnInit {
       console.log('password vuota');
     } */
     // console.log('################################################');
-    if (!regexMail.test(email) || !regexPwd.test(password)) {
+    if (!this.validateInput(email, password)) {
       return;
     }
     const user = new User(email, password);
@@ -49,5 +43,19 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     });
+  }
+  public validateInput(email: string, password: string): boolean {
+    const regexMail = new RegExp(
+      '^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9])+$',
+    );
+    const regexPwd = new RegExp(
+      // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
+    );
+    if (!regexMail.test(email) || !regexPwd.test(password)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -21,4 +21,13 @@ describe('FormEmailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should write a value in the input field', () => {
+    component.writeValue({email: 'value'});
+    expect(component.emailForm.value.email).toEqual('value');
+  });
+  it('should register on touched', () => {
+    component.registerOnTouched(true);
+    expect(component.onTouched).toBeTrue();
+  });
 });
