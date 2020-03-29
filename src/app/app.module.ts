@@ -16,8 +16,8 @@ import {HttpStalkerService} from './http-stalker.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, data: {title: 'Stalker - Login'}},
-  {path: 'home', component: HomeComponent, data: {title: 'Stalker - Home'}},
+  {path: 'login', component: LoginComponent, data: {title: 'Login - Stalker'}},
+  {path: 'home', component: HomeComponent, data: {title: 'Home - Stalker'}},
 ];
 
 @NgModule({
