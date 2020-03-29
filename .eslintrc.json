@@ -4,13 +4,18 @@
     "es6": true,
     "node": true
   },
+  "noInlineConfig": true,
+  "reportUnusedDisableDirectives": true,
   "overrides": [
     {
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
       ],
       "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
@@ -168,7 +173,7 @@
         ],
         "id-match": "error",
         "import/no-deprecated": "error",
-        "import/order": "off",
+        "import/order": "error",
         "jsdoc/no-types": "error",
         "max-classes-per-file": "off",
         "max-len": [
