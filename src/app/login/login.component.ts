@@ -41,8 +41,10 @@ export class LoginComponent implements OnInit {
     }
     const user = new User(email, password);
     this.loginService.login(user).subscribe((response: HttpResponse<User>) => {
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         this.router.navigate(['/home']);
+      } else {
+        console.log('something went wrong, try again');
       }
     });
   }
