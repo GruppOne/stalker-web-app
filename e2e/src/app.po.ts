@@ -5,6 +5,6 @@ export class AppPage {
     return browser.get('/');
   }
   async getLoginText(): Promise<string> {
-    return element(by.tagName('mat-card-title')).getText();
+    return element(by.tagName('h1')).getText();
   }
 }
