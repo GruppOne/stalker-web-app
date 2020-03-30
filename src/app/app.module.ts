@@ -10,7 +10,7 @@ import {LoginComponent} from './login/login.component';
 import {FormEmailComponent} from './form-email/form-email.component';
 import {FormPasswordComponent} from './form-password/form-password.component';
 import {ButtonConfirmComponent} from './button-confirm/button-confirm.component';
-import {HttpStalkerService} from './http-stalker.service/http-stalker.service';
+import {HttpStalkerService} from './services/http-stalker.service';
 import {CustomMaterialModule} from './core/material.module';
 
 const routes: Routes = [

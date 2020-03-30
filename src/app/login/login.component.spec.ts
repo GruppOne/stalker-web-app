@@ -5,7 +5,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {Router} from '@angular/router';
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {of} from 'rxjs';
-import {LoginService} from '../login.service/login.service';
+import {LoginService} from '../services/login.service';
 import {LoginComponent} from './login.component';
 
 describe('LoginComponent', () => {

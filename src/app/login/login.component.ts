@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import {LoginService} from '../login.service/login.service';
-import {User} from '../classes/user';
+import {LoginService} from '../services/login.service';
+import {User} from '../models/user';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

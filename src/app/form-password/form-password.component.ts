@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-unused-expressions */
 import {Component, OnInit, forwardRef} from '@angular/core';
 import {
   ControlValueAccessor,
@@ -23,7 +21,6 @@ import {
 })
 export class FormPasswordComponent implements OnInit, ControlValueAccessor {
   public pwdForm: FormGroup = new FormGroup({
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     pwd: new FormControl('', [Validators.required]),
   });
 
