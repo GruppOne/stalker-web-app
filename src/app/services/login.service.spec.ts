@@ -3,8 +3,8 @@ import {TestBed} from '@angular/core/testing';
 
 import {of} from 'rxjs';
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
-import {User} from '../classes/user';
-import {HttpStalkerService} from '../http-stalker.service/http-stalker.service';
+import {User} from '../models/user';
+import {HttpStalkerService} from './http-stalker.service';
 import {LoginService} from './login.service';
 
 describe('LoginService', () => {

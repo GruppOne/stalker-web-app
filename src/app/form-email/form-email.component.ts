@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-unused-expressions */
 import {Component, OnInit, forwardRef} from '@angular/core';
 import {
   ControlValueAccessor,
