@@ -41,6 +41,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
+  // jscpd:ignore-start
   imports: [
     MatAutocompleteModule,
     MatBadgeModule,
@@ -112,6 +113,7 @@ import {MatTreeModule} from '@angular/material/tree';
     MatTooltipModule,
     MatTreeModule,
     MatNativeDateModule,
+    // jscpd:ignore-end
   ],
   providers: [],
 })

@@ -3,12 +3,6 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "check-format",
-      "presentation": {"reveal": "silent", "panel": "shared"},
-      "problemMatcher": ["$eslint-stylish"]
-    },
-    {
-      "type": "npm",
       "script": "cpd",
       "presentation": {"reveal": "silent", "panel": "shared"},
       "problemMatcher": ["$eslint-stylish"]
@@ -16,12 +10,6 @@
     {
       "type": "npm",
       "script": "coverage",
-      "presentation": {"reveal": "silent", "panel": "shared"},
-      "problemMatcher": ["$eslint-stylish"]
-    },
-    {
-      "type": "npm",
-      "script": "format",
       "presentation": {"reveal": "silent", "panel": "shared"},
       "problemMatcher": ["$eslint-stylish"]
     },
