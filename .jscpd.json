@@ -1,6 +1,13 @@
 {
   "gitignore": true,
-  "ignore": ["**/.git/**", "**/node_modules/**", "**/.github/**", "**/.vscode/**"],
+  "ignore": [
+    "**/.git/**",
+    "**/.github/**",
+    "**/.jscpd-report/**",
+    "**/node_modules/**",
+    "**/.vscode/**",
+    "**/*.spec.ts"
+  ],
   "min-lines": 1,
   "min-tokens": 5,
   "mode": "strict",
