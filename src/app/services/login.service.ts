@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {catchError} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
 import {User} from '../models/user';
 import {environment} from '../../environments/environment';
 import {HttpStalkerService} from './http-stalker.service';
+import {Injectable} from '@angular/core';
+import {catchError} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

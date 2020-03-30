@@ -1,6 +1,6 @@
+import {ButtonConfirmComponent} from './button-confirm.component';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ButtonConfirmComponent} from './button-confirm.component';
 
 describe('ButtonConfirmComponent', () => {
   let component: ButtonConfirmComponent;

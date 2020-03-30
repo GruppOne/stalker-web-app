@@ -1,6 +1,6 @@
+import {FormPasswordComponent} from './form-password.component';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {FormPasswordComponent} from './form-password.component';
 // import {By} from '@angular/platform-browser';
 
 describe('FormPasswordComponent', () => {
