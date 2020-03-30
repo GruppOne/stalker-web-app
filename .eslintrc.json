@@ -148,7 +148,12 @@
         "@typescript-eslint/restrict-plus-operands": "error",
         "@typescript-eslint/semi": ["error", "always"],
         "@typescript-eslint/type-annotation-spacing": "error",
-        "@typescript-eslint/unbound-method": "error",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ],
         "@typescript-eslint/unified-signatures": "error",
         "arrow-body-style": "error",
         "arrow-parens": ["off", "as-needed"],
@@ -302,6 +307,5 @@
         ]
       }
     }
-  ],
-  "reportUnusedDisableDirectives": true
+  ]
 }
