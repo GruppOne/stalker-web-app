@@ -12,10 +12,10 @@ export class Organization {
   private lastModifiedDate: string;
   constructor(
     id = -1,
-    name = 'Prova',
-    description = 'Descrizione di prova',
+    name = 'Organizzazione di prova',
+    description = 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.',
     ldapConfiguration = new LdapConfiguration(),
-    places = [],
+    places = [new Place()],
     isPrivate = true,
     createdDate = '2010-05-21',
     lastModifiedDate = '2019-01-22',
@@ -30,67 +30,59 @@ export class Organization {
     this.lastModifiedDate = lastModifiedDate;
   }
 
-  getId(): number {
+  get Id(): number {
     return this.id;
   }
-
-  getName(): string {
-    return this.name;
-  }
-
-  getDescription(): string {
-    return this.description;
-  }
-
-  getldapConfiguration(): LdapConfiguration {
-    return this.ldapConfiguration;
-  }
-
-  getPlaces(): Place[] {
-    return this.places;
-  }
-
-  getPrivate(): boolean {
-    return this.isPrivate;
-  }
-
-  getCreatedDate(): string {
-    return this.createdDate;
-  }
-
-  getLastModifiedDate(): string {
-    return this.lastModifiedDate;
-  }
-
-  setId(id: number): void {
+  set Id(id: number) {
     this.id = id;
   }
 
-  setName(name: string): void {
+  get Name(): string {
+    return this.name;
+  }
+  set Name(name: string) {
     this.name = name;
   }
 
-  setDescription(description: string): void {
+  get Description(): string {
+    return this.description;
+  }
+  set Description(description: string) {
     this.description = description;
   }
 
-  setLdapConfiguration(ldapConfiguration: LdapConfiguration): void {
+  get LdapConfiguration(): LdapConfiguration {
+    return this.ldapConfiguration;
+  }
+  set LdapConfiguration(ldapConfiguration: LdapConfiguration) {
     this.ldapConfiguration = ldapConfiguration;
   }
 
-  setPlaces(places: Place[]): void {
+  get Places(): Place[] {
+    return this.places;
+  }
+  set Places(places: Place[]) {
     this.places = places;
   }
 
-  setPrivate(isPrivate: boolean): void {
+  get IsPrivate(): boolean {
+    return this.isPrivate;
+  }
+  set IsPrivate(isPrivate: boolean) {
     this.isPrivate = isPrivate;
   }
 
-  setCreatedDate(createdDate: string): void {
+  get CreatedDate(): string {
+    return this.createdDate;
+  }
+  set CreatedDate(createdDate: string) {
     this.createdDate = createdDate;
   }
 
-  setLastModifiedDate(lastModifiedDate: string): void {
+  get LastModifiedDate(): string {
+    return this.lastModifiedDate;
+  }
+  set LastModifiedDate(lastModifiedDate: string) {
     this.lastModifiedDate = lastModifiedDate;
   }
 }

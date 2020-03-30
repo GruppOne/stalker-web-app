@@ -3,14 +3,16 @@ import {User} from './user';
 import {Organization} from './organization';
 import {Place} from './place';
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpStalkerService {
-  httpOptions: any = {
+  private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'}),
-    observe: 'response',
+    observe: 'response' as 'response',
   };
   constructor(public http: HttpClient) {}
   fakepost(apiURL: string, user: User): any {
@@ -21,7 +23,11 @@ export class HttpStalkerService {
     return this.http.post(apiURL, organization, this.httpOptions);
   }
 
-  fakeAddPlace(apiURL: string, place: Place): any {
-    return this.http.post(apiURL, place, this.httpOptions);
+  getOrganizationById(apiURL: string): Observable<HttpResponse<Organization>> {
+    return this.http.get<Organization>(apiURL, this.httpOptions);
+  }
+
+  addPlace(apiURL: string, place: Place): Observable<HttpResponse<Place>> {
+    return this.http.post<Place>(apiURL, place, this.httpOptions);
   }
 }

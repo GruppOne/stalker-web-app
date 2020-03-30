@@ -16,35 +16,31 @@ export class PlaceData {
     this.state = state;
   }
 
-  getAddress(): string {
+  get Address(): string {
     return this.address;
   }
-
-  getCity(): string {
-    return this.city;
-  }
-
-  getZipCode(): number {
-    return this.zipcode;
-  }
-
-  getState(): string {
-    return this.state;
-  }
-
-  setAddress(address: string): void {
+  set Address(address: string) {
     this.address = address;
   }
 
-  setCity(city: string): void {
+  get City(): string {
+    return this.city;
+  }
+  set City(city: string) {
     this.city = city;
   }
 
-  setZipCode(zipcode: number): void {
+  get Zipcode(): number {
+    return this.zipcode;
+  }
+  set Zipcode(zipcode: number) {
     this.zipcode = zipcode;
   }
 
-  setState(state: string): void {
+  get State(): string {
+    return this.state;
+  }
+  set State(state: string) {
     this.state = state;
   }
 }

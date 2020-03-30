@@ -1,4 +1,4 @@
-export class Polyline {
+export class Point {
   private latitude: number;
   private longitude: number;
   constructor(latitude = 0, longitude = 0) {
@@ -6,19 +6,17 @@ export class Polyline {
     this.longitude = longitude;
   }
 
-  getLatitude(): number {
+  get Latitude(): number {
     return this.latitude;
   }
-
-  getLongitude(): number {
-    return this.longitude;
-  }
-
-  setLatitude(latitude: number): void {
+  set Latitude(latitude: number) {
     this.latitude = latitude;
   }
 
-  setLongitude(longitude: number): void {
+  get Longitude(): number {
+    return this.longitude;
+  }
+  set Longitude(longitude: number) {
     this.longitude = longitude;
   }
 }

@@ -1,15 +1,15 @@
-import {Polyline} from './polyline';
-import {PlaceData} from './placeData';
+import {Point} from './point';
+import {PlaceData} from './place-data';
 
 export class Place {
   private id: number;
   private name: string;
-  private polyline: Polyline;
+  private polyline: Point[];
   private placeData: PlaceData;
   constructor(
     id = -1,
     name = 'cipolla',
-    polyline = new Polyline(),
+    polyline = [new Point()],
     placeData = new PlaceData(),
   ) {
     this.id = id;
@@ -18,35 +18,30 @@ export class Place {
     this.placeData = placeData;
   }
 
-  getId(): number {
+  get Id(): number {
     return this.id;
   }
-
-  getName(): string {
-    return this.name;
-  }
-
-  getPolyline(): Polyline {
-    return this.polyline;
-  }
-
-  getPlaceData(): PlaceData {
-    return this.placeData;
-  }
-
-  setId(id: number): void {
+  set Id(id: number) {
     this.id = id;
   }
 
-  setName(name: string): void {
+  get Name(): string {
+    return this.name;
+  }
+  set Name(name: string) {
     this.name = name;
   }
 
-  setPolyline(polyline: Polyline): void {
+  get Polyline(): Point[] {
+    return this.polyline;
+  }
+  set Polyline(polyline: Point[]) {
     this.polyline = polyline;
   }
-
-  setPlaceData(placeData: PlaceData): void {
+  get PlaceData(): PlaceData {
+    return this.placeData;
+  }
+  set PlaceData(placeData: PlaceData) {
     this.placeData = placeData;
   }
 }

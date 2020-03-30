@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {environment} from './../environments/environment';
-import {HttpStalker} from './http-stalker';
+import {HttpStalkerService} from './http-stalker.service';
 import {Place} from './place';
 import {catchError} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,13 @@ import {Observable, of} from 'rxjs';
 export class PlaceService {
   placeURL = environment.apiUrl + '/place';
 
-  constructor(private httpStalker: HttpStalker) {}
+  constructor(private httpStalker: HttpStalkerService) {}
 
-  add(place: Place): any {
+  add(place: Place): Observable<HttpResponse<Place>> {
     return this.httpStalker
-      .fakeAddPlace(this.placeURL, place)
+      .addPlace(this.placeURL, place)
       .pipe(catchError(this.handleError<any>([])));
   }
-
   handleError<T>(result: T) {
     return (error: any): Observable<T> => {
       console.error(error);
