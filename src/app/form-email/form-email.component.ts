@@ -23,7 +23,6 @@ import {
 })
 export class FormEmailComponent implements OnInit, ControlValueAccessor {
   public emailForm: FormGroup = new FormGroup({
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
