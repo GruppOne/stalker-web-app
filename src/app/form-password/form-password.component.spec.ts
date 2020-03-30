@@ -29,7 +29,7 @@ describe('FormPasswordComponent', () => {
     expect(component.pwdForm.value.pwd).toEqual('value');
   });
   it('should register on touched', () => {
-    component.registerOnTouched(true);
-    expect(component.onTouched).toBeTrue();
+    component.registerOnTouched(() => {});
+    expect(component.onTouched).toBeDefined();
   });
 });

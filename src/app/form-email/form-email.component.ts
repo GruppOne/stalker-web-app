@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 interface MailType {
-  mail: string;
+  email: string;
 }
 @Component({
   selector: 'app-form-email',
