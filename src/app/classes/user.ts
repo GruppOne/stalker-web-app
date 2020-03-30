@@ -5,13 +5,13 @@ export class User {
   private password: string;
   private userData: UserData;
   constructor(
-    email = 'default',
+    mail = 'default',
     password = 'default',
     id = -1,
     userData = new UserData(),
   ) {
     this.id = id;
-    this.mail = email;
+    this.mail = mail;
     this.password = password;
     this.userData = userData;
   }
@@ -21,10 +21,10 @@ export class User {
   set Id(id: number) {
     this.id = id;
   }
-  get Email(): string {
+  get Mail(): string {
     return this.mail;
   }
-  set Email(mail: string) {
+  set Mail(mail: string) {
     this.mail = mail;
   }
   get Password(): string {
