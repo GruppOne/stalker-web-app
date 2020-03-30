@@ -27,7 +27,7 @@ describe('FormEmailComponent', () => {
     expect(component.emailForm.value.email).toEqual('value');
   });
   it('should register on touched', () => {
-    component.registerOnTouched(true);
-    expect(component.onTouched).toBeTrue();
+    component.registerOnTouched(() => {});
+    expect(component.onTouched).toBeDefined();
   });
 });

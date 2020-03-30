@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 interface PwdType {
-  mail: string;
+  pwd: string;
 }
 @Component({
   selector: 'app-form-password',
