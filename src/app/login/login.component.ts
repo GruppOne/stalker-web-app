@@ -1,9 +1,10 @@
+import {LoginService} from '../services/login.service';
+import {User} from '../models/user';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import {LoginService} from '../services/login.service';
-import {User} from '../models/user';
+import {ViewportScroller} from '@angular/common';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,10 +20,16 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private titleService: Title,
+    private viewportScroller: ViewportScroller,
   ) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('Login - Stalker');
+  }
+
+  // funzione per scrollare sugli elementi tramite una anchor
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
   }
 
   public login(email: string, password: string): void {

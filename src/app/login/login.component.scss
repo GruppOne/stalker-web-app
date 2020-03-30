@@ -1,6 +1,21 @@
+#landing-page {
+  background-image: radial-gradient(#2980b9, #3f51b5);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+}
+h1 {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+  font-weight: 300;
+  padding-top: 150px;
+}
+
 .login-form-container {
   width: 300px;
-  margin: 200px auto;
+  margin: 50px auto;
 
   mat-card-header {
     width: 100%;
@@ -21,12 +36,7 @@
     mat-card-actions {
       text-align: center !important;
       margin-bottom: 0;
+      padding-bottom: 0;
     }
   }
 }
-
-/* body {
-  background-image: radial-gradient(#2980b9, #2c3e50);
-  background-repeat: no-repeat;
-  overflow-y: hidden;
-} */
