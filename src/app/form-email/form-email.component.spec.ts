@@ -1,5 +1,6 @@
-import {FormEmailComponent} from './form-email.component';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+
+import {FormEmailComponent} from './form-email.component';
 
 
 describe('FormEmailComponent', () => {

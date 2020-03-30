@@ -1,4 +1,5 @@
 import {UserData} from './user-data';
+
 export class User {
   private id: number;
   private mail: string;

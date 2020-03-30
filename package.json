@@ -11,6 +11,7 @@
     "lint": "ng lint",
     "fix": "ng lint --fix",
     "test": "ng test",
+    "test-headless": "ng test --browsers=ChromeHeadless",
     "coverage": "ng test --no-watch --code-coverage",
     "e2e": "ng e2e",
     "prepare-release": "standard-version --skip.tag",

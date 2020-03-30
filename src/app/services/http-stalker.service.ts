@@ -1,16 +1,19 @@
-import {User} from '../models/user';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+import {User} from '../models/user';
+
 @Injectable({
   providedIn: 'root',
 })
 export class HttpStalkerService {
-  httpOptions: any = {
+  private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'}),
-    observe: 'response',
+    observe: 'response' as 'response',
   };
   constructor(public http: HttpClient) {}
-  userPost(apiURL: string, user: User): any {
-    return this.http.post(apiURL, user, this.httpOptions);
+  userPost(apiURL: string, user: User): Observable<HttpResponse<User>> {
+    return this.http.post<User>(apiURL, user, this.httpOptions);
   }
 }

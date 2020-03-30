@@ -1,11 +1,12 @@
-import {User} from '../models/user';
-import {HttpStalkerService} from './http-stalker.service';
-import {LoginService} from './login.service';
+import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
-
 import {of} from 'rxjs';
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
+
+import {User} from '../models/user';
+
+import {HttpStalkerService} from './http-stalker.service';
+import {LoginService} from './login.service';
 
 describe('LoginService', () => {
   let service: LoginService;

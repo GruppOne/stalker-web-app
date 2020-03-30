@@ -1,17 +1,18 @@
+import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule, Title} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
+
 import {AppComponent} from './app.component';
-import {HomeComponent} from './home/home.component';
-import {LoginComponent} from './login/login.component';
+import {ButtonConfirmComponent} from './button-confirm/button-confirm.component';
+import {CustomMaterialModule} from './core/material.module';
 import {FormEmailComponent} from './form-email/form-email.component';
 import {FormPasswordComponent} from './form-password/form-password.component';
-import {ButtonConfirmComponent} from './button-confirm/button-confirm.component';
+import {HomeComponent} from './home/home.component';
+import {LoginComponent} from './login/login.component';
 import {HttpStalkerService} from './services/http-stalker.service';
-import {CustomMaterialModule} from './core/material.module';
-import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BrowserModule, Title} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
