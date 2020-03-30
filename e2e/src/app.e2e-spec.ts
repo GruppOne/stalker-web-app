@@ -1,6 +1,7 @@
-import {AppPage} from './app.po';
 import {expect} from 'chai';
 import {Before, Given, Then} from 'cucumber';
+
+import {AppPage} from './app.po';
 
 let app: AppPage;
 

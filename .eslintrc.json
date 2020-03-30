@@ -185,7 +185,17 @@
         ],
         "id-match": "error",
         "import/no-deprecated": "error",
-        "import/order": "error",
+        "import/order": [
+          "error",
+          {
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc" /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
+              "caseInsensitive": true /* ignore case. Options: [true, false] */
+            }
+          }
+        ],
+        "import/newline-after-import": "error",
         "jsdoc/no-types": "error",
         "line-comment-position": ["error", {"position": "above"}],
         "max-classes-per-file": "off",
@@ -232,7 +242,7 @@
         "no-fallthrough": "error",
         "no-invalid-this": "off",
         "no-inline-comments": "error",
-        "no-multiple-empty-lines": "off",
+        "no-multiple-empty-lines": ["error", {"max": 2, "maxEOF": 1}],
         "no-new-wrappers": "error",
         "no-restricted-imports": [
           "error",

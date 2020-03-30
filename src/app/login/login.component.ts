@@ -1,10 +1,13 @@
-import {LoginService} from '../services/login.service';
-import {User} from '../models/user';
+import {ViewportScroller} from '@angular/common';
+import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
-import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import {ViewportScroller} from '@angular/common';
+import {Router} from '@angular/router';
+
+import {User} from '../models/user';
+import {LoginService} from '../services/login.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,7 +40,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     const user = new User(email, password);
-    this.loginService.login(user).subscribe((response: Response) => {
+    this.loginService.login(user).subscribe((response: HttpResponse<User>) => {
       if (response.status === 200) {
         this.router.navigate(['/home']);
       }
