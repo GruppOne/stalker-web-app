@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {User} from '../classes/user';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User} from '../classes/user';
 @Injectable({
   providedIn: 'root',
 })

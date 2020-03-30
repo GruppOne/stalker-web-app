@@ -1,6 +1,6 @@
-import {HttpStalkerService} from './http-stalker.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
+import {HttpStalkerService} from './http-stalker.service';
 
 describe('HttpStalkerService', () => {
   let service: HttpStalkerService;
