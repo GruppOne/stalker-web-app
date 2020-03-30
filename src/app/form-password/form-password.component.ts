@@ -36,7 +36,9 @@ export class FormPasswordComponent implements OnInit, ControlValueAccessor {
   public onTouched: () => void = () => {};
 
   writeValue(val: any): void {
-    val && this.pwdForm.setValue(val, {emitEvent: false});
+    if (val) {
+      this.pwdForm.setValue(val, {emitEvent: false});
+    }
   }
   registerOnChange(fn: any): void {
     this.pwdForm.valueChanges.subscribe(fn);

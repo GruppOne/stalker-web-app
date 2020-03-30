@@ -33,7 +33,9 @@ export class FormEmailComponent implements OnInit, ControlValueAccessor {
 
   public onTouched: () => void = () => {};
   writeValue(val: any): void {
-    val && this.emailForm.setValue(val, {emitEvent: false});
+    if (val) {
+      this.emailForm.setValue(val, {emitEvent: false});
+    }
   }
   registerOnChange(fn: any): void {
     this.emailForm.valueChanges.subscribe(fn);

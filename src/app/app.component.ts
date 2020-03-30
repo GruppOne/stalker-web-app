@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'stalker-web-app';
   constructor(public router: Router) {}
   getRoute(): string {
     return this.router.url;

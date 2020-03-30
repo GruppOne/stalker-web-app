@@ -1,16 +1,16 @@
+import {HttpStalkerService} from '../http-stalker.service/http-stalker.service';
+import {User} from '../classes/user';
+import {LoginService} from './login.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 
 import {of} from 'rxjs';
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
-import {LoginService} from './login.service';
-import {HttpStalkerService} from './http-stalker.service';
-import {User} from './user';
 
 describe('LoginService', () => {
   let service: LoginService;
-  const httpStalker = jasmine.createSpyObj('HttpStalkerService', ['fakepost']);
-  const httpSpy = httpStalker.fakepost.and.returnValue(
+  const httpStalker = jasmine.createSpyObj('HttpStalkerService', ['userPost']);
+  const httpSpy = httpStalker.userPost.and.returnValue(
     of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
   );
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('LoginService', () => {
   });
   it('should call httpStalker service', () => {
     service.login(new User());
-    expect(httpSpy.calls.any()).toBe(true, 'fakepost called');
+    expect(httpSpy.calls.any()).toBe(true, 'userPost called');
   });
   /* it('should handle errors', () => {
     httpSpy = httpStalker.fakepost.and.returnValue(
