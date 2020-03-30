@@ -1,0 +1,33 @@
+mat-card.organizationTable {
+  width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+mat-card-title {
+  padding: 10px 0;
+}
+
+mat-list-item.fieldName,
+mat-list-item.fieldData {
+  display: inline-block;
+}
+mat-list-item.fieldName {
+  width: 30%;
+  font-weight: 500;
+  justify-content: flex-end;
+}
+mat-list-item.fieldData {
+  width: 70%;
+  font-weight: 300;
+}
+::ng-deep .mat-list .mat-list-item.fieldName .mat-list-item-content {
+  justify-content: flex-end;
+}
+mat-list-item ul {
+  padding: 0;
+  /* padding: 0 0 30px 0; */
+
+  li {
+    list-style: none;
+  }
+}

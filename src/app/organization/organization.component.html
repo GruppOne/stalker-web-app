@@ -1,1 +1,40 @@
-<p>organization works!</p>
+<mat-card class="organizationTable">
+  <mat-card-title>{{ organization.Name }}</mat-card-title>
+  <mat-card-subtitle>{{ organization.Description }}</mat-card-subtitle>
+  <mat-list>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Places:</mat-list-item>
+    <mat-list-item class="fieldData">
+      <ul>
+        <li *ngFor="let place of organization.Places">
+          {{ place.PlaceData.Address }}, {{ place.PlaceData.Zipcode }} {{ place.PlaceData.City }}
+        </li>
+      </ul>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
+    <mat-list-item class="fieldData">
+      {{ organization.LdapConfiguration.Host }} - {{ organization.LdapConfiguration.Username }},
+      {{ organization.LdapConfiguration.Password }}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Owner:</mat-list-item>
+    <mat-list-item class="fieldData">Pippo</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Manager:</mat-list-item>
+    <mat-list-item class="fieldData">Pluto</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Viewer:</mat-list-item>
+    <mat-list-item class="fieldData">Minnie</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Creation date:</mat-list-item>
+    <mat-list-item class="fieldData">{{ organization.CreatedDate }}</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Last modified date:</mat-list-item>
+    <mat-list-item class="fieldData">{{ organization.LastModifiedDate }}</mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+  <mat-card-actions>
+    <button mat-raised-button color="accent">Edit</button>
+  </mat-card-actions>
+</mat-card>
