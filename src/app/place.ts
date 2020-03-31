@@ -8,8 +8,8 @@ export class Place {
   private placeData: PlaceData;
   constructor(
     id = -1,
-    name = 'cipolla',
-    polyline = [new Point()],
+    name = 'Zattere',
+    polyline = [new Point(), new Point()],
     placeData = new PlaceData(),
   ) {
     this.id = id;

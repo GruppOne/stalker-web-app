@@ -14,11 +14,12 @@ export class PlaceService {
 
   constructor(private httpStalker: HttpStalkerService) {}
 
-  add(place: Place): Observable<HttpResponse<Place>> {
+  getPlaceById(placeId: number): Observable<HttpResponse<Place>> {
     return this.httpStalker
-      .addPlace(this.placeURL, place)
+      .getPlaceById(this.placeURL + '/' + placeId.toString())
       .pipe(catchError(this.handleError<any>([])));
   }
+
   handleError<T>(result: T) {
     return (error: any): Observable<T> => {
       console.error(error);

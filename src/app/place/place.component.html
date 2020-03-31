@@ -1,1 +1,22 @@
-<p>place works!</p>
+<mat-card class="placeTable">
+  <mat-card-title>{{ place.Name }}</mat-card-title>
+  <mat-list>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Coordinates:</mat-list-item>
+    <mat-list-item class="fieldData">
+      <ul>
+        <li *ngFor="let polyline of place.Polyline">{{ polyline.Latitude }}, {{ polyline.Longitude }}</li>
+      </ul>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="fieldName">Address:</mat-list-item>
+    <mat-list-item class="fieldData">
+      {{ place.PlaceData.Address }} - {{ place.PlaceData.City }}, {{ place.PlaceData.State }} -
+      {{ place.PlaceData.Zipcode }}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+  <mat-card-actions>
+    <button mat-raised-button color="accent">Edit</button>
+  </mat-card-actions>
+</mat-card>
