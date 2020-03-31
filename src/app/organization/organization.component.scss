@@ -2,6 +2,7 @@ mat-card.organizationTable {
   width: 600px;
   margin: 50px auto;
   text-align: center;
+  box-sizing: border-box;
 }
 mat-card-title {
   padding: 10px 0;
@@ -12,12 +13,12 @@ mat-list-item.fieldData {
   display: inline-block;
 }
 mat-list-item.fieldName {
-  width: 30%;
+  width: 35%;
   font-weight: 500;
   justify-content: flex-end;
 }
 mat-list-item.fieldData {
-  width: 70%;
+  width: 65%;
   font-weight: 300;
 }
 ::ng-deep .mat-list .mat-list-item.fieldName .mat-list-item-content {
