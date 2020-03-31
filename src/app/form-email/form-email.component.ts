@@ -26,7 +26,6 @@ export class FormEmailComponent implements OnInit, ControlValueAccessor {
   public emailForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
-  // constructor() {}
 
   ngOnInit(): void {}
 

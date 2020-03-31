@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     const user = new User(email, password);
+
     this.loginService.login(user).subscribe((response: HttpResponse<User>) => {
       if (response && response.status === 200) {
         this.router.navigate(['/home']);
