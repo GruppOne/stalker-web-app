@@ -1,12 +1,13 @@
+import {HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {of} from 'rxjs';
+
+import {User} from '../models/user';
+import {UserService} from '../services/user.service';
 
 import {ProfileComponent} from './profile.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {UserService} from '../user.service';
-import {of} from 'rxjs';
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
-import {RouterTestingModule} from '@angular/router/testing';
-import {User} from '../user';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
