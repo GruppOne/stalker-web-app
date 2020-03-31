@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Place} from '../place';
-import {PlaceService} from '../place.service';
 import {HttpResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+
+import {Place} from '../models/place';
+import {PlaceService} from '../services/place.service';
 
 @Component({
   selector: 'app-place',

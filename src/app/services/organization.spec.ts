@@ -1,6 +1,6 @@
-import {Organization} from './organization';
-import {LdapConfiguration} from './ldapConfiguration';
-import {Place} from './place';
+import {LdapConfiguration} from '../models/ldapConfiguration';
+import {Organization} from '../models/organization';
+import {Place} from '../models/place';
 
 describe('Organization', () => {
   const organization = new Organization();

@@ -1,5 +1,5 @@
-import {Point} from './point';
 import {PlaceData} from './place-data';
+import {Point} from './point';
 
 export class Place {
   private id: number;

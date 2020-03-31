@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Organization} from '../organization';
-import {OrganizationService} from '../organization.service';
 import {HttpResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+
+import {Organization} from '../models/organization';
+import {OrganizationService} from '../services/organization.service';
 
 @Component({
   selector: 'app-organization',
