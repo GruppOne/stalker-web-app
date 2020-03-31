@@ -27,7 +27,7 @@ export class HttpStalkerService {
     return this.http.get<Organization>(apiURL, this.httpOptions);
   }
 
-  addPlace(apiURL: string, place: Place): Observable<HttpResponse<Place>> {
-    return this.http.post<Place>(apiURL, place, this.httpOptions);
+  getPlaceById(apiURL: string): Observable<HttpResponse<Place>> {
+    return this.http.get<Place>(apiURL, this.httpOptions);
   }
 }
