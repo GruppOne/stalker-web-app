@@ -1,6 +1,8 @@
+import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {User} from '../user';
-import {UserService} from '../user.service';
+
+import {User} from '../models/user';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +19,7 @@ export class ProfileComponent implements OnInit {
   }
   getUser(id: number): void {
     console.log('calling');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.userService.getUserById(id).subscribe((response: any) => {
+    this.userService.getUserById(id).subscribe((response: HttpResponse<User>) => {
       console.log(response.status);
       if (response.status === 200 && response.body != null) {
         this.user = response.body;
