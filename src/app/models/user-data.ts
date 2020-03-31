@@ -1,22 +1,11 @@
 export class UserData {
-  private firstName: string;
-  private lastName: string;
-  private birthDate: string;
-  private createdDate: string;
-  private lastModifiedDate: string;
   constructor(
-    firstName = 'Mario',
-    lastName = 'Rossi',
-    birthDate = '1980-01-01',
-    createdDate = '1980-01-01T09:01:01Z',
-    lastModifiedDate = '1980-01-01T09:01:01Z',
-  ) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.birthDate = birthDate;
-    this.createdDate = createdDate;
-    this.lastModifiedDate = lastModifiedDate;
-  }
+    private firstName = 'Mario',
+    private lastName = 'Rossi',
+    private birthDate = '1980-01-01',
+    private createdDate = '1980-01-01T09:01:01Z',
+    private lastModifiedDate = '1980-01-01T09:01:01Z',
+  ) {}
 
   get FirstName(): string {
     return this.firstName;

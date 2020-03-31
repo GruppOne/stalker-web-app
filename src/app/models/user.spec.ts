@@ -11,15 +11,13 @@ describe('User', () => {
     expect(user).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
-    const newId = -2;
     const newMail = 'marcoverdi@gmail.com';
     const newPassword = 'NewPass';
     const newUserData = new UserData('Marco', 'Verdi');
-    user.Id = newId;
     user.Mail = newMail;
     user.Password = newPassword;
     user.UserData = newUserData;
-    expect(user.Id).toEqual(newId);
+    expect(user.Id).toEqual(user.Id);
     expect(user.Mail).toEqual(newMail);
     expect(user.Password).toEqual(newPassword);
     expect(user.UserData).toEqual(newUserData);

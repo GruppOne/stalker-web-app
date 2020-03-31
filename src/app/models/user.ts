@@ -1,27 +1,27 @@
 import {UserData} from './user-data';
 
 export class User {
-  private id: number;
+  /*   private id: number;
   private mail: string;
   private password: string;
-  private userData: UserData;
+  private userData: UserData; */
   constructor(
-    mail = 'default',
-    password = 'default',
-    id = -1,
-    userData = new UserData(),
+    private mail = 'default',
+    private password = 'default',
+    private readonly id = -1,
+    private userData = new UserData(),
   ) {
-    this.id = id;
-    this.mail = mail;
+    /*     this._id = id;
+    this._mail = mail;
     this.password = password;
-    this.userData = userData;
+    this.userData = userData; */
   }
   get Id(): number {
     return this.id;
   }
-  set Id(id: number) {
+  /*   set Id(id: number) {
     this.id = id;
-  }
+  } */
   get Mail(): string {
     return this.mail;
   }
