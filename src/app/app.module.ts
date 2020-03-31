@@ -12,6 +12,7 @@ import {ProfileComponent} from './components/_routes/profile/profile.component';
 import {ButtonConfirmComponent} from './components/button-confirm/button-confirm.component';
 import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
+import {EditOrganizationComponent} from './edit-organization/edit-organization.component';
 import {CustomMaterialModule} from './modules/material.module';
 import {OrganizationComponent} from './organization/organization.component';
 import {PlaceComponent} from './place/place.component';
@@ -24,9 +25,12 @@ const routes: Routes = [
   {
     path: 'organization',
     component: OrganizationComponent,
-    data: {title: 'Stalker - Organization'},
   },
-  {path: 'place', component: PlaceComponent, data: {title: 'Stalker - Place'}},
+  {path: 'place', component: PlaceComponent},
+  {
+    path: 'edit-organization',
+    component: EditOrganizationComponent,
+  },
 ];
 
 @NgModule({
@@ -40,6 +44,7 @@ const routes: Routes = [
     ProfileComponent,
     OrganizationComponent,
     PlaceComponent,
+    EditOrganizationComponent,
   ],
   imports: [
     CustomMaterialModule,
