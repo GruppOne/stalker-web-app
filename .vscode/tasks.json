@@ -4,13 +4,19 @@
     {
       "type": "npm",
       "script": "cpd",
-      "presentation": {"reveal": "silent", "panel": "shared"},
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
       "problemMatcher": ["$eslint-stylish"]
     },
     {
       "type": "npm",
       "script": "coverage",
-      "presentation": {"reveal": "silent", "panel": "shared"},
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
       "problemMatcher": ["$eslint-stylish"]
     },
     {
@@ -23,13 +29,19 @@
     {
       "type": "npm",
       "script": "lint",
-      "presentation": {"reveal": "silent", "panel": "shared"},
+      "presentation": {
+        "revealProblems": "onProblem",
+        "panel": "shared"
+      },
       "problemMatcher": ["$eslint-stylish"]
     },
     {
       "type": "npm",
       "script": "fix",
-      "presentation": {"reveal": "always", "panel": "shared"},
+      "presentation": {
+        "revealProblems": "onProblem",
+        "panel": "shared"
+      },
       "problemMatcher": ["$eslint-stylish"]
     },
     {
@@ -39,6 +51,9 @@
       "presentation": {
         "focus": true,
         "panel": "dedicated"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
       },
       "group": {
         "kind": "build",
@@ -65,21 +80,30 @@
       "type": "npm",
       "script": "test",
       "isBackground": true,
-      "presentation": {"reveal": "silent", "panel": "shared"},
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
       "problemMatcher": []
     },
     {
       "type": "npm",
       "script": "test-headless",
       "isBackground": true,
-      "presentation": {"reveal": "silent", "panel": "shared"},
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
       "problemMatcher": []
     },
     {
       "type": "npm",
       "script": "e2e",
       "isBackground": true,
-      "presentation": {"reveal": "silent", "panel": "shared"},
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
       "problemMatcher": []
     },
     {

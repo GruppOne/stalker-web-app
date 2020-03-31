@@ -4,20 +4,20 @@
     "es6": true,
     "node": true
   },
-  "extends": ["plugin:prettier/recommended"],
   "noInlineConfig": true,
   "reportUnusedDisableDirectives": true,
   "overrides": [
     {
       "extends": [
         "eslint:recommended",
+        "plugin:prettier/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "prettier/@typescript-eslint",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript"
+        // "plugin:import/errors",
+        // "plugin:import/warnings",
+        // "plugin:import/typescript",
+        "prettier/@typescript-eslint"
       ],
       "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
@@ -32,7 +32,8 @@
         "@angular-eslint",
         "import",
         "jsdoc",
-        "prefer-arrow"
+        "prefer-arrow",
+        "prettier"
       ],
       "rules": {
         "@angular-eslint/component-class-suffix": "error",
@@ -187,7 +188,6 @@
         ],
         "id-match": "error",
         "import/order": ["error", {"newlines-between": "always", "alphabetize": {"order": "asc"}}],
-        "import/newline-after-import": "error",
         "jsdoc/no-types": "error",
         "line-comment-position": ["error", {"position": "above"}],
         "max-classes-per-file": "off",
@@ -272,6 +272,7 @@
         "one-var": ["error", "never"],
         "prefer-arrow/prefer-arrow-functions": "error",
         "prefer-const": "error",
+        "prettier/prettier": "error",
         "quote-props": ["error", "as-needed"],
         "radix": "error",
         "sort-keys": "off",

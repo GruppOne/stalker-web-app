@@ -1,21 +1,13 @@
 import {UserData} from './user-data';
 
 export class User {
-  /*   private id: number;
-  private mail: string;
-  private password: string;
-  private userData: UserData; */
   constructor(
+    // TODO use builder pattern and refactor to NOT have default
     private mail = 'default',
     private password = 'default',
     private readonly id = -1,
     private userData = new UserData(),
-  ) {
-    /*     this._id = id;
-    this._mail = mail;
-    this.password = password;
-    this.userData = userData; */
-  }
+  ) {}
   get Id(): number {
     return this.id;
   }

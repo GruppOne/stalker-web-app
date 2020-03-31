@@ -29,8 +29,6 @@ export class FormPasswordComponent implements OnInit, ControlValueAccessor {
 
   hide = true;
 
-  // constructor() {}
-
   ngOnInit(): void {}
 
   public onTouched: () => void = () => {};

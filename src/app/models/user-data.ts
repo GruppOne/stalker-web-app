@@ -1,7 +1,9 @@
+// TODO use builder pattern and refactor to NOT have default
 export class UserData {
   constructor(
     private firstName = 'Mario',
     private lastName = 'Rossi',
+    // TODO use library or eslint plugin to distinguish date from datetime
     private birthDate = '1980-01-01',
     private createdDate = '1980-01-01T09:01:01Z',
     private lastModifiedDate = '1980-01-01T09:01:01Z',
