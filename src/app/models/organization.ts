@@ -13,7 +13,8 @@ export class Organization {
   constructor(
     id = -1,
     name = 'Organizzazione di prova',
-    description = 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.',
+    description = 'Lorem ipsum dolor sit amet, consectetur adipisci elit,' +
+      'sed eiusmod tempor incidunt ut labore et dolore magna aliqua.',
     ldapConfiguration = new LdapConfiguration(),
     places = [new Place()],
     isPrivate = true,

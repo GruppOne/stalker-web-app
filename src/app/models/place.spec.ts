@@ -1,9 +1,9 @@
 import {Place} from './place';
-import {Point} from './point';
 import {PlaceData} from './place-data';
+import {Point} from './point';
 
 describe('Place', () => {
-  let place = new Place();
+  const place = new Place();
   it('should create an instance', () => {
     expect(new Place()).toBeTruthy();
   });
