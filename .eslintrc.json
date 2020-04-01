@@ -195,7 +195,8 @@
           "error",
           {
             "code": 90,
-            "ignoreComments": true
+            "ignoreComments": true,
+            "ignorePattern": "^(?:import|export) *\\{.*?\\}"
           }
         ],
         "new-parens": "error",
