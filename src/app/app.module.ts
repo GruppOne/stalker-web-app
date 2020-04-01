@@ -4,6 +4,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/_routes/home/home.component';
@@ -53,6 +55,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes, {anchorScrolling: 'enabled'}),
     HttpClientModule,
+    LeafletModule.forRoot(),
+    LeafletDrawModule.forRoot(),
   ],
   providers: [Title],
   bootstrap: [AppComponent],

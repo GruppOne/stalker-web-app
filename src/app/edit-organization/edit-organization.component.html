@@ -23,9 +23,16 @@
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Organization places</ng-template>
-      <mat-form-field *ngFor="let place of organization.Places">
-        <input matInput value="WORK IN PROGRESS" />
-      </mat-form-field>
+      <div
+        leaflet
+        style="height: 400px; margin-top: 10px;"
+        leafletDraw
+        [leafletOptions]="options"
+        [leafletDrawOptions]="drawOptions"
+        (leafletDrawCreated)="onDrawCreated($event)"
+        [leafletLayers]="polygonLayers"
+        [leafletFitBounds]="fitBounds"
+      ></div>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -75,7 +82,7 @@
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
     </div>
   </mat-step>
 </mat-vertical-stepper>
