@@ -8,6 +8,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/_routes/home/home.component';
 import {LoginComponent} from './components/_routes/login/login.component';
+import {ProfileComponent} from './components/_routes/profile/profile.component';
 import {ButtonConfirmComponent} from './components/button-confirm/button-confirm.component';
 import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
