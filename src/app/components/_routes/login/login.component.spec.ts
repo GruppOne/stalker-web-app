@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
-import {LoginService} from '../services/login.service';
+import {LoginService} from '../../../services/login.service';
 
 import {LoginComponent} from './login.component';
 

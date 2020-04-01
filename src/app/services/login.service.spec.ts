@@ -3,7 +3,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
-import {UserBuilder} from '../models/user';
+import {UserBuilder} from '../models/users/user';
 
 import {LoginService} from './login.service';
 import {StalkerHttpClientService} from './stalker-http-client.service';

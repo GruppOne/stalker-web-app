@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
 import {StalkerHttpClientDecorator} from '../models/stalker-http-client-decorator';
-import {User} from '../models/user';
+import {User} from '../models/users/user';
 
 import {StalkerHttpClientService} from './stalker-http-client.service';
 @Injectable({
