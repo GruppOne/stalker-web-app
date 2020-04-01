@@ -3,24 +3,26 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
-import {environment} from '../../environments/environment';
+import {StalkerHttpClientDecorator} from '../models/stalker-http-client-decorator';
 import {User} from '../models/user';
 
-import {HttpStalkerService} from './http-stalker.service';
+import {StalkerHttpClientService} from './stalker-http-client.service';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
-  private loginURL = environment.apiUrl + '/user/login';
+export class LoginService extends StalkerHttpClientDecorator {
+  private loginURL = '/user/login';
 
-  constructor(private httpStalker: HttpStalkerService) {}
+  constructor(public httpStalker: StalkerHttpClientService) {
+    super(httpStalker);
+  }
 
   login(user: User): Observable<HttpResponse<User>> {
     const handler: (
       err: HttpErrorResponse,
       caught: Observable<HttpResponse<User>>,
     ) => Observable<HttpResponse<User>> = this.handleError<HttpResponse<User>>();
-    return this.httpStalker.userPost(this.loginURL, user).pipe(catchError(handler));
+    return super.post<User>(this.loginURL, user).pipe(catchError(handler));
   }
 
   handleError<T>(result?: T) {
