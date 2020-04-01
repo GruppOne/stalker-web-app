@@ -1,7 +1,8 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 
-import {User} from '../models/user';
+import {User, UserBuilder} from '../models/user';
+import {UserData} from '../models/user-data';
 import {UserService} from '../services/user.service';
 
 @Component({
@@ -10,8 +11,9 @@ import {UserService} from '../services/user.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user = new User();
   fetched = false;
+  private userBuilder?: UserBuilder;
+  user?: User;
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -20,12 +22,14 @@ export class ProfileComponent implements OnInit {
   getUser(id: number): void {
     console.log('calling');
     this.userService.getUserById(id).subscribe((response: HttpResponse<User>) => {
-      console.log(response.status);
-      if (response.status === 200 && response.body != null) {
-        this.user = response.body;
+      if (response && response.status === 200 && response.body != null) {
+        this.userBuilder = new UserBuilder(response.body.email, response.body.password)
+          .setId(response.body.id as number)
+          .setUserData(response.body.userData as UserData);
+        this.user = this.userBuilder.build();
+      }
+      if (this.user) {
         this.fetched = true;
-      } else {
-        this.fetched = false;
       }
     });
     console.log('called');
