@@ -6,7 +6,7 @@ import {catchError} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Place} from '../models/place';
 
-import {HttpStalkerService} from './http-stalker.service';
+import {StalkerHttpClientService} from './stalker-http-client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +14,11 @@ import {HttpStalkerService} from './http-stalker.service';
 export class PlaceService {
   placeURL = environment.apiUrl + '/place';
 
-  constructor(private httpStalker: HttpStalkerService) {}
+  constructor(private httpStalker: StalkerHttpClientService) {}
 
   getPlaceById(placeId: number): Observable<HttpResponse<Place>> {
     return this.httpStalker
-      .getPlaceById(this.placeURL + '/' + placeId.toString())
+      .get<Place>(this.placeURL + '/' + placeId.toString())
       .pipe(catchError(this.handleError<HttpResponse<Place>>()));
   }
 

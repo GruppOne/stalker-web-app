@@ -6,7 +6,7 @@ import {catchError} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Organization} from '../models/organization';
 
-import {HttpStalkerService} from './http-stalker.service';
+import {StalkerHttpClientService} from './stalker-http-client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ import {HttpStalkerService} from './http-stalker.service';
 export class OrganizationService {
   organizationURL = environment.apiUrl + '/organization';
 
-  constructor(private httpStalker: HttpStalkerService) {}
+  constructor(private httpStalker: StalkerHttpClientService) {}
 
   /* add(organization: Organization): any {
     return this.httpStalker
@@ -23,7 +23,7 @@ export class OrganizationService {
   } */
   getOrganizationById(organizationId: number): Observable<HttpResponse<Organization>> {
     return this.httpStalker
-      .getOrganizationById(this.organizationURL + '/' + organizationId.toString())
+      .get<Organization>(this.organizationURL + '/' + organizationId.toString())
       .pipe(catchError(this.handleError<HttpResponse<Organization>>()));
   }
 
