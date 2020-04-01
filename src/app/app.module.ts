@@ -15,6 +15,7 @@ import {ButtonConfirmComponent} from './components/button-confirm/button-confirm
 import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
 import {EditOrganizationComponent} from './edit-organization/edit-organization.component';
+import {MapComponent} from './map/map.component';
 import {CustomMaterialModule} from './modules/material.module';
 import {OrganizationComponent} from './organization/organization.component';
 import {PlaceComponent} from './place/place.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
     OrganizationComponent,
     PlaceComponent,
     EditOrganizationComponent,
+    MapComponent,
   ],
   imports: [
     CustomMaterialModule,
