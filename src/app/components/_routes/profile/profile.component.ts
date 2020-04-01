@@ -1,9 +1,9 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 
-import {User, UserBuilder} from '../models/user';
-import {UserData} from '../models/user-data';
-import {UserService} from '../services/user.service';
+import {User, UserBuilder} from '../../../models/users/user';
+import {UserData} from '../../../models/users/user-data';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-profile',
