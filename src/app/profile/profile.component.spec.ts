@@ -4,7 +4,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
-import {User} from '../models/user';
+import {UserBuilder} from '../models/user';
 import {UserService} from '../services/user.service';
 
 import {ProfileComponent} from './profile.component';
@@ -38,11 +38,14 @@ describe('ProfileComponent', () => {
     expect(userSpy.calls.any()).toBe(true, 'getUserById called');
   });
   it('getUser() should update User', () => {
-    const newUser: User = new User('notmariorossi@gmail.com');
+    const userBuilder: UserBuilder = new UserBuilder(
+      'notmariorossi@gmail.com',
+      'notPassword1!',
+    );
     const userSpywithDatas = userService.getUserById.and.returnValue(
       of(
         new HttpResponse({
-          body: newUser,
+          body: userBuilder.build(),
           headers: new HttpHeaders(),
           status: 200,
         }),
@@ -53,6 +56,6 @@ describe('ProfileComponent', () => {
       true,
       'getUserById called and returned data',
     );
-    expect(component.user).toEqual(newUser);
+    expect(component.user).toEqual(userBuilder.build());
   });
 });
