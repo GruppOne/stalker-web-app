@@ -1,12 +1,12 @@
-import {UserData} from './user-data';
+import {UserDataBuilder} from './user-data';
 
 describe('UserData', () => {
-  let userData: UserData;
+  let userDataBuilder: UserDataBuilder;
   beforeEach(() => {
-    userData = new UserData();
+    userDataBuilder = new UserDataBuilder('Mario');
   });
   it('should create an instance', () => {
-    expect(userData).toBeTruthy();
+    expect(userDataBuilder.build()).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
     const newFirstName = 'Marco';
@@ -14,15 +14,16 @@ describe('UserData', () => {
     const newBirthDate = '2020-01-01';
     const newCreatedDate = '2020-01-01T09:01:01Z';
     const newLastModifiedDate = '2020-01-01T09:01:01Z';
-    userData.FirstName = newFirstName;
-    userData.LastName = newLastName;
-    userData.BirthDate = newBirthDate;
-    userData.CreatedDate = newCreatedDate;
-    userData.LastModifiedDate = newLastModifiedDate;
-    expect(userData.FirstName).toEqual(newFirstName);
-    expect(userData.LastName).toEqual(newLastName);
-    expect(userData.BirthDate).toEqual(newBirthDate);
-    expect(userData.CreatedDate).toEqual(newCreatedDate);
-    expect(userData.LastModifiedDate).toEqual(newLastModifiedDate);
+    userDataBuilder.setFirstName(newFirstName);
+    userDataBuilder.setLastName(newLastName);
+    userDataBuilder.setBirthDate(newBirthDate);
+    userDataBuilder.setCreatedDate(newCreatedDate);
+    userDataBuilder.setLastModifiedDate(newLastModifiedDate);
+    const userData = userDataBuilder.build();
+    expect(userData.firstName).toEqual(newFirstName);
+    expect(userData.lastName).toEqual(newLastName);
+    expect(userData.birthDate).toEqual(newBirthDate);
+    expect(userData.createdDate).toEqual(newCreatedDate);
+    expect(userData.lastModifiedDate).toEqual(newLastModifiedDate);
   });
 });

@@ -1,42 +1,48 @@
-// TODO use builder pattern and refactor to NOT have default
-export class UserData {
-  constructor(
-    private firstName = 'Mario',
-    private lastName = 'Rossi',
-    // TODO use library or eslint plugin to distinguish date from datetime
-    private birthDate = '1980-01-01',
-    private createdDate = '1980-01-01T09:01:01Z',
-    private lastModifiedDate = '1980-01-01T09:01:01Z',
-  ) {}
+export interface UserData {
+  readonly firstName: string;
+  readonly lastName?: string;
+  readonly birthDate?: string;
+  readonly createdDate?: string;
 
-  get FirstName(): string {
-    return this.firstName;
-  }
-  set FirstName(firstName: string) {
+  readonly lastModifiedDate?: string;
+}
+
+export class UserDataBuilder {
+  private lastName?: string;
+  private birthDate?: string;
+  // To Do: find a type to interact with DateTime in API
+  private createdDate?: string;
+  private lastModifiedDate?: string;
+
+  constructor(private firstName: string) {}
+
+  setFirstName(firstName: string): UserDataBuilder {
     this.firstName = firstName;
+    return this;
   }
-  get LastName(): string {
-    return this.lastName;
-  }
-  set LastName(lastName: string) {
+  setLastName(lastName: string): UserDataBuilder {
     this.lastName = lastName;
+    return this;
   }
-  get BirthDate(): string {
-    return this.birthDate;
-  }
-  set BirthDate(birthDate: string) {
+  setBirthDate(birthDate: string): UserDataBuilder {
     this.birthDate = birthDate;
+    return this;
   }
-  get CreatedDate(): string {
-    return this.createdDate;
-  }
-  set CreatedDate(createdDate: string) {
+  setCreatedDate(createdDate: string): UserDataBuilder {
     this.createdDate = createdDate;
+    return this;
   }
-  get LastModifiedDate(): string {
-    return this.lastModifiedDate;
-  }
-  set LastModifiedDate(lastModifiedDate: string) {
+  setLastModifiedDate(lastModifiedDate: string): UserDataBuilder {
     this.lastModifiedDate = lastModifiedDate;
+    return this;
+  }
+  build(): UserData {
+    return {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      birthDate: this.birthDate,
+      createdDate: this.createdDate,
+      lastModifiedDate: this.lastModifiedDate,
+    };
   }
 }

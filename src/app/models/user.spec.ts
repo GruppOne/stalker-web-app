@@ -1,25 +1,26 @@
-import {User} from './user';
-import {UserData} from './user-data';
+import {UserBuilder} from './user';
+import {UserDataBuilder} from './user-data';
 // import {UserData} from './user-data';
 
 describe('User', () => {
-  let user: User;
+  let userBuilder: UserBuilder;
   beforeEach(() => {
-    user = new User();
+    userBuilder = new UserBuilder('default@email', 'Default1!');
   });
   it('should create an instance', () => {
-    expect(user).toBeTruthy();
+    expect(userBuilder.build()).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
     const newMail = 'marcoverdi@gmail.com';
     const newPassword = 'NewPass';
-    const newUserData = new UserData('Marco', 'Verdi');
-    user.Mail = newMail;
-    user.Password = newPassword;
-    user.UserData = newUserData;
-    expect(user.Id).toEqual(user.Id);
-    expect(user.Mail).toEqual(newMail);
-    expect(user.Password).toEqual(newPassword);
-    expect(user.UserData).toEqual(newUserData);
+    const newUserData = new UserDataBuilder('Marco').build();
+    userBuilder.setEmail(newMail);
+    userBuilder.setPassword(newPassword);
+    userBuilder.setUserData(newUserData);
+    const user = userBuilder.build();
+    expect(user.id).toEqual(user.id);
+    expect(user.email).toEqual(newMail);
+    expect(user.password).toEqual(newPassword);
+    expect(user.userData).toEqual(newUserData);
   });
 });

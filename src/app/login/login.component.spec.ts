@@ -16,7 +16,7 @@ describe('LoginComponent', () => {
     navigate: jasmine.createSpy('navigate'),
   };
   const loginService = jasmine.createSpyObj('LoginService', ['login']);
-  const loginSpy = loginService.login.and.returnValue(
+  let loginSpy = loginService.login.and.returnValue(
     of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
   );
   beforeEach(async(() => {
@@ -46,15 +46,29 @@ describe('LoginComponent', () => {
     expect(component.validateInput('mariorossi@gmail.com', 'Casua1pass!')).toBeTrue();
   });
   it('should redirect to home page', () => {
+    loginSpy = loginService.login.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
     component.login('mariorossi@gmail.com', 'Casua1pass!');
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
     expect(loginSpy.calls.any()).toBe(true, 'login called');
   });
-  it('should not redirect to home page', () => {
+  it('should not redirect to home page in case of failed input validation', () => {
     mockRouter = {
       navigate: jasmine.createSpy('navigate'),
     };
     component.login('mariorossi', 'casualpass');
+    expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
+  });
+
+  it('should not redirect to home page in case of http errors', () => {
+    loginSpy = loginService.login.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 400})),
+    );
+    mockRouter = {
+      navigate: jasmine.createSpy('navigate'),
+    };
+    component.login('mario@rossi', 'Casua1pass!');
     expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
 });
