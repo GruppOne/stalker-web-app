@@ -3,21 +3,26 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
-import {User} from '../models/user';
+import {UserBuilder} from '../models/user';
 
-import {HttpStalkerService} from './http-stalker.service';
 import {LoginService} from './login.service';
+import {StalkerHttpClientService} from './stalker-http-client.service';
 
 describe('LoginService', () => {
   let service: LoginService;
-  const httpStalker = jasmine.createSpyObj('HttpStalkerService', ['userPost']);
-  const httpSpy = httpStalker.userPost.and.returnValue(
+  const httpStalker = jasmine.createSpyObj('StalkerHttpClientService', [
+    'post',
+    'get',
+    'put',
+    'delete',
+  ]);
+  const httpPostSpy = httpStalker.post.and.returnValue(
     of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
   );
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{provide: HttpStalkerService, useValue: httpStalker}],
+      providers: [{provide: StalkerHttpClientService, useValue: httpStalker}],
     });
     service = TestBed.inject(LoginService);
   });
@@ -26,8 +31,8 @@ describe('LoginService', () => {
     expect(service).toBeTruthy();
   });
   it('should call httpStalker service', () => {
-    service.login(new User());
-    expect(httpSpy.calls.any()).toBe(true, 'userPost called');
+    service.login(new UserBuilder('default@mail', 'Default1!').build());
+    expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
   /* it('should handle errors', () => {
     httpSpy = httpStalker.fakepost.and.returnValue(

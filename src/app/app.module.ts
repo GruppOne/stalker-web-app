@@ -12,7 +12,7 @@ import {FormEmailComponent} from './form-email/form-email.component';
 import {FormPasswordComponent} from './form-password/form-password.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import {HttpStalkerService} from './services/http-stalker.service';
+import {StalkerHttpClientService} from './services/stalker-http-client.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -37,7 +37,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {anchorScrolling: 'enabled'}),
     HttpClientModule,
   ],
-  providers: [HttpStalkerService, Title],
+  providers: [StalkerHttpClientService, Title],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
