@@ -5,7 +5,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 
-import {User} from '../models/user';
+import {User, UserBuilder} from '../models/user';
 import {LoginService} from '../services/login.service';
 
 @Component({
@@ -39,15 +39,16 @@ export class LoginComponent implements OnInit {
     if (!this.validateInput(email, password)) {
       return;
     }
-    const user = new User(email, password);
-
-    this.loginService.login(user).subscribe((response: HttpResponse<User>) => {
-      if (response && response.status === 200) {
-        this.router.navigate(['/home']);
-      } else {
-        console.log('something went wrong, try again');
-      }
-    });
+    const userBuilder = new UserBuilder(email, password);
+    this.loginService
+      .login(userBuilder.build())
+      .subscribe((response: HttpResponse<User>) => {
+        if (response && response.status === 200) {
+          this.router.navigate(['/home']);
+        } else {
+          console.log('something went wrong, try again');
+        }
+      });
   }
   public validateInput(email: string, password: string): boolean {
     const regexMail = new RegExp(
