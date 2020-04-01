@@ -5,9 +5,9 @@ export class PlaceData {
   private state: string;
 
   constructor(
-    address = 'Vicolo nero',
-    city = 'Venezia',
-    zipcode = 31044,
+    address = 'Via Trieste, 63',
+    city = 'Padova',
+    zipcode = 35131,
     state = 'Italia',
   ) {
     this.address = address;

@@ -1,12 +1,16 @@
+import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {tileLayer, polygon, latLngBounds} from 'leaflet';
+import {tileLayer, polygon, Polygon, latLngBounds} from 'leaflet';
 
+import {Organization} from '../models/organization';
+import {OrganizationService} from '../services/organization.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+  organization = new Organization();
   options = {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -16,25 +20,12 @@ export class MapComponent implements OnInit {
     ],
   };
 
-  // TODO generare i poligoni ciclando le coordinate da organization.Places ottenendo una cosa di questo tipo:
-  /* polygonLayers = [
-    polygon([
-      [46.8, -121.85],
-      [46.92, -121.92],
-      [46.87, -121.8],
-    ]),
-    polygon([
-      [46.87671540932522, -121.60162350162865],
-      [46.771473389453135, -121.68951412662865],
-      [46.78558025197221, -121.54669186100365],
-    ]),
-  ]; */
-  // questo si riferisce al [leafletLayers]="polygonLayers" nell'html
   polygonLayers = [
     polygon([
-      [8.667918002363134, -279.4306629896164],
-      [6.708253968671543, -279.5624989271164],
-      [6.970049417296232, -278.0683583021164],
+      [45.41168251127476, 11.888190865647633],
+      [45.41131722132349, 11.888432264458974],
+      [45.41121554225691, 11.888850689065293],
+      [45.41158083286581, 11.889140367638905],
     ]),
   ];
 
@@ -54,19 +45,42 @@ export class MapComponent implements OnInit {
 
   // TODO generare i poligoni ciclando le coordinate da organization.Places
   bounds = latLngBounds([
-    [8.667918002363134, -279.4306629896164],
-    [6.708253968671543, -279.5624989271164],
-    [6.970049417296232, -278.0683583021164],
+    [45.411564, 11.887473],
+    [45.411225, 11.887325],
+    [45.41111, 11.887784],
+    [45.41144, 11.88795],
+    [45.41168251127476, 11.888190865647633],
+    [45.41131722132349, 11.888432264458974],
+    [45.41121554225691, 11.888850689065293],
+    [45.41158083286581, 11.889140367638905],
   ]);
 
   // questo si riferisce al [leafletFitBounds]="fitBounds" nell'html e stabilisce che i poligoni che le passi si devono vedere, quindi dovrebbe centrarsi e zoomarsi da sola (si centra correttamente ma imposta lo zoom a 0)
   fitBounds = this.bounds;
 
-  constructor() {}
+  constructor(private organizationService: OrganizationService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getOrganization(1);
+
+    this.organization.Places.forEach((element) => {
+      if (this.polygonLayers) {
+        this.polygonLayers.push(element.Polyline);
+      }
+    });
+  }
 
   public onDrawCreated(e: any): void {
     console.log(e.layer.getLatLngs());
+  }
+
+  getOrganization(id: number): void {
+    this.organizationService
+      .getOrganizationById(id)
+      .subscribe((response: HttpResponse<Organization>) => {
+        if (response.status === 200 && response.body != null) {
+          this.organization = response.body;
+        }
+      });
   }
 }

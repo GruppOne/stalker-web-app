@@ -1,6 +1,6 @@
 import {Place} from './place';
 import {PlaceData} from './place-data';
-import {Point} from './point';
+// import {Point} from './point';
 
 describe('Place', () => {
   const place = new Place();

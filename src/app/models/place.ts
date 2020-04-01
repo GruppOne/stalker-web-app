@@ -1,15 +1,22 @@
+import {Polygon, LatLng} from 'leaflet';
+
 import {PlaceData} from './place-data';
-import {Point} from './point';
+// import {Point} from './point';
 
 export class Place {
   private id: number;
   private name: string;
-  private polyline: Point[];
+  private polyline: Polygon;
   private placeData: PlaceData;
   constructor(
     id = -1,
-    name = 'Zattere',
-    polyline = [new Point(), new Point()],
+    name = 'Torre Archimede',
+    polyline = new Polygon([
+      new LatLng(45.411564, 11.887473),
+      new LatLng(45.411225, 11.887325),
+      new LatLng(45.41111, 11.887784),
+      new LatLng(45.41144, 11.88795),
+    ]),
     placeData = new PlaceData(),
   ) {
     this.id = id;
@@ -32,10 +39,10 @@ export class Place {
     this.name = name;
   }
 
-  get Polyline(): Point[] {
+  get Polyline(): Polygon {
     return this.polyline;
   }
-  set Polyline(polyline: Point[]) {
+  set Polyline(polyline: Polygon) {
     this.polyline = polyline;
   }
   get PlaceData(): PlaceData {
