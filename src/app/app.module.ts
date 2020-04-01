@@ -6,12 +6,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
-import {ButtonConfirmComponent} from './button-confirm/button-confirm.component';
-import {CustomMaterialModule} from './core/material.module';
-import {FormEmailComponent} from './form-email/form-email.component';
-import {FormPasswordComponent} from './form-password/form-password.component';
-import {HomeComponent} from './home/home.component';
-import {LoginComponent} from './login/login.component';
+import {HomeComponent} from './components/_routes/home/home.component';
+import {LoginComponent} from './components/_routes/login/login.component';
+import {ButtonConfirmComponent} from './components/button-confirm/button-confirm.component';
+import {FormEmailComponent} from './components/form-email/form-email.component';
+import {FormPasswordComponent} from './components/form-password/form-password.component';
+import {CustomMaterialModule} from './modules/material.module';
 import {StalkerHttpClientService} from './services/stalker-http-client.service';
 
 const routes: Routes = [

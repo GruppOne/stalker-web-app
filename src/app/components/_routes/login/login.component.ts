@@ -5,8 +5,8 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 
-import {User, UserBuilder} from '../models/user';
-import {LoginService} from '../services/login.service';
+import {User, UserBuilder} from '../../../models/users/user';
+import {LoginService} from '../../../services/login.service';
 
 @Component({
   selector: 'app-login',

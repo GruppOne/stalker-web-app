@@ -2,7 +2,7 @@ import {HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 
-import {User, UserBuilder} from '../models/user';
+import {User, UserBuilder} from '../models/users/user';
 
 import {StalkerHttpClientService} from './stalker-http-client.service';
 
