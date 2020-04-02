@@ -1,6 +1,5 @@
 {
   "default": true,
-  "line-length": true,
   "MD013": {
     "line_length": 120
   }

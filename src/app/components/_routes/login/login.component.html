@@ -1,0 +1,22 @@
+<div id="landing-page">
+  <h1>Stalker</h1>
+  <mat-card class="login-form-container">
+    <mat-card-content>
+      <form
+        class="login-form centered-form"
+        [formGroup]="nestedForm"
+        (ngSubmit)="login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)"
+      >
+        <app-form-email formControlName="emailForm"></app-form-email>
+        <app-form-password formControlName="passwordForm"></app-form-password>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" type="submit" title="Login to Stalker">Login</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <a color="onPrimary" (click)="onClick('divtogo')">How does it work?</a>
+</div>
+<div id="divtogo" style="height: 500px;">
+  <app-home></app-home>
+</div>

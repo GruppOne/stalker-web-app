@@ -4,13 +4,20 @@
     "es6": true,
     "node": true
   },
+  "noInlineConfig": true,
+  "reportUnusedDisableDirectives": true,
   "overrides": [
     {
       "extends": [
         "eslint:recommended",
+        "plugin:prettier/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        // "plugin:import/errors",
+        // "plugin:import/warnings",
+        // "plugin:import/typescript",
+        "prettier/@typescript-eslint"
       ],
       "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
@@ -25,7 +32,8 @@
         "@angular-eslint",
         "import",
         "jsdoc",
-        "prefer-arrow"
+        "prefer-arrow",
+        "prettier"
       ],
       "rules": {
         "@angular-eslint/component-class-suffix": "error",
@@ -73,18 +81,18 @@
             "accessibility": "explicit"
           }
         ],
-        "@typescript-eslint/indent": [
-          "error",
-          2,
-          {
-            "FunctionDeclaration": {
-              "parameters": "first"
-            },
-            "FunctionExpression": {
-              "parameters": "first"
-            }
-          }
-        ],
+        // "@typescript-eslint/indent": [
+        //   "error",
+        //   2,
+        //   {
+        //     "FunctionDeclaration": {
+        //       "parameters": "first"
+        //     },
+        //     "FunctionExpression": {
+        //       "parameters": "first"
+        //     }
+        //   }
+        // ],
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/member-delimiter-style": [
           "error",
@@ -143,7 +151,12 @@
         "@typescript-eslint/restrict-plus-operands": "error",
         "@typescript-eslint/semi": ["error", "always"],
         "@typescript-eslint/type-annotation-spacing": "error",
-        "@typescript-eslint/unbound-method": "error",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ],
         "@typescript-eslint/unified-signatures": "error",
         "arrow-body-style": "error",
         "arrow-parens": ["off", "as-needed"],
@@ -174,8 +187,8 @@
           "undefined"
         ],
         "id-match": "error",
-        "import/no-deprecated": "error",
-        "import/order": "off",
+        "import/order": ["error", {"newlines-between": "always", "alphabetize": {"order": "asc"}}],
+        "import/newline-after-import": ["error", {"count": 1}],
         "jsdoc/no-types": "error",
         "line-comment-position": ["error", {"position": "above"}],
         "max-classes-per-file": "off",
@@ -183,7 +196,8 @@
           "error",
           {
             "code": 90,
-            "ignoreComments": true
+            "ignoreComments": true,
+            "ignorePattern": "^(?:import|export) *\\{.*?\\}"
           }
         ],
         "new-parens": "error",
@@ -222,7 +236,7 @@
         "no-fallthrough": "error",
         "no-invalid-this": "off",
         "no-inline-comments": "error",
-        "no-multiple-empty-lines": "off",
+        "no-multiple-empty-lines": ["error", {"max": 1, "maxBOF": 0, "maxEOF": 1}],
         "no-new-wrappers": "error",
         "no-restricted-imports": [
           "error",
@@ -260,6 +274,7 @@
         "one-var": ["error", "never"],
         "prefer-arrow/prefer-arrow-functions": "error",
         "prefer-const": "error",
+        "prettier/prettier": "error",
         "quote-props": ["error", "as-needed"],
         "radix": "error",
         "sort-keys": "off",
@@ -294,9 +309,9 @@
           {
             "code": 120
           }
-        ]
+        ],
+        "no-multiple-empty-lines": ["error", {"max": 1, "maxBOF": 0, "maxEOF": 1}]
       }
     }
-  ],
-  "reportUnusedDisableDirectives": true
+  ]
 }

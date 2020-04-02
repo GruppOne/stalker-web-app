@@ -1,10 +1,19 @@
 {
+  "format": ["scss", "typescript", "gherkin"],
   "gitignore": true,
-  "ignore": ["**/.git/**", "**/node_modules/**", "**/.github/**", "**/.vscode/**"],
+  "ignore": [
+    "**/.git/**",
+    "**/.github/**",
+    "**/.jscpd-report/**",
+    "**/.vscode/**",
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/*.spec.ts"
+  ],
   "min-lines": 1,
   "min-tokens": 5,
   "mode": "strict",
   "output": ".jscpd-report",
-  "reporters": ["console", "html"],
-  "threshold": 0.05
+  "reporters": ["console", "html", "time"],
+  "threshold": 5
 }

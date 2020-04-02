@@ -4,7 +4,7 @@ const emptyScope = {
 };
 
 const depsScope = {
-  name: 'deps:          a generic dependency',
+  name: '(deps)         a generic dependency',
   value: 'deps',
 };
 
@@ -80,6 +80,7 @@ module.exports = {
       // this comments forces prettier to keep the array on multiple lines
       emptyScope,
       'vscode',
+      'eslint',
     ],
   },
 

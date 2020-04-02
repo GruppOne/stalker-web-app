@@ -9,24 +9,6 @@ on:
   #     - master
 
 jobs:
-  check-format:
-    name: Check formatting
-    runs-on: ubuntu-18.04
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install dependencies if needed
-
-        run: npm ci
-
-      - name: Run Prettier
-        run: npm run --silent check-format
-
   lint:
     name: Lint
     runs-on: ubuntu-18.04
@@ -44,6 +26,7 @@ jobs:
       - name: Run ESLint
         run: npm run --silent lint
 
+  # TODO turn check on again for format "markup"
   cpd:
     name: Check duplicated code
     runs-on: ubuntu-18.04

@@ -1,1 +1,57 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$stalker-web-app-primary: mat-palette($mat-indigo);
+$stalker-web-app-accent: mat-palette($mat-blue-grey, 800);
+
+// The warn palette is optional (defaults to red).
+$stalker-web-app-warn: mat-palette($mat-red, 600);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$stalker-web-app-theme: mat-light-theme($stalker-web-app-primary, $stalker-web-app-accent, $stalker-web-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($stalker-web-app-theme);
+
 /* You can add global styles to this file, and also import other style files */
+$content-padding-side: 70px;
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: #ddd;
+}
+mat-error.mat-error {
+  padding-bottom: 5px !important;
+}
+mat-form-field {
+  margin: 5px auto;
+}
+.mat-raised-button.mat-accent {
+  width: 95%;
+}
+.mat-raised-button.mat-accent:hover {
+  background-color: #293940;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.3), 0px 2px 2px 0px rgba(0, 0, 0, 0.4),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.3);
+}

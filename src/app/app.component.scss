@@ -1,0 +1,21 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+mat-toolbar-row {
+  width: 1200px;
+  margin: auto;
+
+  > a {
+    font-weight: 300 !important;
+  }
+  > .logo {
+    font-size: 28px;
+    text-decoration: none;
+    color: #fff;
+  }
+}
