@@ -3,10 +3,10 @@ name: Dynamic analysis and testing
 # run jobs on any PRs and main branch changes
 on:
   pull_request:
-  # this isn't that useful: no way to check results easily
-  # push:
-  #   branches:
-  #     - master
+  # needs to be redone on push to master in order to update coveralls
+  push:
+    branches:
+      - master
 
 # STEPS EXPLANATIONS
 
