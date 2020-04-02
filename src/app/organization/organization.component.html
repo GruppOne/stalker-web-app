@@ -3,14 +3,7 @@
   <mat-card-subtitle>{{ organization.Description }}</mat-card-subtitle>
   <mat-list>
     <mat-divider></mat-divider>
-    <mat-list-item class="fieldName">Places:</mat-list-item>
-    <mat-list-item class="fieldData">
-      <ul>
-        <li *ngFor="let place of organization.Places">
-          {{ place.PlaceData.Address }}, {{ place.PlaceData.Zipcode }} {{ place.PlaceData.City }}
-        </li>
-      </ul>
-    </mat-list-item>
+    <div style="margin: 5px 0; text-align: left;"><app-map></app-map></div>
     <mat-divider></mat-divider>
     <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
     <mat-list-item class="fieldData">
