@@ -1,5 +1,18 @@
 import {UserData} from './user-data';
 
+// TODO user this?
+// export interface UnauthenticatedUser {
+//   readonly email: string;
+//   readonly password: string;
+// }
+
+// export interface User extends Partial<UnauthenticatedUser> {
+//   readonly email?: string;
+//   readonly password?: string;
+//   readonly id: number;
+//   readonly userData?: UserData;
+// }
+
 export interface User {
   readonly email: string;
   readonly password: string;

@@ -81,18 +81,18 @@
             "accessibility": "explicit"
           }
         ],
-        "@typescript-eslint/indent": [
-          "error",
-          2,
-          {
-            "FunctionDeclaration": {
-              "parameters": "first"
-            },
-            "FunctionExpression": {
-              "parameters": "first"
-            }
-          }
-        ],
+        // "@typescript-eslint/indent": [
+        //   "error",
+        //   2,
+        //   {
+        //     "FunctionDeclaration": {
+        //       "parameters": "first"
+        //     },
+        //     "FunctionExpression": {
+        //       "parameters": "first"
+        //     }
+        //   }
+        // ],
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/member-delimiter-style": [
           "error",

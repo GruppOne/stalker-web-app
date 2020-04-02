@@ -12,7 +12,6 @@ import {ButtonConfirmComponent} from './components/button-confirm/button-confirm
 import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
 import {CustomMaterialModule} from './modules/material.module';
-import {StalkerHttpClientService} from './services/stalker-http-client.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -37,7 +36,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {anchorScrolling: 'enabled'}),
     HttpClientModule,
   ],
-  providers: [StalkerHttpClientService, Title],
+  providers: [Title],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
