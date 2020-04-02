@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {tileLayer, polygon, Polygon, latLngBounds} from 'leaflet';
+import {tileLayer, Polygon, LatLngBounds} from 'leaflet';
 
 import {Organization} from '../models/organization';
 import {OrganizationService} from '../services/organization.service';
@@ -13,21 +13,13 @@ export class MapComponent implements OnInit {
   organization = new Organization();
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+      tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 19,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
         attribution: '...',
       }),
     ],
   };
-
-  polygonLayers = [
-    polygon([
-      [45.41168251127476, 11.888190865647633],
-      [45.41131722132349, 11.888432264458974],
-      [45.41121554225691, 11.888850689065293],
-      [45.41158083286581, 11.889140367638905],
-    ]),
-  ];
 
   drawOptions = {
     position: 'topright',
@@ -43,19 +35,12 @@ export class MapComponent implements OnInit {
     },
   };
 
-  // TODO generare i poligoni ciclando le coordinate da organization.Places
-  bounds = latLngBounds([
-    [45.411564, 11.887473],
-    [45.411225, 11.887325],
-    [45.41111, 11.887784],
-    [45.41144, 11.88795],
-    [45.41168251127476, 11.888190865647633],
-    [45.41131722132349, 11.888432264458974],
-    [45.41121554225691, 11.888850689065293],
-    [45.41158083286581, 11.889140367638905],
-  ]);
+  // empty arrays that will be populated with the data of the organizations
+  // @polygonLayers used to show the perimeter of buildings
+  polygonLayers: Polygon[] = [];
 
-  // questo si riferisce al [leafletFitBounds]="fitBounds" nell'html e stabilisce che i poligoni che le passi si devono vedere, quindi dovrebbe centrarsi e zoomarsi da sola (si centra correttamente ma imposta lo zoom a 0)
+  // @bounds used to center the map on buildings
+  bounds: LatLngBounds[] = [];
   fitBounds = this.bounds;
 
   constructor(private organizationService: OrganizationService) {}
@@ -64,9 +49,21 @@ export class MapComponent implements OnInit {
     this.getOrganization(1);
 
     this.organization.Places.forEach((element) => {
-      if (this.polygonLayers) {
-        this.polygonLayers.push(element.Polyline);
-      }
+      this.polygonLayers.push(
+        element.Polyline.bindTooltip(
+          '<strong>' +
+            element.Name +
+            '</strong><br>' +
+            element.PlaceData.Address +
+            ' - ' +
+            element.PlaceData.Zipcode +
+            ' ' +
+            element.PlaceData.City,
+        ).setStyle({
+          color: this.getRandomColor(),
+        }),
+      );
+      this.bounds.push(element.Polyline.getBounds());
     });
   }
 
@@ -82,5 +79,14 @@ export class MapComponent implements OnInit {
           this.organization = response.body;
         }
       });
+  }
+  // generates random hex colors
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 }
