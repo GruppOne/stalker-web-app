@@ -1,4 +1,4 @@
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
@@ -6,43 +6,58 @@ import {of} from 'rxjs';
 import {UserBuilder} from '../models/users/user';
 
 import {LoginService} from './login.service';
-import {StalkerHttpClientService} from './stalker-http-client.service';
 
 describe('LoginService', () => {
-  let service: LoginService;
-  const httpStalker = jasmine.createSpyObj('StalkerHttpClientService', [
+  const httpClient = jasmine.createSpyObj('HttpClient', [
     'post',
-    'get',
-    'put',
-    'delete',
+    // 'get',
+    // 'put',
+    // 'delete',
   ]);
-  const httpPostSpy = httpStalker.post.and.returnValue(
-    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
-  );
+  let mockHttpClient: HttpClient;
+
+  let sut: LoginService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{provide: StalkerHttpClientService, useValue: httpStalker}],
+      providers: [{provide: HttpClient, useValue: httpClient}],
     });
-    service = TestBed.inject(LoginService);
+    mockHttpClient = TestBed.inject(HttpClient);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    sut = new LoginService(httpClient);
+
+    expect(sut).toBeTruthy();
   });
-  it('should call httpStalker service', () => {
-    service.login(new UserBuilder('default@mail', 'Default1!').build());
+
+  it('should call the login post', () => {
+    const httpPostSpy = httpClient.post.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+
+    sut = new LoginService(mockHttpClient);
+    // TODO should use a mock for this
+    const user = new UserBuilder('default@mail', 'Default1!').build();
+
+    sut.login(user);
+
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
-  /* it('should handle errors', () => {
-    httpSpy = httpStalker.fakepost.and.returnValue(
-      of(new HttpErrorResponse({error: null})),
+
+  it('should call the login post with additional headers', () => {
+    const httpPostSpy = httpClient.post.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
-    const errorspy = jasmine.createSpy('handleError');
-    service.login(new User());
-    expect(errorspy.calls.any()).toBeTrue();
-     expect(service.login(new User()).subscribe()).toEqual(
-      new HttpResponse({body: null, headers: new HttpHeaders(), status: 400}),
-    );
-  }); */
+
+    sut = new LoginService(mockHttpClient);
+    // TODO should use a mock for this
+    const user = new UserBuilder('default@mail', 'Default1!').build();
+    const headers = new HttpHeaders({key: 'value'});
+
+    sut.loginWithAdditionalHeader(user, headers);
+
+    expect(httpPostSpy.calls.any()).toBe(true, 'post called');
+  });
 });

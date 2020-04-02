@@ -4,7 +4,7 @@ const emptyScope = {
 };
 
 const depsScope = {
-  name: 'deps:          a generic dependency',
+  name: '(deps)         a generic dependency',
   value: 'deps',
 };
 
