@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/GruppOne/stalker-web-app/compare/v0.2.0...v0.3.0) (2020-04-02)
+
+
+### Features
+
+* add basic element in the home view ([da08f37](https://github.com/GruppOne/stalker-web-app/commit/da08f37e8a2fa331a487f5d85219b1b146466dee))
+
+
+### Documentation
+
+* update release instructions ([1155374](https://github.com/GruppOne/stalker-web-app/commit/1155374e233957f2efb5cee143205fab4a7dc7ff))
+
 ## [0.2.0](https://github.com/GruppOne/stalker-web-app/compare/v0.1.2...v0.2.0) (2020-04-02)
 
 
