@@ -13,7 +13,7 @@ describe('User', () => {
   it('should set and get fields correctly', () => {
     const newMail = 'marcoverdi@gmail.com';
     const newPassword = 'NewPass';
-    const newUserData = new UserDataBuilder('Marco').build();
+    const newUserData = new UserDataBuilder().setFirstName('Marco').build();
     userBuilder.setEmail(newMail);
     userBuilder.setPassword(newPassword);
     userBuilder.setUserData(newUserData);

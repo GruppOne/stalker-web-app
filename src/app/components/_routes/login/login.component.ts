@@ -58,10 +58,7 @@ export class LoginComponent implements OnInit {
       // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
       '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
     );
-    if (!regexMail.test(email) || !regexPwd.test(password)) {
-      return false;
-    } else {
-      return true;
-    }
+
+    return regexMail.test(email) && regexPwd.test(password);
   }
 }

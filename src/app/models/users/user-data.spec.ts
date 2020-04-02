@@ -3,7 +3,7 @@ import {UserDataBuilder} from './user-data';
 describe('UserData', () => {
   let userDataBuilder: UserDataBuilder;
   beforeEach(() => {
-    userDataBuilder = new UserDataBuilder('Mario');
+    userDataBuilder = new UserDataBuilder();
   });
   it('should create an instance', () => {
     expect(userDataBuilder.build()).toBeTruthy();

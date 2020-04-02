@@ -1,5 +1,5 @@
 export interface UserData {
-  readonly firstName: string;
+  readonly firstName?: string;
   readonly lastName?: string;
   readonly birthDate?: string;
   readonly createdDate?: string;
@@ -8,13 +8,12 @@ export interface UserData {
 }
 
 export class UserDataBuilder {
+  private firstName?: string;
   private lastName?: string;
   private birthDate?: string;
-  // To Do: find a type to interact with DateTime in API
+  // TODO find a type to interact with DateTime in API
   private createdDate?: string;
   private lastModifiedDate?: string;
-
-  constructor(private firstName: string) {}
 
   setFirstName(firstName: string): UserDataBuilder {
     this.firstName = firstName;
