@@ -3,7 +3,7 @@ import {UserData} from './user-data';
 export interface User {
   readonly email: string;
   readonly password: string;
-  // TO DO: find a way to use unsigned int numbers
+  // TODO find a way to use unsigned int numbers
   readonly id?: number;
   readonly userData?: UserData;
 }

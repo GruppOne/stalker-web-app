@@ -188,6 +188,7 @@
         ],
         "id-match": "error",
         "import/order": ["error", {"newlines-between": "always", "alphabetize": {"order": "asc"}}],
+        "import/newline-after-import": ["error", {"count": 1}],
         "jsdoc/no-types": "error",
         "line-comment-position": ["error", {"position": "above"}],
         "max-classes-per-file": "off",

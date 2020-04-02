@@ -10,6 +10,7 @@ export abstract class BaseStalkerHttpClient {
 
   constructor(public httpClient: HttpClient) {}
 
+  // FIXME this resets the headers, losing the previous ones!
   post<T>(path: string, body: T, headers?: HttpHeaders): Observable<HttpResponse<T>> {
     if (headers) {
       this.httpOptions.headers = headers;
