@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/GruppOne/stalker-web-app/compare/v0.1.2...v0.2.0) (2020-04-02)
+
+
+### Features
+
+* add button confirm component ([0a488c3](https://github.com/GruppOne/stalker-web-app/commit/0a488c308d2282f97edf1afc74a44d8cb70f6330))
+* add class UserData and improve class User ([2f3206f](https://github.com/GruppOne/stalker-web-app/commit/2f3206f31b9522c2693ff3b21240db4b7482f43f))
+* add client side input validation to login form ([d33327c](https://github.com/GruppOne/stalker-web-app/commit/d33327cd52af5dd421449ce00b25695891443894))
+* add in construsctor declaration in user and userdata classes ([e5bd704](https://github.com/GruppOne/stalker-web-app/commit/e5bd704033a17fe50e6f98413c9f5bbd43911d6d))
+* add services to login component and classes for api requests ([dddb5ed](https://github.com/GruppOne/stalker-web-app/commit/dddb5eddacfaea3956f4960a68631566c5b3b6b5))
+* add stalker.service and remove class https-talker ([ae187a6](https://github.com/GruppOne/stalker-web-app/commit/ae187a6eb6f8d5dfd2bf7dfc8e867a9f899bb107))
+* complete login functionality and improve http calls decorator ([f43cb04](https://github.com/GruppOne/stalker-web-app/commit/f43cb049a8dd006aa5e5ae2475330ef154a05c21))
+* design login page ([ae84102](https://github.com/GruppOne/stalker-web-app/commit/ae841027a11dc1142784ec0a3a13718b6bf85895))
+* implement UserData class ([7c500cf](https://github.com/GruppOne/stalker-web-app/commit/7c500cfba407db202bfc36cf1fcae1e7e03724ba))
+* start design login page ([d5c75ed](https://github.com/GruppOne/stalker-web-app/commit/d5c75ed9f00ed8331dd44cb6822d3b17e3207b16))
+
+
+### Bug Fixes
+
+* change login button with button-confirm component ([2cf7553](https://github.com/GruppOne/stalker-web-app/commit/2cf755330613f2f3077bce220a875b68bb13f37f))
+* change title from specific to general ([7545cbb](https://github.com/GruppOne/stalker-web-app/commit/7545cbbfa5511daff2c765006bd05019674a0dd2))
+* fix comments of reviewers on this pr ([36cd226](https://github.com/GruppOne/stalker-web-app/commit/36cd22617857824896e5feb35173955172eca6ea))
+* fix some errors from the review ([72848c8](https://github.com/GruppOne/stalker-web-app/commit/72848c88978460afd902a92ee149532cb2a9d48d))
+* fix type any warning in all files ([c71782a](https://github.com/GruppOne/stalker-web-app/commit/c71782a5120888ef5b3e9663b93a51c276dac6f9))
+* fix UserData constructor ([69ed257](https://github.com/GruppOne/stalker-web-app/commit/69ed257213b5df0c58590dcb8f0a5dd375e77b1f))
+* invert test text ([fb61bd0](https://github.com/GruppOne/stalker-web-app/commit/fb61bd02254489cd9727c909648fcda5f37f90eb))
+* try to resolve typing errors ([c29d286](https://github.com/GruppOne/stalker-web-app/commit/c29d286b8c8443ffd194f4694c79c60a367a5634))
+* use get and set keyword ([2e1e59e](https://github.com/GruppOne/stalker-web-app/commit/2e1e59eb96135d196bae7d65ebd718db04ae59d6))
+
+
+### Configuration
+
+* **eslint:** ignore long imports ([e8a7cd4](https://github.com/GruppOne/stalker-web-app/commit/e8a7cd4b88e780512fb826affc183540d90858a2))
+* **npm:** fix package-lock out of sync ([ee1a9d2](https://github.com/GruppOne/stalker-web-app/commit/ee1a9d206227e813cc1e87a3785d58d4e5c00fde))
+* configure prettier to work from eslint instead of separately ([056ec80](https://github.com/GruppOne/stalker-web-app/commit/056ec80ac5ed6fe94464f7c48d8353dad688771d))
+* **deps:** add plugins to configure prettier and eslint ([92f517b](https://github.com/GruppOne/stalker-web-app/commit/92f517b437a135dc1c53f7cf987e164153f7bbdf))
+* **deps:** update dependencies ([b953f42](https://github.com/GruppOne/stalker-web-app/commit/b953f4201377d99414d2968ba437aa8dfbfbb50c))
+* **ng:** add angular material using ng ([e9549b8](https://github.com/GruppOne/stalker-web-app/commit/e9549b86364da9844e30776cc0b5427010db13c9))
+* **npm:** update and fix dependencies ([f0cc808](https://github.com/GruppOne/stalker-web-app/commit/f0cc8083d8ba0812f8656e51e7628b2a3921b926))
+* change server address in environment.ts ([b56b5de](https://github.com/GruppOne/stalker-web-app/commit/b56b5dec5fb0052aa1ed76631839dba749a6a841))
+* fine-tune eslint and add another extension ([ece903f](https://github.com/GruppOne/stalker-web-app/commit/ece903f44a63b95854e0e8b7f6bc5e643000433e))
+* update some lint rules and fix environment base path ([6503ba8](https://github.com/GruppOne/stalker-web-app/commit/6503ba8462d14df3292393bafaaac4a11b7b469c))
+* **npm:** fix package-lock.json out of sync ([09da861](https://github.com/GruppOne/stalker-web-app/commit/09da861d96f0395a0811c82ed72e608b8a9a3b9e))
+
 ### [0.1.2](https://github.com/GruppOne/stalker-web-app/compare/v0.1.1...v0.1.2) (2020-03-29)
 
 
