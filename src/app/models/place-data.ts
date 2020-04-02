@@ -1,13 +1,13 @@
 export class PlaceData {
   private address: string;
   private city: string;
-  private zipcode: number;
+  private zipcode: string;
   private state: string;
 
   constructor(
     address = 'Via Trieste, 63',
     city = 'Padova',
-    zipcode = 35131,
+    zipcode = '35131',
     state = 'Italia',
   ) {
     this.address = address;
@@ -30,10 +30,10 @@ export class PlaceData {
     this.city = city;
   }
 
-  get Zipcode(): number {
+  get Zipcode(): string {
     return this.zipcode;
   }
-  set Zipcode(zipcode: number) {
+  set Zipcode(zipcode: string) {
     this.zipcode = zipcode;
   }
 
