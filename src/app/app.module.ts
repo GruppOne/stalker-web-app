@@ -16,9 +16,9 @@ import {CustomMaterialModule} from './modules/material.module';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, data: {title: 'Stalker - Login'}},
-  {path: 'home', component: HomeComponent, data: {title: 'Stalker - Home'}},
-  {path: 'profile', component: ProfileComponent, data: {title: 'Stalker - Profile'}},
+  {path: 'login', component: LoginComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'profile', component: ProfileComponent},
 ];
 
 @NgModule({
