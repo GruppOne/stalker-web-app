@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/GruppOne/stalker-web-app/compare/v0.3.0...v0.4.0) (2020-04-03)
+
+
+### Features
+
+* add profile component and service, add getUserById functionality ([da11ffe](https://github.com/GruppOne/stalker-web-app/commit/da11ffe6dd380ec1818b3d4ac81aa10367dedd61))
+
+
+### Bug Fixes
+
+* fix comments from reviewer ([e623ea6](https://github.com/GruppOne/stalker-web-app/commit/e623ea6d2bb92110d400a0f66d66401759006021))
+* fix folder structure and linting errors ([d5e5434](https://github.com/GruppOne/stalker-web-app/commit/d5e543494673c2524fb40ba6de09b86c9ce2bdc0))
+* fix imports and tests in profile page, add routing to profile ([2f4bbe3](https://github.com/GruppOne/stalker-web-app/commit/2f4bbe3d2246ef57a4b49ea4da0394a78d872543))
+* fix linting error and add profile folder to components/routes ([13bbabc](https://github.com/GruppOne/stalker-web-app/commit/13bbabcac585d70772e5bc5e259e07f25b18e4d7))
+
 ## [0.3.0](https://github.com/GruppOne/stalker-web-app/compare/v0.2.0...v0.3.0) (2020-04-02)
 
 
