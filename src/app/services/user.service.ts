@@ -1,36 +1,25 @@
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {HttpResponse, HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
-import {StalkerHttpClientDecorator} from '../models/stalker-http-client-decorator';
 import {User} from '../models/users/user';
-
-import {StalkerHttpClientService} from './stalker-http-client.service';
+import {StalkerEndpoint} from '../services/stalker-endpoint';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends StalkerHttpClientDecorator {
-  userUrl = '/user';
-  handler: (
-    err: HttpErrorResponse,
-    caught: Observable<HttpResponse<User>>,
-  ) => Observable<HttpResponse<User>> = this.handleError<HttpResponse<User>>();
-  constructor(private httpStalkerService: StalkerHttpClientService) {
-    super(httpStalkerService);
+export class UserService {
+  private stalkerEndpoint: StalkerEndpoint;
+  constructor(private httpClient: HttpClient) {
+    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/user');
+  }
+
+  buildStalkerEndpoint(path: string): void {
+    this.stalkerEndpoint = new StalkerEndpoint(this.httpClient, path);
   }
 
   getUserById(id: number): Observable<HttpResponse<User>> {
-    return this.httpStalkerService
-      .get<User>(this.userUrl + '/' + id.toString())
-      .pipe(catchError(this.handler));
-  }
-
-  handleError<T>(result?: T) {
-    return (error: HttpErrorResponse): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+    this.buildStalkerEndpoint('/user/' + id.toString());
+    return this.stalkerEndpoint.get<User>();
   }
 }

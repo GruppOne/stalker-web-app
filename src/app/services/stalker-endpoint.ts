@@ -28,12 +28,12 @@ export class StalkerEndpoint {
   }
 
   // TODO implement all verbs
-  // get<T>(additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
-  //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-  //   const errorHandler = this.handleError<HttpResponse<T>>();
+  get<T>(additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+    const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
+    const errorHandler = this.handleError<HttpResponse<T>>();
 
-  //   return this.httpClient.get<T>(this.url, httpOptions).pipe(catchError(errorHandler));
-  // }
+    return this.httpClient.get<T>(this.url, httpOptions).pipe(catchError(errorHandler));
+  }
 
   // TODO refactor to reduce duplication
   post<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {

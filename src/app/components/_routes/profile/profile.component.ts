@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
     this.getUser(1);
   }
   getUser(id: number): void {
-    console.log('calling');
     this.userService.getUserById(id).subscribe((response: HttpResponse<User>) => {
       if (response && response.status === 200 && response.body != null) {
         this.userBuilder = new UserBuilder(response.body.email, response.body.password)
@@ -32,6 +31,5 @@ export class ProfileComponent implements OnInit {
         this.fetched = true;
       }
     });
-    console.log('called');
   }
 }
