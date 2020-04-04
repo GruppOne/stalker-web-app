@@ -1,8 +1,8 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 
-import {Organization} from '../models/organization';
-import {OrganizationService} from '../services/organization.service';
+import {Organization} from '../../../models/organization';
+import {OrganizationService} from '../../../services/organization.service';
 
 @Component({
   selector: 'app-organization',
@@ -10,7 +10,7 @@ import {OrganizationService} from '../services/organization.service';
   styleUrls: ['./organization.component.scss'],
 })
 export class OrganizationComponent implements OnInit {
-  organization = new Organization();
+  organization?: Organization;
 
   constructor(private organizationService: OrganizationService) {}
 

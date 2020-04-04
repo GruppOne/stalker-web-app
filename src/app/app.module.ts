@@ -8,17 +8,16 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 
 import {AppComponent} from './app.component';
+import {EditOrganizationComponent} from './components/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './components/_routes/home/home.component';
 import {LoginComponent} from './components/_routes/login/login.component';
+import {OrganizationComponent} from './components/_routes/organization/organization.component';
 import {ProfileComponent} from './components/_routes/profile/profile.component';
 import {ButtonConfirmComponent} from './components/button-confirm/button-confirm.component';
 import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
-import {EditOrganizationComponent} from './edit-organization/edit-organization.component';
-import {MapComponent} from './map/map.component';
+import {MapComponent} from './components/map/map.component';
 import {CustomMaterialModule} from './modules/material.module';
-import {OrganizationComponent} from './organization/organization.component';
-import {PlaceComponent} from './place/place.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -29,7 +28,6 @@ const routes: Routes = [
     path: 'organization',
     component: OrganizationComponent,
   },
-  {path: 'place', component: PlaceComponent},
   {
     path: 'edit-organization',
     component: EditOrganizationComponent,
@@ -46,7 +44,6 @@ const routes: Routes = [
     ButtonConfirmComponent,
     ProfileComponent,
     OrganizationComponent,
-    PlaceComponent,
     EditOrganizationComponent,
     MapComponent,
   ],

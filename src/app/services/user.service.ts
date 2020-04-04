@@ -10,16 +10,12 @@ import {StalkerEndpoint} from '../services/stalker-endpoint';
 })
 export class UserService {
   private stalkerEndpoint: StalkerEndpoint;
-  constructor(private httpClient: HttpClient) {
+  constructor(httpClient: HttpClient) {
     this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/user');
   }
 
-  buildStalkerEndpoint(path: string): void {
-    this.stalkerEndpoint = new StalkerEndpoint(this.httpClient, path);
-  }
-
   getUserById(id: number): Observable<HttpResponse<User>> {
-    this.buildStalkerEndpoint('/user/' + id.toString());
+    this.stalkerEndpoint.setPath('/user/' + id.toString());
     return this.stalkerEndpoint.get<User>();
   }
 }

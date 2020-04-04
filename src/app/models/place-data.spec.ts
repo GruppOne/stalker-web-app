@@ -1,22 +1,23 @@
-import {PlaceData} from './place-data';
+import {PlaceDataBuilder} from './place-data';
 
 describe('PlaceData', () => {
-  const placeData = new PlaceData();
+  const placeDataBuilder = new PlaceDataBuilder('Via Trieste', 'Padova', 35010, 'Italia');
   it('should create an instance', () => {
-    expect(new PlaceData()).toBeTruthy();
+    expect(placeDataBuilder.build()).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
     const newAddress = 'Main Street';
     const newCity = 'Las Vegas';
     const newZipcode = 12120;
     const newState = 'USA';
-    placeData.Address = newAddress;
-    placeData.City = newCity;
-    placeData.Zipcode = newZipcode;
-    placeData.State = newState;
-    expect(placeData.Address).toEqual(newAddress);
-    expect(placeData.City).toEqual(newCity);
-    expect(placeData.Zipcode).toEqual(newZipcode);
-    expect(placeData.State).toEqual(newState);
+    placeDataBuilder.setAddress(newAddress);
+    placeDataBuilder.setCity(newCity);
+    placeDataBuilder.setZipcode(newZipcode);
+    placeDataBuilder.setState(newState);
+    const placeData = placeDataBuilder.build();
+    expect(placeData.address).toEqual(newAddress);
+    expect(placeData.city).toEqual(newCity);
+    expect(placeData.zipcode).toEqual(newZipcode);
+    expect(placeData.state).toEqual(newState);
   });
 });

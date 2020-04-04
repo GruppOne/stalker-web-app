@@ -1,16 +1,19 @@
-import {HttpResponse, HttpClient} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {tileLayer, Polygon, LatLngBounds, LatLng} from 'leaflet';
+import {tileLayer, Polygon, LatLngBounds, LatLng, latLng} from 'leaflet';
+import {PlaceService, Geocoding} from 'src/app/services/place.service';
 
-import {Organization} from '../models/organization';
-import {OrganizationService} from '../services/organization.service';
+import {Organization, OrganizationBuilder} from '../../models/organization';
+import {OrganizationService} from '../../services/organization.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  organization = new Organization();
+  organization?: Organization;
+  organizationBuilder?: OrganizationBuilder;
   options = {
     layers: [
       tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
@@ -51,56 +54,53 @@ export class MapComponent implements OnInit {
   fitBounds = this.bounds;
 
   constructor(
+    private placeService: PlaceService,
     private organizationService: OrganizationService,
-    private http: HttpClient,
   ) {}
 
   ngOnInit(): void {
     this.getOrganization(1);
-
-    this.organization.Places.forEach((element) => {
-      this.polygonLayers.push(
-        element.Polyline.bindTooltip(
-          '<strong>' +
-            element.Name +
-            '</strong><br>' +
-            element.PlaceData.Address +
-            ' - ' +
-            element.PlaceData.Zipcode +
-            ' ' +
-            element.PlaceData.City,
-        ).setStyle({
-          color: this.getRandomColor(),
-        }),
-      );
-      this.bounds.push(element.Polyline.getBounds());
+    this.organization?.places?.forEach((element) => {
+      if (element.name && element.placeData) {
+        this.polygonLayers.push(
+          element.polyline
+            .bindTooltip(
+              '<strong>' +
+                element.name.toString() +
+                '</strong><br>' +
+                element.placeData?.address.toString() +
+                ' - ' +
+                element.placeData?.zipcode.toString() +
+                ' ' +
+                element.placeData.city,
+            )
+            .setStyle({
+              color: this.getRandomColor(),
+            }),
+        );
+        this.bounds.push(element.polyline.getBounds());
+      }
     });
   }
 
-  public onDrawCreated(e: any): void {
+  public onDrawCreated(e: {layer: Polygon}): void {
     const a = e.layer.getLatLngs();
-    console.log(a[0]);
-    this.http
-      .get<any>(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${
-          this.getCentroid(a[0]).lat
-        }&lon=${this.getCentroid(a[0]).lng}`,
-      )
-      .subscribe((data) => {
-        console.log(data);
-        console.log(`possible name: ${data.address.building}`);
-        console.log(`address: ${data.address.road}`);
-        console.log(`city: ${data.address.city}`);
-        console.log(`zipcode: ${data.address.postcode}`);
-        console.log(`state: ${data.address.country}`);
-      });
+    const l = latLng(this.getCentroid(a[0] as LatLng[]));
+    this.placeService.reverseGeocoding(l.lat, l.lng).subscribe((data: Geocoding) => {
+      console.log(data);
+      console.log(`possible name: ${data.address.building}`);
+      console.log(`address: ${data.address.road}`);
+      console.log(`city: ${data.address.city}`);
+      console.log(`zipcode: ${data.address.postcode}`);
+      console.log(`state: ${data.address.country}`);
+    });
   }
 
   getOrganization(id: number): void {
     this.organizationService
       .getOrganizationById(id)
       .subscribe((response: HttpResponse<Organization>) => {
-        if (response.status === 200 && response.body != null) {
+        if (response && response.status === 200 && response.body != null) {
           this.organization = response.body;
         }
       });
