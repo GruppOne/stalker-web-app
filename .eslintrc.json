@@ -138,6 +138,9 @@
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/prefer-includes": "error",
         "@typescript-eslint/prefer-namespace-keyword": "error",
+        "@typescript-eslint/prefer-readonly": "error",
+        // TODO uncomment when we're relaxed
+        // "@typescript-eslint/prefer-readonly-parameter-types": ["error", {"checkParameterProperties": false}],
         "@typescript-eslint/prefer-string-starts-ends-with": "error",
         "@typescript-eslint/promise-function-async": "error",
         "@typescript-eslint/quotes": [
@@ -200,6 +203,10 @@
             "ignorePattern": "^(?:import|export) *\\{.*?\\}"
           }
         ],
+        // TODO lower max params to 3
+        "max-params": ["error", {"max": 3}],
+        "max-lines": ["error", {"skipBlankLines": true}],
+        "max-nested-callbacks": ["error", {"max": 3}],
         "new-parens": "error",
         "no-bitwise": "error",
         "no-caller": "error",

@@ -12,6 +12,7 @@ export class PlaceDataBuilder {
     private zipcode: number,
     private state: string,
   ) {}
+  // TODO should use a different word because "set" is the one used in setters.
   setAddress(address: string): PlaceDataBuilder {
     this.address = address;
     return this;
