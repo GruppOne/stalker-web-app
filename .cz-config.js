@@ -8,6 +8,11 @@ const depsScope = {
   value: 'deps',
 };
 
+const docsScope = {
+  name: '(docs)         Something related to documentation',
+  value: 'docs',
+};
+
 module.exports = {
   types: [
     {
@@ -82,6 +87,7 @@ module.exports = {
       'vscode',
       'eslint',
       'stylelint',
+      docsScope,
     ],
     feat: [
       // this comments forces prettier to keep the array on multiple lines
