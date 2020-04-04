@@ -163,7 +163,7 @@
         "@typescript-eslint/unified-signatures": "error",
         "arrow-body-style": "error",
         "arrow-parens": ["off", "as-needed"],
-        "camelcase": "error",
+        // "camelcase": "error",
         "comma-dangle": ["error", "always-multiline"],
         "complexity": [
           "error",
