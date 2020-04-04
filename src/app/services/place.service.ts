@@ -3,12 +3,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 export interface Geocoding {
+  display_name: string;
   address: {
-    building: string;
-    road: string;
     city: string;
-    postcode: string;
     country: string;
+    postcode: string;
+    road: string;
   };
 }
 
