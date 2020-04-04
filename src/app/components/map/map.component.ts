@@ -38,6 +38,11 @@ export class MapComponent implements OnInit {
       rectangle: false,
       circlemarker: false,
     },
+    edit: {
+      poly: {
+        allowIntersection: false,
+      },
+    },
   };
 
   // empty arrays that will be populated with the data of the organizations
@@ -64,7 +69,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.getOrganization(1);
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('name', true)
+      this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([
           new PlaceBuilder(
             new Polygon([
@@ -77,7 +82,7 @@ export class MapComponent implements OnInit {
             .addPlaceData(
               new PlaceDataBuilder('Via Trieste', 'Padova', 35031, 'Italia').build(),
             )
-            .addName('nome')
+            .addName('Torre Archimede')
             .build(),
         ])
         .addDescription('lore ipsum...')
@@ -113,6 +118,7 @@ export class MapComponent implements OnInit {
   }
 
   // public onDrawCreated(e: { layer: Polygon }): void {
+  // public onDrawCreated(e: DrawEvents.Created): void {
   public onDrawCreated(e: any): void {
     const a = e.layer.getLatLngs();
     const l = latLng(this.getCentroid(a[0] as LatLng[]));
@@ -123,12 +129,15 @@ export class MapComponent implements OnInit {
     this.placeService.reverseGeocoding(l.lat, l.lng).subscribe((data: Geocoding) => {
       console.log(a);
       console.log(data);
-      console.log(
-        `possible name: ${data.display_name.substring(
-          0,
-          data.display_name.indexOf(','),
-        )}`,
-      );
+      let name = data.display_name.substring(0, data.display_name.indexOf(','));
+      if (
+        // name starts with 'Via' or contains only numbers
+        name.startsWith('Via') ||
+        Number(data.display_name.substring(0, data.display_name.indexOf(',')))
+      ) {
+        name = '';
+      }
+      console.log(`possible name: ${name}`);
       console.log(`address: ${data.address.road}`);
       console.log(`city: ${data.address.city}`);
       console.log(`zipcode: ${data.address.postcode}`);
