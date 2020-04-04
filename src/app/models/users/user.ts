@@ -27,19 +27,19 @@ export class UserBuilder {
 
   constructor(private email: string, private password: string) {}
 
-  setEmail(email: string): UserBuilder {
+  addEmail(email: string): UserBuilder {
     this.email = email;
     return this;
   }
-  setPassword(password: string): UserBuilder {
+  addPassword(password: string): UserBuilder {
     this.password = password;
     return this;
   }
-  setId(id: number): UserBuilder {
+  addId(id: number): UserBuilder {
     this.id = id;
     return this;
   }
-  setUserData(userData: UserData): UserBuilder {
+  addUserData(userData: UserData): UserBuilder {
     this.userData = userData;
     return this;
   }

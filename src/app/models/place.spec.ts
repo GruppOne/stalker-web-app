@@ -19,10 +19,10 @@ describe('Place', () => {
       35010,
       'Italia',
     ).build();
-    placeBuilder.setId(newId);
-    placeBuilder.setName(newName);
-    placeBuilder.setPolyline(newPolyline);
-    placeBuilder.setPlaceData(newPlaceData);
+    placeBuilder.addId(newId);
+    placeBuilder.addName(newName);
+    placeBuilder.addPolyline(newPolyline);
+    placeBuilder.addPlaceData(newPlaceData);
     const place = placeBuilder.build();
     expect(place.id).toEqual(newId);
     expect(place.name).toEqual(newName);
