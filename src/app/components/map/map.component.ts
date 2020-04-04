@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {tileLayer, Polygon, LatLngBounds, LatLng, latLng} from 'leaflet';
+import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, GeometryUtil} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
 import {PlaceBuilder} from 'src/app/models/place';
 import {PlaceDataBuilder} from 'src/app/models/place-data';
@@ -112,12 +112,23 @@ export class MapComponent implements OnInit {
     });
   }
 
-  public onDrawCreated(e: {layer: Polygon}): void {
+  // public onDrawCreated(e: { layer: Polygon }): void {
+  public onDrawCreated(e: any): void {
     const a = e.layer.getLatLngs();
     const l = latLng(this.getCentroid(a[0] as LatLng[]));
+    const area = GeometryUtil.geodesicArea(a[0]);
+    let seeArea = '';
+    seeArea = GeometryUtil.readableArea(area, true);
+    console.log(`area: ${seeArea}`);
     this.placeService.reverseGeocoding(l.lat, l.lng).subscribe((data: Geocoding) => {
+      console.log(a);
       console.log(data);
-      console.log(`possible name: ${data.address.building}`);
+      console.log(
+        `possible name: ${data.display_name.substring(
+          0,
+          data.display_name.indexOf(','),
+        )}`,
+      );
       console.log(`address: ${data.address.road}`);
       console.log(`city: ${data.address.city}`);
       console.log(`zipcode: ${data.address.postcode}`);
