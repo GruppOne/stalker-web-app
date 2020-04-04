@@ -18,7 +18,7 @@ export interface Geocoding {
 export class PlaceService {
   // private stalkerEndpoint: StalkerEndpoint;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private readonly httpClient: HttpClient) {
     // this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/place');
   }
 

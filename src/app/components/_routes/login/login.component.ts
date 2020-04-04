@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private loginService: LoginService,
-    private router: Router,
-    private titleService: Title,
-    private viewportScroller: ViewportScroller,
+    private readonly loginService: LoginService,
+    private readonly router: Router,
+    private readonly titleService: Title,
+    private readonly viewportScroller: ViewportScroller,
   ) {}
 
   ngOnInit(): void {

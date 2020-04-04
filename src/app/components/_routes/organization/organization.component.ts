@@ -12,7 +12,7 @@ import {OrganizationService} from '../../../services/organization.service';
 export class OrganizationComponent implements OnInit {
   organization?: Organization;
 
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private readonly organizationService: OrganizationService) {}
 
   ngOnInit(): void {
     this.getOrganization(1);
