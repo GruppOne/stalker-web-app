@@ -1,8 +1,11 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Polygon, LatLng} from 'leaflet';
+import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
+import {PlaceBuilder} from 'src/app/models/place';
 
-import {Organization} from '../../../models/organization';
+import {Organization, OrganizationBuilder} from '../../../models/organization';
 import {OrganizationService} from '../../../services/organization.service';
 
 @Component({
@@ -26,6 +29,27 @@ export class EditOrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrganizationById(1);
+    if (!this.organization) {
+      this.organization = new OrganizationBuilder('name', true)
+        .addPlaces([
+          new PlaceBuilder(
+            new Polygon([
+              new LatLng(45.411564, 11.887473),
+              new LatLng(45.411225, 11.887325),
+              new LatLng(45.41111, 11.887784),
+              new LatLng(45.41144, 11.88795),
+            ]),
+          ).build(),
+        ])
+        .setDescription('lore ipsum...')
+        .setldapConfiguration(
+          new LdapConfigurationBuilder('127.0.0.1')
+            .setUsername('mario')
+            .setPassword('pass')
+            .build(),
+        )
+        .build();
+    }
     if (this.organization) {
       this.firstFormGroup = this.formBuilder.group({
         orgNameCtrl: [this.organization?.name, Validators.required],
