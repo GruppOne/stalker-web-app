@@ -43,7 +43,7 @@ export class OrganizationBuilder {
     return this;
   }
   addPlaces(places: Place[]): OrganizationBuilder {
-    if (places) {
+    if (this.places) {
       this.places = this.places?.concat(places);
     } else {
       this.places = places;

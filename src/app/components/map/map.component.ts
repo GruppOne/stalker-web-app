@@ -1,6 +1,9 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng} from 'leaflet';
+import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
+import {PlaceBuilder} from 'src/app/models/place';
+import {PlaceDataBuilder} from 'src/app/models/place-data';
 import {PlaceService, Geocoding} from 'src/app/services/place.service';
 
 import {Organization, OrganizationBuilder} from '../../models/organization';
@@ -60,6 +63,32 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrganization(1);
+    if (!this.organization) {
+      this.organization = new OrganizationBuilder('name', true)
+        .addPlaces([
+          new PlaceBuilder(
+            new Polygon([
+              new LatLng(45.411564, 11.887473),
+              new LatLng(45.411225, 11.887325),
+              new LatLng(45.41111, 11.887784),
+              new LatLng(45.41144, 11.88795),
+            ]),
+          )
+            .setPlaceData(
+              new PlaceDataBuilder('Via Trieste', 'Padova', 35031, 'Italia').build(),
+            )
+            .setName('nome')
+            .build(),
+        ])
+        .setDescription('lore ipsum...')
+        .setldapConfiguration(
+          new LdapConfigurationBuilder('127.0.0.1')
+            .setUsername('mario')
+            .setPassword('pass')
+            .build(),
+        )
+        .build();
+    }
     this.organization?.places?.forEach((element) => {
       if (element.name && element.placeData) {
         this.polygonLayers.push(
@@ -68,11 +97,11 @@ export class MapComponent implements OnInit {
               '<strong>' +
                 element.name.toString() +
                 '</strong><br>' +
-                element.placeData?.address.toString() +
+                element.placeData.address.toString() +
                 ' - ' +
-                element.placeData?.zipcode.toString() +
+                element.placeData.zipcode.toFixed() +
                 ' ' +
-                element.placeData.city,
+                element.placeData.city.toString(),
             )
             .setStyle({
               color: this.getRandomColor(),
