@@ -9,7 +9,7 @@ import {StalkerEndpoint} from '../services/stalker-endpoint';
   providedIn: 'root',
 })
 export class UserService {
-  private stalkerEndpoint: StalkerEndpoint;
+  private readonly stalkerEndpoint: StalkerEndpoint;
   constructor(httpClient: HttpClient) {
     this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/user');
   }

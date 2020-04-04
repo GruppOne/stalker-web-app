@@ -10,5 +10,5 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Home - Stalker');
   }
-  constructor(private titleService: Title) {}
+  constructor(private readonly titleService: Title) {}
 }

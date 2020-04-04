@@ -15,7 +15,7 @@ interface HttpOptions {
 
 export class StalkerEndpoint {
   private url = environment.apiUrl;
-  private defaultHttpHeaders: HttpHeaders;
+  private readonly defaultHttpHeaders: HttpHeaders;
 
   constructor(private readonly httpClient: HttpClient, relativePath: string) {
     this.setPath(relativePath);

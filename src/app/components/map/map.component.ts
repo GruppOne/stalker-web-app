@@ -57,8 +57,8 @@ export class MapComponent implements OnInit {
   fitBounds = this.bounds;
 
   constructor(
-    private placeService: PlaceService,
-    private organizationService: OrganizationService,
+    private readonly placeService: PlaceService,
+    private readonly organizationService: OrganizationService,
   ) {}
 
   ngOnInit(): void {

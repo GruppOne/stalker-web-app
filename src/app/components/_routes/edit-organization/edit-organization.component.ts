@@ -23,8 +23,8 @@ export class EditOrganizationComponent implements OnInit {
   fourthFormGroup: FormGroup = new FormGroup({});
 
   constructor(
-    private formBuilder: FormBuilder,
-    private organizationService: OrganizationService,
+    private readonly formBuilder: FormBuilder,
+    private readonly organizationService: OrganizationService,
   ) {}
 
   ngOnInit(): void {

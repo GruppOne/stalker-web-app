@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   fetched = false;
   private userBuilder?: UserBuilder;
   user?: User;
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   ngOnInit(): void {
     this.getUser(1);
