@@ -2,17 +2,17 @@ import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 
-import {PlaceService} from './place.service';
+import {OrganizationService} from './organization.service';
 
-describe('PlaceService', () => {
-  let service: PlaceService;
+describe('OrganizationService', () => {
+  let service: OrganizationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [{provide: HttpClient}],
     });
-    service = TestBed.inject(PlaceService);
+    service = TestBed.inject(OrganizationService);
   });
 
   it('should be created', () => {

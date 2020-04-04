@@ -1,89 +1,83 @@
 import {LdapConfiguration} from './ldapConfiguration';
 import {Place} from './place';
 
-export class Organization {
-  private id: number;
-  private name: string;
-  private description: string;
-  private ldapConfiguration: LdapConfiguration;
-  private places: Place[];
-  private isPrivate: boolean;
-  private createdDate: string;
-  private lastModifiedDate: string;
-  constructor(
-    id = -1,
-    name = 'Organizzazione di prova',
-    description = 'Lorem ipsum dolor sit amet, consectetur adipisci elit,' +
-      'sed eiusmod tempor incidunt ut labore et dolore magna aliqua.',
-    ldapConfiguration = new LdapConfiguration(),
-    places = [new Place()],
-    isPrivate = true,
-    createdDate = '2010-05-21',
-    lastModifiedDate = '2019-01-22',
-  ) {
-    this.id = id;
+export interface Organization {
+  readonly id?: number;
+  readonly name: string;
+  readonly description?: string;
+  readonly ldapConfiguration?: LdapConfiguration;
+  places?: Place[];
+  readonly isPrivate: boolean;
+  readonly createdDate?: string;
+  readonly lastModifiedDate?: string;
+}
+
+export class OrganizationBuilder {
+  private id?: number;
+  private description?: string;
+
+  private ldapConfiguration?: LdapConfiguration;
+
+  private places?: Place[];
+
+  private createdDate?: string;
+
+  private lastModifiedDate?: string;
+
+  constructor(private name: string, private isPrivate: boolean) {}
+
+  setName(name: string): OrganizationBuilder {
     this.name = name;
-    this.description = description;
-    this.ldapConfiguration = ldapConfiguration;
-    this.places = places;
-    this.isPrivate = isPrivate;
-    this.createdDate = createdDate;
-    this.lastModifiedDate = lastModifiedDate;
+    return this;
   }
-
-  get Id(): number {
-    return this.id;
-  }
-  set Id(id: number) {
+  setId(id: number): OrganizationBuilder {
     this.id = id;
+    return this;
   }
-
-  get Name(): string {
-    return this.name;
-  }
-  set Name(name: string) {
-    this.name = name;
-  }
-
-  get Description(): string {
-    return this.description;
-  }
-  set Description(description: string) {
+  setDescription(description: string): OrganizationBuilder {
     this.description = description;
+    return this;
   }
-
-  get LdapConfiguration(): LdapConfiguration {
-    return this.ldapConfiguration;
-  }
-  set LdapConfiguration(ldapConfiguration: LdapConfiguration) {
+  setldapConfiguration(ldapConfiguration: LdapConfiguration): OrganizationBuilder {
     this.ldapConfiguration = ldapConfiguration;
+    return this;
   }
-
-  get Places(): Place[] {
-    return this.places;
+  addPlaces(places: Place[]): OrganizationBuilder {
+    if (places) {
+      this.places = this.places?.concat(places);
+    } else {
+      this.places = places;
+    }
+    return this;
   }
-  set Places(places: Place[]) {
-    this.places = places;
+  removePlace(place: Place): OrganizationBuilder {
+    const index: number = this.places?.indexOf(place, 0) as number;
+    this.places = this.places?.splice(index, 1);
+    return this;
   }
-
-  get IsPrivate(): boolean {
-    return this.isPrivate;
-  }
-  set IsPrivate(isPrivate: boolean) {
+  setIsPrivate(isPrivate: boolean): OrganizationBuilder {
     this.isPrivate = isPrivate;
+    return this;
   }
-
-  get CreatedDate(): string {
-    return this.createdDate;
-  }
-  set CreatedDate(createdDate: string) {
+  setCreatedDate(createdDate: string): OrganizationBuilder {
     this.createdDate = createdDate;
+    return this;
+  }
+  setLastModifiedDate(lastModifiedDate: string): OrganizationBuilder {
+    this.lastModifiedDate = lastModifiedDate;
+    return this;
   }
 
-  get LastModifiedDate(): string {
-    return this.lastModifiedDate;
-  }
-  set LastModifiedDate(lastModifiedDate: string) {
-    this.lastModifiedDate = lastModifiedDate;
+  build(): Organization {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      ldapConfiguration: this.ldapConfiguration,
+      places: this.places,
+      isPrivate: this.isPrivate,
+      createdDate: this.createdDate,
+      lastModifiedDate: this.lastModifiedDate,
+    };
   }
 }

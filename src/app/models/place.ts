@@ -1,54 +1,43 @@
-import {Polygon, LatLng} from 'leaflet';
+import {Polygon} from 'leaflet';
 
 import {PlaceData} from './place-data';
-// import {Point} from './point';
 
-export class Place {
-  private id: number;
-  private name: string;
-  private polyline: Polygon;
-  private placeData: PlaceData;
-  constructor(
-    id = -1,
-    name = 'Torre Archimede',
-    polyline = new Polygon([
-      new LatLng(45.411564, 11.887473),
-      new LatLng(45.411225, 11.887325),
-      new LatLng(45.41111, 11.887784),
-      new LatLng(45.41144, 11.88795),
-    ]),
-    placeData = new PlaceData(),
-  ) {
+export interface Place {
+  readonly id?: number;
+  readonly name?: string;
+  readonly polyline: Polygon;
+  readonly placeData?: PlaceData;
+}
+
+export class PlaceBuilder {
+  private id?: number;
+  private name?: string;
+  private placeData?: PlaceData;
+
+  constructor(private polyline: Polygon) {}
+
+  setId(id: number): PlaceBuilder {
     this.id = id;
+    return this;
+  }
+  setName(name: string): PlaceBuilder {
     this.name = name;
+    return this;
+  }
+  setPolyline(polyline: Polygon): PlaceBuilder {
     this.polyline = polyline;
+    return this;
+  }
+  setPlaceData(placeData: PlaceData): PlaceBuilder {
     this.placeData = placeData;
+    return this;
   }
-
-  get Id(): number {
-    return this.id;
-  }
-  set Id(id: number) {
-    this.id = id;
-  }
-
-  get Name(): string {
-    return this.name;
-  }
-  set Name(name: string) {
-    this.name = name;
-  }
-
-  get Polyline(): Polygon {
-    return this.polyline;
-  }
-  set Polyline(polyline: Polygon) {
-    this.polyline = polyline;
-  }
-  get PlaceData(): PlaceData {
-    return this.placeData;
-  }
-  set PlaceData(placeData: PlaceData) {
-    this.placeData = placeData;
+  build(): Place {
+    return {
+      id: this.id,
+      name: this.name,
+      polyline: this.polyline,
+      placeData: this.placeData,
+    };
   }
 }

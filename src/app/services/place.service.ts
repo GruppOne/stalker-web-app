@@ -1,31 +1,36 @@
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
-import {environment} from '../../environments/environment';
-import {Place} from '../models/place';
-
-import {StalkerHttpClientService} from './stalker-http-client.service';
+export interface Geocoding {
+  address: {
+    building: string;
+    road: string;
+    city: string;
+    postcode: string;
+    country: string;
+  };
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlaceService {
-  placeURL = environment.apiUrl + '/place';
+  // private stalkerEndpoint: StalkerEndpoint;
 
-  constructor(private httpStalker: StalkerHttpClientService) {}
-
-  getPlaceById(placeId: number): Observable<HttpResponse<Place>> {
-    return this.httpStalker
-      .get<Place>(this.placeURL + '/' + placeId.toString())
-      .pipe(catchError(this.handleError<HttpResponse<Place>>()));
+  constructor(private httpClient: HttpClient) {
+    // this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/place');
   }
 
-  handleError<T>(result?: T) {
-    return (error: HttpErrorResponse): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+  /*   getPlaceById(placeId: number): Observable<HttpResponse<Place>> {
+    this.stalkerEndpoint.setPath('/place/' + placeId.toString());
+    return this.stalkerEndpoint
+      .get<Place>();
+  } */
+
+  reverseGeocoding(lat: number, lng: number): Observable<Geocoding> {
+    return this.httpClient.get<Geocoding>(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
+    );
   }
 }

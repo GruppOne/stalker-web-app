@@ -1,36 +1,29 @@
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {HttpResponse, HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
-import {environment} from '../../environments/environment';
 import {Organization} from '../models/organization';
 
-import {StalkerHttpClientService} from './stalker-http-client.service';
+import {StalkerEndpoint} from './stalker-endpoint';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrganizationService {
-  organizationURL = environment.apiUrl + '/organization';
+  private stalkerEndpoint: StalkerEndpoint;
+  constructor(httpClient: HttpClient) {
+    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/organization');
+  }
 
-  constructor(private httpStalker: StalkerHttpClientService) {}
-
+  // TODO: implement adding organization
   /* add(organization: Organization): any {
     return this.httpStalker
       .fakeAddOrganization(this.organizationURL, organization)
       .pipe(catchError(this.handleError<any>([])));
   } */
-  getOrganizationById(organizationId: number): Observable<HttpResponse<Organization>> {
-    return this.httpStalker
-      .get<Organization>(this.organizationURL + '/' + organizationId.toString())
-      .pipe(catchError(this.handleError<HttpResponse<Organization>>()));
-  }
 
-  handleError<T>(result?: T) {
-    return (error: HttpErrorResponse): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+  getOrganizationById(organizationId: number): Observable<HttpResponse<Organization>> {
+    this.stalkerEndpoint.setPath('/organization/' + organizationId.toString());
+    return this.stalkerEndpoint.get<Organization>();
   }
 }

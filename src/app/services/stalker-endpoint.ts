@@ -14,17 +14,21 @@ interface HttpOptions {
 }
 
 export class StalkerEndpoint {
-  private readonly url: string;
+  private url = environment.apiUrl;
   private defaultHttpHeaders: HttpHeaders;
 
   constructor(private readonly httpClient: HttpClient, relativePath: string) {
-    const apiUrl = environment.apiUrl;
-    const trimmedRelativePath = relativePath.replace(/^\/|\/$/, '');
-    this.url = apiUrl + '/' + trimmedRelativePath;
+    this.setPath(relativePath);
 
     this.defaultHttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+  }
+
+  setPath(relativePath: string): void {
+    const apiUrl = environment.apiUrl;
+    const trimmedRelativePath = relativePath.replace(/^\/|\/$/, '');
+    this.url = apiUrl + '/' + trimmedRelativePath;
   }
 
   // TODO implement all verbs

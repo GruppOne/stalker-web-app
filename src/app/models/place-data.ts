@@ -1,46 +1,39 @@
-export class PlaceData {
-  private address: string;
-  private city: string;
-  private zipcode: string;
-  private state: string;
+export interface PlaceData {
+  readonly address: string;
+  readonly city: string;
+  readonly zipcode: number;
+  readonly state: string;
+}
 
+export class PlaceDataBuilder {
   constructor(
-    address = 'Via Trieste, 63',
-    city = 'Padova',
-    zipcode = '35131',
-    state = 'Italia',
-  ) {
+    private address: string,
+    private city: string,
+    private zipcode: number,
+    private state: string,
+  ) {}
+  setAddress(address: string): PlaceDataBuilder {
     this.address = address;
+    return this;
+  }
+  setCity(city: string): PlaceDataBuilder {
     this.city = city;
+    return this;
+  }
+  setZipcode(zipcode: number): PlaceDataBuilder {
     this.zipcode = zipcode;
+    return this;
+  }
+  setState(state: string): PlaceDataBuilder {
     this.state = state;
+    return this;
   }
-
-  get Address(): string {
-    return this.address;
-  }
-  set Address(address: string) {
-    this.address = address;
-  }
-
-  get City(): string {
-    return this.city;
-  }
-  set City(city: string) {
-    this.city = city;
-  }
-
-  get Zipcode(): string {
-    return this.zipcode;
-  }
-  set Zipcode(zipcode: string) {
-    this.zipcode = zipcode;
-  }
-
-  get State(): string {
-    return this.state;
-  }
-  set State(state: string) {
-    this.state = state;
+  build(): PlaceData {
+    return {
+      address: this.address,
+      city: this.city,
+      zipcode: this.zipcode,
+      state: this.state,
+    };
   }
 }
