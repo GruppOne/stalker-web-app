@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {Polygon, LatLng} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
 import {PlaceBuilder} from 'src/app/models/place';
@@ -17,10 +17,12 @@ export class EditOrganizationComponent implements OnInit {
   organization?: Organization;
 
   OrganizationBuilder?: Organization;
-  firstFormGroup: FormGroup = new FormGroup({});
-  secondFormGroup: FormGroup = new FormGroup({});
-  thirdFormGroup: FormGroup = new FormGroup({});
-  fourthFormGroup: FormGroup = new FormGroup({});
+  formGroup: FormGroup = new FormGroup({});
+
+  // Returns a FormArray with the name 'formArray'.
+  get formArray(): AbstractControl | null {
+    return this.formGroup.get('formArray');
+  }
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -30,7 +32,7 @@ export class EditOrganizationComponent implements OnInit {
   ngOnInit(): void {
     this.getOrganizationById(1);
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('name', true)
+      this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([
           new PlaceBuilder(
             new Polygon([
@@ -41,28 +43,44 @@ export class EditOrganizationComponent implements OnInit {
             ]),
           ).build(),
         ])
-        .addDescription('lore ipsum...')
+        .addDescription(
+          'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor...',
+        )
         .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
-            .addUsername('mario')
-            .addPassword('pass')
+            .addUsername('admin')
+            .addPassword('root')
             .build(),
         )
         .build();
     }
     if (this.organization) {
-      this.firstFormGroup = this.formBuilder.group({
-        orgNameCtrl: [this.organization?.name, Validators.required],
-        orgDescriptionCtrl: [this.organization?.description, Validators.required],
-      });
-      // this.secondFormGroup = this.formBuilder.group({});
-      this.thirdFormGroup = this.formBuilder.group({
-        orgHostCtrl: [this.organization?.ldapConfiguration?.host, Validators.required],
-        orgUserCtrl: [
-          this.organization?.ldapConfiguration?.username,
-          Validators.required,
-        ],
-        orgPwdCtrl: [this.organization?.ldapConfiguration?.password, Validators.required],
+      this.formGroup = this.formBuilder.group({
+        formArray: this.formBuilder.array([
+          this.formBuilder.group({
+            orgNameCtrl: [this.organization?.name, Validators.required],
+            orgDescriptionCtrl: [this.organization?.description, Validators.required],
+          }),
+          this.formBuilder.group({}),
+          this.formBuilder.group({
+            orgHostCtrl: [
+              this.organization?.ldapConfiguration?.host,
+              Validators.required,
+            ],
+            orgUserCtrl: [
+              this.organization?.ldapConfiguration?.username,
+              Validators.required,
+            ],
+            orgPwdCtrl: [
+              this.organization?.ldapConfiguration?.password,
+              Validators.required,
+            ],
+          }),
+          this.formBuilder.group({
+            managerEmailCtrl: ['pippo@gmail.com', Validators.email],
+            viewerEmailCtrl: ['pluto@gmail.com', Validators.email],
+          }),
+        ]),
       });
     }
   }
@@ -74,5 +92,10 @@ export class EditOrganizationComponent implements OnInit {
           this.organization = response.body;
         }
       });
+  }
+
+  // TODO controllo client side dei campi
+  submitOrganizationForm(): void {
+    console.log(this.formArray?.value);
   }
 }
