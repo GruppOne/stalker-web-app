@@ -14,11 +14,11 @@ describe('UserData', () => {
     const newBirthDate = '2020-01-01';
     const newCreatedDate = '2020-01-01T09:01:01Z';
     const newLastModifiedDate = '2020-01-01T09:01:01Z';
-    userDataBuilder.setFirstName(newFirstName);
-    userDataBuilder.setLastName(newLastName);
-    userDataBuilder.setBirthDate(newBirthDate);
-    userDataBuilder.setCreatedDate(newCreatedDate);
-    userDataBuilder.setLastModifiedDate(newLastModifiedDate);
+    userDataBuilder.addFirstName(newFirstName);
+    userDataBuilder.addLastName(newLastName);
+    userDataBuilder.addBirthDate(newBirthDate);
+    userDataBuilder.addCreatedDate(newCreatedDate);
+    userDataBuilder.addLastModifiedDate(newLastModifiedDate);
     const userData = userDataBuilder.build();
     expect(userData.firstName).toEqual(newFirstName);
     expect(userData.lastName).toEqual(newLastName);

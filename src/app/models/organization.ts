@@ -26,19 +26,19 @@ export class OrganizationBuilder {
 
   constructor(private name: string, private isPrivate: boolean) {}
 
-  setName(name: string): OrganizationBuilder {
+  addName(name: string): OrganizationBuilder {
     this.name = name;
     return this;
   }
-  setId(id: number): OrganizationBuilder {
+  addId(id: number): OrganizationBuilder {
     this.id = id;
     return this;
   }
-  setDescription(description: string): OrganizationBuilder {
+  addDescription(description: string): OrganizationBuilder {
     this.description = description;
     return this;
   }
-  setldapConfiguration(ldapConfiguration: LdapConfiguration): OrganizationBuilder {
+  addLdapConfiguration(ldapConfiguration: LdapConfiguration): OrganizationBuilder {
     this.ldapConfiguration = ldapConfiguration;
     return this;
   }
@@ -50,20 +50,21 @@ export class OrganizationBuilder {
     }
     return this;
   }
+  // FIXME builders should NOT have methods for removing stuff
   removePlace(place: Place): OrganizationBuilder {
     const index: number = this.places?.indexOf(place, 0) as number;
     this.places = this.places?.splice(index, 1);
     return this;
   }
-  setIsPrivate(isPrivate: boolean): OrganizationBuilder {
+  addIsPrivate(isPrivate: boolean): OrganizationBuilder {
     this.isPrivate = isPrivate;
     return this;
   }
-  setCreatedDate(createdDate: string): OrganizationBuilder {
+  addCreatedDate(createdDate: string): OrganizationBuilder {
     this.createdDate = createdDate;
     return this;
   }
-  setLastModifiedDate(lastModifiedDate: string): OrganizationBuilder {
+  addLastModifiedDate(lastModifiedDate: string): OrganizationBuilder {
     this.lastModifiedDate = lastModifiedDate;
     return this;
   }

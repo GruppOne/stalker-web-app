@@ -11,16 +11,16 @@ export class LdapConfigurationBuilder {
 
   constructor(private host: string) {}
 
-  setHost(host: string): LdapConfigurationBuilder {
+  addHost(host: string): LdapConfigurationBuilder {
     this.host = host;
     return this;
   }
-  setUsername(username: string): LdapConfigurationBuilder {
+  addUsername(username: string): LdapConfigurationBuilder {
     this.username = username;
     return this;
   }
 
-  setPassword(password: string): LdapConfigurationBuilder {
+  addPassword(password: string): LdapConfigurationBuilder {
     this.password = password;
     return this;
   }

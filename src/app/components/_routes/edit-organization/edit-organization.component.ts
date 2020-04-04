@@ -41,11 +41,11 @@ export class EditOrganizationComponent implements OnInit {
             ]),
           ).build(),
         ])
-        .setDescription('lore ipsum...')
-        .setldapConfiguration(
+        .addDescription('lore ipsum...')
+        .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
-            .setUsername('mario')
-            .setPassword('pass')
+            .addUsername('mario')
+            .addPassword('pass')
             .build(),
         )
         .build();

@@ -74,17 +74,17 @@ export class MapComponent implements OnInit {
               new LatLng(45.41144, 11.88795),
             ]),
           )
-            .setPlaceData(
+            .addPlaceData(
               new PlaceDataBuilder('Via Trieste', 'Padova', 35031, 'Italia').build(),
             )
-            .setName('nome')
+            .addName('nome')
             .build(),
         ])
-        .setDescription('lore ipsum...')
-        .setldapConfiguration(
+        .addDescription('lore ipsum...')
+        .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
-            .setUsername('mario')
-            .setPassword('pass')
+            .addUsername('mario')
+            .addPassword('pass')
             .build(),
         )
         .build();

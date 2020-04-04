@@ -16,19 +16,19 @@ export class PlaceBuilder {
 
   constructor(private polyline: Polygon) {}
 
-  setId(id: number): PlaceBuilder {
+  addId(id: number): PlaceBuilder {
     this.id = id;
     return this;
   }
-  setName(name: string): PlaceBuilder {
+  addName(name: string): PlaceBuilder {
     this.name = name;
     return this;
   }
-  setPolyline(polyline: Polygon): PlaceBuilder {
+  addPolyline(polyline: Polygon): PlaceBuilder {
     this.polyline = polyline;
     return this;
   }
-  setPlaceData(placeData: PlaceData): PlaceBuilder {
+  addPlaceData(placeData: PlaceData): PlaceBuilder {
     this.placeData = placeData;
     return this;
   }

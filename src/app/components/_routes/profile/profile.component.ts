@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserById(id).subscribe((response: HttpResponse<User>) => {
       if (response && response.status === 200 && response.body != null) {
         this.userBuilder = new UserBuilder(response.body.email, response.body.password)
-          .setId(response.body.id as number)
-          .setUserData(response.body.userData as UserData);
+          .addId(response.body.id as number)
+          .addUserData(response.body.userData as UserData);
         this.user = this.userBuilder.build();
       }
       if (this.user) {

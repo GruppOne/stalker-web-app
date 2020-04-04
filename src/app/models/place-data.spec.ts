@@ -10,10 +10,10 @@ describe('PlaceData', () => {
     const newCity = 'Las Vegas';
     const newZipcode = 12120;
     const newState = 'USA';
-    placeDataBuilder.setAddress(newAddress);
-    placeDataBuilder.setCity(newCity);
-    placeDataBuilder.setZipcode(newZipcode);
-    placeDataBuilder.setState(newState);
+    placeDataBuilder.addAddress(newAddress);
+    placeDataBuilder.addCity(newCity);
+    placeDataBuilder.addZipcode(newZipcode);
+    placeDataBuilder.addState(newState);
     const placeData = placeDataBuilder.build();
     expect(placeData.address).toEqual(newAddress);
     expect(placeData.city).toEqual(newCity);

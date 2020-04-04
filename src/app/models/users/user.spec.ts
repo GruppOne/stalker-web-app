@@ -13,10 +13,10 @@ describe('User', () => {
   it('should set and get fields correctly', () => {
     const newMail = 'marcoverdi@gmail.com';
     const newPassword = 'NewPass';
-    const newUserData = new UserDataBuilder().setFirstName('Marco').build();
-    userBuilder.setEmail(newMail);
-    userBuilder.setPassword(newPassword);
-    userBuilder.setUserData(newUserData);
+    const newUserData = new UserDataBuilder().addFirstName('Marco').build();
+    userBuilder.addEmail(newMail);
+    userBuilder.addPassword(newPassword);
+    userBuilder.addUserData(newUserData);
     const user = userBuilder.build();
     expect(user.id).toEqual(user.id);
     expect(user.email).toEqual(newMail);
