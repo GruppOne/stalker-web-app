@@ -1,8 +1,8 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
+import {OrganizationService} from 'src/app/services/organization.service';
 
-import {Organization} from '../../../models/organization';
-import {OrganizationService} from '../../../services/organization.service';
+import {Organization, OrganizationBuilder} from '../../../models/organization';
 
 @Component({
   selector: 'app-organization',
@@ -11,18 +11,23 @@ import {OrganizationService} from '../../../services/organization.service';
 })
 export class OrganizationComponent implements OnInit {
   organization?: Organization;
+  private organizationBuilder?: OrganizationBuilder;
 
   constructor(private readonly organizationService: OrganizationService) {}
 
   ngOnInit(): void {
-    this.getOrganization(1);
+    this.getOrganizationById(1);
   }
-  getOrganization(id: number): void {
+  getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
       .subscribe((response: HttpResponse<Organization>) => {
-        if (response.status === 200 && response.body != null) {
-          this.organization = response.body;
+        if (response && response.status === 200 && response.body != null) {
+          this.organizationBuilder = new OrganizationBuilder(
+            response.body.name,
+            response.body.isPrivate,
+          );
+          this.organization = this.organizationBuilder.build();
         }
       });
   }

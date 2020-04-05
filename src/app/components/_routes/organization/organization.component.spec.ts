@@ -1,24 +1,30 @@
-import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
+import {OrganizationService} from 'src/app/services/organization.service';
 
 import {OrganizationComponent} from './organization.component';
 
 describe('OrganizationComponent', () => {
   let component: OrganizationComponent;
   let fixture: ComponentFixture<OrganizationComponent>;
-  const httpClient = jasmine.createSpyObj('HttpClient', [
-    // 'post',
-    'get',
-    // 'put',
-    // 'delete',
+  const organizationService = jasmine.createSpyObj('OrganizationService', [
+    'getOrganizationById',
   ]);
+  let organizationSpy = organizationService.getOrganizationById.and.returnValue(
+    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 400})),
+  );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OrganizationComponent],
       imports: [HttpClientTestingModule],
-      providers: [{provide: HttpClient}],
+      providers: [
+        {
+          provide: OrganizationService,
+          useValue: organizationService,
+        },
+      ],
     }).compileComponents();
   }));
 
@@ -32,11 +38,22 @@ describe('OrganizationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call httpClient get', () => {
-    const httpGetSpy = httpClient.get.and.returnValue(
+  it('should call Organization get and handle empty response', () => {
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
-    httpClient.get();
-    expect(httpGetSpy.calls.any()).toBe(true, 'get called');
+    expect(organizationSpy.calls.any()).toBe(true, 'get called');
+  });
+  it('should call Organization get and handle not empty response', () => {
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+      of(
+        new HttpResponse({
+          body: {name: 'unipd', isPrivate: false},
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
 });
