@@ -1,7 +1,7 @@
 export interface PlaceData {
   readonly address: string;
   readonly city: string;
-  readonly zipcode: number;
+  readonly zipcode: string;
   readonly state: string;
 }
 
@@ -9,7 +9,7 @@ export class PlaceDataBuilder {
   constructor(
     private address: string,
     private city: string,
-    private zipcode: number,
+    private zipcode: string,
     private state: string,
   ) {}
   addAddress(address: string): PlaceDataBuilder {
@@ -20,7 +20,7 @@ export class PlaceDataBuilder {
     this.city = city;
     return this;
   }
-  addZipcode(zipcode: number): PlaceDataBuilder {
+  addZipcode(zipcode: string): PlaceDataBuilder {
     this.zipcode = zipcode;
     return this;
   }

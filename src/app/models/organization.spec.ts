@@ -14,7 +14,10 @@ describe('Organization', () => {
     const newName = 'NewTest';
     const newDescription = 'Test description';
     const newLdapConfiguration = new LdapConfigurationBuilder('127.0.0.1').build();
-    const newPlaces = [new PlaceBuilder(new Polygon([])).build()];
+    const newPlaces = [
+      new PlaceBuilder(new Polygon([])).build(),
+      new PlaceBuilder(new Polygon([])).build(),
+    ];
     const newIsPrivate = false;
     const newCreatedDate = '2020-05-21';
     const newLastModifiedDate = '2020-05-21';
@@ -22,6 +25,7 @@ describe('Organization', () => {
     organizationBuilder.addName(newName);
     organizationBuilder.addDescription(newDescription);
     organizationBuilder.addLdapConfiguration(newLdapConfiguration);
+    organizationBuilder.addPlaces(newPlaces);
     organizationBuilder.addPlaces(newPlaces);
     organizationBuilder.addIsPrivate(newIsPrivate);
     organizationBuilder.addCreatedDate(newCreatedDate);
