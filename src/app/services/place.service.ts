@@ -5,6 +5,9 @@ import {Observable} from 'rxjs';
 export interface Geocoding {
   display_name: string;
   address: {
+    building?: string;
+    university?: string;
+    school?: string;
     city: string;
     country: string;
     postcode: string;

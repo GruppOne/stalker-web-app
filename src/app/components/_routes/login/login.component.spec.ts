@@ -15,10 +15,8 @@ describe('LoginComponent', () => {
   let mockRouter = {
     navigate: jasmine.createSpy('navigate'),
   };
+  let loginSpy;
   const loginService = jasmine.createSpyObj('LoginService', ['login']);
-  let loginSpy = loginService.login.and.returnValue(
-    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
-  );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],

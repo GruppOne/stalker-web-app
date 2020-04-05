@@ -54,35 +54,30 @@ export class EditOrganizationComponent implements OnInit {
         )
         .build();
     }
-    if (this.organization) {
-      this.formGroup = this.formBuilder.group({
-        formArray: this.formBuilder.array([
-          this.formBuilder.group({
-            orgNameCtrl: [this.organization?.name, Validators.required],
-            orgDescriptionCtrl: [this.organization?.description, Validators.required],
-          }),
-          this.formBuilder.group({}),
-          this.formBuilder.group({
-            orgHostCtrl: [
-              this.organization?.ldapConfiguration?.host,
-              Validators.required,
-            ],
-            orgUserCtrl: [
-              this.organization?.ldapConfiguration?.username,
-              Validators.required,
-            ],
-            orgPwdCtrl: [
-              this.organization?.ldapConfiguration?.password,
-              Validators.required,
-            ],
-          }),
-          this.formBuilder.group({
-            managerEmailCtrl: ['pippo@gmail.com', Validators.email],
-            viewerEmailCtrl: ['pluto@gmail.com', Validators.email],
-          }),
-        ]),
-      });
-    }
+    this.formGroup = this.formBuilder.group({
+      formArray: this.formBuilder.array([
+        this.formBuilder.group({
+          orgNameCtrl: [this.organization.name, Validators.required],
+          orgDescriptionCtrl: [this.organization.description, Validators.required],
+        }),
+        this.formBuilder.group({}),
+        this.formBuilder.group({
+          orgHostCtrl: [this.organization.ldapConfiguration?.host, Validators.required],
+          orgUserCtrl: [
+            this.organization.ldapConfiguration?.username,
+            Validators.required,
+          ],
+          orgPwdCtrl: [
+            this.organization.ldapConfiguration?.password,
+            Validators.required,
+          ],
+        }),
+        this.formBuilder.group({
+          managerEmailCtrl: ['pippo@gmail.com', Validators.email],
+          viewerEmailCtrl: ['pluto@gmail.com', Validators.email],
+        }),
+      ]),
+    });
   }
   getOrganizationById(id: number): void {
     this.organizationService
