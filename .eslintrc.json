@@ -203,8 +203,7 @@
             "ignorePattern": "^(?:import|export) *\\{.*?\\}"
           }
         ],
-        // TODO lower max params to 3
-        "max-params": ["error", {"max": 3}],
+        "max-params": ["error", {"max": 4}],
         "max-lines": ["error", {"skipBlankLines": true}],
         "max-nested-callbacks": ["error", {"max": 3}],
         "new-parens": "error",
