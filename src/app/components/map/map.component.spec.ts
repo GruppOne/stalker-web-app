@@ -1,8 +1,9 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {LatLng, Polygon} from 'leaflet';
 import {of} from 'rxjs';
+import {OrganizationService} from 'src/app/services/organization.service';
 import {PlaceService, Geocoding} from 'src/app/services/place.service';
 
 import {MapComponent} from './map.component';
@@ -11,11 +12,14 @@ describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
-  /*   const organizationService = jasmine.createSpyObj('OrganizationService', [
+  const organizationService = jasmine.createSpyObj('OrganizationService', [
     'getOrganizationById',
   ]);
 
-  let organizationSpy; */
+  let organizationSpy = organizationService.getOrganizationById.and.returnValue(
+    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+  );
+
   let geoCodingSpy;
   const placeService = jasmine.createSpyObj('PlaceService', ['reverseGeocoding']);
   const uncorrectName = 'Via Trieste, Padova';
@@ -41,7 +45,7 @@ describe('MapComponent', () => {
       imports: [HttpClientTestingModule],
       providers: [
         {provide: HttpClient},
-        /* {provide: OrganizationService, useValue: organizationService}, */
+        {provide: OrganizationService, useValue: organizationService},
         {provide: PlaceService, useValue: placeService},
       ],
     }).compileComponents();
@@ -57,13 +61,31 @@ describe('MapComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  /*   it('should call the function ', () => {
+  it('should call Organization get and handle empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+      of(
+        new HttpResponse({
+          body: null,
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
-    component.getOrganizationById(1);
-    expect(organizationSpy.calls.any()).toBe(true, 'function called');
-  }); */
+    expect(organizationSpy.calls.any()).toBe(true, 'get called');
+  });
+  it('should call Organization get and handle not empty response', () => {
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+      of(
+        new HttpResponse({
+          body: {name: 'unipd', isPrivate: false},
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    expect(organizationSpy.calls.any()).toBe(true, 'get called');
+  });
+
   it('should get and display place datas', () => {
     geocode.display_name = correctName;
     geoCodingSpy = placeService.reverseGeocoding.and.returnValue(of(geocode));
