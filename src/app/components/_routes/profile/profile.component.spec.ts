@@ -13,7 +13,7 @@ describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
   const userService = jasmine.createSpyObj('UserService', ['getUserById']);
-  const userSpy = userService.getUserById.and.returnValue(
+  let userSpy = userService.getUserById.and.returnValue(
     of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
   );
   beforeEach(async(() => {
@@ -35,6 +35,10 @@ describe('ProfileComponent', () => {
   });
 
   it('should call getUser()', () => {
+    userSpy = userService.getUserById.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+    component.getUser(1);
     expect(userSpy.calls.any()).toBe(true, 'getUserById called');
   });
   it('getUser() should update User', () => {

@@ -42,6 +42,7 @@ describe('OrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
+    component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
@@ -54,6 +55,7 @@ describe('OrganizationComponent', () => {
         }),
       ),
     );
+    component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
 });
