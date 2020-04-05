@@ -51,6 +51,7 @@ describe('EditOrganizationComponent', () => {
         }),
       ),
     );
+    component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
@@ -63,6 +64,7 @@ describe('EditOrganizationComponent', () => {
         }),
       ),
     );
+    component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
 });

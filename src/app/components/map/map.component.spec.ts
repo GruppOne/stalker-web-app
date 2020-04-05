@@ -71,6 +71,7 @@ describe('MapComponent', () => {
         }),
       ),
     );
+    component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
@@ -83,6 +84,7 @@ describe('MapComponent', () => {
         }),
       ),
     );
+    component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
 
