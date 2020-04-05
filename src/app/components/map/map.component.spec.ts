@@ -47,12 +47,36 @@ describe('MapComponent', () => {
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'function called');
   }); */
-  it('should get the reverse', () => {
+  it('should get and display place datas', () => {
+    const name = 'INAIL, Via Trieste, Padova';
+    const geocode: Geocoding = {
+      display_name: name,
+      address: {
+        city: 'Padova',
+        country: 'Italia',
+        postcode: '35031',
+        road: 'Via Trieste',
+      },
+    };
+    geoCodingSpy = placeService.reverseGeocoding.and.returnValue(of(geocode));
+    console.log = jasmine.createSpy('log');
+    component.onDrawCreated({
+      layer: new Polygon([
+        new LatLng(45.411564, 11.887473),
+        new LatLng(45.411225, 11.887325),
+        new LatLng(45.41111, 11.887784),
+        new LatLng(45.41144, 11.88795),
+      ]),
+    });
+    expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
+    expect(console.log).toHaveBeenCalledTimes(7);
+    console.log(geocode.display_name);
+  });
+  it('should get and not display incorrect place name', () => {
     const name = 'Via Trieste, Padova';
     const geocode: Geocoding = {
       display_name: name,
       address: {
-        building: 'INAIL',
         city: 'Padova',
         country: 'Italia',
         postcode: '35031',
