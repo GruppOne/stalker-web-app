@@ -16,7 +16,7 @@ describe('Place', () => {
     const newPlaceData = new PlaceDataBuilder(
       'Via Trieste',
       'Padova',
-      35010,
+      '35010',
       'Italia',
     ).build();
     placeBuilder.addId(newId);

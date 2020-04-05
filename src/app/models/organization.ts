@@ -50,12 +50,12 @@ export class OrganizationBuilder {
     }
     return this;
   }
-  // FIXME builders should NOT have methods for removing stuff
-  removePlace(place: Place): OrganizationBuilder {
+  // Use this code if you need to remove a Place
+  /*  removePlace(place: Place): OrganizationBuilder {
     const index: number = this.places?.indexOf(place, 0) as number;
     this.places = this.places?.splice(index, 1);
     return this;
-  }
+  } */
   addIsPrivate(isPrivate: boolean): OrganizationBuilder {
     this.isPrivate = isPrivate;
     return this;
