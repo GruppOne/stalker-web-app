@@ -32,7 +32,7 @@ describe('StalkerEndpoint', () => {
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
   });
 
-  it('should call the login post', () => {
+  it('should call httpClient post', () => {
     const httpPostSpy = httpClient.post.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
