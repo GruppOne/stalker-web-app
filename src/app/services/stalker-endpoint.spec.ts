@@ -1,18 +1,14 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
+import {of} from 'rxjs';
 
 import {StalkerEndpoint} from './stalker-endpoint';
 
 describe('StalkerEndpoint', () => {
   let sut: StalkerEndpoint;
 
-  let httpClient: HttpClient = jasmine.createSpyObj('HttpClient', [
-    'post',
-    'get',
-    'put',
-    'delete',
-  ]);
+  let httpClient = jasmine.createSpyObj('HttpClient', ['post', 'get', 'put', 'delete']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,12 +16,30 @@ describe('StalkerEndpoint', () => {
       providers: [{provide: HttpClient, useValue: httpClient}],
     });
     httpClient = TestBed.inject(HttpClient);
+    // sut = TestBed.inject(StalkerEndpoint);
   });
 
   it('should create an instance', () => {
     sut = new StalkerEndpoint(httpClient, '/');
-
     expect(sut).toBeTruthy();
+  });
+
+  it('should call httpClient get', () => {
+    const httpGetSpy = httpClient.get.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+    httpClient.get();
+    expect(httpGetSpy.calls.any()).toBe(true, 'get called');
+  });
+
+  it('should call the login post', () => {
+    const httpPostSpy = httpClient.post.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+
+    sut = new StalkerEndpoint(httpClient, '/');
+    sut.post('test');
+    expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
 });
 
