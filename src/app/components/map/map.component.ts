@@ -94,16 +94,16 @@ export class MapComponent implements OnInit {
         )
         .build();
     }
-    this.organization.places?.forEach((element) => {
-      if (element.name && element.placeData) {
+    if (this.organization.places) {
+      for (const element of this.organization.places) {
         this.polygonLayers.push(
           element.polyline
             .bindTooltip(
               `<strong>
-          ${element.name.toString()}</strong>` +
-                `<br>${element.placeData.address}` +
-                ` - ${element.placeData.zipcode}
-          ${element.placeData.city}`,
+          ${element.name?.toString()}</strong>` +
+                `<br>${element.placeData?.address}` +
+                ` - ${element.placeData?.zipcode}
+          ${element.placeData?.city}`,
             )
             .setStyle({
               color: this.getRandomColor(),
@@ -111,7 +111,7 @@ export class MapComponent implements OnInit {
         );
         this.bounds.push(element.polyline.getBounds());
       }
-    });
+    }
   }
 
   public onDrawCreated(e: {layer: Polygon}): void {
@@ -132,7 +132,7 @@ export class MapComponent implements OnInit {
       ) {
         name = '';
       }
-      console.log(`possible name: ${data.display_name}`);
+      console.log(`possible name: ${name}`);
       console.log(`address: ${data.address.road}`);
       console.log(`city: ${data.address.city}`);
       console.log(`zipcode: ${data.address.postcode}`);
