@@ -1,6 +1,6 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
@@ -52,6 +52,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(routes, {anchorScrolling: 'enabled'}),
     HttpClientModule,
     LeafletModule.forRoot(),

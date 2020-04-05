@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, GeometryUtil} from 'leaflet';
+import {tileLayer, Polygon, LatLngBounds, LatLng, latLng} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
 import {PlaceBuilder} from 'src/app/models/place';
 import {PlaceDataBuilder} from 'src/app/models/place-data';
@@ -67,7 +67,7 @@ export class MapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getOrganization(1);
+    this.getOrganizationById(1);
     if (!this.organization) {
       this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([
@@ -80,7 +80,7 @@ export class MapComponent implements OnInit {
             ]),
           )
             .addPlaceData(
-              new PlaceDataBuilder('Via Trieste', 'Padova', 35031, 'Italia').build(),
+              new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
             )
             .addName('Torre Archimede')
             .build(),
@@ -94,19 +94,16 @@ export class MapComponent implements OnInit {
         )
         .build();
     }
-    this.organization?.places?.forEach((element) => {
+    this.organization.places?.forEach((element) => {
       if (element.name && element.placeData) {
         this.polygonLayers.push(
           element.polyline
             .bindTooltip(
-              '<strong>' +
-                element.name.toString() +
-                '</strong><br>' +
-                element.placeData.address.toString() +
-                ' - ' +
-                element.placeData.zipcode.toFixed() +
-                ' ' +
-                element.placeData.city.toString(),
+              `<strong>
+          ${element.name.toString()}</strong>` +
+                `<br>${element.placeData.address}` +
+                ` - ${element.placeData.zipcode}
+          ${element.placeData.city}`,
             )
             .setStyle({
               color: this.getRandomColor(),
@@ -117,15 +114,13 @@ export class MapComponent implements OnInit {
     });
   }
 
-  // public onDrawCreated(e: { layer: Polygon }): void {
-  // public onDrawCreated(e: DrawEvents.Created): void {
-  public onDrawCreated(e: any): void {
+  public onDrawCreated(e: {layer: Polygon}): void {
     const a = e.layer.getLatLngs();
     const l = latLng(this.getCentroid(a[0] as LatLng[]));
-    const area = GeometryUtil.geodesicArea(a[0]);
+    /*          const area = GeometryUtil.geodesicArea(a[0] as LatLng[]);
     let seeArea = '';
     seeArea = GeometryUtil.readableArea(area, true);
-    console.log(`area: ${seeArea}`);
+    console.log(`area: ${seeArea}`);  */
     this.placeService.reverseGeocoding(l.lat, l.lng).subscribe((data: Geocoding) => {
       console.log(a);
       console.log(data);
@@ -137,7 +132,7 @@ export class MapComponent implements OnInit {
       ) {
         name = '';
       }
-      console.log(`possible name: ${name}`);
+      console.log(`possible name: ${data.display_name}`);
       console.log(`address: ${data.address.road}`);
       console.log(`city: ${data.address.city}`);
       console.log(`zipcode: ${data.address.postcode}`);
@@ -145,7 +140,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  getOrganization(id: number): void {
+  getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
       .subscribe((response: HttpResponse<Organization>) => {
