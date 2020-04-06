@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {tileLayer, Polygon, LatLngBounds, LatLng, latLng} from 'leaflet';
+import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
 import {PlaceBuilder} from 'src/app/models/place';
 import {PlaceDataBuilder} from 'src/app/models/place-data';
@@ -15,6 +15,13 @@ import {OrganizationService} from '../../services/organization.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+  arrayCoord: Polygon[] = [];
+  arrayRoad: string[] = [];
+  arrayCity: string[] = [];
+  arrayPostcode: string[] = [];
+  arrayCountry: string[] = [];
+  arrayName: string[] = [];
+
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
   options = {
@@ -132,10 +139,20 @@ export class MapComponent implements OnInit {
       ) {
         name = '';
       }
+      // push values in arrays to submit
+      this.arrayCoord.push(polygon(a as LatLng[]));
+      this.arrayRoad.push(data.address.road);
+      this.arrayCity.push(data.address.city);
+      this.arrayPostcode.push(data.address.postcode);
+      this.arrayCountry.push(data.address.country);
+      this.arrayName.push(name);
+
+      // see values on console
+      console.log(`coord: ${a}`);
       console.log(`possible name: ${name}`);
       console.log(`address: ${data.address.road}`);
-      console.log(`city: ${data.address.city}`);
       console.log(`zipcode: ${data.address.postcode}`);
+      console.log(`city: ${data.address.city}`);
       console.log(`state: ${data.address.country}`);
     });
   }

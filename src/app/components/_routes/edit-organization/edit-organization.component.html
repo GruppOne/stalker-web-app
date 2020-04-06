@@ -17,19 +17,17 @@
       </mat-form-field>
       <div>
         <button mat-button matStepperNext type="button">Next</button>
-        <button mat-button type="submit">Submit</button>
       </div>
     </mat-step>
-    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+    <mat-step>
       <ng-template matStepLabel>Organization places</ng-template>
-      <app-map></app-map>
+      <app-map #map></app-map>
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
         <button mat-button matStepperNext type="button">Next</button>
-        <button mat-button type="submit">Submit</button>
       </div>
     </mat-step>
-    <mat-step formGroupName="2" [stepControl]="formArray?.get([2])" [optional]="true">
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true">
       <ng-template matStepLabel>LDAP configuration</ng-template>
       <mat-form-field>
         <mat-label>Host</mat-label>
@@ -46,10 +44,9 @@
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
         <button mat-button matStepperNext type="button">Next</button>
-        <button mat-button type="submit">Submit</button>
       </div>
     </mat-step>
-    <mat-step formGroupName="3" [stepControl]="formArray?.get([3])" [optional]="true">
+    <mat-step formGroupName="2" [stepControl]="formArray?.get([2])" [optional]="true">
       <ng-template matStepLabel>Admin management</ng-template>
       <mat-form-field>
         <mat-label>Manager</mat-label>
@@ -62,7 +59,6 @@
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
         <button mat-button matStepperNext type="button">Next</button>
-        <button mat-button type="submit">Submit</button>
       </div>
     </mat-step>
     <mat-step onclick="">
