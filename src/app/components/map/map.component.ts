@@ -122,39 +122,36 @@ export class MapComponent implements OnInit {
   }
 
   public onDrawCreated(e: {layer: Polygon}): void {
-    const a = e.layer.getLatLngs();
-    const l = latLng(this.getCentroid(a[0] as LatLng[]));
+    const points = e.layer.getLatLngs();
+    const center = latLng(this.getCentroid(points[0] as LatLng[]));
     /*          const area = GeometryUtil.geodesicArea(a[0] as LatLng[]);
     let seeArea = '';
     seeArea = GeometryUtil.readableArea(area, true);
     console.log(`area: ${seeArea}`);  */
-    this.placeService.reverseGeocoding(l.lat, l.lng).subscribe((data: Geocoding) => {
-      console.log(a);
-      console.log(data);
-      let name = data.display_name.substring(0, data.display_name.indexOf(','));
-      if (
-        // name starts with 'Via' or contains only numbers
-        name.startsWith('Via') ||
-        Number(data.display_name.substring(0, data.display_name.indexOf(',')))
-      ) {
-        name = '';
-      }
-      // push values in arrays to submit
-      this.arrayCoord.push(polygon(a as LatLng[]));
-      this.arrayRoad.push(data.address.road);
-      this.arrayCity.push(data.address.city);
-      this.arrayPostcode.push(data.address.postcode);
-      this.arrayCountry.push(data.address.country);
-      this.arrayName.push(name);
-
-      // see values on console
-      console.log(`coord: ${a}`);
-      console.log(`possible name: ${name}`);
-      console.log(`address: ${data.address.road}`);
-      console.log(`zipcode: ${data.address.postcode}`);
-      console.log(`city: ${data.address.city}`);
-      console.log(`state: ${data.address.country}`);
-    });
+    this.placeService
+      .reverseGeocoding(center.lat, center.lng)
+      .subscribe((data: Geocoding) => {
+        let name = data.display_name.substring(0, data.display_name.indexOf(','));
+        if (
+          // name starts with 'Via' or contains only numbers
+          name.startsWith('Via') ||
+          Number(data.display_name.substring(0, data.display_name.indexOf(',')))
+        ) {
+          name = '';
+        }
+        this.arrayCoord.push(polygon(points as LatLng[]));
+        this.arrayRoad.push(data.address.road);
+        this.arrayCity.push(data.address.city);
+        this.arrayPostcode.push(data.address.postcode);
+        this.arrayCountry.push(data.address.country);
+        this.arrayName.push(name);
+        console.log(`coord: ${points}`);
+        console.log(`possible name: ${name}`);
+        console.log(`address: ${data.address.road}`);
+        console.log(`city: ${data.address.city}`);
+        console.log(`zipcode: ${data.address.postcode}`);
+        console.log(`state: ${data.address.country}`);
+      });
   }
 
   getOrganizationById(id: number): void {
@@ -169,10 +166,10 @@ export class MapComponent implements OnInit {
 
   // generates random hex colors
   getRandomColor(): string {
-    const letters = '0123456789ABCDEF';
+    const hexadecimalDigits = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+      color += hexadecimalDigits[Math.floor(Math.random() * 16)];
     }
     return color;
   }

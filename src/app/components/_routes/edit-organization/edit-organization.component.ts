@@ -14,7 +14,14 @@ import {OrganizationService} from '../../../services/organization.service';
   styleUrls: ['edit-organization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
-  @ViewChild('map') mapDataChild: any;
+  @ViewChild('map') mapDataChild?: {
+    arrayCoord: Polygon[];
+    arrayName: string[];
+    arrayRoad: string[];
+    arrayPostcode: string[];
+    arrayCity: string[];
+    arrayCountry: string[];
+  };
 
   organization?: Organization;
   OrganizationBuilder?: Organization;
@@ -91,12 +98,14 @@ export class EditOrganizationComponent implements OnInit {
 
   // TODO controllo client side dei campi
   submitOrganizationForm(): void {
-    console.log(this.formArray?.value);
-    console.log(this.mapDataChild.arrayCoord);
-    console.log(this.mapDataChild.arrayName);
-    console.log(this.mapDataChild.arrayRoad);
-    console.log(this.mapDataChild.arrayPostcode);
-    console.log(this.mapDataChild.arrayCity);
-    console.log(this.mapDataChild.arrayCountry);
+    if (this.mapDataChild) {
+      console.log(this.formArray?.value);
+      console.log(this.mapDataChild.arrayCoord);
+      console.log(this.mapDataChild.arrayName);
+      console.log(this.mapDataChild.arrayRoad);
+      console.log(this.mapDataChild.arrayPostcode);
+      console.log(this.mapDataChild.arrayCity);
+      console.log(this.mapDataChild.arrayCountry);
+    }
   }
 }

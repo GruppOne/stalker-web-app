@@ -1,5 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
+import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
 import {OrganizationService} from 'src/app/services/organization.service';
 
 import {Organization, OrganizationBuilder} from '../../../models/organization';
@@ -17,6 +18,17 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrganizationById(1);
+    if (!this.organization) {
+      this.organization = new OrganizationBuilder('Unipd', true)
+        .addDescription('')
+        .addLdapConfiguration(
+          new LdapConfigurationBuilder('127.0.0.1')
+            .addUsername('mariorossi@gmail.com')
+            .addPassword('password')
+            .build(),
+        )
+        .build();
+    }
   }
   getOrganizationById(id: number): void {
     this.organizationService

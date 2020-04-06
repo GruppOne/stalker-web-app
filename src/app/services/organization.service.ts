@@ -12,7 +12,7 @@ import {StalkerEndpoint} from './stalker-endpoint';
 export class OrganizationService {
   private readonly stalkerEndpoint: StalkerEndpoint;
   constructor(httpClient: HttpClient) {
-    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/organization');
+    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/organizations');
   }
 
   // TODO: implement adding organization
@@ -23,7 +23,7 @@ export class OrganizationService {
   } */
 
   getOrganizationById(organizationId: number): Observable<HttpResponse<Organization>> {
-    this.stalkerEndpoint.setPath('/organization/' + organizationId.toString());
+    this.stalkerEndpoint.setPath('/organizations/' + organizationId.toString());
     return this.stalkerEndpoint.get<Organization>();
   }
 }
