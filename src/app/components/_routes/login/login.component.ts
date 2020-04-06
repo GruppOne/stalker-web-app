@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 
 import {User, UserBuilder} from '../../../models/users/user';
 import {LoginService} from '../../../services/login.service';
+import * as sha512 from 'js-sha512';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,9 @@ export class LoginComponent implements OnInit {
     if (!this.validateInput(email, password)) {
       return;
     }
-    const userBuilder = new UserBuilder(email, password);
+    const hashedPass = sha512.sha512(password);
+    const userBuilder = new UserBuilder(email, sha512.sha512(password));
+    console.log(hashedPass);
     this.loginService
       .login(userBuilder.build())
       .subscribe((response: HttpResponse<User>) => {
