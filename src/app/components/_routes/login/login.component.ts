@@ -4,10 +4,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
+import * as sha512 from 'js-sha512';
 
 import {User, UserBuilder} from '../../../models/users/user';
 import {LoginService} from '../../../services/login.service';
-import * as sha512 from 'js-sha512';
 
 @Component({
   selector: 'app-login',
