@@ -1,5 +1,5 @@
 import {HttpResponse} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {Polygon, LatLng} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
@@ -14,8 +14,9 @@ import {OrganizationService} from '../../../services/organization.service';
   styleUrls: ['edit-organization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
-  organization?: Organization;
+  @ViewChild('map') mapDataChild: any;
 
+  organization?: Organization;
   OrganizationBuilder?: Organization;
   formGroup: FormGroup = new FormGroup({});
 
@@ -60,7 +61,6 @@ export class EditOrganizationComponent implements OnInit {
           orgNameCtrl: [this.organization.name, Validators.required],
           orgDescriptionCtrl: [this.organization.description, Validators.required],
         }),
-        this.formBuilder.group({}),
         this.formBuilder.group({
           orgHostCtrl: [this.organization.ldapConfiguration?.host, Validators.required],
           orgUserCtrl: [
@@ -92,5 +92,11 @@ export class EditOrganizationComponent implements OnInit {
   // TODO controllo client side dei campi
   submitOrganizationForm(): void {
     console.log(this.formArray?.value);
+    console.log(this.mapDataChild.arrayCoord);
+    console.log(this.mapDataChild.arrayName);
+    console.log(this.mapDataChild.arrayRoad);
+    console.log(this.mapDataChild.arrayPostcode);
+    console.log(this.mapDataChild.arrayCity);
+    console.log(this.mapDataChild.arrayCountry);
   }
 }
