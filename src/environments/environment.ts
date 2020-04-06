@@ -11,10 +11,12 @@ import {Environment} from './environment.d';
 
 const apiHost = 'localhost:11111';
 const apiUrl = `http://${apiHost}`;
+const apiKey = 'boh';
 
 // default development configuration
 export const environment: Environment = {
   production: false,
   apiHost,
   apiUrl,
+  apiKey,
 };
