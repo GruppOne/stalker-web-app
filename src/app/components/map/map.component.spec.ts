@@ -96,7 +96,7 @@ describe('MapComponent', () => {
       layer: archimedeTower,
     });
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
-    expect(console.log).toHaveBeenCalledTimes(7);
+    expect(console.log).toHaveBeenCalledTimes(8);
     console.log(geocode.display_name);
   });
   it('should get and not display incorrect place name', () => {
@@ -107,7 +107,7 @@ describe('MapComponent', () => {
       layer: archimedeTower,
     });
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
-    expect(console.log).toHaveBeenCalledTimes(7);
+    expect(console.log).toHaveBeenCalledTimes(8);
     console.log(geocode.display_name);
   });
 });
