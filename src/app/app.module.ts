@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {BrowserModule, Title} from '@angular/platform-browser';
@@ -18,6 +18,7 @@ import {FormEmailComponent} from './components/form-email/form-email.component';
 import {FormPasswordComponent} from './components/form-password/form-password.component';
 import {MapComponent} from './components/map/map.component';
 import {CustomMaterialModule} from './modules/material.module';
+import {AuthHttpInterceptorService} from './services/auth-http-interceptor.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -58,7 +59,14 @@ const routes: Routes = [
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
   ],
-  providers: [Title],
+  providers: [
+    Title,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

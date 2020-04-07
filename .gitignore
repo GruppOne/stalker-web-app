@@ -56,3 +56,6 @@ Thumbs.db
 # Copy Paste Detector report
 .jscpd/
 .jscpd-report/
+
+#apiKey
+**/*.apiKey
