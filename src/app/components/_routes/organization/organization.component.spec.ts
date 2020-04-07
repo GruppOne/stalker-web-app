@@ -2,7 +2,8 @@ import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
-import {OrganizationService} from 'src/app/services/organization.service';
+
+import {OrganizationService} from '../../../services/organization.service';
 
 import {OrganizationComponent} from './organization.component';
 
@@ -15,7 +16,7 @@ describe('OrganizationComponent', () => {
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
     of(
       new HttpResponse({
-        body: {organizations: []},
+        body: {organizations: [{}]},
         headers: new HttpHeaders(),
         status: 400,
       }),
@@ -48,7 +49,7 @@ describe('OrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: {organizations: []},
+          body: {organizations: [{}]},
           headers: new HttpHeaders(),
           status: 200,
         }),
