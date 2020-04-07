@@ -2,6 +2,7 @@ import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
+import {MyLatLng} from 'src/app/models/my-lat-lng';
 import {PlaceBuilder} from 'src/app/models/place';
 import {PlaceDataBuilder} from 'src/app/models/place-data';
 import {PlaceService, Geocoding} from 'src/app/services/place.service';
@@ -15,7 +16,7 @@ import {OrganizationService} from '../../services/organization.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  arrayCoord: Polygon[] = [];
+  arrayCoord: LatLng[] = [];
   arrayRoad: string[] = [];
   arrayCity: string[] = [];
   arrayPostcode: string[] = [];
@@ -78,33 +79,32 @@ export class MapComponent implements OnInit {
     if (!this.organization) {
       this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([
-          new PlaceBuilder(
-            new Polygon([
-              new LatLng(45.411564, 11.887473),
-              new LatLng(45.411225, 11.887325),
-              new LatLng(45.41111, 11.887784),
-              new LatLng(45.41144, 11.88795),
-            ]),
-          )
+          new PlaceBuilder([
+            new MyLatLng(45.411564, 11.887473),
+            new MyLatLng(45.411225, 11.887325),
+            new MyLatLng(45.41111, 11.887784),
+            new MyLatLng(45.41144, 11.88795),
+          ])
             .addPlaceData(
               new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
             )
             .addName('Torre Archimede')
             .build(),
         ])
-        .addDescription('lore ipsum...')
+        .addDescription('lorem ipsum...')
         .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
             .addUsername('mario')
             .addPassword('pass')
             .build(),
         )
+        .addId(2)
         .build();
     }
     if (this.organization.places) {
       for (const element of this.organization.places) {
         this.polygonLayers.push(
-          element.polyline
+          polygon(element.getLatLng(element.polyline))
             .bindTooltip(
               `<strong>
           ${element.name?.toString()}</strong>` +
@@ -116,7 +116,7 @@ export class MapComponent implements OnInit {
               color: this.getRandomColor(),
             }),
         );
-        this.bounds.push(element.polyline.getBounds());
+        this.bounds.push(polygon(element.getLatLng(element.polyline)).getBounds());
       }
     }
   }
@@ -139,7 +139,7 @@ export class MapComponent implements OnInit {
         ) {
           name = '';
         }
-        this.arrayCoord.push(polygon(points as LatLng[]));
+        this.arrayCoord.push(points[0] as LatLng);
         this.arrayRoad.push(data.address.road);
         this.arrayCity.push(data.address.city);
         this.arrayPostcode.push(data.address.postcode);

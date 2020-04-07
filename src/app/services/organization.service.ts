@@ -22,6 +22,10 @@ export class OrganizationService {
       .pipe(catchError(this.handleError<any>([])));
   } */
 
+  editOrganization(organization: Organization): Observable<HttpResponse<Organization>> {
+    this.stalkerEndpoint.setPath(`/organizations/${organization.id}`);
+    return this.stalkerEndpoint.put<Organization>(organization);
+  }
   getOrganizationById(organizationId: number): Observable<HttpResponse<Organization>> {
     this.stalkerEndpoint.setPath('/organizations/' + organizationId.toString());
     return this.stalkerEndpoint.get<Organization>();

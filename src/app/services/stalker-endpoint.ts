@@ -49,14 +49,14 @@ export class StalkerEndpoint {
       .pipe(catchError(errorHandler));
   }
 
-  // put<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
-  //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-  //   const errorHandler = this.handleError<HttpResponse<T>>();
+  put<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+    const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
+    const errorHandler = this.handleError<HttpResponse<T>>();
 
-  //   return this.httpClient
-  //     .put<T>(this.url, body, httpOptions)
-  //     .pipe(catchError(errorHandler));
-  // }
+    return this.httpClient
+      .put<T>(this.url, body, httpOptions)
+      .pipe(catchError(errorHandler));
+  }
 
   // delete<T>(additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
   //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);

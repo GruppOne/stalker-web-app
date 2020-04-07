@@ -1,21 +1,23 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
-import {Polygon, LatLng} from 'leaflet';
+import {LatLng} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
+import {MyLatLng} from 'src/app/models/my-lat-lng';
 import {PlaceBuilder} from 'src/app/models/place';
+import {PlaceDataBuilder} from 'src/app/models/place-data';
 
 import {Organization, OrganizationBuilder} from '../../../models/organization';
 import {OrganizationService} from '../../../services/organization.service';
 
 @Component({
   selector: 'app-edit-organization',
-  templateUrl: 'edit-organization.component.html',
-  styleUrls: ['edit-organization.component.scss'],
+  templateUrl: 'editorganization.component.html',
+  styleUrls: ['editorganization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
   @ViewChild('map') mapDataChild?: {
-    arrayCoord: Polygon[];
+    arrayCoord: LatLng[][];
     arrayName: string[];
     arrayRoad: string[];
     arrayPostcode: string[];
@@ -24,7 +26,7 @@ export class EditOrganizationComponent implements OnInit {
   };
 
   organization?: Organization;
-  OrganizationBuilder?: Organization;
+  organizationBuilder?: OrganizationBuilder;
   formGroup: FormGroup = new FormGroup({});
 
   // Returns a FormArray with the name 'formArray'.
@@ -42,14 +44,12 @@ export class EditOrganizationComponent implements OnInit {
     if (!this.organization) {
       this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([
-          new PlaceBuilder(
-            new Polygon([
-              new LatLng(45.411564, 11.887473),
-              new LatLng(45.411225, 11.887325),
-              new LatLng(45.41111, 11.887784),
-              new LatLng(45.41144, 11.88795),
-            ]),
-          ).build(),
+          new PlaceBuilder([
+            new MyLatLng(45.411564, 11.887473),
+            new MyLatLng(45.411225, 11.887325),
+            new MyLatLng(45.41111, 11.887784),
+            new MyLatLng(45.41144, 11.88795),
+          ]).build(),
         ])
         .addDescription(
           'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor...',
@@ -60,6 +60,9 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword('root')
             .build(),
         )
+        .addId(2)
+        .addCreatedDate('2020-04-07T02:00:00Z')
+        .addLastModifiedDate('2020-04-07T02:00:00Z')
         .build();
     }
     this.formGroup = this.formBuilder.group({
@@ -98,14 +101,51 @@ export class EditOrganizationComponent implements OnInit {
 
   // TODO controllo client side dei campi
   submitOrganizationForm(): void {
-    if (this.mapDataChild) {
-      console.log(this.formArray?.value);
+    if (this.mapDataChild && this.formArray && this.organization) {
+      console.log(this.formArray.value);
       console.log(this.mapDataChild.arrayCoord);
       console.log(this.mapDataChild.arrayName);
       console.log(this.mapDataChild.arrayRoad);
       console.log(this.mapDataChild.arrayPostcode);
       console.log(this.mapDataChild.arrayCity);
       console.log(this.mapDataChild.arrayCountry);
+      this.organizationBuilder = new OrganizationBuilder(
+        this.formArray.value[0].orgNameCtrl,
+        true,
+      )
+        .addDescription(this.formArray.value[0].orgDescriptionCtrl)
+        .addId(this.organization.id as number)
+        .addCreatedDate(this.organization.createdDate as string)
+        .addLastModifiedDate(this.organization.lastModifiedDate as string)
+        .addLdapConfiguration(
+          new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
+            .addUsername(this.formArray.value[1].orgUserCtrl)
+            .addPassword(this.formArray.value[1].orgPwdCtrl)
+            .build(),
+        );
+      for (let i = 0; i < this.mapDataChild.arrayCoord.length; i++) {
+        const polyline: MyLatLng[] = [];
+        for (const j of this.mapDataChild.arrayCoord[i]) {
+          polyline.push(new MyLatLng(200, 200, j));
+        }
+        this.organizationBuilder.addPlaces([
+          new PlaceBuilder(polyline)
+            .addName(this.mapDataChild.arrayName[i])
+            .addPlaceData(
+              new PlaceDataBuilder(
+                this.mapDataChild.arrayRoad[i],
+                this.mapDataChild.arrayCity[i],
+                this.mapDataChild.arrayPostcode[i],
+                this.mapDataChild.arrayCountry[i],
+              ).build(),
+            )
+            .build(),
+        ]);
+      }
+      console.log(this.organizationBuilder.build());
+      this.organizationService
+        .editOrganization(this.organizationBuilder.build())
+        .subscribe();
     }
   }
 }
