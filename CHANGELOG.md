@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/GruppOne/stalker-web-app/compare/v0.4.0...v0.5.0) (2020-04-07)
+
+
+### Features
+
+* add form submission in console.log ([f1b9039](https://github.com/GruppOne/stalker-web-app/commit/f1b90399e7e56fdac7fec61a43d854d4dc7ac7fd))
+* add ldapConfiguration tests ([51198a4](https://github.com/GruppOne/stalker-web-app/commit/51198a46618f57fbb99e0c95a7c42222543e88e7))
+* add map component ([06c46d5](https://github.com/GruppOne/stalker-web-app/commit/06c46d5eca98860b1cdbe821d7a651056aa35d77))
+* add map to edit-organization ([9e31e3d](https://github.com/GruppOne/stalker-web-app/commit/9e31e3d5192ee8d81c7d2739af1040d7f05573f8))
+* add map to organization details ([6f274bb](https://github.com/GruppOne/stalker-web-app/commit/6f274bb174b1bfd7b41a4e4cdb3de865669154e9))
+* add organization and place classes ([909b020](https://github.com/GruppOne/stalker-web-app/commit/909b020862cdddb84a794318ca5b1e6e06dd3293))
+* add organization page component ([ffe9659](https://github.com/GruppOne/stalker-web-app/commit/ffe9659d696a28e024b1fb3fc94bfd7f508443a0))
+* add organization put and refactor place class, add myLatLng class ([e8f2dfe](https://github.com/GruppOne/stalker-web-app/commit/e8f2dfe7c3a7107948e76dab032018cb826e7e5d))
+* add organization service ([5af9ee2](https://github.com/GruppOne/stalker-web-app/commit/5af9ee252260744f917b293957303a61ed774f86))
+* add place component and add routes ([fcc2d6d](https://github.com/GruppOne/stalker-web-app/commit/fcc2d6d2fb6a46206240b757a9366bef82404e7d))
+* add place front-end ([b4efb97](https://github.com/GruppOne/stalker-web-app/commit/b4efb971434d60d0ec3bc764a010a21bd1ad034e))
+* add place service ([fb61343](https://github.com/GruppOne/stalker-web-app/commit/fb61343a9e1a778ae4a4ed18cd62ed5341503962))
+* add reverse geocoding ([caecdb3](https://github.com/GruppOne/stalker-web-app/commit/caecdb39382a28355b4d96aa4d6e0bf1b5b0e8ff))
+* add style and services to  organization component ([e345157](https://github.com/GruppOne/stalker-web-app/commit/e3451572463f3c3431ad47903d43385c355dfa55))
+* populate leaflet map with default places ([0da5b19](https://github.com/GruppOne/stalker-web-app/commit/0da5b1913e4364107f8ee691a62e118937c76a2b))
+* start design edit-organization component ([860a961](https://github.com/GruppOne/stalker-web-app/commit/860a9612031dcb887ccf27bdaaad0355f1369d35))
+
+
+### Bug Fixes
+
+* change endpoint names and fix linting errors ([5ac4e6e](https://github.com/GruppOne/stalker-web-app/commit/5ac4e6e700edb83b1198c7d66275876f2319ce5e))
+* fix classes and services folder structure and fix linting errors ([66ea2f4](https://github.com/GruppOne/stalker-web-app/commit/66ea2f462cf2a78cbbdc192f927533fc50706985))
+* fix eslint bug on map component ([df089e7](https://github.com/GruppOne/stalker-web-app/commit/df089e79a246cfd5c366294acec72690b42235aa))
+* fix linter errors, add builder pattern for all classes, fix tests ([1c7b49e](https://github.com/GruppOne/stalker-web-app/commit/1c7b49e91472cb4409dbc976d5ab75fa0e8eda9f))
+* fix map and edit-organization bugs ([1c146ae](https://github.com/GruppOne/stalker-web-app/commit/1c146aef08b8b47c39a358244e07f80ee7454192))
+
+
+### Configuration
+
+* log submitted values in the console ([f498bf0](https://github.com/GruppOne/stalker-web-app/commit/f498bf032991ae4ce2b26500180346618011c511))
+* **eslint:** allow single property name with underscore ([ff43c6f](https://github.com/GruppOne/stalker-web-app/commit/ff43c6f286b834c620a900c0bd1fffb66f7a34aa))
+* **eslint:** change max params to 4 ([3861906](https://github.com/GruppOne/stalker-web-app/commit/3861906c1be8684d5a10918d64ebc895d47aa7de))
+* **eslint:** enable stricter coding best practices ([27d0d98](https://github.com/GruppOne/stalker-web-app/commit/27d0d9820db42d40b3f2f885036ea285ac6bac7b))
+* **eslint:** removed camelcase rule ([8288d5e](https://github.com/GruppOne/stalker-web-app/commit/8288d5e7dd962d6fc10c5bb466bdc85de34fb32e))
+* **npm:** fix package-lock out of sync and run npm audit fix ([fbb49d6](https://github.com/GruppOne/stalker-web-app/commit/fbb49d6f3f1386b405866c29cc621efe09bc7b30))
+* **npm:** run npm install leaflet to add maps dependencies ([74052f2](https://github.com/GruppOne/stalker-web-app/commit/74052f2d0fe357cd94dac3499395ac6dc2594564))
+* **npm:** run npm install, audit fix and update ([3ef025a](https://github.com/GruppOne/stalker-web-app/commit/3ef025a62d6f6ab1bf5ab02ad99ccd90f57737d0))
+* add max length to the password regex pattern ([1af1c5b](https://github.com/GruppOne/stalker-web-app/commit/1af1c5b8289b679f2791b49c1b490277c9c49dbb))
+* change some style ([8fa5652](https://github.com/GruppOne/stalker-web-app/commit/8fa56522336e56fbec5fd5fc5c0a4336a52c240d))
+* filter place name suggestion by displaying only relevent names ([c967cd4](https://github.com/GruppOne/stalker-web-app/commit/c967cd4ee052cf576edbc4bac97f36966e0a557c))
+* improve suggestion of place names ([771f5d2](https://github.com/GruppOne/stalker-web-app/commit/771f5d2a2f15602d68b8bb2f089834ec613f0ed2))
+* resolve errors after rebase ([8aea53e](https://github.com/GruppOne/stalker-web-app/commit/8aea53e0f4f1086897fd4524abf6c999d12f8f58))
+
 ## [0.4.0](https://github.com/GruppOne/stalker-web-app/compare/v0.3.0...v0.4.0) (2020-04-03)
 
 
