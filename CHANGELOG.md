@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/GruppOne/stalker-web-app/compare/v0.5.0...v0.6.0) (2020-04-07)
+
+
+### Features
+
+* add httpInterceptor for calls that adds apikey to headers ([a464d9c](https://github.com/GruppOne/stalker-web-app/commit/a464d9c402b37516115325db8f18fcb54b3d169a))
+* hash password after validation ([231123b](https://github.com/GruppOne/stalker-web-app/commit/231123b083178dda918ff529ec833bd48986944d))
+
+
+### Bug Fixes
+
+* fix bugs for PoC ([1bf6cc5](https://github.com/GruppOne/stalker-web-app/commit/1bf6cc572edfb698f301fb655a78ff8db05912f9))
+* fix endpoints and test for PoC ([d213f7a](https://github.com/GruppOne/stalker-web-app/commit/d213f7acc0398b183689e226e9911d061d9addc0))
+* fix environment for server mock ([48cf680](https://github.com/GruppOne/stalker-web-app/commit/48cf680381e9ca0938cbbb83b3d5876e7e6116d3))
+* fix linting errors ([5e250d1](https://github.com/GruppOne/stalker-web-app/commit/5e250d1773f732fb01530bb5ef70d17bb6955484))
+
+
+### Configuration
+
+* **npm:** add js-sha512 dependency for hashing sensible datas ([ae70216](https://github.com/GruppOne/stalker-web-app/commit/ae702164396e891034764b3eaa363505f52574e9))
+
 ## [0.5.0](https://github.com/GruppOne/stalker-web-app/compare/v0.4.0...v0.5.0) (2020-04-07)
 
 
