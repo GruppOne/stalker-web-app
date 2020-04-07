@@ -16,7 +16,13 @@ describe('EditOrganizationComponent', () => {
   ]);
 
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    of(
+      new HttpResponse({
+        body: {organizations: []},
+        headers: new HttpHeaders(),
+        status: 200,
+      }),
+    ),
   );
 
   beforeEach(async(() => {
@@ -45,7 +51,7 @@ describe('EditOrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: null,
+          body: {organizations: []},
           headers: new HttpHeaders(),
           status: 200,
         }),
@@ -58,7 +64,7 @@ describe('EditOrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: {name: 'unipd', isPrivate: false},
+          body: {organizations: [{name: 'unipd', isPrivate: false}]},
           headers: new HttpHeaders(),
           status: 200,
         }),

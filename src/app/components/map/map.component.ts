@@ -157,9 +157,9 @@ export class MapComponent implements OnInit {
   getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
-      .subscribe((response: HttpResponse<Organization[]>) => {
-        if (response && response.status === 200 && response.body != null) {
-          this.organization = response.body[0];
+      .subscribe((response: HttpResponse<{organizations: Organization[]}>) => {
+        if (response && response.status === 200 && response.body?.organizations != null) {
+          this.organization = response.body.organizations[0];
         }
       });
   }

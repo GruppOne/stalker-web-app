@@ -65,7 +65,7 @@ describe('MapComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: null,
+          body: {organization: []},
           headers: new HttpHeaders(),
           status: 200,
         }),
@@ -78,7 +78,7 @@ describe('MapComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: {name: 'unipd', isPrivate: false},
+          body: {organizations: [{name: 'unipd', isPrivate: false}]},
           headers: new HttpHeaders(),
           status: 200,
         }),
