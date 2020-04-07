@@ -15,23 +15,23 @@ export class UserDataBuilder {
   private createdDate?: string;
   private lastModifiedDate?: string;
 
-  setFirstName(firstName: string): UserDataBuilder {
+  addFirstName(firstName: string): UserDataBuilder {
     this.firstName = firstName;
     return this;
   }
-  setLastName(lastName: string): UserDataBuilder {
+  addLastName(lastName: string): UserDataBuilder {
     this.lastName = lastName;
     return this;
   }
-  setBirthDate(birthDate: string): UserDataBuilder {
+  addBirthDate(birthDate: string): UserDataBuilder {
     this.birthDate = birthDate;
     return this;
   }
-  setCreatedDate(createdDate: string): UserDataBuilder {
+  addCreatedDate(createdDate: string): UserDataBuilder {
     this.createdDate = createdDate;
     return this;
   }
-  setLastModifiedDate(lastModifiedDate: string): UserDataBuilder {
+  addLastModifiedDate(lastModifiedDate: string): UserDataBuilder {
     this.lastModifiedDate = lastModifiedDate;
     return this;
   }

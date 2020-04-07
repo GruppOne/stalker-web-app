@@ -14,17 +14,21 @@ interface HttpOptions {
 }
 
 export class StalkerEndpoint {
-  private readonly url: string;
-  private defaultHttpHeaders: HttpHeaders;
+  private url = environment.apiUrl;
+  private readonly defaultHttpHeaders: HttpHeaders;
 
   constructor(private readonly httpClient: HttpClient, relativePath: string) {
-    const apiUrl = environment.apiUrl;
-    const trimmedRelativePath = relativePath.replace(/^\/|\/$/, '');
-    this.url = apiUrl + '/' + trimmedRelativePath;
+    this.setPath(relativePath);
 
     this.defaultHttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+  }
+
+  setPath(relativePath: string): void {
+    const apiUrl = environment.apiUrl;
+    const trimmedRelativePath = relativePath.replace(/^\/|\/$/, '');
+    this.url = apiUrl + '/' + trimmedRelativePath;
   }
 
   // TODO implement all verbs
@@ -45,14 +49,14 @@ export class StalkerEndpoint {
       .pipe(catchError(errorHandler));
   }
 
-  // put<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
-  //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-  //   const errorHandler = this.handleError<HttpResponse<T>>();
+  put<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+    const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
+    const errorHandler = this.handleError<HttpResponse<T>>();
 
-  //   return this.httpClient
-  //     .put<T>(this.url, body, httpOptions)
-  //     .pipe(catchError(errorHandler));
-  // }
+    return this.httpClient
+      .put<T>(this.url, body, httpOptions)
+      .pipe(catchError(errorHandler));
+  }
 
   // delete<T>(additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
   //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);

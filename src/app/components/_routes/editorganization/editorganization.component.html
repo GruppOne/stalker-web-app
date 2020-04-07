@@ -1,0 +1,72 @@
+<form [formGroup]="formGroup" editOrganizationForm="ngForm" (ngSubmit)="submitOrganizationForm()">
+  <mat-vertical-stepper #stepper formArrayName="formArray">
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+      <ng-template matStepLabel>Organization details</ng-template>
+      <mat-form-field>
+        <mat-label>Organization name</mat-label>
+        <input matInput placeholder="Ex. GruppOne" formControlName="orgNameCtrl" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Organization description</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. Lorem ipsum dolor sit amet..."
+          formControlName="orgDescriptionCtrl"
+          required
+        ></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Organization places</ng-template>
+      <app-map #map></app-map>
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true">
+      <ng-template matStepLabel>LDAP configuration</ng-template>
+      <mat-form-field>
+        <mat-label>Host</mat-label>
+        <input matInput formControlName="orgHostCtrl" placeholder="Ex. 192.168.0.1" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="orgUserCtrl" placeholder="Ex. mariorossi" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="orgPwdCtrl" />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="2" [stepControl]="formArray?.get([2])" [optional]="true">
+      <ng-template matStepLabel>Admin management</ng-template>
+      <mat-form-field>
+        <mat-label>Manager</mat-label>
+        <input matInput formControlName="managerEmailCtrl" placeholder="Ex. mariorossi@gmail.com" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Viewer</mat-label>
+        <input matInput formControlName="viewerEmailCtrl" placeholder="Ex. giorgiobianchi@gmail.com" />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+    <mat-step onclick="">
+      <ng-template matStepLabel>Confirm</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button type="submit">Submit</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

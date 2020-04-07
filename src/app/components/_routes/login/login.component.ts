@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private loginService: LoginService,
-    private router: Router,
-    private titleService: Title,
-    private viewportScroller: ViewportScroller,
+    private readonly loginService: LoginService,
+    private readonly router: Router,
+    private readonly titleService: Title,
+    private readonly viewportScroller: ViewportScroller,
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     );
     const regexPwd = new RegExp(
       // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
-      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
+      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$',
     );
 
     return regexMail.test(email) && regexPwd.test(password);

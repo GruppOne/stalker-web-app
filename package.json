@@ -1,6 +1,6 @@
 {
   "name": "stalker-web-app",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "cpd": "jscpd -c .jscpd.json .",
@@ -26,12 +26,16 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
-    "rxjs": "~6.5.4",
+    "@asymmetrik/ngx-leaflet": "^6.0.1",
+    "@asymmetrik/ngx-leaflet-draw": "^5.0.1",
+    "leaflet": "^1.6.0",
+    "leaflet-draw": "^1.0.4",
+    "rxjs": "~6.5.5",
     "tslib": "~1.11.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.900.2",
+    "@angular-devkit/build-angular": "~0.900.7",
     "@angular-eslint/builder": "^0.0.1-alpha.27",
     "@angular-eslint/eslint-plugin": "^0.0.1-alpha.27",
     "@angular-eslint/eslint-plugin-template": "^0.0.1-alpha.27",
@@ -43,7 +47,9 @@
     "@types/cucumber": "^6.0.1",
     "@types/jasmine": "^3.5.10",
     "@types/jasminewd2": "^2.0.8",
-    "@types/node": "^12.12.33",
+    "@types/leaflet": "^1.5.12",
+    "@types/leaflet-draw": "^1.0.2",
+    "@types/node": "^12.12.34",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "angular-in-memory-web-api": "^0.10.0",
@@ -67,7 +73,10 @@
     "protractor": "^5.4.3",
     "protractor-cucumber-framework": "^6.2.1",
     "standard-version": "^7.1.0",
-    "ts-node": "^8.8.1",
-    "typescript": "~3.8.3"
+    "ts-node": "^8.8.2",
+    "typescript": "~3.7"
+  },
+  "peerDependencies": {
+    "@angular-devkit/build-angular": "~0.900.2"
   }
 }
