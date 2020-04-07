@@ -1,5 +1,3 @@
-import {Polygon} from 'leaflet';
-
 import {LdapConfigurationBuilder} from './ldapConfiguration';
 import {OrganizationBuilder} from './organization';
 import {PlaceBuilder} from './place';
@@ -14,10 +12,7 @@ describe('Organization', () => {
     const newName = 'NewTest';
     const newDescription = 'Test description';
     const newLdapConfiguration = new LdapConfigurationBuilder('127.0.0.1').build();
-    const newPlaces = [
-      new PlaceBuilder(new Polygon([])).build(),
-      new PlaceBuilder(new Polygon([])).build(),
-    ];
+    const newPlaces = [new PlaceBuilder([]).build(), new PlaceBuilder([]).build()];
     const newIsPrivate = false;
     const newCreatedDate = '2020-05-21';
     const newLastModifiedDate = '2020-05-21';

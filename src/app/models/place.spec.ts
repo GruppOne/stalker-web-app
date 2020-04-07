@@ -1,18 +1,18 @@
-import {Polygon} from 'leaflet';
-
+import {MyLatLng} from './my-lat-lng';
 import {PlaceBuilder} from './place';
 import {PlaceDataBuilder} from './place-data';
+
 // import {Point} from './point';
 
 describe('Place', () => {
-  const placeBuilder = new PlaceBuilder(new Polygon([]));
+  const placeBuilder = new PlaceBuilder([]);
   it('should create an instance', () => {
     expect(placeBuilder.build()).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
     const newId = -2;
     const newName = 'TestName';
-    const newPolyline = new Polygon([]);
+    const newPolyline: MyLatLng[] = [];
     const newPlaceData = new PlaceDataBuilder(
       'Via Trieste',
       'Padova',

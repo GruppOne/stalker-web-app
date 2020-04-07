@@ -19,17 +19,11 @@ export interface Geocoding {
   providedIn: 'root',
 })
 export class PlaceService {
-  // private stalkerEndpoint: StalkerEndpoint;
+  // private readonly stalkerEndpoint: StalkerEndpoint;
 
   constructor(private readonly httpClient: HttpClient) {
     // this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/place');
   }
-
-  /*   getPlaceById(placeId: number): Observable<HttpResponse<Place>> {
-    this.stalkerEndpoint.setPath('/place/' + placeId.toString());
-    return this.stalkerEndpoint
-      .get<Place>();
-  } */
 
   reverseGeocoding(lat: number, lng: number): Observable<Geocoding> {
     return this.httpClient.get<Geocoding>(

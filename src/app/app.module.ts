@@ -8,7 +8,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 
 import {AppComponent} from './app.component';
-import {EditOrganizationComponent} from './components/_routes/edit-organization/edit-organization.component';
+import {EditOrganizationComponent} from './components/_routes/editorganization/editorganization.component';
 import {HomeComponent} from './components/_routes/home/home.component';
 import {LoginComponent} from './components/_routes/login/login.component';
 import {OrganizationComponent} from './components/_routes/organization/organization.component';
@@ -29,7 +29,7 @@ const routes: Routes = [
     component: OrganizationComponent,
   },
   {
-    path: 'edit-organization',
+    path: 'editorganization',
     component: EditOrganizationComponent,
   },
 ];

@@ -1,12 +1,15 @@
-import {Polygon} from 'leaflet';
+import {LatLng} from 'leaflet';
 
+import {MyLatLng} from './my-lat-lng';
 import {PlaceData} from './place-data';
 
 export interface Place {
   readonly id?: number;
   readonly name?: string;
-  readonly polyline: Polygon;
+  readonly polyline: MyLatLng[];
   readonly placeData?: PlaceData;
+
+  getLatLng(polyline: MyLatLng[]): LatLng[];
 }
 
 export class PlaceBuilder {
@@ -14,7 +17,7 @@ export class PlaceBuilder {
   private name?: string;
   private placeData?: PlaceData;
 
-  constructor(private polyline: Polygon) {}
+  constructor(private polyline: MyLatLng[]) {}
 
   addId(id: number): PlaceBuilder {
     this.id = id;
@@ -24,8 +27,8 @@ export class PlaceBuilder {
     this.name = name;
     return this;
   }
-  addPolyline(polyline: Polygon): PlaceBuilder {
-    this.polyline = polyline;
+  addPolyline(_polyline: MyLatLng[]): PlaceBuilder {
+    this.polyline = _polyline;
     return this;
   }
   addPlaceData(placeData: PlaceData): PlaceBuilder {
@@ -38,6 +41,13 @@ export class PlaceBuilder {
       name: this.name,
       polyline: this.polyline,
       placeData: this.placeData,
+      getLatLng: (newPolyline) => {
+        const latLngs: LatLng[] = [];
+        for (const i of newPolyline) {
+          latLngs.push(i.LeafletLatLng);
+        }
+        return latLngs;
+      },
     };
   }
 }

@@ -5,7 +5,7 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {of} from 'rxjs';
 import {OrganizationService} from 'src/app/services/organization.service';
 
-import {EditOrganizationComponent} from './edit-organization.component';
+import {EditOrganizationComponent} from './editorganization.component';
 
 describe('EditOrganizationComponent', () => {
   let component: EditOrganizationComponent;
