@@ -6,8 +6,6 @@ export interface Environment {
   apiHost: string;
   apiUrl: string;
 
-  apiKey?: string;
-
   // logLevel: LogLevel;
   // enableDebugTools: true;
 }

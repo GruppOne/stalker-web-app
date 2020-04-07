@@ -92,9 +92,9 @@ export class EditOrganizationComponent implements OnInit {
   getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
-      .subscribe((response: HttpResponse<Organization>) => {
+      .subscribe((response: HttpResponse<Organization[]>) => {
         if (response && response.status === 200 && response.body != null) {
-          this.organization = response.body;
+          this.organization = response.body[0];
         }
       });
   }

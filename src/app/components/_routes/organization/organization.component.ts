@@ -33,11 +33,11 @@ export class OrganizationComponent implements OnInit {
   getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
-      .subscribe((response: HttpResponse<Organization>) => {
+      .subscribe((response: HttpResponse<Organization[]>) => {
         if (response && response.status === 200 && response.body != null) {
           this.organizationBuilder = new OrganizationBuilder(
-            response.body.name,
-            response.body.isPrivate,
+            response.body[0].name,
+            response.body[0].isPrivate,
           );
           this.organization = this.organizationBuilder.build();
         }
