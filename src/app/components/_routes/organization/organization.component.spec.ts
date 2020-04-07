@@ -13,7 +13,13 @@ describe('OrganizationComponent', () => {
     'getOrganizationById',
   ]);
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 400})),
+    of(
+      new HttpResponse({
+        body: {organizations: []},
+        headers: new HttpHeaders(),
+        status: 400,
+      }),
+    ),
   );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,7 +46,13 @@ describe('OrganizationComponent', () => {
 
   it('should call Organization get and handle empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+      of(
+        new HttpResponse({
+          body: {organizations: []},
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
@@ -49,7 +61,7 @@ describe('OrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: {name: 'unipd', isPrivate: false},
+          body: {organizations: [{name: 'unipd', isPrivate: false}]},
           headers: new HttpHeaders(),
           status: 200,
         }),
