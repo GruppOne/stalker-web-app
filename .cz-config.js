@@ -81,6 +81,7 @@ module.exports = {
       emptyScope,
       'vscode',
       'eslint',
+      'stylelint',
     ],
   },
 
