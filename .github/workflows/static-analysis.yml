@@ -26,25 +26,7 @@ jobs:
       - name: Run ESLint
         run: npm run --silent lint
 
-  # TODO turn check on again for format "markup"
-  cpd:
-    name: Check duplicated code
-    runs-on: ubuntu-18.04
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run jscpd
-        run: npm run --silent cpd
-
-  build:
+  stylelint:
     name: Lint scss files
     runs-on: ubuntu-18.04
 
@@ -63,3 +45,21 @@ jobs:
 
       - name: Run stylelint
         run: npm run --silent stylelint
+
+  # TODO turn check on again for format "markup"
+  cpd:
+    name: Check duplicated code
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run jscpd
+        run: npm run --silent cpd
