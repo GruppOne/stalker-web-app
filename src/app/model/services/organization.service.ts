@@ -2,7 +2,7 @@ import {HttpResponse, HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {Organization} from '../models/organization';
+import {Organization} from '../classes/organization';
 
 import {StalkerEndpoint} from './stalker-endpoint';
 

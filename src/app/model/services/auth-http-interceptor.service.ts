@@ -2,8 +2,8 @@ import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/com
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {Organization} from '../models/organization';
-import {User} from '../models/users/user';
+import {Organization} from '../classes/organization';
+import {User} from '../classes/users/user';
 
 import {Geocoding} from './place.service';
 

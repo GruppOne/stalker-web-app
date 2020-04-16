@@ -6,8 +6,8 @@ import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import * as sha512 from 'js-sha512';
 
-import {User, UserBuilder} from '../../../models/users/user';
-import {LoginService} from '../../../services/login.service';
+import {User, UserBuilder} from '../../../model/classes/users/user';
+import {LoginService} from '../../../model/services/login.service';
 
 @Component({
   selector: 'app-login',

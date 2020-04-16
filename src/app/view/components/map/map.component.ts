@@ -1,14 +1,14 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
-import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
-import {MyLatLng} from 'src/app/models/my-lat-lng';
-import {PlaceBuilder} from 'src/app/models/place';
-import {PlaceDataBuilder} from 'src/app/models/place-data';
-import {PlaceService, Geocoding} from 'src/app/services/place.service';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
+import {MyLatLng} from 'src/app/model/classes/my-lat-lng';
+import {PlaceBuilder} from 'src/app/model/classes/place';
+import {PlaceDataBuilder} from 'src/app/model/classes/place-data';
+import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
-import {Organization, OrganizationBuilder} from '../../models/organization';
-import {OrganizationService} from '../../services/organization.service';
+import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
+import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
   selector: 'app-map',

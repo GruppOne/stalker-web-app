@@ -1,9 +1,9 @@
 import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {LdapConfigurationBuilder} from 'src/app/models/ldapConfiguration';
-import {OrganizationService} from 'src/app/services/organization.service';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
+import {OrganizationService} from 'src/app/model/services/organization.service';
 
-import {Organization, OrganizationBuilder} from '../../../models/organization';
+import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
 
 @Component({
   selector: 'app-organization',
