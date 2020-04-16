@@ -29,18 +29,15 @@ jobs:
         with:
           project: 'https://github.com/orgs/GruppOne/projects/9'
           column_name: 'To do'
-
-  # TODO test if it works
-  create-pr-on-push:
-    runs-on: ubuntu-latest
-
-    if: github.event_name == 'push'
-
-    steps:
-      - name: Create pull request
-        uses: thomaseizinger/create-pull-request@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: ${{ github.ref }}
-          title: 'An automatically created PR from ${{ github.ref }} to master'
-          draft: true
+  # FIXME this creates an excessive amount of PRs :|
+  # create-pr-on-push:
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push'
+  #   steps:
+  #     - name: Create pull request
+  #       uses: thomaseizinger/create-pull-request@master
+  #       with:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         head: ${{ github.ref }}
+  #         title: 'An automatically created PR from ${{ github.ref }} to master'
+  #         draft: true
