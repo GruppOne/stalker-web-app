@@ -3,8 +3,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {LatLng, Polygon} from 'leaflet';
 import {of} from 'rxjs';
-import {OrganizationService} from 'src/app/services/organization.service';
-import {PlaceService, Geocoding} from 'src/app/services/place.service';
+import {OrganizationService} from 'src/app/model/services/organization.service';
+import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
 import {MapComponent} from './map.component';
 

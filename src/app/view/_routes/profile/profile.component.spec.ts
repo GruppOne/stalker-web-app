@@ -4,8 +4,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
-import {UserBuilder} from '../../../models/users/user';
-import {UserService} from '../../../services/user.service';
+import {UserBuilder} from '../../../model/classes/users/user';
+import {UserService} from '../../../model/services/user.service';
 
 import {ProfileComponent} from './profile.component';
 

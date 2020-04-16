@@ -1,42 +1,44 @@
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {of} from 'rxjs';
+import {OrganizationService} from 'src/app/model/services/organization.service';
 
-import {OrganizationService} from '../../../services/organization.service';
+import {EditOrganizationComponent} from './editorganization.component';
 
-import {OrganizationComponent} from './organization.component';
+describe('EditOrganizationComponent', () => {
+  let component: EditOrganizationComponent;
+  let fixture: ComponentFixture<EditOrganizationComponent>;
 
-describe('OrganizationComponent', () => {
-  let component: OrganizationComponent;
-  let fixture: ComponentFixture<OrganizationComponent>;
   const organizationService = jasmine.createSpyObj('OrganizationService', [
     'getOrganizationById',
   ]);
+
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
     of(
       new HttpResponse({
-        body: {organizations: [{}]},
+        body: {organizations: []},
         headers: new HttpHeaders(),
-        status: 400,
+        status: 200,
       }),
     ),
   );
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OrganizationComponent],
-      imports: [HttpClientTestingModule],
+      declarations: [EditOrganizationComponent],
+      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule],
       providers: [
-        {
-          provide: OrganizationService,
-          useValue: organizationService,
-        },
+        {provide: HttpClient},
+        {provide: FormBuilder},
+        {provide: OrganizationService, useValue: organizationService},
       ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrganizationComponent);
+    fixture = TestBed.createComponent(EditOrganizationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -49,7 +51,7 @@ describe('OrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
-          body: {organizations: [{}]},
+          body: {organizations: []},
           headers: new HttpHeaders(),
           status: 200,
         }),

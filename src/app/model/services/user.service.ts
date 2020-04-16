@@ -2,8 +2,9 @@ import {HttpResponse, HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {User} from '../models/users/user';
-import {StalkerEndpoint} from '../services/stalker-endpoint';
+import {User} from '../classes/users/user';
+
+import {StalkerEndpoint} from './stalker-endpoint';
 
 @Injectable({
   providedIn: 'root',
