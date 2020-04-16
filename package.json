@@ -8,13 +8,12 @@
     "start": "ng serve",
     "lint": "ng lint",
     "fix": "ng lint --fix",
+    "stylelint": "stylelint src/**/*.scss",
     "test": "ng test",
     "test-headless": "ng test --code-coverage --browsers=ChromeHeadless",
     "coverage": "ng test --no-watch --code-coverage",
     "e2e": "ng e2e",
-    "prepare-release": "standard-version --skip.tag",
-    "tag-release": "standard-version --skip.bump --skip.changelog --skip.commit",
-    "stylelint": "stylelint \"src/**/*.scss\""
+    "release": "standard-version"
   },
   "dependencies": {
     "@angular/animations": "~9.1.0",
