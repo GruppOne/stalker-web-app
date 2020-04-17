@@ -1,4 +1,4 @@
-import {MyLatLng} from './places/my-lat-lng';
+import {MyLatLng} from './my-lat-lng';
 import {PlaceBuilder} from './place';
 import {PlaceDataBuilder} from './place-data';
 

@@ -1,6 +1,6 @@
-import {MyLatLng} from './places/my-lat-lng';
-import {PlaceBuilder} from './place';
-import {PlaceDataBuilder} from './place-data';
+import {PlaceDataBuilder} from '../places/place-data';
+import {MyLatLng} from '../places/my-lat-lng';
+import {PlaceBuilder} from '../places/place';
 
 // import {Point} from './point';
 
