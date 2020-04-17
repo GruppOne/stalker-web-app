@@ -10,3 +10,56 @@
   margin-top: 16px;
   width: 100%;
 }
+
+.mat-form-field.adminEmail,
+.mat-form-field.adminType {
+  display: inline-block;
+}
+
+.mat-form-field.adminEmail {
+  margin-left: 1%;
+  width: 65% !important;
+}
+
+.mat-form-field.adminType {
+  margin-right: 1%;
+  width: 18% !important;
+}
+
+.adminConfirm:hover {
+  color: #1a9848;
+}
+
+.mat-list {
+  .mat-list-item.fieldName,
+  .mat-list-item.fieldData,
+  .mat-button {
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+
+  .mat-list-item.fieldName {
+    font-weight: 500;
+    justify-content: flex-end;
+    width: 17%;
+  }
+
+  .mat-list-item.fieldData {
+    font-weight: 300;
+    width: 68%;
+  }
+
+  .mat-button {
+    font-size: 14px;
+    width: 10%;
+  }
+
+  .mat-button:hover {
+    color: #cc1515;
+  }
+}
+
+::ng-deep .mat-list-item.fieldName .mat-list-item-content {
+  justify-content: flex-end;
+}
