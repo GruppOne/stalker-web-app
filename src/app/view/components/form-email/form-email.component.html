@@ -3,9 +3,7 @@
   <input type="email" matInput formControlName="email" placeholder="Ex. mariorossi@gmail.com" />
   <mat-icon matSuffix>email</mat-icon>
   <mat-error *ngIf="emailForm.controls['email'].hasError('email') && !emailForm.controls['email'].hasError('required')">
-    Inserisci un indirizzo email valido
+    Please enter a valid email address
   </mat-error>
-  <mat-error *ngIf="emailForm.controls['email'].hasError('required')">
-    L'email è <strong>obbligatoria</strong>
-  </mat-error>
+  <mat-error *ngIf="emailForm.controls['email'].hasError('required')"> Email is <strong>required</strong> </mat-error>
 </mat-form-field>
