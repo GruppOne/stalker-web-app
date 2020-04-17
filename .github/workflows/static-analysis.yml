@@ -26,6 +26,26 @@ jobs:
       - name: Run ESLint
         run: npm run --silent lint
 
+  stylelint:
+    name: Lint scss files
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Problem Matcher for stylelint
+        uses: xt0rted/stylelint-problem-matcher@v1.2.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run stylelint
+        run: npm run --silent stylelint
+
   # TODO turn check on again for format "markup"
   cpd:
     name: Check duplicated code
