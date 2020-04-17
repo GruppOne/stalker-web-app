@@ -66,5 +66,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: update latest chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade -y google-chrome-stable
+
       - name: Run protractor
         run: npm run --silent e2e -- --configuration=ci

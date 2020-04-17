@@ -1,4 +1,4 @@
-name: Best practices for source files
+name: Source files best practices
 
 on:
   pull_request:
@@ -6,9 +6,9 @@ on:
       - master
 
 jobs:
-  check-bom:
-    name: No BOMs
-    runs-on: ubuntu-18.04
+  check-files:
+    name: No BOMs or CRLFs
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -16,12 +16,6 @@ jobs:
       - name: Check for BOMs
         uses: arma-actions/bom-check@v1.0
 
-  check-crlf:
-    name: No CRLF endings
-    runs-on: ubuntu-18.04
-
-    steps:
-      - uses: actions/checkout@v2
-
       - name: Check for CRLF endings
+        if: always()
         uses: erclu/check-crlf@v1
