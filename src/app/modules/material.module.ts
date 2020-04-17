@@ -27,7 +27,7 @@ import {MatListModule} from '@angular/material/list';
 // import {MatProgressBarModule} from '@angular/material/progress-bar';
 // import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // import {MatRadioModule} from '@angular/material/radio';
-// import {MatSelectModule} from '@angular/material/select';
+import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 // import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // import {MatSliderModule} from '@angular/material/slider';
@@ -37,7 +37,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 // import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
-// import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
 // import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
@@ -65,7 +65,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     // MatProgressSpinnerModule,
     // MatRadioModule,
     MatRippleModule,
-    // MatSelectModule,
+    MatSelectModule,
     MatSidenavModule,
     // MatSliderModule,
     // MatSlideToggleModule,
@@ -74,7 +74,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatTableModule,
     // MatTabsModule,
     MatToolbarModule,
-    // MatTooltipModule,
+    MatTooltipModule,
     // MatTreeModule,
     MatNativeDateModule,
   ],
@@ -101,7 +101,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     // MatProgressSpinnerModule,
     // MatRadioModule,
     MatRippleModule,
-    // MatSelectModule,
+    MatSelectModule,
     MatSidenavModule,
     // MatSliderModule,
     // MatSlideToggleModule,
@@ -110,7 +110,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatTableModule,
     // MatTabsModule,
     MatToolbarModule,
-    // MatTooltipModule,
+    MatTooltipModule,
     // MatTreeModule,
     MatNativeDateModule,
     // jscpd:ignore-end

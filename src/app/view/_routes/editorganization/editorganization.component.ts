@@ -10,12 +10,22 @@ import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
+interface AdminType {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-edit-organization',
   templateUrl: 'editorganization.component.html',
   styleUrls: ['editorganization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
+  adminType: AdminType[] = [
+    {value: '2', viewValue: 'Manager'},
+    {value: '3', viewValue: 'Viewer'},
+  ];
+
   @ViewChild('map') mapDataChild?: {
     arrayCoord: LatLng[][];
     arrayName: string[];
@@ -81,10 +91,6 @@ export class EditOrganizationComponent implements OnInit {
             this.organization.ldapConfiguration?.password,
             Validators.required,
           ],
-        }),
-        this.formBuilder.group({
-          managerEmailCtrl: ['pippo@gmail.com', Validators.email],
-          viewerEmailCtrl: ['pluto@gmail.com', Validators.email],
         }),
       ]),
     });
