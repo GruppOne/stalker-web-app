@@ -1,5 +1,5 @@
 import {LdapConfiguration} from './ldapConfiguration';
-import {Place} from './place';
+import {Place} from './places/place';
 
 export interface Organization {
   readonly id?: number;

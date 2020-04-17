@@ -1,7 +1,7 @@
 import {LatLng} from 'leaflet';
 
-import {MyLatLng} from './places/my-lat-lng';
-import {PlaceData} from './place-data';
+import {PlaceData} from '../places/place-data';
+import {MyLatLng} from '../places/my-lat-lng';
 
 export interface Place {
   readonly id?: number;

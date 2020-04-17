@@ -1,6 +1,6 @@
 import {LdapConfigurationBuilder} from './ldapConfiguration';
 import {OrganizationBuilder} from './organization';
-import {PlaceBuilder} from './place';
+import {PlaceBuilder} from './places/place';
 
 describe('Organization', () => {
   const organizationBuilder = new OrganizationBuilder('imola', true);
