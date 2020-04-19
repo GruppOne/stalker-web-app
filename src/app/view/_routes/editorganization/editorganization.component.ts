@@ -15,6 +15,12 @@ interface AdminType {
   viewValue: string;
 }
 
+interface Administrators {
+  email: string;
+
+  role: AdminType;
+}
+
 @Component({
   selector: 'app-edit-organization',
   templateUrl: 'editorganization.component.html',
@@ -37,6 +43,11 @@ export class EditOrganizationComponent implements OnInit {
 
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
+
+  administrators: Administrators[] = [
+    {email: 'mariotest01@gmail.com', role: {value: '2', viewValue: 'Manager'}},
+    {email: 'giorgiotest01@gmail.com', role: {value: '1', viewValue: 'Viewer'}},
+  ];
   formGroup: FormGroup = new FormGroup({});
 
   // Returns a FormArray with the name 'formArray'.
@@ -91,6 +102,10 @@ export class EditOrganizationComponent implements OnInit {
             this.organization.ldapConfiguration?.password,
             Validators.required,
           ],
+        }),
+        this.formBuilder.group({
+          adminRole: [''],
+          adminEmail: [''],
         }),
       ]),
     });
@@ -153,5 +168,22 @@ export class EditOrganizationComponent implements OnInit {
         .editOrganization(this.organizationBuilder.build())
         .subscribe();
     }
+  }
+
+  addAdmin(): void {
+    let adminData: AdminType;
+    if (this.formArray?.value[2].adminRole === 2) {
+      adminData = {value: '2', viewValue: 'Manager'};
+    } else {
+      adminData = {value: '3', viewValue: 'Viewer'};
+    }
+    this.administrators.push({
+      email: this.formArray?.value[2].adminEmail,
+      role: adminData,
+    });
+  }
+  deleteAdmin(admin: Administrators): void {
+    const indexOf = this.administrators.indexOf(admin);
+    this.administrators.splice(indexOf, 1);
   }
 }

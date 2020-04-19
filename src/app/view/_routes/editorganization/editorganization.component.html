@@ -46,32 +46,26 @@
         <button mat-button matStepperNext type="button">Next</button>
       </div>
     </mat-step>
-    <mat-step [optional]="true">
+    <mat-step formGroupName="2" [optional]="true">
       <ng-template matStepLabel>Admin management</ng-template>
       <mat-list>
-        <mat-list-item class="fieldName">Manager</mat-list-item>
-        <mat-list-item class="fieldData">mariotest01@gmail.com</mat-list-item>
-        <button
-          mat-button
-          matTooltip="Remove from administrators"
-          aria-label="Button that delete this administrator when pressed"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-        <mat-divider></mat-divider>
-        <mat-list-item class="fieldName">Viewer</mat-list-item>
-        <mat-list-item class="fieldData">giorgiotest02@hotmail.it</mat-list-item>
-        <button
-          mat-button
-          matTooltip="Remove from administrators"
-          aria-label="Button that delete this administrator when pressed"
-        >
-          <mat-icon title="Delete from administrators">delete</mat-icon>
-        </button>
+        <div *ngFor="let admin of administrators">
+          <mat-list-item class="fieldName">{{ admin.role.viewValue }}</mat-list-item>
+          <mat-list-item class="fieldData">{{ admin.email }}</mat-list-item>
+          <button
+            mat-button
+            matTooltip="Remove from administrators"
+            aria-label="Button that delete this administrator when pressed"
+            (click)="deleteAdmin(admin)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <mat-divider></mat-divider>
+        </div>
       </mat-list>
       <mat-form-field class="adminType">
         <mat-label>Admin type</mat-label>
-        <mat-select>
+        <mat-select formControlName="adminRole">
           <mat-option *ngFor="let admin of adminType" [value]="admin.value">
             {{ admin.viewValue }}
           </mat-option>
@@ -79,13 +73,15 @@
       </mat-form-field>
       <mat-form-field class="adminEmail">
         <mat-label>New admin</mat-label>
-        <input matInput placeholder="Ex. mariorossi@gmail.com" />
+        <input formControlName="adminEmail" matInput placeholder="Ex. mariorossi@gmail.com" />
       </mat-form-field>
       <button
         mat-button
         matTooltip="Add to administrators"
         aria-label="Button that add a new administrator when pressed"
         class="adminConfirm"
+        type="button"
+        (click)="addAdmin()"
       >
         <mat-icon>done</mat-icon>
       </button>
