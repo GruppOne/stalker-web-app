@@ -60,6 +60,7 @@ export class EditOrganizationComponent implements OnInit {
     private readonly organizationService: OrganizationService,
   ) {}
 
+  // initialize all data, including organization field calling OrganizationService
   ngOnInit(): void {
     this.getOrganizationById(1);
     if (!this.organization) {
@@ -110,6 +111,8 @@ export class EditOrganizationComponent implements OnInit {
       ]),
     });
   }
+
+  // call OrganizationService to get organization with given Id
   getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
@@ -121,6 +124,9 @@ export class EditOrganizationComponent implements OnInit {
   }
 
   // TODO controllo client side dei campi
+
+  // Submit the organization form, organize all datas in an Organization object and call
+  // the service for updating the organization in the server
   submitOrganizationForm(): void {
     if (this.mapDataChild && this.formArray && this.organization) {
       console.log(this.formArray.value);
@@ -169,10 +175,13 @@ export class EditOrganizationComponent implements OnInit {
         .subscribe();
     }
   }
-
+  /*
+    Add administrator email and role to the administrators array defined above
+  */
   addAdmin(): void {
     let adminData: AdminType;
     if (this.formArray?.value[2].adminRole === 2) {
+      // create AdminType based on the value of mat-select field
       adminData = {value: '2', viewValue: 'Manager'};
     } else {
       adminData = {value: '3', viewValue: 'Viewer'};
@@ -182,7 +191,11 @@ export class EditOrganizationComponent implements OnInit {
       role: adminData,
     });
   }
+  /*
+    Remove administrator 'admin' from administrator array defined above
+  */
   deleteAdmin(admin: Administrators): void {
+    // get index in the administrators array of admin
     const indexOf = this.administrators.indexOf(admin);
     this.administrators.splice(indexOf, 1);
   }
