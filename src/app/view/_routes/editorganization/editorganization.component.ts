@@ -7,19 +7,10 @@ import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 
+import {Administrator, AdminType} from '../../../model/classes/administrator';
 import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
+import {AdministratorService} from '../../../model/services/administrator.service';
 import {OrganizationService} from '../../../model/services/organization.service';
-
-interface AdminType {
-  value: string;
-  viewValue: string;
-}
-
-interface Administrators {
-  email: string;
-
-  role: AdminType;
-}
 
 @Component({
   selector: 'app-edit-organization',
@@ -44,7 +35,7 @@ export class EditOrganizationComponent implements OnInit {
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
 
-  administrators: Administrators[] = [
+  administrators: Administrator[] = [
     {email: 'mariotest01@gmail.com', role: {value: '2', viewValue: 'Manager'}},
     {email: 'giorgiotest01@gmail.com', role: {value: '1', viewValue: 'Viewer'}},
   ];
@@ -58,6 +49,7 @@ export class EditOrganizationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
+    private readonly administratorService: AdministratorService,
   ) {}
 
   // initialize all data, including organization field calling OrganizationService
@@ -186,17 +178,36 @@ export class EditOrganizationComponent implements OnInit {
     } else {
       adminData = {value: '3', viewValue: 'Viewer'};
     }
-    this.administrators.push({
+
+    const admin: Administrator = {
       email: this.formArray?.value[2].adminEmail,
       role: adminData,
-    });
+    };
+
+    this.administratorService
+      .addAdministrator(1, admin)
+      .subscribe((response: HttpResponse<Administrator>) => {
+        if (response && response.status === 200 && response.body != null) {
+          this.administrators.push(admin);
+        } else {
+          console.log('response status: ' + response.status.toString());
+        }
+      });
   }
   /*
     Remove administrator 'admin' from administrator array defined above
   */
-  deleteAdmin(admin: Administrators): void {
+  deleteAdmin(admin: Administrator): void {
     // get index in the administrators array of admin
-    const indexOf = this.administrators.indexOf(admin);
-    this.administrators.splice(indexOf, 1);
+    this.administratorService
+      .removeAdministrator(1, admin)
+      .subscribe((response: HttpResponse<Administrator>) => {
+        if (response && response.status === 200 && response.body != null) {
+          const indexOf = this.administrators.indexOf(admin);
+          this.administrators.splice(indexOf, 1);
+        } else {
+          console.log('response status: ' + response.status.toString());
+        }
+      });
   }
 }
