@@ -2,198 +2,147 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.6.1](https://github.com/GruppOne/stalker-web-app/compare/v0.6.0...v0.6.1) (2020-04-16)
-
-## [0.6.0](https://github.com/GruppOne/stalker-web-app/compare/v0.5.0...v0.6.0) (2020-04-07)
+### [0.6.2](https://github.com/GruppOne/stalker-web-app/compare/v0.1.0...v0.6.1) (2020-04-21)
 
 
 ### Features
 
-* add httpInterceptor for calls that adds apikey to headers ([a464d9c](https://github.com/GruppOne/stalker-web-app/commit/a464d9c402b37516115325db8f18fcb54b3d169a))
-* hash password after validation ([231123b](https://github.com/GruppOne/stalker-web-app/commit/231123b083178dda918ff529ec833bd48986944d))
+* add basic element in the home view ([237e3f1](https://github.com/GruppOne/stalker-web-app/commit/237e3f11b5b2c1dca86106e8c7e0d7a29e1b1aa1))
+* add button confirm component ([9542567](https://github.com/GruppOne/stalker-web-app/commit/9542567ca6ce4d98398a7bfe5584e4320249470b))
+* add class UserData and improve class User ([9bfdc67](https://github.com/GruppOne/stalker-web-app/commit/9bfdc6711024b28030812e2802b547f4e25ec4be))
+* add client side input validation to login form ([947c9b7](https://github.com/GruppOne/stalker-web-app/commit/947c9b70b1a1445965cf549e05a0b7e3c7e03723))
+* add form submission in console.log ([592f2e2](https://github.com/GruppOne/stalker-web-app/commit/592f2e20c7e8276249d61fd0d944f68d88edbb54))
+* add httpInterceptor for calls that adds apikey to headers ([65d339f](https://github.com/GruppOne/stalker-web-app/commit/65d339fa93de1ee8692ba075e84c7ba903907989))
+* add in construsctor declaration in user and userdata classes ([664e9b8](https://github.com/GruppOne/stalker-web-app/commit/664e9b85617cecd1174f13bee24e54f1d3d7a121))
+* add ldapConfiguration tests ([21f4b44](https://github.com/GruppOne/stalker-web-app/commit/21f4b44fe3eac2917793e1242e33b7c5cd9fb3a6))
+* add map component ([3bca5ea](https://github.com/GruppOne/stalker-web-app/commit/3bca5ea7481ef412487310ec39011a37468969b7))
+* add map to edit-organization ([fcb48f7](https://github.com/GruppOne/stalker-web-app/commit/fcb48f77c47f98098d176b9e3a5cc0f1302af20a))
+* add map to organization details ([e4f27ad](https://github.com/GruppOne/stalker-web-app/commit/e4f27ad3fd297b57c223e184e370c6fb5b42baab))
+* add organization and place classes ([7f968a9](https://github.com/GruppOne/stalker-web-app/commit/7f968a9efb141ca698ccc1e1834a1af07f2163d0))
+* add organization page component ([dd079eb](https://github.com/GruppOne/stalker-web-app/commit/dd079eb68b54d48a0894fb1f0b56e6623cad95df))
+* add organization put and refactor place class, add myLatLng class ([dfb305e](https://github.com/GruppOne/stalker-web-app/commit/dfb305e750741420e0f4078a5524597d8b9a2f42))
+* add organization service ([d435192](https://github.com/GruppOne/stalker-web-app/commit/d435192ad425484105d3c9b9e9c017adbba41b40))
+* add place component and add routes ([f3f9da0](https://github.com/GruppOne/stalker-web-app/commit/f3f9da0a53e6e01571d54db87fce43c8a7ba2372))
+* add place front-end ([c83c3b2](https://github.com/GruppOne/stalker-web-app/commit/c83c3b2b5fa7876329cfe587504654961389d380))
+* add place service ([c08e642](https://github.com/GruppOne/stalker-web-app/commit/c08e642ee4eb7b0f28138a1e8868a4d519bf6c2b))
+* add profile component and service, add getUserById functionality ([3d8e50b](https://github.com/GruppOne/stalker-web-app/commit/3d8e50b95534b9caec2a53fec396bfd6be246875))
+* add reverse geocoding ([493796a](https://github.com/GruppOne/stalker-web-app/commit/493796ad424c09353fe0328c4eab6508e24b4057))
+* add services to login component and classes for api requests ([97b69ba](https://github.com/GruppOne/stalker-web-app/commit/97b69ba4cef44ac2ea8805d70d2077f1631e186d))
+* add stalker.service and remove class https-talker ([9fca072](https://github.com/GruppOne/stalker-web-app/commit/9fca07219074cda1338bf67a297da828a42c585f))
+* add style and services to  organization component ([bc4a14b](https://github.com/GruppOne/stalker-web-app/commit/bc4a14b072a1f1815a3370a903df10ee31d99613))
+* complete login functionality and improve http calls decorator ([dbefdbe](https://github.com/GruppOne/stalker-web-app/commit/dbefdbe46093eb5070835f4a3b6796144d855442))
+* design login page ([16ad64d](https://github.com/GruppOne/stalker-web-app/commit/16ad64d997c820fa51e12f903835cd5a4cabd582))
+* hash password after validation ([fedf91b](https://github.com/GruppOne/stalker-web-app/commit/fedf91baefafbeea5703994821249a259e55e238))
+* implement UserData class ([dcf4cfb](https://github.com/GruppOne/stalker-web-app/commit/dcf4cfb926d8253cb5a23e149683a0bb1c0c9352))
+* populate leaflet map with default places ([bc13321](https://github.com/GruppOne/stalker-web-app/commit/bc13321b86d9059f71ef086d4e6947d7f0d04410))
+* start design edit-organization component ([cbad806](https://github.com/GruppOne/stalker-web-app/commit/cbad80678ee0809347fb7e6a530992d07fde7548))
+* start design login page ([69ee74b](https://github.com/GruppOne/stalker-web-app/commit/69ee74b9c1651ac32507ed380cd5ae5c7db6b15a))
 
 
 ### Bug Fixes
 
-* fix bugs for PoC ([1bf6cc5](https://github.com/GruppOne/stalker-web-app/commit/1bf6cc572edfb698f301fb655a78ff8db05912f9))
-* fix endpoints and test for PoC ([d213f7a](https://github.com/GruppOne/stalker-web-app/commit/d213f7acc0398b183689e226e9911d061d9addc0))
-* fix environment for server mock ([48cf680](https://github.com/GruppOne/stalker-web-app/commit/48cf680381e9ca0938cbbb83b3d5876e7e6116d3))
-* fix linting errors ([5e250d1](https://github.com/GruppOne/stalker-web-app/commit/5e250d1773f732fb01530bb5ef70d17bb6955484))
-
-
-### Configuration
-
-* **npm:** add js-sha512 dependency for hashing sensible datas ([ae70216](https://github.com/GruppOne/stalker-web-app/commit/ae702164396e891034764b3eaa363505f52574e9))
-
-## [0.5.0](https://github.com/GruppOne/stalker-web-app/compare/v0.4.0...v0.5.0) (2020-04-07)
-
-
-### Features
-
-* add form submission in console.log ([f1b9039](https://github.com/GruppOne/stalker-web-app/commit/f1b90399e7e56fdac7fec61a43d854d4dc7ac7fd))
-* add ldapConfiguration tests ([51198a4](https://github.com/GruppOne/stalker-web-app/commit/51198a46618f57fbb99e0c95a7c42222543e88e7))
-* add map component ([06c46d5](https://github.com/GruppOne/stalker-web-app/commit/06c46d5eca98860b1cdbe821d7a651056aa35d77))
-* add map to edit-organization ([9e31e3d](https://github.com/GruppOne/stalker-web-app/commit/9e31e3d5192ee8d81c7d2739af1040d7f05573f8))
-* add map to organization details ([6f274bb](https://github.com/GruppOne/stalker-web-app/commit/6f274bb174b1bfd7b41a4e4cdb3de865669154e9))
-* add organization and place classes ([909b020](https://github.com/GruppOne/stalker-web-app/commit/909b020862cdddb84a794318ca5b1e6e06dd3293))
-* add organization page component ([ffe9659](https://github.com/GruppOne/stalker-web-app/commit/ffe9659d696a28e024b1fb3fc94bfd7f508443a0))
-* add organization put and refactor place class, add myLatLng class ([e8f2dfe](https://github.com/GruppOne/stalker-web-app/commit/e8f2dfe7c3a7107948e76dab032018cb826e7e5d))
-* add organization service ([5af9ee2](https://github.com/GruppOne/stalker-web-app/commit/5af9ee252260744f917b293957303a61ed774f86))
-* add place component and add routes ([fcc2d6d](https://github.com/GruppOne/stalker-web-app/commit/fcc2d6d2fb6a46206240b757a9366bef82404e7d))
-* add place front-end ([b4efb97](https://github.com/GruppOne/stalker-web-app/commit/b4efb971434d60d0ec3bc764a010a21bd1ad034e))
-* add place service ([fb61343](https://github.com/GruppOne/stalker-web-app/commit/fb61343a9e1a778ae4a4ed18cd62ed5341503962))
-* add reverse geocoding ([caecdb3](https://github.com/GruppOne/stalker-web-app/commit/caecdb39382a28355b4d96aa4d6e0bf1b5b0e8ff))
-* add style and services to  organization component ([e345157](https://github.com/GruppOne/stalker-web-app/commit/e3451572463f3c3431ad47903d43385c355dfa55))
-* populate leaflet map with default places ([0da5b19](https://github.com/GruppOne/stalker-web-app/commit/0da5b1913e4364107f8ee691a62e118937c76a2b))
-* start design edit-organization component ([860a961](https://github.com/GruppOne/stalker-web-app/commit/860a9612031dcb887ccf27bdaaad0355f1369d35))
-
-
-### Bug Fixes
-
-* change endpoint names and fix linting errors ([5ac4e6e](https://github.com/GruppOne/stalker-web-app/commit/5ac4e6e700edb83b1198c7d66275876f2319ce5e))
-* fix classes and services folder structure and fix linting errors ([66ea2f4](https://github.com/GruppOne/stalker-web-app/commit/66ea2f462cf2a78cbbdc192f927533fc50706985))
-* fix eslint bug on map component ([df089e7](https://github.com/GruppOne/stalker-web-app/commit/df089e79a246cfd5c366294acec72690b42235aa))
-* fix linter errors, add builder pattern for all classes, fix tests ([1c7b49e](https://github.com/GruppOne/stalker-web-app/commit/1c7b49e91472cb4409dbc976d5ab75fa0e8eda9f))
-* fix map and edit-organization bugs ([1c146ae](https://github.com/GruppOne/stalker-web-app/commit/1c146aef08b8b47c39a358244e07f80ee7454192))
-
-
-### Configuration
-
-* log submitted values in the console ([f498bf0](https://github.com/GruppOne/stalker-web-app/commit/f498bf032991ae4ce2b26500180346618011c511))
-* **eslint:** allow single property name with underscore ([ff43c6f](https://github.com/GruppOne/stalker-web-app/commit/ff43c6f286b834c620a900c0bd1fffb66f7a34aa))
-* **eslint:** change max params to 4 ([3861906](https://github.com/GruppOne/stalker-web-app/commit/3861906c1be8684d5a10918d64ebc895d47aa7de))
-* **eslint:** enable stricter coding best practices ([27d0d98](https://github.com/GruppOne/stalker-web-app/commit/27d0d9820db42d40b3f2f885036ea285ac6bac7b))
-* **eslint:** removed camelcase rule ([8288d5e](https://github.com/GruppOne/stalker-web-app/commit/8288d5e7dd962d6fc10c5bb466bdc85de34fb32e))
-* **npm:** fix package-lock out of sync and run npm audit fix ([fbb49d6](https://github.com/GruppOne/stalker-web-app/commit/fbb49d6f3f1386b405866c29cc621efe09bc7b30))
-* **npm:** run npm install leaflet to add maps dependencies ([74052f2](https://github.com/GruppOne/stalker-web-app/commit/74052f2d0fe357cd94dac3499395ac6dc2594564))
-* **npm:** run npm install, audit fix and update ([3ef025a](https://github.com/GruppOne/stalker-web-app/commit/3ef025a62d6f6ab1bf5ab02ad99ccd90f57737d0))
-* add max length to the password regex pattern ([1af1c5b](https://github.com/GruppOne/stalker-web-app/commit/1af1c5b8289b679f2791b49c1b490277c9c49dbb))
-* change some style ([8fa5652](https://github.com/GruppOne/stalker-web-app/commit/8fa56522336e56fbec5fd5fc5c0a4336a52c240d))
-* filter place name suggestion by displaying only relevent names ([c967cd4](https://github.com/GruppOne/stalker-web-app/commit/c967cd4ee052cf576edbc4bac97f36966e0a557c))
-* improve suggestion of place names ([771f5d2](https://github.com/GruppOne/stalker-web-app/commit/771f5d2a2f15602d68b8bb2f089834ec613f0ed2))
-* resolve errors after rebase ([8aea53e](https://github.com/GruppOne/stalker-web-app/commit/8aea53e0f4f1086897fd4524abf6c999d12f8f58))
-
-## [0.4.0](https://github.com/GruppOne/stalker-web-app/compare/v0.3.0...v0.4.0) (2020-04-03)
-
-
-### Features
-
-* add profile component and service, add getUserById functionality ([da11ffe](https://github.com/GruppOne/stalker-web-app/commit/da11ffe6dd380ec1818b3d4ac81aa10367dedd61))
-
-
-### Bug Fixes
-
-* fix comments from reviewer ([e623ea6](https://github.com/GruppOne/stalker-web-app/commit/e623ea6d2bb92110d400a0f66d66401759006021))
-* fix folder structure and linting errors ([d5e5434](https://github.com/GruppOne/stalker-web-app/commit/d5e543494673c2524fb40ba6de09b86c9ce2bdc0))
-* fix imports and tests in profile page, add routing to profile ([2f4bbe3](https://github.com/GruppOne/stalker-web-app/commit/2f4bbe3d2246ef57a4b49ea4da0394a78d872543))
-* fix linting error and add profile folder to components/routes ([13bbabc](https://github.com/GruppOne/stalker-web-app/commit/13bbabcac585d70772e5bc5e259e07f25b18e4d7))
-
-## [0.3.0](https://github.com/GruppOne/stalker-web-app/compare/v0.2.0...v0.3.0) (2020-04-02)
-
-
-### Features
-
-* add basic element in the home view ([da08f37](https://github.com/GruppOne/stalker-web-app/commit/da08f37e8a2fa331a487f5d85219b1b146466dee))
-
-
-### Documentation
-
-* update release instructions ([1155374](https://github.com/GruppOne/stalker-web-app/commit/1155374e233957f2efb5cee143205fab4a7dc7ff))
-
-## [0.2.0](https://github.com/GruppOne/stalker-web-app/compare/v0.1.2...v0.2.0) (2020-04-02)
-
-
-### Features
-
-* add button confirm component ([0a488c3](https://github.com/GruppOne/stalker-web-app/commit/0a488c308d2282f97edf1afc74a44d8cb70f6330))
-* add class UserData and improve class User ([2f3206f](https://github.com/GruppOne/stalker-web-app/commit/2f3206f31b9522c2693ff3b21240db4b7482f43f))
-* add client side input validation to login form ([d33327c](https://github.com/GruppOne/stalker-web-app/commit/d33327cd52af5dd421449ce00b25695891443894))
-* add in construsctor declaration in user and userdata classes ([e5bd704](https://github.com/GruppOne/stalker-web-app/commit/e5bd704033a17fe50e6f98413c9f5bbd43911d6d))
-* add services to login component and classes for api requests ([dddb5ed](https://github.com/GruppOne/stalker-web-app/commit/dddb5eddacfaea3956f4960a68631566c5b3b6b5))
-* add stalker.service and remove class https-talker ([ae187a6](https://github.com/GruppOne/stalker-web-app/commit/ae187a6eb6f8d5dfd2bf7dfc8e867a9f899bb107))
-* complete login functionality and improve http calls decorator ([f43cb04](https://github.com/GruppOne/stalker-web-app/commit/f43cb049a8dd006aa5e5ae2475330ef154a05c21))
-* design login page ([ae84102](https://github.com/GruppOne/stalker-web-app/commit/ae841027a11dc1142784ec0a3a13718b6bf85895))
-* implement UserData class ([7c500cf](https://github.com/GruppOne/stalker-web-app/commit/7c500cfba407db202bfc36cf1fcae1e7e03724ba))
-* start design login page ([d5c75ed](https://github.com/GruppOne/stalker-web-app/commit/d5c75ed9f00ed8331dd44cb6822d3b17e3207b16))
-
-
-### Bug Fixes
-
-* change login button with button-confirm component ([2cf7553](https://github.com/GruppOne/stalker-web-app/commit/2cf755330613f2f3077bce220a875b68bb13f37f))
-* change title from specific to general ([7545cbb](https://github.com/GruppOne/stalker-web-app/commit/7545cbbfa5511daff2c765006bd05019674a0dd2))
-* fix comments of reviewers on this pr ([36cd226](https://github.com/GruppOne/stalker-web-app/commit/36cd22617857824896e5feb35173955172eca6ea))
-* fix some errors from the review ([72848c8](https://github.com/GruppOne/stalker-web-app/commit/72848c88978460afd902a92ee149532cb2a9d48d))
-* fix type any warning in all files ([c71782a](https://github.com/GruppOne/stalker-web-app/commit/c71782a5120888ef5b3e9663b93a51c276dac6f9))
-* fix UserData constructor ([69ed257](https://github.com/GruppOne/stalker-web-app/commit/69ed257213b5df0c58590dcb8f0a5dd375e77b1f))
-* invert test text ([fb61bd0](https://github.com/GruppOne/stalker-web-app/commit/fb61bd02254489cd9727c909648fcda5f37f90eb))
-* try to resolve typing errors ([c29d286](https://github.com/GruppOne/stalker-web-app/commit/c29d286b8c8443ffd194f4694c79c60a367a5634))
-* use get and set keyword ([2e1e59e](https://github.com/GruppOne/stalker-web-app/commit/2e1e59eb96135d196bae7d65ebd718db04ae59d6))
-
-
-### Configuration
-
-* **eslint:** ignore long imports ([e8a7cd4](https://github.com/GruppOne/stalker-web-app/commit/e8a7cd4b88e780512fb826affc183540d90858a2))
-* **npm:** fix package-lock out of sync ([ee1a9d2](https://github.com/GruppOne/stalker-web-app/commit/ee1a9d206227e813cc1e87a3785d58d4e5c00fde))
-* configure prettier to work from eslint instead of separately ([056ec80](https://github.com/GruppOne/stalker-web-app/commit/056ec80ac5ed6fe94464f7c48d8353dad688771d))
-* **deps:** add plugins to configure prettier and eslint ([92f517b](https://github.com/GruppOne/stalker-web-app/commit/92f517b437a135dc1c53f7cf987e164153f7bbdf))
-* **deps:** update dependencies ([b953f42](https://github.com/GruppOne/stalker-web-app/commit/b953f4201377d99414d2968ba437aa8dfbfbb50c))
-* **ng:** add angular material using ng ([e9549b8](https://github.com/GruppOne/stalker-web-app/commit/e9549b86364da9844e30776cc0b5427010db13c9))
-* **npm:** update and fix dependencies ([f0cc808](https://github.com/GruppOne/stalker-web-app/commit/f0cc8083d8ba0812f8656e51e7628b2a3921b926))
-* change server address in environment.ts ([b56b5de](https://github.com/GruppOne/stalker-web-app/commit/b56b5dec5fb0052aa1ed76631839dba749a6a841))
-* fine-tune eslint and add another extension ([ece903f](https://github.com/GruppOne/stalker-web-app/commit/ece903f44a63b95854e0e8b7f6bc5e643000433e))
-* update some lint rules and fix environment base path ([6503ba8](https://github.com/GruppOne/stalker-web-app/commit/6503ba8462d14df3292393bafaaac4a11b7b469c))
-* **npm:** fix package-lock.json out of sync ([09da861](https://github.com/GruppOne/stalker-web-app/commit/09da861d96f0395a0811c82ed72e608b8a9a3b9e))
-
-### [0.1.2](https://github.com/GruppOne/stalker-web-app/compare/v0.1.1...v0.1.2) (2020-03-29)
-
-
-### Configuration
-
-* configure jscpd and add some eslint rules ([f789d42](https://github.com/GruppOne/stalker-web-app/commit/f789d42c7e8b7534ed2a2b0076584f991ba47904))
-* **npm:** add copy paste detector ([10491da](https://github.com/GruppOne/stalker-web-app/commit/10491da94b19b60123c229e6660712ff5cebaa5f))
-* **vscode:** simplify working with plantuml ([8b4dd0d](https://github.com/GruppOne/stalker-web-app/commit/8b4dd0d89792eb59fbfcf35fb77672771b91ca6d))
-
-### [0.1.1](https://github.com/GruppOne/stalker-web-app/compare/v0.1.0...v0.1.1) (2020-03-27)
-
-
-### Configuration
-
-* use a different commitizen adapter ([36da9ef](https://github.com/GruppOne/stalker-web-app/commit/36da9ef4541d8cb7cc192086170f51873e8eb666))
-* **docker:** use build target in docker compose ([ec56ab0](https://github.com/GruppOne/stalker-web-app/commit/ec56ab0026df2adc4a942df9599e5cf48fee647d))
-* add dependencies for chai cucumber and cucumber-protractor ([fa195ef](https://github.com/GruppOne/stalker-web-app/commit/fa195ef694306f3293895e38a6c9f19c03341ddd))
-* add utility task and use restrictive eslint options ([366fc06](https://github.com/GruppOne/stalker-web-app/commit/366fc061bed9c3a1c461c7febf7f798f8ca42ebc))
-* configure protractor with cucumber-protractor framework ([6aa5d21](https://github.com/GruppOne/stalker-web-app/commit/6aa5d21bac2a1ae884a1f9761822b4b9488fb036))
-* fine-tune eslint options and fix errors ([c461637](https://github.com/GruppOne/stalker-web-app/commit/c461637abbd53ee5d99d6daba18ed69a0364b4fe))
-* fix some errors in the configuration and format all files ([1e1c26b](https://github.com/GruppOne/stalker-web-app/commit/1e1c26bfe00dfa60731d22ff6e7dc87e8f68646f))
-* simplify containerization and vscode recommended extensions ([02ae41f](https://github.com/GruppOne/stalker-web-app/commit/02ae41f3fb44eaf412a3a788fd63b46082d239b9))
-* update various dependencies ([d91ea69](https://github.com/GruppOne/stalker-web-app/commit/d91ea692db8305d9fe7185a276eae5fae123dcc9))
-
-## 0.1.0 (2020-03-21)
+* change endpoint names and fix linting errors ([e58ae07](https://github.com/GruppOne/stalker-web-app/commit/e58ae079042478415bad0d724a4a1821bed56356))
+* change login button with button-confirm component ([e1a713f](https://github.com/GruppOne/stalker-web-app/commit/e1a713f936ace07827bdd3a9d5527e660f8a405d))
+* change title from specific to general ([a5c9945](https://github.com/GruppOne/stalker-web-app/commit/a5c9945c6f2b022d6e92f5213a6c0f08424fe9a3))
+* fix bugs for PoC ([ff6bba6](https://github.com/GruppOne/stalker-web-app/commit/ff6bba603d91e67f05abe9117e0f2e1d3bd52f8b))
+* fix classes and services folder structure and fix linting errors ([e55ca3e](https://github.com/GruppOne/stalker-web-app/commit/e55ca3eaa3f656c63340f6da13fc6018acc9028c))
+* fix comments from reviewer ([49f9708](https://github.com/GruppOne/stalker-web-app/commit/49f97083cd50ef1baffe30dcbf20b795af59b044))
+* fix comments of reviewers on this pr ([997a2a5](https://github.com/GruppOne/stalker-web-app/commit/997a2a5cfe5116e56db089d5348624316bc72607))
+* fix endpoints and test for PoC ([a2e22af](https://github.com/GruppOne/stalker-web-app/commit/a2e22af93df64129e03441e8606caf115dab47b8))
+* fix environment for server mock ([e920e1b](https://github.com/GruppOne/stalker-web-app/commit/e920e1b8ff380b567ee2ea4d2e05fe66d8b354b8))
+* fix eslint bug on map component ([c4c97ff](https://github.com/GruppOne/stalker-web-app/commit/c4c97ff79bef423d50350620091e2d9a6d0255b5))
+* fix folder structure and linting errors ([69efc47](https://github.com/GruppOne/stalker-web-app/commit/69efc471ba6bb8b97a07d429cd5e1ffb65b8c3f8))
+* fix folder structure in classes ([d9e01c2](https://github.com/GruppOne/stalker-web-app/commit/d9e01c243c550eb10c2b25b6baaa3b3e8976d265))
+* fix imports and tests in profile page, add routing to profile ([a7e66d4](https://github.com/GruppOne/stalker-web-app/commit/a7e66d4954871c9b94020761b10e6731d691557f))
+* fix linter errors, add builder pattern for all classes, fix tests ([1691d0f](https://github.com/GruppOne/stalker-web-app/commit/1691d0fcd2ffff4bdf51a6844977ab5461b0323e))
+* fix linting error and add profile folder to components/routes ([9e2ace2](https://github.com/GruppOne/stalker-web-app/commit/9e2ace2e79f202ab1914681f06bd78192731e349))
+* fix linting errors ([404fc6b](https://github.com/GruppOne/stalker-web-app/commit/404fc6b94dad5e71d1f87f8e3fa0ed78fd89b8e3))
+* fix map and edit-organization bugs ([ead050f](https://github.com/GruppOne/stalker-web-app/commit/ead050ff4631467b2b941c812c502c9b3306c8ab))
+* fix some errors from the review ([eca4cce](https://github.com/GruppOne/stalker-web-app/commit/eca4cce7c437d5b7709ff3af11cf4e6c0dec5b36))
+* fix type any warning in all files ([f024a94](https://github.com/GruppOne/stalker-web-app/commit/f024a946b89d6fb5e3f40d2ca32a5e200b6af866))
+* fix unit test not working ([efba403](https://github.com/GruppOne/stalker-web-app/commit/efba403cdcdc26059d261b1e6776a0db897117c5))
+* fix UserData constructor ([44da1c6](https://github.com/GruppOne/stalker-web-app/commit/44da1c632fcf9b7332143bb88be7672fdd87d721))
+* invert test text ([0213db8](https://github.com/GruppOne/stalker-web-app/commit/0213db85497120ed7361762ab9a5652afa945d50))
+* try to resolve typing errors ([e2cc808](https://github.com/GruppOne/stalker-web-app/commit/e2cc8083670a52045db9bd35435278e6291adf4d))
+* use get and set keyword ([a34ef23](https://github.com/GruppOne/stalker-web-app/commit/a34ef233de2eabc482a163dbae5cf54819a76d62))
 
 
 ### Documentation
 
 * add badges and rename files ([39a9486](https://github.com/GruppOne/stalker-web-app/commit/39a948601d1091a655cc493a8d0908aae1c82b84))
 * add versioning and setup info on README ([d843abf](https://github.com/GruppOne/stalker-web-app/commit/d843abf9337fa1e331b5fd4c1e5fb035a1950f31))
+* update release instructions ([66ea662](https://github.com/GruppOne/stalker-web-app/commit/66ea66240ed5e2084c1b2db9b13621588f13f6d5))
 
 
 ### Configuration
 
-* **npm:** add package to mock api in unit and e2e tests ([e0a776a](https://github.com/GruppOne/stalker-web-app/commit/e0a776a09680c5ed8e6d8d804234276b7d94f56d))
+* **deps:** add plugins to configure prettier and eslint ([de02191](https://github.com/GruppOne/stalker-web-app/commit/de02191faaf99ef8ce44bc59651a558b62d3c5f8))
+* **deps:** update dependencies ([fe356a1](https://github.com/GruppOne/stalker-web-app/commit/fe356a1d5a969352a240e8c5b83a9888eeec151f))
+* **docker:** use build target in docker compose ([3039461](https://github.com/GruppOne/stalker-web-app/commit/303946169a58d31dc5c466e2ea7cc6f522c35e59))
+* **eslint:** allow single property name with underscore ([1172bd6](https://github.com/GruppOne/stalker-web-app/commit/1172bd66f50a5fd6d221f9b4687eef153c163e91))
+* **eslint:** change max params to 4 ([43adb90](https://github.com/GruppOne/stalker-web-app/commit/43adb90310324e4f79064169a1a1b301e44d124b))
+* **eslint:** enable stricter coding best practices ([b9c1d3d](https://github.com/GruppOne/stalker-web-app/commit/b9c1d3d266ae65d61708d293796505b7d9aaae61))
+* **eslint:** ignore long imports ([0f1f4ae](https://github.com/GruppOne/stalker-web-app/commit/0f1f4ae80de74fc4d3d0834b530ec4c44e65faf5))
+* **eslint:** removed camelcase rule ([9941c4a](https://github.com/GruppOne/stalker-web-app/commit/9941c4a7ebdcac021cdea67c5dbfe050f2eb5d62))
+* **ng:** add angular material using ng ([b9e1b2d](https://github.com/GruppOne/stalker-web-app/commit/b9e1b2de1a665a17215106e65dc6f871381d298d))
+* **npm:** add js-sha512 dependency for hashing sensible datas ([ffb35b5](https://github.com/GruppOne/stalker-web-app/commit/ffb35b5e735dae5c84e0c272f550a6abc11f8fee))
+* **npm:** add stylelint to scripts and run npm install to update dependencies ([b259f65](https://github.com/GruppOne/stalker-web-app/commit/b259f655deea2899aa72b065b87ac0b6a8154468))
+* **npm:** fix package-lock out of sync ([f0dbdfe](https://github.com/GruppOne/stalker-web-app/commit/f0dbdfe6e296a2466a4e09a6ed6a3cb6bf4a8f0a))
+* **npm:** fix package-lock out of sync and run npm audit fix ([9c607d2](https://github.com/GruppOne/stalker-web-app/commit/9c607d2e5afcd5126fe740d39fdec7387ae19d67))
+* **npm:** fix package-lock.json out of sync ([78036c8](https://github.com/GruppOne/stalker-web-app/commit/78036c80d2d02db483da83b8403007b8b759d5ec))
+* **npm:** fix system-tests job ([b55f922](https://github.com/GruppOne/stalker-web-app/commit/b55f9229433427405c9bb53b91de68d2b6fcc4b8))
+* **npm:** install stylelint ([7826395](https://github.com/GruppOne/stalker-web-app/commit/7826395ef53e254523a188cec57213be6aa5f35f))
+* **npm:** run npm install leaflet to add maps dependencies ([794938d](https://github.com/GruppOne/stalker-web-app/commit/794938da18777b0b310cc950245b7a5db0e021a4))
+* **npm:** run npm install, audit fix and update ([d86f1a9](https://github.com/GruppOne/stalker-web-app/commit/d86f1a936b69bafc1004653390d866d6a3cb5ab1))
+* **npm:** run npm update ([328ac3e](https://github.com/GruppOne/stalker-web-app/commit/328ac3ede76db1f9dcb3c849bfba17acee6043c9))
+* **npm:** update and fix dependencies ([f181da2](https://github.com/GruppOne/stalker-web-app/commit/f181da21640095de5d61333a2147af2f6e74bd88))
+* **release:** 0.1.2 ([5c8f4c7](https://github.com/GruppOne/stalker-web-app/commit/5c8f4c7410c77c50b63dd9cf8541dd0ed6ade9ac))
+* **release:** 0.2.0 ([570fd41](https://github.com/GruppOne/stalker-web-app/commit/570fd41cfb1d0feda4e4b1b07cd909a07840da25))
+* **release:** 0.3.0 ([d9f7484](https://github.com/GruppOne/stalker-web-app/commit/d9f7484261cc76604932c1ccbd5dd38c17f114e5))
+* **release:** 0.4.0 ([bd834e9](https://github.com/GruppOne/stalker-web-app/commit/bd834e916c3d9e5bd10dbac1fd7f17e0d40332a6))
+* **release:** 0.5.0 ([953d86b](https://github.com/GruppOne/stalker-web-app/commit/953d86b2e94cd9dc0369257bdc3d653b1c0cca93))
+* **release:** 0.6.0 ([6fe5b91](https://github.com/GruppOne/stalker-web-app/commit/6fe5b918d99b211fc8e07083bad890b399b80494))
+* **release:** 0.6.1 ([1db1f60](https://github.com/GruppOne/stalker-web-app/commit/1db1f60a7fda90f0814163d3b63fdfc7c82657d6))
+* (stylelint) add initial configuration to json file ([0470b2f](https://github.com/GruppOne/stalker-web-app/commit/0470b2f5923985d95cb6bfc60c8305f66068365d))
+* add 'stylelint' to the chore's scope list ([e8091c1](https://github.com/GruppOne/stalker-web-app/commit/e8091c1519f12b470392a61a3dec7c71b0981d0c))
+* add ci workflows and cleanup old configuration options ([c151c31](https://github.com/GruppOne/stalker-web-app/commit/c151c31e5366348a0ba767dab2862bdbbd9c401d))
+* add max length to the password regex pattern ([4b4b34a](https://github.com/GruppOne/stalker-web-app/commit/4b4b34a70cc5653be9e077392e8b5f6d8d5ffed9))
+* change some style ([46895d7](https://github.com/GruppOne/stalker-web-app/commit/46895d7731ba9432431e63160131599205c68f37))
+* configure jscpd and add some eslint rules ([6f7f7d0](https://github.com/GruppOne/stalker-web-app/commit/6f7f7d0620d9a11d3dc922fe4977bb599acc2d72))
+* configure prettier to work from eslint instead of separately ([0e10896](https://github.com/GruppOne/stalker-web-app/commit/0e10896f128bd0c8f6fb102c08f998f8fdfc8244))
+* filter place name suggestion by displaying only relevent names ([dfaab37](https://github.com/GruppOne/stalker-web-app/commit/dfaab37bb9b9f9decee9316d2a22225e036788d8))
+* fine-tune eslint and add another extension ([c2bf9b6](https://github.com/GruppOne/stalker-web-app/commit/c2bf9b65b31279a2b115a57ac304a373819f56f2))
+* improve suggestion of place names ([a446a13](https://github.com/GruppOne/stalker-web-app/commit/a446a13116c4a8bb895860e85a4daf717f2a498b))
+* log submitted values in the console ([3a6ff5d](https://github.com/GruppOne/stalker-web-app/commit/3a6ff5da21dcbc0857a430b4dcab1405a59f5213))
+* resolve errors after rebase ([4674107](https://github.com/GruppOne/stalker-web-app/commit/46741070f0432085b7da1d8487fdecc05aa2c1d9))
+* **npm:** add copy paste detector ([5224d63](https://github.com/GruppOne/stalker-web-app/commit/5224d6307f7785591cfe8f548c461662804fe9d5))
+* **release:** 0.1.1 ([c53c093](https://github.com/GruppOne/stalker-web-app/commit/c53c093e002bebe93700ee84f350b28396002c1d))
+* **vscode:** simplify working with plantuml ([6db3c9c](https://github.com/GruppOne/stalker-web-app/commit/6db3c9c08b6889877e6a088efa7090e06ab971f4))
 * add configurations to ng commands ([f6d6759](https://github.com/GruppOne/stalker-web-app/commit/f6d6759d12fa9872ab54f84a85bb80ae4c8d023a)), closes [#6](https://github.com/GruppOne/stalker-web-app/issues/6)
+* add dependencies for chai cucumber and cucumber-protractor ([95f2987](https://github.com/GruppOne/stalker-web-app/commit/95f2987199ae1faebe2e3006cd77f09e28c49033))
+* add utility task and use restrictive eslint options ([a585c56](https://github.com/GruppOne/stalker-web-app/commit/a585c565d783ebc95476b2919360df7ae3719115))
+* add versioning with standard-version ([ab821e8](https://github.com/GruppOne/stalker-web-app/commit/ab821e8cbf5d5c0ed4e66b6cb1334cd1479dfdf8))
+* configure protractor with cucumber-protractor framework ([7527fc1](https://github.com/GruppOne/stalker-web-app/commit/7527fc163ea2c179f9152affce4de49e8f900a32))
+* disable e2e job and fix some settings ([a14d2d4](https://github.com/GruppOne/stalker-web-app/commit/a14d2d46e6eede43203e90cabd6ce51716c7f956))
+* fine-tune eslint options and fix errors ([5aef1d5](https://github.com/GruppOne/stalker-web-app/commit/5aef1d5a0213267624eb5d6a4a88398018e0a62f))
+* fix some configurations ([237da28](https://github.com/GruppOne/stalker-web-app/commit/237da28f8220c711d2de6bbd736e727d6ade274d))
+* fix some errors in the configuration and format all files ([b6e5a60](https://github.com/GruppOne/stalker-web-app/commit/b6e5a602fef25e5383471de65cf4c88480256436))
+* init ([ac0605f](https://github.com/GruppOne/stalker-web-app/commit/ac0605fc5635242a0d52f16188f2e95ad840fd1f))
 * remove boilerplate to start from scratch ([e682f08](https://github.com/GruppOne/stalker-web-app/commit/e682f08764b5dd04ee59ce4bc46d3d4d5d130c2c))
 * remove bootstrap and update dependencies ([ceea57b](https://github.com/GruppOne/stalker-web-app/commit/ceea57b17857ec00a95703c19fa25ef657f880eb))
 * setup release procedure ([435558a](https://github.com/GruppOne/stalker-web-app/commit/435558a898ee72cf5c7ee8ceb7316b4c94824378))
+* simplify containerization and vscode recommended extensions ([2fd446c](https://github.com/GruppOne/stalker-web-app/commit/2fd446c37026663547b8c3ee3822cd99e40eea74))
+* update various dependencies ([a4177ca](https://github.com/GruppOne/stalker-web-app/commit/a4177ca8f8752b659dffaff64fbf039ca21dcf12))
+* use a different commitizen adapter ([a978e5e](https://github.com/GruppOne/stalker-web-app/commit/a978e5e5d0e0b8db2027775502e7c52619ea7d14))
 * **docker:** add dockerfile for production and docker-compose skeleton ([eb92ec5](https://github.com/GruppOne/stalker-web-app/commit/eb92ec585a96870634b0a68e986bf2c113399a98))
 * **eslint:** migrate from tslint ([2dc24d4](https://github.com/GruppOne/stalker-web-app/commit/2dc24d41926de9a6e4b0a8d599285b50e5c8be03))
 * **ng:** cleanup environments and improve configuration ([62ef214](https://github.com/GruppOne/stalker-web-app/commit/62ef21422ae011444b4a8f6a0754b213247755ad))
 * **npm:** add commitizen and its configurazion to dev dependencies ([cc9dbf9](https://github.com/GruppOne/stalker-web-app/commit/cc9dbf9b773f7dbd815ceafc9a25bec1e2ce9fc3))
+* **npm:** add package to mock api in unit and e2e tests ([e0a776a](https://github.com/GruppOne/stalker-web-app/commit/e0a776a09680c5ed8e6d8d804234276b7d94f56d))
 * **npm:** update dependencies to fix security alert ([b47e830](https://github.com/GruppOne/stalker-web-app/commit/b47e830772190db76a50664f458406da2f8c2ba2))
-* add versioning with standard-version ([ab821e8](https://github.com/GruppOne/stalker-web-app/commit/ab821e8cbf5d5c0ed4e66b6cb1334cd1479dfdf8))
-* disable e2e job and fix some settings ([a14d2d4](https://github.com/GruppOne/stalker-web-app/commit/a14d2d46e6eede43203e90cabd6ce51716c7f956))
-* fix some configurations ([237da28](https://github.com/GruppOne/stalker-web-app/commit/237da28f8220c711d2de6bbd736e727d6ade274d))
+* **release:** 0.1.0 ([0fec6eb](https://github.com/GruppOne/stalker-web-app/commit/0fec6eb14f3e888f07da57478ad15b4743a95df0))
 * include bootstrap in the project ([35f0a8f](https://github.com/GruppOne/stalker-web-app/commit/35f0a8f08acdb990ae3668393dda7d9ecb424fdb))
-* init ([ac0605f](https://github.com/GruppOne/stalker-web-app/commit/ac0605fc5635242a0d52f16188f2e95ad840fd1f))
 * switch to single quotes and other changes ([dff5807](https://github.com/GruppOne/stalker-web-app/commit/dff580707dfaeaccfe2140aea71a90191676767d))
 * translate README ([718a0b7](https://github.com/GruppOne/stalker-web-app/commit/718a0b7d51d1292b738f1489f1d6c6eea23431ee))
+* update some lint rules and fix environment base path ([da12886](https://github.com/GruppOne/stalker-web-app/commit/da12886e8860fd5d829da17dc3ef7f4ce63dead6))
 * use stricter compiler options and add some ignore files ([901b18a](https://github.com/GruppOne/stalker-web-app/commit/901b18a15fc3348fbeb9814494bcde46d1ea51d6))
