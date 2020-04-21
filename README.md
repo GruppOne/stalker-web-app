@@ -40,7 +40,7 @@ Scrivi `ng test` per eseguire i test di unità tramite [Karma](https://karma-run
 
 ## Eseguire i test end-to-end
 
-Scrivi `ng e2e` per eseguire i test end-to-end tramite[Protractor](http://www.protractortest.org/).
+Scrivi `ng e2e` per eseguire i test end-to-end tramite [Protractor](http://www.protractortest.org/).
 
 ## Configurazione
 
