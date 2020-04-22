@@ -143,7 +143,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
-      for (let i = 0; i < this.mapDataChild.arrayCoord.length; i++) {
+      for (let i = 0; i < this.mapDataChild.arrayCoord?.length; i++) {
         const polyline: MyLatLng[] = [];
         for (const j of this.mapDataChild.arrayCoord[i]) {
           polyline.push(new MyLatLng(200, 200, j));
@@ -165,7 +165,9 @@ export class EditOrganizationComponent implements OnInit {
       console.log(this.organizationBuilder.build());
       this.organizationService
         .editOrganization(this.organizationBuilder.build())
-        .subscribe();
+        .subscribe((response: HttpResponse<Organization>) => {
+          console.log(response);
+        });
     }
   }
   /*
@@ -173,7 +175,7 @@ export class EditOrganizationComponent implements OnInit {
   */
   addAdmin(): void {
     let adminData: AdminType;
-    if (this.formArray?.value[2].adminRole === 2) {
+    if (this.formArray?.value[2].adminRole === 'Manager') {
       // create AdminType based on the value of mat-select field
       adminData = {value: '2', viewValue: 'Manager'};
     } else {
@@ -186,7 +188,7 @@ export class EditOrganizationComponent implements OnInit {
     };
 
     this.administratorService
-      .addAdministrator(1, admin.email)
+      .manageAdministrator(1, admin.email)
       .subscribe((response: HttpResponse<string>) => {
         if (response && response.status === 200 && response.body != null) {
           this.administrators.push(admin);
@@ -201,7 +203,7 @@ export class EditOrganizationComponent implements OnInit {
   deleteAdmin(admin: Administrator): void {
     // get index in the administrators array of admin
     this.administratorService
-      .removeAdministrator(1, admin.email)
+      .manageAdministrator(1, admin.email)
       .subscribe((response: HttpResponse<string>) => {
         if (response && response.status === 200 && response.body != null) {
           const indexOf = this.administrators.indexOf(admin);
