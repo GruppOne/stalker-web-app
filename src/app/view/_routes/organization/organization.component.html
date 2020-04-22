@@ -1,9 +1,8 @@
+<h1 class="title-page-under-toolbar">{{ organization?.name }}</h1>
+<h2 class="subtitle-page-under-toolbar">{{ organization?.description }}</h2>
 <mat-card class="organizationTable">
-  <mat-card-title>{{ organization?.name }}</mat-card-title>
-  <mat-card-subtitle>{{ organization?.description }}</mat-card-subtitle>
   <mat-list>
-    <mat-divider></mat-divider>
-    <div style="margin: 5px 0; text-align: left;"><app-map></app-map></div>
+    <app-map></app-map>
     <mat-divider></mat-divider>
     <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
     <mat-list-item class="fieldData">

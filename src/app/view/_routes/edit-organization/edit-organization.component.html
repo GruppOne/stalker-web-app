@@ -1,3 +1,5 @@
+<h1 class="title-page-under-toolbar">Edit organization</h1>
+<h2 class="subtitle-page-under-toolbar">Fill out this form to edit the details of your organization</h2>
 <form [formGroup]="formGroup" editOrganizationForm="ngForm" (ngSubmit)="submitOrganizationForm()">
   <mat-vertical-stepper #stepper formArrayName="formArray">
     <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
