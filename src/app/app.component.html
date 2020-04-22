@@ -1,7 +1,24 @@
-<mat-toolbar color="primary" *ngIf="this.getRoute() != '/login'">
+<mat-toolbar>
   <mat-toolbar-row>
-    <a class="logo">Stalker</a>
+    <a class="logo"><span class="logoFirstLetter">S</span>talker</a>
     <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onClick('#anchor')">
+        <mat-icon>build</mat-icon>
+        <span>How it works</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>group</mat-icon>
+        <span>Who we are</span>
+      </button>
+    </mat-menu>
   </mat-toolbar-row>
+  <div class="white-triangle" *ngIf="this.getRoute() != '/home'"></div>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<img class="background" *ngIf="this.getRoute() == '/home'" src="../assets/walking-crowd.png" />
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
