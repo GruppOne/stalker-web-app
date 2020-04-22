@@ -190,7 +190,7 @@ export class EditOrganizationComponent implements OnInit {
         if (response && response.status === 200 && response.body != null) {
           this.administrators.push(admin);
         } else {
-          console.log('response status: ' + response.status.toString());
+          console.log('response status: ' + response?.status.toString());
         }
       });
   }
