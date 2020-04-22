@@ -20,4 +20,10 @@ export class AppComponent {
   public onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
   }
+
+  backHome(): void {
+    if (this.getRoute() !== '/home') {
+      this.router.navigate(['/home']);
+    }
+  }
 }
