@@ -102,6 +102,7 @@ export class EditOrganizationComponent implements OnInit {
         }),
       ]),
     });
+    // this.getOrgAdministrators(1);
   }
 
   // call OrganizationService to get organization with given Id
@@ -185,8 +186,8 @@ export class EditOrganizationComponent implements OnInit {
     };
 
     this.administratorService
-      .addAdministrator(1, admin)
-      .subscribe((response: HttpResponse<Administrator>) => {
+      .addAdministrator(1, admin.email)
+      .subscribe((response: HttpResponse<string>) => {
         if (response && response.status === 200 && response.body != null) {
           this.administrators.push(admin);
         } else {
@@ -200,8 +201,8 @@ export class EditOrganizationComponent implements OnInit {
   deleteAdmin(admin: Administrator): void {
     // get index in the administrators array of admin
     this.administratorService
-      .removeAdministrator(1, admin)
-      .subscribe((response: HttpResponse<Administrator>) => {
+      .removeAdministrator(1, admin.email)
+      .subscribe((response: HttpResponse<string>) => {
         if (response && response.status === 200 && response.body != null) {
           const indexOf = this.administrators.indexOf(admin);
           this.administrators.splice(indexOf, 1);
@@ -210,4 +211,13 @@ export class EditOrganizationComponent implements OnInit {
         }
       });
   }
+  /*   getAdministrators(organizationId: number): void {
+    this.administratorService
+      .getAdministrators(organizationId)
+      .subscribe((response: HttpResponse<AdminGetType[]>) => {
+        if (response && response.status === 200 && response.body != null) {
+          this.administrators = response.body;
+        }
+      });
+  }*/
 }
