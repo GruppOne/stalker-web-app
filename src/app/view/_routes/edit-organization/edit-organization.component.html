@@ -47,10 +47,10 @@
       </div>
     </mat-step>
     <mat-step formGroupName="2" [optional]="true">
-      <ng-template matStepLabel>Admin management</ng-template>
+      <ng-template matStepLabel>Administrator management</ng-template>
       <mat-list>
         <div *ngFor="let admin of administrators">
-          <mat-list-item class="fieldName">{{ admin.role.viewValue }}</mat-list-item>
+          <mat-list-item class="fieldName">{{ admin.role }}</mat-list-item>
           <mat-list-item class="fieldData">{{ admin.email }}</mat-list-item>
           <button
             mat-button
@@ -64,15 +64,15 @@
         </div>
       </mat-list>
       <mat-form-field class="adminType">
-        <mat-label>Admin type</mat-label>
+        <mat-label>Administrator type</mat-label>
         <mat-select formControlName="adminRole">
-          <mat-option *ngFor="let admin of adminType" [value]="admin.value">
-            {{ admin.viewValue }}
+          <mat-option *ngFor="let admin of adminType" [value]="admin">
+            {{ admin }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="adminEmail">
-        <mat-label>New admin</mat-label>
+        <mat-label>New administrator</mat-label>
         <input formControlName="adminEmail" matInput placeholder="Ex. mariorossi@gmail.com" />
       </mat-form-field>
       <button
