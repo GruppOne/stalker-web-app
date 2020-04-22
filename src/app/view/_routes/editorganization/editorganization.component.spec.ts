@@ -2,8 +2,14 @@ import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LatLng} from 'leaflet';
 import {of} from 'rxjs';
+import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
+import {CustomMaterialModule} from 'src/app/modules/material.module';
+
+import {MapComponent} from '../../components/map/map.component';
 
 import {EditOrganizationComponent} from './editorganization.component';
 
@@ -13,9 +19,14 @@ describe('EditOrganizationComponent', () => {
 
   const organizationService = jasmine.createSpyObj('OrganizationService', [
     'getOrganizationById',
+    'editOrganization',
   ]);
 
-  let organizationSpy = organizationService.getOrganizationById.and.returnValue(
+  const administratorService = jasmine.createSpyObj('AdministratorService', [
+    'manageAdministrator',
+  ]);
+
+  let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
     of(
       new HttpResponse({
         body: {organizations: []},
@@ -25,14 +36,41 @@ describe('EditOrganizationComponent', () => {
     ),
   );
 
+  let organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
+    of(
+      new HttpResponse({
+        body: {name: 'unipd', isPrivate: false},
+        headers: new HttpHeaders(),
+        status: 200,
+      }),
+    ),
+  );
+
+  let administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+    of(
+      new HttpResponse({
+        body: {name: 'unipd', isPrivate: false},
+        headers: new HttpHeaders(),
+        status: 200,
+      }),
+    ),
+  );
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EditOrganizationComponent],
-      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule],
+      declarations: [EditOrganizationComponent, MapComponent],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CustomMaterialModule,
+        BrowserAnimationsModule,
+      ],
       providers: [
         {provide: HttpClient},
         {provide: FormBuilder},
         {provide: OrganizationService, useValue: organizationService},
+        {provide: AdministratorService, useValue: administratorService},
       ],
     }).compileComponents();
   }));
@@ -48,7 +86,7 @@ describe('EditOrganizationComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+    organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
           body: {organizations: []},
@@ -58,10 +96,10 @@ describe('EditOrganizationComponent', () => {
       ),
     );
     component.getOrganizationById(1);
-    expect(organizationSpy.calls.any()).toBe(true, 'get called');
+    expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+    organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
           body: {organizations: [{name: 'unipd', isPrivate: false}]},
@@ -71,6 +109,52 @@ describe('EditOrganizationComponent', () => {
       ),
     );
     component.getOrganizationById(1);
-    expect(organizationSpy.calls.any()).toBe(true, 'get called');
+    expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
+  });
+  it('should submit the form correctly', () => {
+    component.submitOrganizationForm();
+    expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
+    const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
+    console.log(num);
+    organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
+      of(
+        new HttpResponse({
+          body: {name: 'unipd', isPrivate: false},
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    component.submitOrganizationForm();
+    expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
+  });
+  it('should add an admin correctly', () => {
+    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+      of(
+        new HttpResponse({
+          body: 'mariotest01@gmail.com',
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    component.deleteAdmin({
+      email: 'mariotest01@gmail.com',
+      role: {value: '2', viewValue: 'Manager'},
+    });
+    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
+  });
+  it('should submit the form correctly', () => {
+    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+      of(
+        new HttpResponse({
+          body: 'mariotest01@gmail.com',
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    component.addAdmin();
+    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
   });
 });
