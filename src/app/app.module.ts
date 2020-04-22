@@ -12,7 +12,6 @@ import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor
 import {CustomMaterialModule} from './modules/material.module';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './view/_routes/home/home.component';
-import {LoginComponent} from './view/_routes/login/login.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
@@ -21,9 +20,8 @@ import {FormPasswordComponent} from './view/components/form-password/form-passwo
 import {MapComponent} from './view/components/map/map.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, data: {title: 'Stalker - Login'}},
-  {path: 'home', component: HomeComponent, data: {title: 'Stalker - Home'}},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
   {path: 'profile', component: ProfileComponent},
   {
     path: 'organization',
@@ -39,7 +37,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
     FormEmailComponent,
     FormPasswordComponent,
     ButtonConfirmComponent,
