@@ -5,6 +5,7 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LatLng} from 'leaflet';
 import {of} from 'rxjs';
+import {AdminType} from 'src/app/model/classes/administrator';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
@@ -12,7 +13,6 @@ import {CustomMaterialModule} from 'src/app/modules/material.module';
 import {MapComponent} from '../../components/map/map.component';
 
 import {EditOrganizationComponent} from './edit-organization.component';
-import {AdminType} from 'src/app/model/classes/administrator';
 
 describe('EditOrganizationComponent', () => {
   let component: EditOrganizationComponent;
