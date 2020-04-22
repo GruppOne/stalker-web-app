@@ -3,7 +3,7 @@ export interface Administrator {
   role: AdminType;
 }
 
-export interface AdminType {
-  value: string;
-  viewValue: string;
+export enum AdminType {
+  manager = 'Manager',
+  viewer = 'Viewer',
 }

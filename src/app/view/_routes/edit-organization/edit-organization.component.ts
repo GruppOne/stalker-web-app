@@ -14,14 +14,11 @@ import {OrganizationService} from '../../../model/services/organization.service'
 
 @Component({
   selector: 'app-edit-organization',
-  templateUrl: 'editorganization.component.html',
-  styleUrls: ['editorganization.component.scss'],
+  templateUrl: 'edit-organization.component.html',
+  styleUrls: ['edit-organization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
-  adminType: AdminType[] = [
-    {value: '2', viewValue: 'Manager'},
-    {value: '3', viewValue: 'Viewer'},
-  ];
+  adminType: AdminType[] = [AdminType.manager, AdminType.viewer];
 
   @ViewChild('map') mapDataChild?: {
     arrayCoord: LatLng[][];
@@ -35,13 +32,12 @@ export class EditOrganizationComponent implements OnInit {
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
 
-  administrators: Administrator[] = [
-    {email: 'mariotest01@gmail.com', role: {value: '2', viewValue: 'Manager'}},
-    {email: 'giorgiotest01@gmail.com', role: {value: '1', viewValue: 'Viewer'}},
-  ];
+  administrators: Administrator[] = [];
   formGroup: FormGroup = new FormGroup({});
 
-  // Returns a FormArray with the name 'formArray'.
+  /**
+   *  Returns a FormArray with the name 'formArray'.
+   */
   get formArray(): AbstractControl | null {
     return this.formGroup.get('formArray');
   }
@@ -52,7 +48,9 @@ export class EditOrganizationComponent implements OnInit {
     private readonly administratorService: AdministratorService,
   ) {}
 
-  // initialize all data, including organization field calling OrganizationService
+  /**
+   *  initialize all data, including organization field calling OrganizationService
+   */
   ngOnInit(): void {
     this.getOrganizationById(1);
     if (!this.organization) {
@@ -97,15 +95,17 @@ export class EditOrganizationComponent implements OnInit {
           ],
         }),
         this.formBuilder.group({
-          adminRole: [''],
-          adminEmail: [''],
+          adminRole: [],
+          adminEmail: [],
         }),
       ]),
     });
     // this.getOrgAdministrators(1);
   }
 
-  // call OrganizationService to get organization with given Id
+  /**
+   * call OrganizationService to get organization with given Id
+   */
   getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
@@ -116,10 +116,12 @@ export class EditOrganizationComponent implements OnInit {
       });
   }
 
-  // TODO controllo client side dei campi
+  // TODO client-side validation
 
-  // Submit the organization form, organize all datas in an Organization object and call
-  // the service for updating the organization in the server
+  /**
+   * Submit the organization form, organize all data in an Organization object and call
+   * the service for updating the organization in the server
+   */
   submitOrganizationForm(): void {
     if (this.mapDataChild && this.formArray && this.organization) {
       console.log(this.formArray.value);
@@ -170,18 +172,25 @@ export class EditOrganizationComponent implements OnInit {
         });
     }
   }
-  /*
-    Add administrator email and role to the administrators array defined above
-  */
+  /**
+   * Add administrator email and role to the administrators array defined above
+   */
+
   addAdmin(): void {
     let adminData: AdminType;
-    if (this.formArray?.value[2].adminRole === 'Manager') {
-      // create AdminType based on the value of mat-select field
-      adminData = {value: '2', viewValue: 'Manager'};
-    } else {
-      adminData = {value: '3', viewValue: 'Viewer'};
-    }
+    console.log(this.formArray?.value[2].adminRole);
 
+    switch (this.formArray?.value[2].adminRole) {
+      case 'Manager':
+        adminData = AdminType.manager;
+        break;
+      case 'Viewer':
+        adminData = AdminType.viewer;
+        break;
+      default:
+        adminData = AdminType.viewer;
+        break;
+    }
     const admin: Administrator = {
       email: this.formArray?.value[2].adminEmail,
       role: adminData,
@@ -193,13 +202,14 @@ export class EditOrganizationComponent implements OnInit {
         if (response && response.status === 200 && response.body != null) {
           this.administrators.push(admin);
         } else {
+          this.administrators.push(admin);
           console.log('response status: ' + response?.status.toString());
         }
       });
   }
-  /*
-    Remove administrator 'admin' from administrator array defined above
-  */
+  /**
+   * Remove administrator 'admin' from administrator array defined above
+   */
   deleteAdmin(admin: Administrator): void {
     // get index in the administrators array of admin
     this.administratorService

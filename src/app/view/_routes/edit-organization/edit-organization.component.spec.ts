@@ -11,7 +11,8 @@ import {CustomMaterialModule} from 'src/app/modules/material.module';
 
 import {MapComponent} from '../../components/map/map.component';
 
-import {EditOrganizationComponent} from './editorganization.component';
+import {EditOrganizationComponent} from './edit-organization.component';
+import {AdminType} from 'src/app/model/classes/administrator';
 
 describe('EditOrganizationComponent', () => {
   let component: EditOrganizationComponent;
@@ -140,7 +141,7 @@ describe('EditOrganizationComponent', () => {
     );
     component.deleteAdmin({
       email: 'mariotest01@gmail.com',
-      role: {value: '2', viewValue: 'Manager'},
+      role: AdminType.manager,
     });
     expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
   });
