@@ -19,8 +19,10 @@ export class OrganizationComponent implements OnInit {
   ngOnInit(): void {
     this.getOrganizationById(1);
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('Unipd', true)
-        .addDescription('')
+      this.organization = new OrganizationBuilder('GruppOne', true)
+        .addDescription(
+          'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor...',
+        )
         .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
             .addUsername('mariorossi@gmail.com')

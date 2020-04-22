@@ -1,6 +1,6 @@
 .mat-card.organizationTable {
   box-sizing: border-box;
-  margin: 50px auto;
+  margin: auto;
   text-align: center;
   width: 600px;
 }
@@ -25,7 +25,7 @@
   width: 65%;
 }
 
-::ng-deep .mat-list-item.fieldName .mat-list-item-content {
+::ng-deep .mat-list-item-content {
   justify-content: flex-end;
 }
 
