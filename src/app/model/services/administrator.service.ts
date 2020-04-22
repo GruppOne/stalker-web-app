@@ -18,15 +18,7 @@ export class AdministratorService {
     this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/organizations');
   }
 
-  addAdministrator(
-    organizationId: number,
-    administratorEmail: string,
-  ): Observable<HttpResponse<string>> {
-    this.stalkerEndpoint.setPath('/organizations/' + organizationId.toString());
-    return this.stalkerEndpoint.put<string>(administratorEmail);
-  }
-
-  removeAdministrator(
+  manageAdministrator(
     organizationId: number,
     administratorEmail: string,
   ): Observable<HttpResponse<string>> {
