@@ -12,6 +12,7 @@ import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor
 import {CustomMaterialModule} from './modules/material.module';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './view/_routes/home/home.component';
+import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
@@ -31,6 +32,8 @@ const routes: Routes = [
     path: 'editorganization',
     component: EditOrganizationComponent,
   },
+  // route to 404
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({
@@ -44,6 +47,7 @@ const routes: Routes = [
     OrganizationComponent,
     EditOrganizationComponent,
     MapComponent,
+    NotFoundComponent,
   ],
   imports: [
     CustomMaterialModule,
