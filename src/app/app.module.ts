@@ -14,6 +14,7 @@ import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-o
 import {HomeComponent} from './view/_routes/home/home.component';
 import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
+import {OrganizationsComponent} from './view/_routes/organizations/organizations.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
 import {FormEmailComponent} from './view/components/form-email/form-email.component';
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'organization',
     component: OrganizationComponent,
+  },
+  {
+    path: 'organizations',
+    component: OrganizationsComponent,
   },
   {
     path: 'editorganization',
@@ -48,6 +53,7 @@ const routes: Routes = [
     EditOrganizationComponent,
     MapComponent,
     NotFoundComponent,
+    OrganizationsComponent,
   ],
   imports: [
     CustomMaterialModule,
