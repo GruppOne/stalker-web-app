@@ -1,6 +1,9 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <a class="logo"><span class="logoFirstLetter">S</span>talker</a>
+    <button mat-button class="logo" (click)="backHome()">
+      <img class="stalker-logo" src="../assets/stalker-logo.png" />&nbsp;<span class="logoFirstLetter">S</span
+      ><span>talker</span>
+    </button>
     <span class="spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>menu</mat-icon>
