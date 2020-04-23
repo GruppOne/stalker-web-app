@@ -1,23 +1,19 @@
-import {HttpResponse, HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {User} from '../classes/users/user';
 
-import {StalkerEndpoint} from './stalker-endpoint';
+import {HttpClientService} from './http-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private readonly stalkerEndpoint: StalkerEndpoint;
-
-  constructor(httpClient: HttpClient) {
-    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/user/login');
-  }
+  constructor(private readonly httpClientService: HttpClientService) {}
 
   login(user: User): Observable<HttpResponse<User>> {
-    return this.stalkerEndpoint.post<User>(user);
+    return this.httpClientService.post<User>('user/login', user);
   }
 
   // TODO this might be unneded
@@ -25,6 +21,6 @@ export class LoginService {
     user: User,
     additionalHeaders: HttpHeaders,
   ): Observable<HttpResponse<User>> {
-    return this.stalkerEndpoint.post<User>(user, additionalHeaders);
+    return this.httpClientService.post<User>('user/login', user, additionalHeaders);
   }
 }

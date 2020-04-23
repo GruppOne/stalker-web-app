@@ -1,22 +1,18 @@
-import {HttpResponse, HttpClient} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {User} from '../classes/users/user';
 
-import {StalkerEndpoint} from './stalker-endpoint';
+import {HttpClientService} from './http-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly stalkerEndpoint: StalkerEndpoint;
-  constructor(httpClient: HttpClient) {
-    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/users');
-  }
+  constructor(private readonly httpClientService: HttpClientService) {}
 
   getUserById(id: number): Observable<HttpResponse<User>> {
-    this.stalkerEndpoint.setPath('/users/' + id.toString());
-    return this.stalkerEndpoint.get<User>();
+    return this.httpClientService.get<User>(`/users/${id}`);
   }
 }

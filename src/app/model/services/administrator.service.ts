@@ -1,8 +1,8 @@
-import {HttpResponse, HttpClient} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {StalkerEndpoint} from './stalker-endpoint';
+import {HttpClientService} from './http-client.service';
 
 export interface AdminGetType {
   email: string;
@@ -12,22 +12,19 @@ export interface AdminGetType {
   providedIn: 'root',
 })
 export class AdministratorService {
-  private readonly stalkerEndpoint: StalkerEndpoint;
-
-  constructor(httpClient: HttpClient) {
-    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/organizations');
-  }
+  constructor(private readonly httpClientService: HttpClientService) {}
 
   manageAdministrator(
     organizationId: number,
     administratorEmail: string,
   ): Observable<HttpResponse<string>> {
-    this.stalkerEndpoint.setPath('/organizations/' + organizationId.toString());
-    return this.stalkerEndpoint.put<string>(administratorEmail);
+    return this.httpClientService.put<string>(
+      `organizations/${organizationId}`,
+      administratorEmail,
+    );
   }
 
   getAdministrators(organizationId: number): Observable<HttpResponse<AdminGetType[]>> {
-    this.stalkerEndpoint.setPath('/organizations/' + organizationId.toString());
-    return this.stalkerEndpoint.get<AdminGetType[]>();
+    return this.httpClientService.get<AdminGetType[]>(`organizations/${organizationId}`);
   }
 }
