@@ -9,7 +9,10 @@ import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 
 import {Administrator, AdminType} from '../../../model/classes/administrator';
 import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
-import {AdministratorService} from '../../../model/services/administrator.service';
+import {
+  AdministratorService,
+  AdminGetType,
+} from '../../../model/services/administrator.service';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
@@ -72,7 +75,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword('root')
             .build(),
         )
-        .addId(2)
+        .addId(1)
         .addCreatedDate('2020-04-07T02:00:00Z')
         .addLastModifiedDate('2020-04-07T02:00:00Z')
         .build();
@@ -100,7 +103,7 @@ export class EditOrganizationComponent implements OnInit {
         }),
       ]),
     });
-    // this.getOrgAdministrators(1);
+    this.getOrgAdministrators(this.organization.id as number);
   }
 
   /**
@@ -209,13 +212,13 @@ export class EditOrganizationComponent implements OnInit {
         }
       });
   }
-  /*   getAdministrators(organizationId: number): void {
+  getOrgAdministrators(organizationId: number): void {
     this.administratorService
       .getAdministrators(organizationId)
       .subscribe((response: HttpResponse<AdminGetType[]>) => {
         if (response && response.status === 200 && response.body != null) {
-          this.administrators = response.body;
+          this.administrators = response.body as Administrator[];
         }
       });
-  }*/
+  }
 }
