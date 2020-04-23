@@ -25,6 +25,7 @@ describe('EditOrganizationComponent', () => {
 
   const administratorService = jasmine.createSpyObj('AdministratorService', [
     'manageAdministrator',
+    'getAdministrators',
   ]);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
@@ -51,6 +52,15 @@ describe('EditOrganizationComponent', () => {
     of(
       new HttpResponse({
         body: {name: 'unipd', isPrivate: false},
+        headers: new HttpHeaders(),
+        status: 200,
+      }),
+    ),
+  );
+  let administratorGetSpy = administratorService.getAdministrators.and.returnValue(
+    of(
+      new HttpResponse({
+        body: [],
         headers: new HttpHeaders(),
         status: 200,
       }),
@@ -98,6 +108,19 @@ describe('EditOrganizationComponent', () => {
     );
     component.getOrganizationById(1);
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
+  });
+  it('should call Adminstrators get and handle empty response', () => {
+    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(
+      of(
+        new HttpResponse({
+          body: [],
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    component.getOrgAdministrators(1);
+    expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
