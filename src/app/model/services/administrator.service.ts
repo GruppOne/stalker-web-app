@@ -4,10 +4,10 @@ import {Observable} from 'rxjs';
 
 import {StalkerEndpoint} from './stalker-endpoint';
 
-/* interface AdminGetType {
+export interface AdminGetType {
   email: string;
   role: string;
-} */
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -26,8 +26,8 @@ export class AdministratorService {
     return this.stalkerEndpoint.put<string>(administratorEmail);
   }
 
-  /*   getAdministrators(organizationId: number): Observable<HttpResponse<AdminGetType[]>> {
+  getAdministrators(organizationId: number): Observable<HttpResponse<AdminGetType[]>> {
     this.stalkerEndpoint.setPath('/organizations/' + organizationId.toString());
     return this.stalkerEndpoint.get<AdminGetType[]>();
-  } */
+  }
 }
