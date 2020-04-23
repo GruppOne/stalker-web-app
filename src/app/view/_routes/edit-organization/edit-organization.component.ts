@@ -177,23 +177,9 @@ export class EditOrganizationComponent implements OnInit {
    */
 
   addAdmin(): void {
-    let adminData: AdminType;
-    console.log(this.formArray?.value[2].adminRole);
-
-    switch (this.formArray?.value[2].adminRole) {
-      case 'Manager':
-        adminData = AdminType.manager;
-        break;
-      case 'Viewer':
-        adminData = AdminType.viewer;
-        break;
-      default:
-        adminData = AdminType.viewer;
-        break;
-    }
     const admin: Administrator = {
       email: this.formArray?.value[2].adminEmail,
-      role: adminData,
+      role: this.formArray?.value[2].adminRole as AdminType,
     };
 
     this.administratorService
