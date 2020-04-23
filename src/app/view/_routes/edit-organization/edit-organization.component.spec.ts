@@ -109,13 +109,24 @@ describe('EditOrganizationComponent', () => {
     component.getOrganizationById(1);
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
-  it('should call Adminstrators get and handle empty response', () => {
+  it('should call Adminstrators get and handle responses', () => {
     administratorGetSpy = organizationService.getOrganizationById.and.returnValue(
       of(
         new HttpResponse({
           body: [],
           headers: new HttpHeaders(),
           status: 200,
+        }),
+      ),
+    );
+    component.getOrgAdministrators(1);
+    expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
+    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(
+      of(
+        new HttpResponse({
+          body: [],
+          headers: new HttpHeaders(),
+          status: 400,
         }),
       ),
     );
@@ -152,7 +163,7 @@ describe('EditOrganizationComponent', () => {
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
   });
-  it('should add an admin correctly', () => {
+  it('should add an admin correctly and handle responses', () => {
     administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
       of(
         new HttpResponse({
@@ -167,14 +178,39 @@ describe('EditOrganizationComponent', () => {
       role: AdminType.manager,
     });
     expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
+    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+      of(
+        new HttpResponse({
+          body: 'mariotest01@gmail.com',
+          headers: new HttpHeaders(),
+          status: 400,
+        }),
+      ),
+    );
+    component.deleteAdmin({
+      email: 'mariotest01@gmail.com',
+      role: AdminType.manager,
+    });
+    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
   });
-  it('should submit the form correctly', () => {
+  it('should remove an admin correctly and handle responses', () => {
     administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
       of(
         new HttpResponse({
           body: 'mariotest01@gmail.com',
           headers: new HttpHeaders(),
           status: 200,
+        }),
+      ),
+    );
+    component.addAdmin();
+    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
+    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+      of(
+        new HttpResponse({
+          body: 'mariotest01@gmail.com',
+          headers: new HttpHeaders(),
+          status: 400,
         }),
       ),
     );

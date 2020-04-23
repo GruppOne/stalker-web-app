@@ -4,6 +4,7 @@ import {
   HttpResponse,
   HttpHeaders,
 } from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
@@ -13,52 +14,58 @@ interface HttpOptions {
   observe: 'response';
 }
 
-export class StalkerEndpoint {
-  private url = environment.apiUrl;
+@Injectable({
+  providedIn: 'root',
+})
+export class HttpClientService {
+  private readonly url = environment.apiUrl;
   private readonly defaultHttpHeaders: HttpHeaders;
-
-  constructor(private readonly httpClient: HttpClient, relativePath: string) {
-    this.setPath(relativePath);
-
+  constructor(private readonly httpClient: HttpClient) {
     this.defaultHttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
     });
   }
-
-  setPath(relativePath: string): void {
-    const apiUrl = environment.apiUrl;
-    const trimmedRelativePath = relativePath.replace(/^\/|\/$/, '');
-    this.url = apiUrl + '/' + trimmedRelativePath;
-  }
-
-  // TODO implement all verbs
-  get<T>(additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+  get<T>(
+    relativePath: string,
+    additionalHeaders?: HttpHeaders,
+  ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
     const errorHandler = this.handleError<HttpResponse<T>>();
 
-    return this.httpClient.get<T>(this.url, httpOptions).pipe(catchError(errorHandler));
+    return this.httpClient
+      .get<T>(`${this.url}${relativePath}`, httpOptions)
+      .pipe(catchError(errorHandler));
   }
 
   // TODO refactor to reduce duplication
-  post<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+  post<T>(
+    relativePath: string,
+    body: T,
+    additionalHeaders?: HttpHeaders,
+  ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
     const errorHandler = this.handleError<HttpResponse<T>>();
 
     return this.httpClient
-      .post<T>(this.url, body, httpOptions)
+      .post<T>(`${this.url}${relativePath}`, body, httpOptions)
       .pipe(catchError(errorHandler));
   }
 
-  put<T>(body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+  put<T>(
+    relativePath: string,
+    body: T,
+    additionalHeaders?: HttpHeaders,
+  ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
     const errorHandler = this.handleError<HttpResponse<T>>();
 
     return this.httpClient
-      .put<T>(this.url, body, httpOptions)
+      .put<T>(`${this.url}${relativePath}`, body, httpOptions)
       .pipe(catchError(errorHandler));
   }
 
-  // delete<T>(additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
+  // delete<T>(relativePath: string,
+  // additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
   //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
   //   const errorHandler = this.handleError<HttpResponse<T>>();
 
@@ -66,7 +73,6 @@ export class StalkerEndpoint {
   //     .delete<T>(this.url, httpOptions)
   //     .pipe(catchError(errorHandler));
   // }
-
   private mergeAdditionalHeaders(additionalHeaders?: HttpHeaders): HttpOptions {
     let httpHeaders = this.defaultHttpHeaders;
 

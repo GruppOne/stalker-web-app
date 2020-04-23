@@ -3,48 +3,57 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
-import {StalkerEndpoint} from './stalker-endpoint';
+import {HttpClientService} from './http-client.service';
 
-describe('StalkerEndpoint', () => {
-  let sut: StalkerEndpoint;
+describe('HttpClientService', () => {
+  let service: HttpClientService;
 
-  let httpClient = jasmine.createSpyObj('HttpClient', ['post', 'get', 'put', 'delete']);
+  const httpClient = jasmine.createSpyObj('HttpClient', ['post', 'get', 'put', 'delete']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [{provide: HttpClient, useValue: httpClient}],
     });
-    httpClient = TestBed.inject(HttpClient);
-    // sut = TestBed.inject(StalkerEndpoint);
+    service = TestBed.inject(HttpClientService);
   });
 
-  it('should create an instance', () => {
-    sut = new StalkerEndpoint(httpClient, '/');
-    expect(sut).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
   it('should call httpClient get', () => {
     const httpGetSpy = httpClient.get.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
-    httpClient.get();
+    service.get('url');
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
   });
 
   it('should call httpClient post', () => {
     const httpPostSpy = httpClient.post.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+      of(
+        new HttpResponse({
+          body: null,
+          headers: new HttpHeaders({'Content-Type': 'application/json'}),
+          status: 200,
+        }),
+      ),
     );
-
-    sut = new StalkerEndpoint(httpClient, '/');
-    sut.post('test');
+    service.post('url', 'test');
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
-});
 
-// TODO test error handler
-/* it('should handle errors', () => {
+  it('should call httpClient get', () => {
+    const httpPutSpy = httpClient.put.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+    service.put('url', 'test');
+    expect(httpPutSpy.calls.any()).toBe(true, 'get called');
+  });
+
+  // TODO test error handler
+  /* it('should handle errors', () => {
     httpSpy = httpStalker.fakepost.and.returnValue(
       of(new HttpErrorResponse({error: null})),
     );
@@ -55,3 +64,4 @@ describe('StalkerEndpoint', () => {
       new HttpResponse({body: null, headers: new HttpHeaders(), status: 400}),
     );
   }); */
+});

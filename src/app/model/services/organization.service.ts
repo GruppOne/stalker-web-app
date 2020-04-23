@@ -1,19 +1,16 @@
-import {HttpResponse, HttpClient} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {Organization} from '../classes/organization';
 
-import {StalkerEndpoint} from './stalker-endpoint';
+import {HttpClientService} from './http-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrganizationService {
-  private readonly stalkerEndpoint: StalkerEndpoint;
-  constructor(httpClient: HttpClient) {
-    this.stalkerEndpoint = new StalkerEndpoint(httpClient, '/organizations');
-  }
+  constructor(private readonly httpClientService: HttpClientService) {}
 
   // TODO: implement adding organization
   /* add(organization: Organization): any {
@@ -23,14 +20,15 @@ export class OrganizationService {
   } */
 
   editOrganization(organization: Organization): Observable<HttpResponse<Organization>> {
-    this.stalkerEndpoint.setPath(`/organizations/${organization.id}`);
-    return this.stalkerEndpoint.put<Organization>(organization);
+    return this.httpClientService.put<Organization>(
+      `/organizations/${organization.id}`,
+      organization,
+    );
   }
   getOrganizationById(
     organizationId: number,
   ): Observable<HttpResponse<{organizations: Organization[]}>> {
     console.log(organizationId);
-    this.stalkerEndpoint.setPath('/organizations');
-    return this.stalkerEndpoint.get<{organizations: Organization[]}>();
+    return this.httpClientService.get<{organizations: Organization[]}>('/organizations');
   }
 }

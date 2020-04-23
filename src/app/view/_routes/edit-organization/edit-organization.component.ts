@@ -192,7 +192,7 @@ export class EditOrganizationComponent implements OnInit {
           this.administrators.push(admin);
         } else {
           this.administrators.push(admin);
-          console.log('response status: ' + response?.status.toString());
+          console.log('response status: ' + response.status.toString());
         }
       });
   }
