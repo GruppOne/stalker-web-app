@@ -141,5 +141,8 @@
       }
     }
   },
-  "defaultProject": "stalker-web-app"
+  "defaultProject": "stalker-web-app",
+  "cli": {
+    "analytics": false
+  }
 }

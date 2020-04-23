@@ -7,15 +7,22 @@ import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 
+import {Administrator, AdminType} from '../../../model/classes/administrator';
 import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
+import {
+  AdministratorService,
+  AdminGetType,
+} from '../../../model/services/administrator.service';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
   selector: 'app-edit-organization',
-  templateUrl: 'editorganization.component.html',
-  styleUrls: ['editorganization.component.scss'],
+  templateUrl: 'edit-organization.component.html',
+  styleUrls: ['edit-organization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
+  adminType: AdminType[] = [AdminType.manager, AdminType.viewer];
+
   @ViewChild('map') mapDataChild?: {
     arrayCoord: LatLng[][];
     arrayName: string[];
@@ -27,9 +34,13 @@ export class EditOrganizationComponent implements OnInit {
 
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
+
+  administrators: Administrator[] = [];
   formGroup: FormGroup = new FormGroup({});
 
-  // Returns a FormArray with the name 'formArray'.
+  /**
+   *  Returns a FormArray with the name 'formArray'.
+   */
   get formArray(): AbstractControl | null {
     return this.formGroup.get('formArray');
   }
@@ -37,8 +48,12 @@ export class EditOrganizationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
+    private readonly administratorService: AdministratorService,
   ) {}
 
+  /**
+   *  initialize all data, including organization field calling OrganizationService
+   */
   ngOnInit(): void {
     this.getOrganizationById(1);
     if (!this.organization) {
@@ -60,7 +75,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword('root')
             .build(),
         )
-        .addId(2)
+        .addId(1)
         .addCreatedDate('2020-04-07T02:00:00Z')
         .addLastModifiedDate('2020-04-07T02:00:00Z')
         .build();
@@ -83,12 +98,17 @@ export class EditOrganizationComponent implements OnInit {
           ],
         }),
         this.formBuilder.group({
-          managerEmailCtrl: ['pippo@gmail.com', Validators.email],
-          viewerEmailCtrl: ['pluto@gmail.com', Validators.email],
+          adminRole: [],
+          adminEmail: [],
         }),
       ]),
     });
+    this.getOrgAdministrators(this.organization.id as number);
   }
+
+  /**
+   * call OrganizationService to get organization with given Id
+   */
   getOrganizationById(id: number): void {
     this.organizationService
       .getOrganizationById(id)
@@ -99,7 +119,12 @@ export class EditOrganizationComponent implements OnInit {
       });
   }
 
-  // TODO controllo client side dei campi
+  // TODO client-side validation
+
+  /**
+   * Submit the organization form, organize all data in an Organization object and call
+   * the service for updating the organization in the server
+   */
   submitOrganizationForm(): void {
     if (this.mapDataChild && this.formArray && this.organization) {
       console.log(this.formArray.value);
@@ -123,7 +148,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
-      for (let i = 0; i < this.mapDataChild.arrayCoord.length; i++) {
+      for (let i = 0; i < this.mapDataChild.arrayCoord?.length; i++) {
         const polyline: MyLatLng[] = [];
         for (const j of this.mapDataChild.arrayCoord[i]) {
           polyline.push(new MyLatLng(200, 200, j));
@@ -145,7 +170,55 @@ export class EditOrganizationComponent implements OnInit {
       console.log(this.organizationBuilder.build());
       this.organizationService
         .editOrganization(this.organizationBuilder.build())
-        .subscribe();
+        .subscribe((response: HttpResponse<Organization>) => {
+          console.log(response);
+        });
     }
+  }
+  /**
+   * Add administrator email and role to the administrators array defined above
+   */
+
+  addAdmin(): void {
+    const admin: Administrator = {
+      email: this.formArray?.value[2].adminEmail,
+      role: this.formArray?.value[2].adminRole as AdminType,
+    };
+
+    this.administratorService
+      .manageAdministrator(1, admin.email)
+      .subscribe((response: HttpResponse<string>) => {
+        if (response && response.status === 200 && response.body != null) {
+          this.administrators.push(admin);
+        } else {
+          this.administrators.push(admin);
+          console.log('response status: ' + response?.status.toString());
+        }
+      });
+  }
+  /**
+   * Remove administrator 'admin' from administrator array defined above
+   */
+  deleteAdmin(admin: Administrator): void {
+    // get index in the administrators array of admin
+    this.administratorService
+      .manageAdministrator(1, admin.email)
+      .subscribe((response: HttpResponse<string>) => {
+        if (response && response.status === 200 && response.body != null) {
+          const indexOf = this.administrators.indexOf(admin);
+          this.administrators.splice(indexOf, 1);
+        } else {
+          console.log('response status: ' + response.status.toString());
+        }
+      });
+  }
+  getOrgAdministrators(organizationId: number): void {
+    this.administratorService
+      .getAdministrators(organizationId)
+      .subscribe((response: HttpResponse<AdminGetType[]>) => {
+        if (response && response.status === 200 && response.body != null) {
+          this.administrators = response.body as Administrator[];
+        }
+      });
   }
 }

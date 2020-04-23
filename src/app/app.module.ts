@@ -10,7 +10,7 @@ import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 import {AppComponent} from './app.component';
 import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor.service';
 import {CustomMaterialModule} from './modules/material.module';
-import {EditOrganizationComponent} from './view/_routes/editorganization/editorganization.component';
+import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './view/_routes/home/home.component';
 import {LoginComponent} from './view/_routes/login/login.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
