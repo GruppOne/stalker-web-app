@@ -8,7 +8,7 @@ import {AdministratorService} from './administrator.service';
 describe('AdministratorService', () => {
   const httpClient = jasmine.createSpyObj('HttpClient', [
     // 'post',
-    // 'get',
+    'get',
     'put',
     // 'delete',
   ]);
@@ -36,5 +36,14 @@ describe('AdministratorService', () => {
     service = new AdministratorService(mockHttpClient);
     service.manageAdministrator(1, 'test@gmail.com');
     expect(httpPutSpy.calls.any()).toBe(true, 'post called');
+  });
+  it('should call the administrators put', () => {
+    const httpGetSpy = httpClient.get.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+
+    service = new AdministratorService(mockHttpClient);
+    service.getAdministrators(1);
+    expect(httpGetSpy.calls.any()).toBe(true, 'get called');
   });
 });
