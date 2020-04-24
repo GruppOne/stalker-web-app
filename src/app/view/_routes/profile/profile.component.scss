@@ -1,8 +1,121 @@
-.mat-body {
-  margin: 3rem 6rem;
-  width: 100%;
+.profileImage {
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  height: 210px;
+  margin-top: -255px;
+  padding: 7px;
+  position: relative;
+  width: 210px;
+
+  .profilePic {
+    border-radius: 100%;
+    max-width: 100%;
+  }
 }
 
-.mat-display-3 {
-  margin: 3rem;
+.infoContainer {
+  float: right;
+  margin-top: -85px;
+  width: 70%;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+  }
+
+  h2,
+  h4 {
+    width: 30%;
+  }
+
+  h2,
+  h3,
+  h2 > .mat-icon,
+  h3 > .mat-icon {
+    font-size: 20px;
+  }
+
+  h4,
+  h5 {
+    color: rgb(86, 86, 86);
+    font-size: 18px;
+  }
+
+  h4 > .mat-icon,
+  h5 > .mat-icon {
+    font-size: 20px;
+  }
+
+  h3,
+  h5 {
+    min-width: 60%;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  .mat-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.dashboard {
+  margin-top: 75px;
+
+  h1,
+  .buttonContainer {
+    display: inline-block;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    width: 50%;
+  }
+
+  .buttonContainer {
+    text-align: right;
+    width: 50%;
+  }
+
+  .mat-raised-button.mat-accent {
+    width: auto;
+  }
+
+  .mat-raised-button.mat-accent:first-of-type {
+    margin-right: 8px;
+  }
+}
+
+.dashboardContent {
+  display: flex;
+
+  .mat-card {
+    flex-grow: 1;
+    margin-left: 8px;
+    width: auto;
+  }
+
+  .mat-card:first-of-type {
+    margin-left: 0;
+  }
+
+  .mat-icon,
+  .mat-card-title {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .mat-icon {
+    margin-bottom: 3px;
+  }
+
+  .mat-card-content {
+    font-size: 26px;
+    text-align: right;
+  }
 }

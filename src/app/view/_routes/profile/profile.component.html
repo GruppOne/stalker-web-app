@@ -1,12 +1,53 @@
-<div *ngIf="user && fetched">
-  <h1 class="mat-display-3">Hi, {{ user.userData?.firstName }}</h1>
-  <p class="mat-body">e-mail: {{ user.email }}</p>
-  <p class="mat-body">password: <button mat-raised-button color="primary">Reset Password</button></p>
-  <mat-divider></mat-divider>
-  <p class="mat-body">first name: {{ user.userData?.firstName }}</p>
-  <p class="mat-body">last name: {{ user.userData?.lastName }}</p>
-  <p class="mat-body">birth date: {{ user.userData?.birthDate }}</p>
+<!--user.id, user.userData?.firstName, user.email, user.userData?.lastName, user.userData?.birthDate -->
+<!-- <div *ngIf="user && !fetched"> -->
+<div>
+  <div class="profileImage">
+    <!-- if profile pic exists
+      <img src="{{ user.id }}.png" class="profilePic"/>-->
+    <img src="../../../../assets/default-profile-pic.jpg" class="profilePic" />
+  </div>
+  <div class="infoContainer">
+    <h1>Fabio Scettro</h1>
+    <h2><mat-icon>event</mat-icon> 20/02/1993</h2>
+    <h3><mat-icon>email</mat-icon> fabioscettro@gmail.com</h3>
+    <h4><mat-icon>schedule</mat-icon> Joined:</h4>
+    <h5><mat-icon>calendar_today</mat-icon> March 20, 2020</h5>
+  </div>
+  <div class="dashboard">
+    <h1>Organization's role</h1>
+    <div class="buttonContainer">
+      <button
+        color="accent"
+        mat-raised-button
+        matTooltip="See the list of your organizations"
+        routerLink="/organizations"
+      >
+        <mat-icon>list</mat-icon> Organizations list
+      </button>
+      <button color="accent" mat-raised-button matTooltip="Create new organization">
+        <mat-icon>add</mat-icon> Create
+      </button>
+    </div>
+    <div class="dashboardContent">
+      <mat-card>
+        <mat-card-title><mat-icon>event_seat</mat-icon> Owner</mat-card-title>
+        <mat-card-subtitle>Total of organizations that you own</mat-card-subtitle>
+        <mat-card-content>3</mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title><mat-icon>build</mat-icon> Manager</mat-card-title>
+        <mat-card-subtitle>Total of organizations that you manage</mat-card-subtitle>
+        <mat-card-content>2</mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title><mat-icon>visibility</mat-icon> Viewer</mat-card-title>
+        <mat-card-subtitle>Total of organizations you have view rights to</mat-card-subtitle>
+        <mat-card-content>12</mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>
-<div *ngIf="!fetched">
-  Failed to load your profile data, try again!
+<div *ngIf="fetched" class="loadFail">
+  <mat-icon>warning</mat-icon>
+  <h1>Failed to load your profile data, try again!</h1>
 </div>
