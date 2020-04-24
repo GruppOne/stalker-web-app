@@ -53,7 +53,7 @@ h2 {
   }
 }
 
-.text-block {
+.text-block-container {
   padding-top: 100px;
   width: 100%;
 
@@ -67,4 +67,65 @@ h2 {
     text-align: center;
     width: 100%;
   }
+}
+
+.text-block {
+  margin-top: 30px;
+
+  p,
+  img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  img {
+    max-width: 40%;
+  }
+
+  p {
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: 60%;
+  }
+}
+
+.how-it-works {
+  display: flex;
+  margin: 100px auto;
+  width: 80%;
+
+  .mat-card {
+    flex-grow: 1;
+    height: 150px;
+    margin: 0 10px;
+    text-align: center;
+    width: 180px;
+  }
+
+  .mat-card-title {
+    margin-bottom: 20px;
+  }
+
+  .mat-icon {
+    transform: scale(1.8);
+  }
+
+  .icon-container {
+    background-color: #4c4c4c;
+    border-radius: 35px;
+    color: #fff;
+    font-size: 40px;
+    height: 70px;
+    line-height: 70px;
+    margin: -50px auto 30px;
+    width: 70px;
+  }
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
 }
