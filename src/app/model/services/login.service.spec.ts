@@ -42,7 +42,6 @@ describe('LoginService', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
-    // TODO should use a mock for this
     const headers = new HttpHeaders({key: 'value'});
 
     sut.loginWithAdditionalHeader(

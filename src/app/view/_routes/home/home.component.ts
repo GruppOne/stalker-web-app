@@ -1,9 +1,9 @@
-import {HttpResponse} from '@angular/common/http';
+import {ViewportScroller} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
-import * as sha512 from 'js-sha512';
+// import * as sha512 from 'js-sha512';
 
 import {User, UserBuilder} from '../../../model/classes/users/user';
 import {LoginService} from '../../../model/services/login.service';
@@ -35,19 +35,15 @@ export class HomeComponent implements OnInit {
     if (!this.validateInput(email, password)) {
       return;
     }
-    const hashedPass = sha512.sha512(password);
-    const userBuilder = new UserBuilder(email, sha512.sha512(password));
-    console.log(hashedPass);
-    this.loginService
-      .login(userBuilder.build())
-      .subscribe((response: HttpResponse<User>) => {
-        if (response && response.status === 200) {
-          console.log(response);
-          this.router.navigate(['/organizations']);
-        } else {
-          console.log('something went wrong, try again');
-        }
-      });
+    // sha512.sha512(password);
+    const userBuilder = new UserBuilder(email, password);
+    this.loginService.login(userBuilder.build()).subscribe(
+      (response: User) => {
+        console.log(response);
+        this.router.navigate(['/home']);
+      },
+      (err: Error) => console.error(err),
+    );
   }
   public validateInput(email: string, password: string): boolean {
     const regexMail = new RegExp(

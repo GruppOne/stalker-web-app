@@ -5,12 +5,13 @@ import {of} from 'rxjs';
 
 import {AdministratorService} from './administrator.service';
 import {HttpClientService} from './http-client.service';
+import {AdminType} from '../classes/administrator';
 
 describe('AdministratorService', () => {
   const httpClientService = jasmine.createSpyObj('HttpClientService', [
-    // 'post',
+    'post',
     'get',
-    'put',
+    //'put',
     // 'delete',
   ]);
 
@@ -27,14 +28,14 @@ describe('AdministratorService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call the administrators put', () => {
-    const httpPutSpy = httpClientService.put.and.returnValue(
+  it('should call the administrators post', () => {
+    const httpPostSpy = httpClientService.post.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
-    service.manageAdministrator(1, 'test@gmail.com');
-    expect(httpPutSpy.calls.any()).toBe(true, 'post called');
+    service.addAdministrator(1, {id: 1, email: 'testadmin', role: AdminType.manager});
+    expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
-  it('should call the administrators put', () => {
+  it('should call the administrators get', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );

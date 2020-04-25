@@ -1,4 +1,5 @@
 export interface Administrator {
+  id: number;
   email: string;
   role: AdminType;
 }

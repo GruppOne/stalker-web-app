@@ -7,7 +7,11 @@ import {User} from '../classes/users/user';
 
 import {Geocoding} from './place.service';
 
-type BodyType = User | {email: string; password: string} | Organization | Geocoding;
+export type BodyType =
+  | User
+  | {email: string; password: string}
+  | Organization
+  | Geocoding;
 @Injectable({
   providedIn: 'root',
 })

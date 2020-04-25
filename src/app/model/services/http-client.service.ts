@@ -5,7 +5,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 
@@ -30,11 +30,10 @@ export class HttpClientService {
     additionalHeaders?: HttpHeaders,
   ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-    const errorHandler = this.handleError<HttpResponse<T>>();
 
     return this.httpClient
       .get<T>(`${this.url}${relativePath}`, httpOptions)
-      .pipe(catchError(errorHandler));
+      .pipe(catchError(this.handleError('getData')));
   }
 
   // TODO refactor to reduce duplication
@@ -44,11 +43,10 @@ export class HttpClientService {
     additionalHeaders?: HttpHeaders,
   ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-    const errorHandler = this.handleError<HttpResponse<T>>();
 
     return this.httpClient
       .post<T>(`${this.url}${relativePath}`, body, httpOptions)
-      .pipe(catchError(errorHandler));
+      .pipe(catchError(this.handleError('postData')));
   }
 
   put<T>(
@@ -57,22 +55,22 @@ export class HttpClientService {
     additionalHeaders?: HttpHeaders,
   ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-    const errorHandler = this.handleError<HttpResponse<T>>();
 
     return this.httpClient
       .put<T>(`${this.url}${relativePath}`, body, httpOptions)
-      .pipe(catchError(errorHandler));
+      .pipe(catchError(this.handleError('putData')));
   }
 
-  // delete<T>(relativePath: string,
-  // additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>> {
-  //   const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
-  //   const errorHandler = this.handleError<HttpResponse<T>>();
+  delete<T>(
+    relativePath: string,
+    additionalHeaders?: HttpHeaders,
+  ): Observable<HttpResponse<T>> {
+    const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
 
-  //   return this.httpClient
-  //     .delete<T>(this.url, httpOptions)
-  //     .pipe(catchError(errorHandler));
-  // }
+    return this.httpClient
+      .delete<T>(`${this.url}${relativePath}`, httpOptions)
+      .pipe(catchError(this.handleError('deleteData')));
+  }
   private mergeAdditionalHeaders(additionalHeaders?: HttpHeaders): HttpOptions {
     let httpHeaders = this.defaultHttpHeaders;
 
@@ -93,10 +91,22 @@ export class HttpClientService {
   }
 
   // TODO declare explicitly this type?
-  private handleError<T>(result?: T) {
+  /*  private handleError<T>() {
     return (error: HttpErrorResponse): Observable<T> => {
       console.error(error);
-      return of(result as T);
+      Observable.throw('');
+    };
+  } */
+  private handleError(operation: string) {
+    return (err: HttpErrorResponse) => {
+      const errMsg = `error in ${operation}() retrieving ${this.url}`;
+      console.log(`${errMsg}:`, err);
+      if (err instanceof HttpErrorResponse) {
+        // you could extract more info about the error if you want, e.g.:
+        console.log(`status: ${err.status}, ${err.statusText}`);
+        // errMsg = ...
+      }
+      return throwError(err.message);
     };
   }
 }
