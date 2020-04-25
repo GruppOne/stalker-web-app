@@ -8,36 +8,30 @@ on:
     types:
       - opened
 
-  push:
-    branches-ignore:
-      - master
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.ERCLU_ORGANIZATION_TOKEN }}
 
 jobs:
-  assign_one_project:
-    name: Assign to main project board
-    runs-on: ubuntu-latest
-
-    env:
-      MY_GITHUB_TOKEN: ${{ secrets.ERCLU_ORGANIZATION_TOKEN }}
-
-    if: github.event_name != 'push'
+  assign-main-project:
+    name: Assign to our main project board
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Assign new issues and new PRs to the main organization project board
         uses: srggrs/assign-one-project-github-action@1.2.0
-        if: github.event.action == 'opened'
+        if: github.event.action == 'opened' && !contains(github.event.issue.labels.*.name, 'requirement')
         with:
           project: 'https://github.com/orgs/GruppOne/projects/9'
           column_name: 'To do'
-  # FIXME this creates an excessive amount of PRs :|
-  # create-pr-on-push:
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'push'
-  #   steps:
-  #     - name: Create pull request
-  #       uses: thomaseizinger/create-pull-request@master
-  #       with:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         head: ${{ github.ref }}
-  #         title: 'An automatically created PR from ${{ github.ref }} to master'
-  #         draft: true
+
+  assign-requirement-main-project:
+    name: Assign a requirement to our main project board
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Assign new requirement to the correct project column
+        uses: srggrs/assign-one-project-github-action@1.2.0
+        if: contains(github.event.issue.labels.*.name, 'requirement')
+        with:
+          project: 'https://github.com/orgs/GruppOne/projects/9'
+          column_name: 'To do - Requirements'
