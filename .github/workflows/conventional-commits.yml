@@ -18,11 +18,3 @@ jobs:
 
       - name: Run commitsar
         uses: docker://outillage/commitsar:0.11.1
-
-  semantic-pr:
-    name: Check PR title
-    runs-on: ubuntu-18.04
-
-    steps:
-      - name: semantic-pull-request
-        uses: amannn/action-semantic-pull-request@v1.2.0
