@@ -16,6 +16,8 @@ describe('LoginService', () => {
 
   let sut: LoginService;
 
+  const defaultUser = {email: 'default@mail', password: 'Default1!'};
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -30,25 +32,32 @@ describe('LoginService', () => {
 
   it('should call the login post', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+      of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
     );
-
-    sut.login({email: 'default@mail', password: 'Default1!'});
-
+    let result: {email: string; password: string} = {email: '', password: ''};
+    sut.login(defaultUser).subscribe((response) => (result = response));
+    expect(result).toEqual(defaultUser);
+    sut.login(defaultUser);
+    expect(result).toEqual(defaultUser);
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
 
   it('should call the login post with additional headers', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+      of(
+        new HttpResponse({
+          body: defaultUser,
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
     const headers = new HttpHeaders({key: 'value'});
-
-    sut.loginWithAdditionalHeader(
-      {email: 'default@mail', password: 'Default1!'},
-      headers,
-    );
-
+    let result: {email: string; password: string} = {email: '', password: ''};
+    sut
+      .loginWithAdditionalHeader(defaultUser, headers)
+      .subscribe((response) => (result = response));
+    expect(result).toEqual(defaultUser);
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
 });
