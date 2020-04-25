@@ -80,7 +80,11 @@ jobs:
       - name: Update to latest chrome
         run: |
           sudo apt-get update
-          sudo apt-get upgrade -y google-chrome-stable
+          sudo apt-get install lsb-release libappindicator3-1 libappindicator1 libgbm1
+          curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome.deb
+          sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+          rm google-chrome.deb
 
       - name: Run protractor
         run: npm run --silent e2e -- --configuration=ci
