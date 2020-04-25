@@ -3,7 +3,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
-import {of} from 'rxjs';
+import {of, throwError} from 'rxjs';
 
 import {LoginService} from '../../../model/services/login.service';
 
@@ -66,10 +66,13 @@ describe('HomeComponent', () => {
   });
 
   it('should not redirect to home page in case of http errors', () => {
-    loginSpy = loginService.login.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 400})),
-    );
+    spyOn(console, 'error').and.callThrough();
+    loginSpy = loginService.login.and.returnValue(throwError(''));
+    mockRouter = {
+      navigate: jasmine.createSpy('navigate'),
+    };
     component.login('mario@rossi', 'Casua1pass!');
+    expect(console.error).toHaveBeenCalledWith('');
     expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
 
