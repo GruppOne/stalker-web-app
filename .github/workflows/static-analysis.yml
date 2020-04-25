@@ -20,6 +20,15 @@ jobs:
         with:
           node-version: '12.x'
 
+      - name: Cache node modules
+        id: cache-node-modules
+        env:
+          cache-name: node-modules-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: cache-${{ env.cache-name }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
         run: npm ci
 
@@ -40,6 +49,15 @@ jobs:
       - name: Problem Matcher for stylelint
         uses: xt0rted/stylelint-problem-matcher@v1.2.0
 
+      - name: Cache node modules
+        id: cache-node-modules
+        env:
+          cache-name: node-modules-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: cache-${{ env.cache-name }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
         run: npm ci
 
@@ -57,6 +75,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
+      - name: Cache node modules
+        id: cache-node-modules
+        env:
+          cache-name: node-modules-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: cache-${{ env.cache-name }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: npm ci

@@ -3,6 +3,8 @@ name: Dynamic analysis and testing
 # run jobs on any PRs and main branch changes
 on:
   pull_request:
+    branches:
+      - master
   # needs to be redone on push to master in order to update coveralls
   push:
     branches:
@@ -18,7 +20,6 @@ on:
 # npm cache files are stored in `~/.npm` on Linux/macOS
 # the given key changes ONLY when package.json changes
 
-# TODO cache npm ci
 # TODO find a way to reduce duplication in jobs (the first steps are repeated)
 jobs:
   unit-tests:
@@ -28,19 +29,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # - name: Cache node modules
-      #   id: cache
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
+      - name: Cache node modules
+        id: cache-node-modules
+        env:
+          cache-name: node-modules-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: cache-${{ env.cache-name }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
-        # if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Run karma
@@ -63,10 +65,19 @@ jobs:
         with:
           node-version: '12.x'
 
+      - name: Cache node modules
+        id: cache-node-modules
+        env:
+          cache-name: node-modules-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: cache-${{ env.cache-name }}-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
         run: npm ci
 
-      - name: update latest chrome
+      - name: Update to latest chrome
         run: |
           sudo apt-get update
           sudo apt-get upgrade -y google-chrome-stable
