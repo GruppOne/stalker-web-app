@@ -1,30 +1,48 @@
 import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+
+import {Administrator} from '../classes/administrator';
 
 import {HttpClientService} from './http-client.service';
 
-export interface AdminGetType {
-  email: string;
-  role: string;
-}
 @Injectable({
   providedIn: 'root',
 })
 export class AdministratorService {
   constructor(private readonly httpClientService: HttpClientService) {}
 
-  manageAdministrator(
+  addAdministrator(
     organizationId: number,
-    administratorEmail: string,
-  ): Observable<HttpResponse<string>> {
-    return this.httpClientService.put<string>(
-      `organizations/${organizationId}`,
-      administratorEmail,
-    );
+    administrator: Administrator,
+  ): Observable<Administrator> {
+    return this.httpClientService
+      .post<Administrator>(`organizations/${organizationId}/users/role`, administrator)
+      .pipe(
+        map((response: HttpResponse<Administrator>) => response.body as Administrator),
+      );
+  }
+  removeAdministrator(
+    organizationId: number,
+    administratorId: number,
+  ): Observable<Administrator> {
+    return this.httpClientService
+      .delete<Administrator>(
+        `organizations/${organizationId}/users/role/${administratorId}`,
+      )
+      .pipe(
+        map((response: HttpResponse<Administrator>) => response.body as Administrator),
+      );
   }
 
-  getAdministrators(organizationId: number): Observable<HttpResponse<AdminGetType[]>> {
-    return this.httpClientService.get<AdminGetType[]>(`organizations/${organizationId}`);
+  getAdministrators(organizationId: number): Observable<Administrator[]> {
+    return this.httpClientService
+      .get<Administrator[]>(`organizations/${organizationId}`)
+      .pipe(
+        map(
+          (response: HttpResponse<Administrator[]>) => response.body as Administrator[],
+        ),
+      );
   }
 }

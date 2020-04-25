@@ -1,4 +1,3 @@
-import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
 import {OrganizationService} from 'src/app/model/services/organization.service';
@@ -33,16 +32,15 @@ export class OrganizationComponent implements OnInit {
     }
   }
   getOrganizationById(id: number): void {
-    this.organizationService
-      .getOrganizationById(id)
-      .subscribe((response: HttpResponse<{organizations: Organization[]}>) => {
-        if (response && response.status === 200 && response.body?.organizations != null) {
-          this.organizationBuilder = new OrganizationBuilder(
-            response.body.organizations[0].name,
-            response.body.organizations[0].isPrivate,
-          );
-          this.organization = this.organizationBuilder.build();
-        }
-      });
+    this.organizationService.getOrganizationById(id).subscribe(
+      (response: Organization) => {
+        this.organizationBuilder = new OrganizationBuilder(
+          response.name,
+          response.isPrivate,
+        );
+        this.organization = this.organizationBuilder.build();
+      },
+      (err: Error) => console.error(err),
+    );
   }
 }

@@ -1,4 +1,3 @@
-import {HttpResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
@@ -155,13 +154,12 @@ export class MapComponent implements OnInit {
   }
 
   getOrganizationById(id: number): void {
-    this.organizationService
-      .getOrganizationById(id)
-      .subscribe((response: HttpResponse<{organizations: Organization[]}>) => {
-        if (response && response.status === 200 && response.body?.organizations != null) {
-          this.organization = response.body.organizations[0];
-        }
-      });
+    this.organizationService.getOrganizationById(id).subscribe(
+      (response: Organization) => {
+        this.organization = response;
+      },
+      (err: Error) => console.error(err),
+    );
   }
 
   // generates random hex colors

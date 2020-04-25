@@ -10,12 +10,12 @@ import {HttpClientService} from './http-client.service';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class ConnectedUserService {
   constructor(private readonly httpClientService: HttpClientService) {}
 
-  getUserById(id: number): Observable<User> {
+  getUserConnectedToOrg(organizationId: number): Observable<User[]> {
     return this.httpClientService
-      .get<User>(`/users/${id}`)
-      .pipe(map((response: HttpResponse<User>) => response.body as User));
+      .get<User[]>(`/organization/${organizationId}/connected`)
+      .pipe(map((response: HttpResponse<User[]>) => response.body as User[]));
   }
 }

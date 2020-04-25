@@ -5,7 +5,6 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LatLng} from 'leaflet';
 import {of} from 'rxjs';
-import {AdminType} from 'src/app/model/classes/administrator';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
@@ -24,7 +23,8 @@ describe('EditOrganizationComponent', () => {
   ]);
 
   const administratorService = jasmine.createSpyObj('AdministratorService', [
-    'manageAdministrator',
+    'addAdministrator',
+    'removeAdministrator',
     'getAdministrators',
   ]);
 
@@ -48,23 +48,12 @@ describe('EditOrganizationComponent', () => {
     ),
   );
 
-  let administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
-    of(
-      new HttpResponse({
-        body: {name: 'unipd', isPrivate: false},
-        headers: new HttpHeaders(),
-        status: 200,
-      }),
-    ),
+  let administratorAddSpy = administratorService.addAdministrator.and.returnValue(of({}));
+  let administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
+    of({}),
   );
   let administratorGetSpy = administratorService.getAdministrators.and.returnValue(
-    of(
-      new HttpResponse({
-        body: [],
-        headers: new HttpHeaders(),
-        status: 200,
-      }),
-    ),
+    of([]),
   );
 
   beforeEach(async(() => {
@@ -110,26 +99,10 @@ describe('EditOrganizationComponent', () => {
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Adminstrators get and handle responses', () => {
-    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: [],
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
-    );
+    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(of([]));
     component.getOrgAdministrators(1);
     expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
-    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: [],
-          headers: new HttpHeaders(),
-          status: 400,
-        }),
-      ),
-    );
+    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(of([]));
     component.getOrgAdministrators(1);
     expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
   });
@@ -163,38 +136,32 @@ describe('EditOrganizationComponent', () => {
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
   });
-  it('should add an admin correctly and handle responses', () => {
-    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
-      of(
-        new HttpResponse({
-          body: 'mariotest01@gmail.com',
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
-    );
-    component.deleteAdmin({
-      email: 'mariotest01@gmail.com',
-      role: AdminType.manager,
-    });
-    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
-    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
-      of(
-        new HttpResponse({
-          body: 'mariotest01@gmail.com',
-          headers: new HttpHeaders(),
-          status: 400,
-        }),
-      ),
-    );
-    component.deleteAdmin({
-      email: 'mariotest01@gmail.com',
-      role: AdminType.manager,
-    });
-    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
-  });
   it('should remove an admin correctly and handle responses', () => {
-    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+    administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
+      of(
+        new HttpResponse({
+          body: 'mariotest01@gmail.com',
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    component.deleteAdmin(1);
+    expect(administratorRemoveSpy.calls.any()).toBe(true, 'sumbit done');
+    administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
+      of(
+        new HttpResponse({
+          body: 'mariotest01@gmail.com',
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    component.deleteAdmin(1);
+    expect(administratorRemoveSpy.calls.any()).toBe(true, 'sumbit done');
+  });
+  it('should add an admin correctly and handle responses', () => {
+    administratorAddSpy = administratorService.addAdministrator.and.returnValue(
       of(
         new HttpResponse({
           body: 'mariotest01@gmail.com',
@@ -204,17 +171,17 @@ describe('EditOrganizationComponent', () => {
       ),
     );
     component.addAdmin();
-    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
-    administratorManageSpy = administratorService.manageAdministrator.and.returnValue(
+    expect(administratorAddSpy.calls.any()).toBe(true, 'sumbit done');
+    administratorAddSpy = administratorService.addAdministrator.and.returnValue(
       of(
         new HttpResponse({
           body: 'mariotest01@gmail.com',
           headers: new HttpHeaders(),
-          status: 400,
+          status: 200,
         }),
       ),
     );
     component.addAdmin();
-    expect(administratorManageSpy.calls.any()).toBe(true, 'sumbit done');
+    expect(administratorAddSpy.calls.any()).toBe(true, 'sumbit done');
   });
 });
