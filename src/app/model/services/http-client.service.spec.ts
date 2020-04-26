@@ -51,17 +51,33 @@ describe('HttpClientService', () => {
     service.put('url', 'test');
     expect(httpPutSpy.calls.any()).toBe(true, 'get called');
   });
+  it('should call httpClient delete', () => {
+    const httpDeleteSpy = httpClient.delete.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+    service.delete('url');
+    expect(httpDeleteSpy.calls.any()).toBe(true, 'get called');
+  });
 
-  // TODO test error handler
+  // TODO maybe improve this test
+  it('should call httpClient post with additional headers', () => {
+    const httpPostSpy = httpClient.post.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+    const newHttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    service.post('url', 'test', newHttpHeaders);
+    expect(httpPostSpy.calls.any()).toBe(true, 'get called');
+  });
   /* it('should handle errors', () => {
-    httpSpy = httpStalker.fakepost.and.returnValue(
-      of(new HttpErrorResponse({error: null})),
+    const httpPostSpy = httpClient.post.and.returnValue(
+      of(new HttpErrorResponse({error: ''})),
     );
-    const errorspy = jasmine.createSpy('handleError');
-    service.login(new User());
+    const errorspy = jasmine.createSpy('catchError');
+    service.post('url', 'test');
+    expect(httpPostSpy.calls.any()).toBeTrue();
     expect(errorspy.calls.any()).toBeTrue();
-     expect(service.login(new User()).subscribe()).toEqual(
-      new HttpResponse({body: null, headers: new HttpHeaders(), status: 400}),
-    );
+    expect(errorspy).toThrow();
   }); */
 });

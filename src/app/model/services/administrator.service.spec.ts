@@ -3,16 +3,17 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
+import {AdminType} from '../classes/administrator';
+
 import {AdministratorService} from './administrator.service';
 import {HttpClientService} from './http-client.service';
-import {AdminType} from '../classes/administrator';
 
 describe('AdministratorService', () => {
   const httpClientService = jasmine.createSpyObj('HttpClientService', [
     'post',
     'get',
-    //'put',
-    // 'delete',
+    // 'put',
+    'delete',
   ]);
 
   let service: AdministratorService;
@@ -28,12 +29,19 @@ describe('AdministratorService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call the administrators post', () => {
+  it('should call the administrators post for adding', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
       of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
     );
     service.addAdministrator(1, {id: 1, email: 'testadmin', role: AdminType.manager});
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
+  });
+  it('should call the administrators delete for removing', () => {
+    const httpDeleteSpy = httpClientService.delete.and.returnValue(
+      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    );
+    service.removeAdministrator(1, 1);
+    expect(httpDeleteSpy.calls.any()).toBe(true, 'post called');
   });
   it('should call the administrators get', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(

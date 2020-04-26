@@ -1,7 +1,7 @@
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 
 import {ConnectedUserService} from './connected-user.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ConnectedUserService', () => {
   let service: ConnectedUserService;
