@@ -4,7 +4,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LatLng} from 'leaflet';
-import {of} from 'rxjs';
+import {of, throwError} from 'rxjs';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
@@ -86,16 +86,12 @@ describe('EditOrganizationComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
+    spyOn(console, 'error').and.callThrough();
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {organizations: []},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      throwError(''),
     );
     component.getOrganizationById(1);
+    expect(console.error).toHaveBeenCalledWith('');
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Adminstrators get and handle responses', () => {
@@ -183,5 +179,12 @@ describe('EditOrganizationComponent', () => {
     );
     component.addAdmin();
     expect(administratorAddSpy.calls.any()).toBe(true, 'sumbit done');
+  });
+  it('should find an userId given email correctly', () => {
+    const result = component.checkIfEmailIsUser('mariorossi@gmail.com', [
+      {id: 1, email: 'mariorossi@gmail.com', password: 'defaultpass'},
+      {id: 2, email: 'giuseppeverdi@gmail.com', password: 'defaultpass2'},
+    ]);
+    expect(result).toBe(1);
   });
 });

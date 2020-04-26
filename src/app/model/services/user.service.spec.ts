@@ -3,6 +3,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
+import {User} from '../classes/users/user';
+
 import {HttpClientService} from './http-client.service';
 import {UserService} from './user.service';
 
@@ -14,6 +16,8 @@ describe('UserService', () => {
     // 'put',
     // 'delete',
   ]);
+
+  const defaultUser = {email: 'default@mail', password: 'Default1!'};
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -25,11 +29,13 @@ describe('UserService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  it('should call httpClient get', () => {
+  it('should call httpClientService get', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(
-      of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+      of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
     );
-    service.getUserById(1);
+    let result: User = {email: '', password: ''};
+    service.getUserById(1).subscribe((response) => (result = response));
+    expect(result).toEqual(defaultUser);
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
   });
 });

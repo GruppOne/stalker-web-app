@@ -1,3 +1,5 @@
+import {latLng} from 'leaflet';
+
 import {MyLatLng} from './my-lat-lng';
 import {PlaceBuilder} from './place';
 import {PlaceDataBuilder} from './place-data';
@@ -28,5 +30,6 @@ describe('Place', () => {
     expect(place.name).toEqual(newName);
     expect(place.polyline).toEqual(newPolyline);
     expect(place.placeData).toEqual(newPlaceData);
+    expect(place.getLatLng([new MyLatLng(1, 1)])).toEqual([latLng(1, 1)]);
   });
 });

@@ -101,11 +101,8 @@ export class HttpClientService {
     return (err: HttpErrorResponse) => {
       const errMsg = `error in ${operation}() retrieving ${this.url}`;
       console.log(`${errMsg}:`, err);
-      if (err instanceof HttpErrorResponse) {
-        // you could extract more info about the error if you want, e.g.:
-        console.log(`status: ${err.status}, ${err.statusText}`);
-        // errMsg = ...
-      }
+      // more info about the error
+      console.log(`status: ${err.status}, ${err.statusText}`);
       return throwError(err.message);
     };
   }

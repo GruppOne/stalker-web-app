@@ -1,7 +1,7 @@
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {of} from 'rxjs';
+import {of, throwError} from 'rxjs';
 
 import {OrganizationService} from '../../../model/services/organization.service';
 
@@ -14,13 +14,7 @@ describe('OrganizationComponent', () => {
     'getOrganizationById',
   ]);
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of(
-      new HttpResponse({
-        body: {organizations: [{}]},
-        headers: new HttpHeaders(),
-        status: 400,
-      }),
-    ),
+    of({name: 'unipd', isPrivate: false}),
   );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,16 +40,12 @@ describe('OrganizationComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
+    spyOn(console, 'error').and.callThrough();
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {organizations: [{}]},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      throwError(''),
     );
     component.getOrganizationById(1);
+    expect(console.error).toHaveBeenCalledWith('');
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {

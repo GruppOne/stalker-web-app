@@ -1,7 +1,7 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {of} from 'rxjs';
+import {of, throwError} from 'rxjs';
 
 import {UserBuilder} from '../../../model/classes/users/user';
 import {UserService} from '../../../model/services/user.service';
@@ -41,6 +41,17 @@ describe('ProfileComponent', () => {
       true,
       'getUserById called and returned data',
     );
+    expect(component.user).toEqual(userBuilder.build());
+  });
+  it('getUser() should handle http Errors', () => {
+    spyOn(console, 'error').and.callThrough();
+    userSpywithDatas = userService.getUserById.and.returnValue(throwError(''));
+    component.getUser(1);
+    expect(userSpywithDatas.calls.any()).toBe(
+      true,
+      'getUserById called and returned data',
+    );
+    expect(console.error).toHaveBeenCalledWith('');
     expect(component.user).toEqual(userBuilder.build());
   });
 });

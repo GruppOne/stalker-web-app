@@ -30,7 +30,7 @@ describe('LoginService', () => {
     expect(sut).toBeTruthy();
   });
 
-  it('should call the login post', () => {
+  it('should call the httpClientService post', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
       of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
     );
@@ -42,7 +42,7 @@ describe('LoginService', () => {
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
 
-  it('should call the login post with additional headers', () => {
+  it('should call the httpClientService with additional headers', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
