@@ -8,6 +8,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 
 import {AppComponent} from './app.component';
+import {AuthGuard} from './auth.guard';
 import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor.service';
 import {CustomMaterialModule} from './modules/material.module';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
@@ -23,11 +24,17 @@ import {MapComponent} from './view/components/map/map.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'profile', component: ProfileComponent},
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: {title: 'Stalker - Home'},
+    canActivate: [AuthGuard],
+  },
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {
     path: 'organization',
     component: OrganizationComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'organizations',
@@ -36,6 +43,7 @@ const routes: Routes = [
   {
     path: 'editorganization',
     component: EditOrganizationComponent,
+    canActivate: [AuthGuard],
   },
   // route to 404
   {path: '**', component: NotFoundComponent},
@@ -73,6 +81,7 @@ const routes: Routes = [
       useClass: AuthHttpInterceptorService,
       multi: true,
     },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })
