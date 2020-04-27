@@ -30,22 +30,6 @@ h2 {
 .login-form-container {
   width: 438px;
 
-  .mat-card-header {
-    width: 100%;
-  }
-
-  .mat-card-title {
-    text-align: center !important;
-  }
-
-  ::ng-deep .mat-card-header-text {
-    width: 100% !important;
-  }
-
-  ::ng-deep .mat-form-field {
-    width: 100% !important;
-  }
-
   .mat-card-actions {
     margin-bottom: 0;
     padding-bottom: 0;
