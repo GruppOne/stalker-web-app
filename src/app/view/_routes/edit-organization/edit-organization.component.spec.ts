@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LatLng} from 'leaflet';
 import {of, throwError} from 'rxjs';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
+import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
 
@@ -26,6 +27,10 @@ describe('EditOrganizationComponent', () => {
     'addAdministrator',
     'removeAdministrator',
     'getAdministrators',
+  ]);
+
+  const connectedUserService = jasmine.createSpyObj('ConnectedUserService', [
+    'getUserConnectedToOrg',
   ]);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
@@ -55,6 +60,9 @@ describe('EditOrganizationComponent', () => {
   let administratorGetSpy = administratorService.getAdministrators.and.returnValue(
     of([]),
   );
+  let userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
+    of([]),
+  );
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -71,6 +79,7 @@ describe('EditOrganizationComponent', () => {
         {provide: FormBuilder},
         {provide: OrganizationService, useValue: organizationService},
         {provide: AdministratorService, useValue: administratorService},
+        {provide: ConnectedUserService, useValue: connectedUserService},
       ],
     }).compileComponents();
   }));
@@ -94,14 +103,30 @@ describe('EditOrganizationComponent', () => {
     expect(console.error).toHaveBeenCalledWith('');
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
+
   it('should call Adminstrators get and handle responses', () => {
     administratorGetSpy = organizationService.getOrganizationById.and.returnValue(of([]));
     component.getOrgAdministrators(1);
     expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
-    administratorGetSpy = organizationService.getOrganizationById.and.returnValue(of([]));
-    component.getOrgAdministrators(1);
-    expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
   });
+
+  it('should call user connected to organization get and handle responses', () => {
+    userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
+      of([]),
+    );
+    component.getOrgUsers(1);
+    expect(userOrganizationGetSpy.calls.any()).toBe(true, 'get called');
+  });
+
+  it('should not get user connected to organization in case of http errors', () => {
+    spyOn(console, 'error').and.callThrough();
+    userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
+      throwError(''),
+    );
+    component.getOrgUsers(1);
+    expect(console.error).toHaveBeenCalledWith('');
+  });
+
   it('should call Organization get and handle not empty response', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
       of(
@@ -115,9 +140,8 @@ describe('EditOrganizationComponent', () => {
     component.getOrganizationById(1);
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
+
   it('should submit the form correctly', () => {
-    component.submitOrganizationForm();
-    expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
     const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
     console.log(num);
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
@@ -132,6 +156,16 @@ describe('EditOrganizationComponent', () => {
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
   });
+
+  it('should not submit the form in case of http errors', () => {
+    spyOn(console, 'error').and.callThrough();
+    organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
+      throwError(''),
+    );
+    component.submitOrganizationForm();
+    expect(console.error).toHaveBeenCalledWith('');
+  });
+
   it('should remove an admin correctly and handle responses', () => {
     administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
       of(
@@ -144,18 +178,8 @@ describe('EditOrganizationComponent', () => {
     );
     component.deleteAdmin(1);
     expect(administratorRemoveSpy.calls.any()).toBe(true, 'sumbit done');
-    administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
-      of(
-        new HttpResponse({
-          body: 'mariotest01@gmail.com',
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
-    );
-    component.deleteAdmin(1);
-    expect(administratorRemoveSpy.calls.any()).toBe(true, 'sumbit done');
   });
+
   it('should add an admin correctly and handle responses', () => {
     administratorAddSpy = administratorService.addAdministrator.and.returnValue(
       of(
@@ -168,18 +192,17 @@ describe('EditOrganizationComponent', () => {
     );
     component.addAdmin();
     expect(administratorAddSpy.calls.any()).toBe(true, 'sumbit done');
+  });
+
+  it('should not add an admin in case of http errors', () => {
+    spyOn(console, 'error').and.callThrough();
     administratorAddSpy = administratorService.addAdministrator.and.returnValue(
-      of(
-        new HttpResponse({
-          body: 'mariotest01@gmail.com',
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      throwError(''),
     );
     component.addAdmin();
-    expect(administratorAddSpy.calls.any()).toBe(true, 'sumbit done');
+    expect(console.error).toHaveBeenCalledWith('');
   });
+
   it('should find an userId given email correctly', () => {
     const result = component.checkIfEmailIsUser('mariorossi@gmail.com', [
       {id: 1, email: 'mariorossi@gmail.com', password: 'defaultpass'},
