@@ -1,24 +1,10 @@
-.spacer {
-  flex: 1 1 auto;
-}
-
-mat-toolbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-mat-toolbar-row {
-  margin: auto;
-  width: 1200px;
-
-  > a {
-    font-weight: 300 !important;
-  }
-
-  > .logo {
-    color: #fff;
-    font-size: 28px;
-    text-decoration: none;
-  }
+.background {
+  height: auto;
+  left: 0;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
 }
 
 .stalker-logo {
