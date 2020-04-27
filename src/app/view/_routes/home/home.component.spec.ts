@@ -69,4 +69,14 @@ describe('HomeComponent', () => {
     component.login('mario@rossi', 'Casua1pass!');
     expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
+
+  it('should set toggle to false', () => {
+    component.translate(1);
+    expect(component.toggle).toBeFalse();
+  });
+
+  it('should set toggle to true', () => {
+    component.translate(0);
+    expect(component.toggle).toBeTrue();
+  });
 });
