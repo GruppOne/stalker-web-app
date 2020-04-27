@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 
@@ -13,15 +14,20 @@ export class OrganizationComponent implements OnInit {
   organization?: Organization;
   private organizationBuilder?: OrganizationBuilder;
 
-  constructor(private readonly organizationService: OrganizationService) {}
+  constructor(
+    private readonly organizationService: OrganizationService,
+    private readonly route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.getOrganizationById(1);
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    this.getOrganizationById(organizationId);
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('GruppOne', true)
+      this.organization = new OrganizationBuilder('Unipd', true)
         .addDescription(
           'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor...',
         )
+        .addId(organizationId)
         .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
             .addUsername('mariorossi@gmail.com')

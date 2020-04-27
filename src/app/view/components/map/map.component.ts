@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
@@ -71,10 +72,13 @@ export class MapComponent implements OnInit {
   constructor(
     private readonly placeService: PlaceService,
     private readonly organizationService: OrganizationService,
+
+    private readonly route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.getOrganizationById(1);
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    this.getOrganizationById(organizationId);
     if (!this.organization) {
       this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([

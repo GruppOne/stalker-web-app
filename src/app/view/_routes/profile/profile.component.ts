@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 import {User, UserBuilder} from '../../../model/classes/users/user';
 import {UserData} from '../../../model/classes/users/user-data';
@@ -13,10 +14,14 @@ export class ProfileComponent implements OnInit {
   fetched = false;
   private userBuilder?: UserBuilder;
   user?: User;
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.getUser(1);
+    const userId = +(this.route.snapshot.paramMap.get('id') as string);
+    this.getUser(userId);
   }
 
   /**

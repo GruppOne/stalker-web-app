@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 import {LatLng} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
@@ -49,6 +50,7 @@ export class EditOrganizationComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
     private readonly administratorService: AdministratorService,
+    public readonly route: ActivatedRoute,
     private readonly connectedUserService: ConnectedUserService,
   ) {}
 
@@ -56,7 +58,8 @@ export class EditOrganizationComponent implements OnInit {
    *  initialize all data, including organization field calling OrganizationService
    */
   ngOnInit(): void {
-    this.getOrganizationById(1);
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    this.getOrganizationById(organizationId);
     if (!this.organization) {
       this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([

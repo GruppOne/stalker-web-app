@@ -1,5 +1,6 @@
+import {Location} from '@angular/common';
 import {Injectable} from '@angular/core';
-import {CanActivate, Router} from '@angular/router';
+import {CanActivate, Router, ActivatedRouteSnapshot} from '@angular/router';
 
 import {LoginService} from './model/services/login.service';
 
@@ -10,10 +11,16 @@ export class AuthGuard implements CanActivate {
   constructor(
     private readonly loginService: LoginService,
     private readonly router: Router,
+    private readonly location: Location,
   ) {}
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.loginService.isLoggedIn()) {
-      return true;
+      const actualOrgId = +(route.paramMap.get('id') as string);
+      return this.loginService.checkAuthorization(
+        actualOrgId,
+        route.data.roles,
+        this.location,
+      );
     } else {
       this.router.navigate(['/login']);
       return false;
