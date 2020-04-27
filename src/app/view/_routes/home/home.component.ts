@@ -14,6 +14,8 @@ import {LoginService} from '../../../model/services/login.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  toggle = true;
+
   public nestedForm: FormGroup = new FormGroup({
     emailForm: new FormControl(''),
     passwordForm: new FormControl(''),
@@ -56,5 +58,13 @@ export class HomeComponent implements OnInit {
     );
 
     return regexMail.test(email) && regexPwd.test(password);
+  }
+
+  public translate(i: number): void {
+    if (i) {
+      this.toggle = false;
+    } else {
+      this.toggle = true;
+    }
   }
 }

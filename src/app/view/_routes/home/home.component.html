@@ -1,19 +1,71 @@
 <h1>Easily monitor and protect people within your organizations</h1>
-<h2>Login</h2>
-<mat-card class="login-form-container">
-  <mat-card-content>
-    <form
-      class="login-form centered-form"
-      [formGroup]="nestedForm"
-      (ngSubmit)="login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)"
-    >
-      <app-form-email formControlName="emailForm"></app-form-email>
-      <app-form-password formControlName="passwordForm"></app-form-password>
-      <mat-card-actions>
-        <button mat-raised-button color="accent" type="submit" title="Login to Stalker">Login</button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
+<h2>{{ toggle ? 'Login' : 'Password recover' }}</h2>
+<mat-card class="login-form-container" [ngClass]="toggle ? '' : 'lessHeight'">
+  <div class="formsContainer" [ngClass]="toggle ? 'translateBack' : 'translate'">
+    <mat-card-content class="login">
+      <form
+        class="login-form centered-form"
+        [formGroup]="nestedForm"
+        (ngSubmit)="login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)"
+      >
+        <app-form-email formControlName="emailForm"></app-form-email>
+        <app-form-password formControlName="passwordForm"></app-form-password>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            color="accent"
+            type="submit"
+            matTooltip="Login to Stalker"
+            matTooltipPosition="right"
+          >
+            Login
+          </button>
+        </mat-card-actions>
+        <button
+          mat-button
+          matTooltip="Recover your pasword"
+          class="recoverButton"
+          matTooltipPosition="right"
+          (click)="translate(1)"
+        >
+          Forgot your password?
+        </button>
+      </form>
+    </mat-card-content>
+    <mat-card-content class="recover">
+      <button
+        class="backToLoginButton"
+        mat-button
+        matTooltip="Back to login"
+        matTooltipPosition="right"
+        (click)="translate(0)"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <form>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Ex. mariorossi@gmail.com" />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>
+            Please enter a valid email address
+          </mat-error>
+          <mat-error> This field is <strong>required</strong> </mat-error>
+        </mat-form-field>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            color="accent"
+            type="submit"
+            matTooltip="Recover your password"
+            matTooltipPosition="right"
+          >
+            Recover
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </div>
 </mat-card>
 <div class="text-block-container">
   <h1>How it works</h1>
@@ -36,13 +88,4 @@
       </mat-card-subtitle>
     </mat-card>
   </div>
-  <!-- boh non so ancora che farci
-  <div class="text-block">
-    <img src="../../../../assets/entering-office.jpg" />
-    <p class="left">entering office</p>
-  </div>
-  <div class="text-block">
-    <p class="right">entering expo</p>
-    <img src="../../../../assets/entering-expo.jpg" />
-  </div> -->
 </div>

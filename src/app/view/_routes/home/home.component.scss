@@ -27,13 +27,54 @@ h2 {
   margin-top: 50px;
 }
 
+.lessHeight {
+  max-height: 150px;
+}
+
 .login-form-container {
+  overflow: hidden;
   width: 438px;
+
+  .formsContainer {
+    box-sizing: border-box;
+    display: flex;
+    width: 880px;
+  }
 
   .mat-card-actions {
     margin-bottom: 0;
     padding-bottom: 0;
     text-align: center !important;
+  }
+
+  .login,
+  .recover {
+    flex-grow: 1;
+    min-width: 50%;
+  }
+
+  .recover {
+    padding: 0 32px;
+  }
+
+  .recoverButton {
+    float: right;
+    margin: 16px 0 -16px;
+  }
+
+  .translate {
+    transform: translateX(-472px);
+    transition: transform 600ms;
+  }
+
+  .translateBack {
+    transform: translateX(0);
+    transition: transform 600ms;
+  }
+
+  .backToLoginButton {
+    min-width: unset;
+    padding: 0;
   }
 }
 
