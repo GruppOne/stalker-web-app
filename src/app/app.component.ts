@@ -1,4 +1,3 @@
-import {ViewportScroller} from '@angular/common';
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
@@ -8,17 +7,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(
-    public router: Router,
-    private readonly viewportScroller: ViewportScroller,
-  ) {}
+  constructor(public router: Router) {}
   getRoute(): string {
     return this.router.url;
-  }
-
-  // funzione per scrollare sugli elementi tramite una anchor
-  public onClick(elementId: string): void {
-    this.viewportScroller.scrollToAnchor(elementId);
   }
 
   backHome(): void {
