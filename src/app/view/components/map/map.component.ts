@@ -120,13 +120,21 @@ export class MapComponent implements OnInit {
     }
   }
 
+  /**
+   * adds place information to the arrays ready to be submitted
+   */
   public onDrawCreated(e: {layer: Polygon}): void {
     const points = e.layer.getLatLngs();
     const center = latLng(this.getCentroid(points[0] as LatLng[]));
-    /*          const area = GeometryUtil.geodesicArea(a[0] as LatLng[]);
-    let seeArea = '';
-    seeArea = GeometryUtil.readableArea(area, true);
-    console.log(`area: ${seeArea}`);  */
+
+    /*
+     * get area information, not safe to use because of errors in leaflet library
+     */
+    // const area = GeometryUtil.geodesicArea(a[0] as LatLng[]);
+    // let seeArea = '';
+    // seeArea = GeometryUtil.readableArea(area, true);
+    // console.log(`area: ${seeArea}`);
+
     this.placeService
       .reverseGeocoding(center.lat, center.lng)
       .subscribe((data: Geocoding) => {
@@ -153,6 +161,9 @@ export class MapComponent implements OnInit {
       });
   }
 
+  /**
+   * call OrganizationService to get organization with given Id
+   */
   getOrganizationById(id: number): void {
     this.organizationService.getOrganizationById(id).subscribe(
       (response: Organization) => {
@@ -162,7 +173,9 @@ export class MapComponent implements OnInit {
     );
   }
 
-  // generates random hex colors
+  /**
+   * return a random hex color
+   */
   getRandomColor(): string {
     const hexadecimalDigits = '0123456789ABCDEF';
     let color = '#';
@@ -172,7 +185,9 @@ export class MapComponent implements OnInit {
     return color;
   }
 
-  // find centroid of the drawn polygon
+  /**
+   * return the centroid of the given polygon
+   */
   getCentroid(latlngs: LatLng[]): LatLng {
     const pts = latlngs;
     const off = pts[0];

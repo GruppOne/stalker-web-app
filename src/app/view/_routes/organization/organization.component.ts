@@ -31,6 +31,10 @@ export class OrganizationComponent implements OnInit {
         .build();
     }
   }
+
+  /**
+   * call OrganizationService to get organization with given Id
+   */
   getOrganizationById(id: number): void {
     this.organizationService.getOrganizationById(id).subscribe(
       (response: Organization) => {
