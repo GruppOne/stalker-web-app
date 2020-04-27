@@ -179,10 +179,10 @@ export class EditOrganizationComponent implements OnInit {
         );
     }
   }
+
   /**
    * Add administrator email and role to the administrators array defined above
    */
-
   addAdmin(): void {
     const admin: Administrator = {
       id: this.checkIfEmailIsUser(
@@ -200,6 +200,7 @@ export class EditOrganizationComponent implements OnInit {
         (err: Error) => console.error(err),
       );
   }
+
   /**
    * Remove administrator 'admin' from administrator array defined above
    */
@@ -212,6 +213,10 @@ export class EditOrganizationComponent implements OnInit {
         this.administrators.splice(indexOf, 1);
       });
   }
+
+  /**
+   * Get administrators of a certain organization
+   */
   getOrgAdministrators(organizationId: number): void {
     this.administratorService
       .getAdministrators(organizationId)
@@ -220,6 +225,9 @@ export class EditOrganizationComponent implements OnInit {
       });
   }
 
+  /**
+   * Get users connected to a certain organization
+   */
   getOrgUsers(organizationId: number): void {
     this.connectedUserService.getUserConnectedToOrg(organizationId).subscribe(
       (response: User[]) => (this.organizationUsers = response),
@@ -227,6 +235,9 @@ export class EditOrganizationComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if the given email is registered in Stalker anc if it's connected with this organization
+   */
   checkIfEmailIsUser(email: string, userList: User[]): number {
     let found = -1;
     userList.forEach((element) => {
