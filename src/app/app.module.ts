@@ -9,6 +9,7 @@ import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
+import {AdminType} from './model/classes/administrator';
 import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor.service';
 import {CustomMaterialModule} from './modules/material.module';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
@@ -30,20 +31,22 @@ const routes: Routes = [
     data: {title: 'Stalker - Home'},
     canActivate: [AuthGuard],
   },
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'users/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   {
-    path: 'organization',
+    path: 'organizations/:id',
     component: OrganizationComponent,
     canActivate: [AuthGuard],
+    data: {roles: AdminType.viewer},
   },
   {
     path: 'organizations',
     component: OrganizationsComponent,
   },
   {
-    path: 'editorganization',
+    path: 'organizations/:id/edit',
     component: EditOrganizationComponent,
     canActivate: [AuthGuard],
+    data: {roles: AdminType.manager},
   },
   // route to 404
   {path: '**', component: NotFoundComponent},

@@ -1,6 +1,7 @@
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {of, throwError} from 'rxjs';
 
 import {OrganizationService} from '../../../model/services/organization.service';
@@ -10,6 +11,7 @@ import {OrganizationComponent} from './organization.component';
 describe('OrganizationComponent', () => {
   let component: OrganizationComponent;
   let fixture: ComponentFixture<OrganizationComponent>;
+
   const organizationService = jasmine.createSpyObj('OrganizationService', [
     'getOrganizationById',
   ]);
@@ -24,6 +26,16 @@ describe('OrganizationComponent', () => {
         {
           provide: OrganizationService,
           useValue: organizationService,
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({
+                id: '1',
+              }),
+            },
+          },
         },
       ],
     }).compileComponents();

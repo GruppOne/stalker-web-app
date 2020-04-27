@@ -1,5 +1,6 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
 
@@ -21,7 +22,19 @@ describe('ProfileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ProfileComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [{provide: UserService, useValue: userService}],
+      providers: [
+        {provide: UserService, useValue: userService},
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({
+                id: '1',
+              }),
+            },
+          },
+        },
+      ],
     }).compileComponents();
   }));
 

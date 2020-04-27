@@ -5,6 +5,8 @@ export interface Administrator {
 }
 
 export enum AdminType {
+  admin = 'Admin',
+  owner = 'Owner',
   manager = 'Manager',
   viewer = 'Viewer',
 }

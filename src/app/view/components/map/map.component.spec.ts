@@ -1,6 +1,7 @@
 import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {LatLng, Polygon} from 'leaflet';
 import {of} from 'rxjs';
 import {OrganizationService} from 'src/app/model/services/organization.service';
@@ -45,6 +46,16 @@ describe('MapComponent', () => {
       imports: [HttpClientTestingModule],
       providers: [
         {provide: HttpClient},
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({
+                id: '1',
+              }),
+            },
+          },
+        },
         {provide: OrganizationService, useValue: organizationService},
         {provide: PlaceService, useValue: placeService},
       ],

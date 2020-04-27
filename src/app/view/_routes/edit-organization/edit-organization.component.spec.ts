@@ -3,6 +3,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {LatLng} from 'leaflet';
 import {of, throwError} from 'rxjs';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
@@ -67,6 +68,16 @@ describe('EditOrganizationComponent', () => {
         {provide: FormBuilder},
         {provide: OrganizationService, useValue: organizationService},
         {provide: AdministratorService, useValue: administratorService},
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({
+                id: '1',
+              }),
+            },
+          },
+        },
         {provide: ConnectedUserService, useValue: connectedUserService},
       ],
     }).compileComponents();

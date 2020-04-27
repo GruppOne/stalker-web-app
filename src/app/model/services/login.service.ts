@@ -1,3 +1,4 @@
+import {Location} from '@angular/common';
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import * as jwt from 'jsonwebtoken';
@@ -22,7 +23,13 @@ export interface StalkerJWT {
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private readonly httpClientService: HttpClientService) {}
+  private readonly adminMapping = new Map();
+  constructor(private readonly httpClientService: HttpClientService) {
+    this.adminMapping.set('Admin', 4);
+    this.adminMapping.set('Owner', 3);
+    this.adminMapping.set('Manager', 2);
+    this.adminMapping.set('Viewer', 1);
+  }
 
   login(user: User): Observable<User> {
     return this.httpClientService.post<User>('/user/login', user).pipe(
@@ -67,6 +74,29 @@ export class LoginService {
     localStorage.removeItem('organizations');
     localStorage.removeItem('expiration_time');
     localStorage.removeItem('creation_time');
+  }
+
+  checkAuthorization(
+    actualOrgId: number,
+    desiredRole: string,
+    location: Location,
+  ): boolean {
+    let authroized = false;
+    const connectedOrg = JSON.parse(localStorage.getItem('organizations') as string);
+    connectedOrg.forEach((element: {organizationId: number; role: string}) => {
+      if (
+        element.organizationId === actualOrgId &&
+        this.adminMapping.get(element.role) >= this.adminMapping.get(desiredRole)
+      ) {
+        authroized = true;
+      }
+    });
+    if (authroized) {
+      return true;
+    } else {
+      location.back();
+      return false;
+    }
   }
 
   // TODO this might be unneded
