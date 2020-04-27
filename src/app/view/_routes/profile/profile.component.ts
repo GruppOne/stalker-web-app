@@ -18,6 +18,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getUser(1);
   }
+
+  /**
+   * Return all information of the user with the given userId
+   */
   getUser(id: number): void {
     this.userService.getUserById(id).subscribe(
       (response: User) => {
