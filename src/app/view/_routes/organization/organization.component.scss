@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: auto;
   text-align: center;
-  width: 600px;
+  width: 65%;
 }
 
 .mat-card-title {
@@ -34,5 +34,11 @@
 
   li {
     list-style: none;
+  }
+}
+
+@media only screen and (max-width: 896px) {
+  .mat-card.organizationTable {
+    width: 100%;
   }
 }

@@ -156,7 +156,7 @@ body {
   font-weight: 300 !important;
   margin: auto !important;
   position: relative;
-  width: 600px;
+  width: 65%;
 }
 
 .title-page-under-toolbar {
@@ -192,5 +192,17 @@ body {
     color: #000;
     font-size: 32px;
     margin-top: 150px;
+  }
+}
+
+@media only screen and (max-width: 896px) {
+  .container,
+  .mat-toolbar-row {
+    width: 95% !important;
+  }
+
+  .title-page-under-toolbar,
+  .subtitle-page-under-toolbar {
+    width: 100%;
   }
 }
