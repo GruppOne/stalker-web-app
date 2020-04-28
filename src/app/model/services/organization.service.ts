@@ -22,7 +22,7 @@ export class OrganizationService {
 
   editOrganization(organization: Organization): Observable<Organization> {
     return this.httpClientService
-      .put<Organization>(`/organizations/${organization.id}`, organization)
+      .put<Organization>(`/organization/${organization.id}`, organization)
       .pipe(map((response: HttpResponse<Organization>) => response.body as Organization));
   }
   getOrganizationById(organizationId: number): Observable<Organization> {
