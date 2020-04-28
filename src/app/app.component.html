@@ -13,29 +13,31 @@
     </button>
     <span class="spacer"></span>
     <!-- only when a user is authenticathed -->
-    <button mat-button *ngIf="this.getRoute() != '/home'" matTooltip="Logout">
+    <button mat-button *ngIf="this.getRoute() == '/profile'" matTooltip="Logout">
       <mat-icon>exit_to_app</mat-icon>
     </button>
-    <div *ngIf="this.getRoute() == '/home'">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="this.getRoute() != '/profile'">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="this.getRoute() == '/home'">
+        <mat-icon>build</mat-icon>
+        <span>How it works</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>build</mat-icon>
-          <span>How it works</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>group</mat-icon>
-          <span>Who we are</span>
-        </button>
-        <!-- only when a user is authenticathed -->
-        <button mat-menu-item>
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-    </div>
+      <button mat-menu-item *ngIf="this.getRoute() == '/home'">
+        <mat-icon>group</mat-icon>
+        <span>Who we are</span>
+      </button>
+      <!-- only when a user is authenticathed -->
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
   </mat-toolbar-row>
   <div class="white-triangle" *ngIf="this.getRoute() != '/home'"></div>
 </mat-toolbar>
