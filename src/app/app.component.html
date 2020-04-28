@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar [ngClass]="this.getRoute() == '/home' ? 'homeToolbar' : ''">
   <mat-toolbar-row>
     <button
       mat-button

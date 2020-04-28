@@ -71,6 +71,26 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   padding-bottom: 200px;
   position: relative;
+
+  // oblique triangle in transparency in the toolbar
+  .white-triangle {
+    border-bottom: 280px solid rgba($color: #000, $alpha: 0.2);
+    border-left: 1600px solid transparent;
+    bottom: 0;
+    height: 0;
+    position: absolute;
+    right: 0;
+    width: 0;
+  }
+  // end triangle
+}
+
+.homeToolbar {
+  background-color: rgba($color: #000, $alpha: 0.3);
+  box-shadow: none;
+  margin-bottom: 10%;
+  padding-bottom: 0;
+  position: unset !important;
 }
 
 .mat-toolbar-row {
@@ -111,18 +131,6 @@ body {
 .spacer {
   flex: 1 1 auto;
 }
-
-// oblique triangle in transparency in the toolbar
-.white-triangle {
-  border-bottom: 280px solid rgba($color: #000, $alpha: 0.2);
-  border-left: 1600px solid transparent;
-  bottom: 0;
-  height: 0;
-  position: absolute;
-  right: 0;
-  width: 0;
-}
-// end triangle
 
 // container of all pages
 .container {
