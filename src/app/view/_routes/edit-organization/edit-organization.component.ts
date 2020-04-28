@@ -148,7 +148,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
-      for (let i = 0; i < this.mapDataChild.arrayCoord?.length; i++) {
+      for (let i = 0; i < this.mapDataChild.arrayCoord.length; i++) {
         const polyline: MyLatLng[] = [];
         for (const j of this.mapDataChild.arrayCoord[i]) {
           polyline.push(new MyLatLng(200, 200, j));
