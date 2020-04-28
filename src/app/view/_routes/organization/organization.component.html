@@ -3,7 +3,6 @@
 <mat-card class="organizationTable">
   <mat-list>
     <app-map></app-map>
-    <mat-divider></mat-divider>
     <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
     <mat-list-item class="fieldData">
       {{ organization?.ldapConfiguration?.host }} - {{ organization?.ldapConfiguration?.username }},
@@ -24,9 +23,17 @@
     <mat-divider></mat-divider>
     <mat-list-item class="fieldName">Last modified date:</mat-list-item>
     <mat-list-item class="fieldData">{{ organization?.lastModifiedDate }}</mat-list-item>
-    <mat-divider></mat-divider>
   </mat-list>
   <mat-card-actions>
-    <button mat-raised-button color="accent" routerLink="/organizations/{{ organization?.id }}/edit">Edit</button>
+    <button
+      mat-raised-button
+      color="accent"
+      routerLink="/editorganization"
+      matTooltip="Edit this organization's data"
+      matTooltipPosition="right"
+      routerLink="/organizations/{{ organization?.id }}/edit"
+    >
+      Edit
+    </button>
   </mat-card-actions>
 </mat-card>
