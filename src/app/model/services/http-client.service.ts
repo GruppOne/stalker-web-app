@@ -33,7 +33,7 @@ export class HttpClientService {
 
     return this.httpClient
       .get<T>(`${this.url}${relativePath}`, httpOptions)
-      .pipe(catchError(this.handleError('getData')));
+      .pipe(catchError(this.handleError()));
   }
 
   // TODO refactor to reduce duplication
@@ -46,7 +46,7 @@ export class HttpClientService {
 
     return this.httpClient
       .post<T>(`${this.url}${relativePath}`, body, httpOptions)
-      .pipe(catchError(this.handleError('postData')));
+      .pipe(catchError(this.handleError()));
   }
 
   put<T>(
@@ -58,7 +58,7 @@ export class HttpClientService {
 
     return this.httpClient
       .put<T>(`${this.url}${relativePath}`, body, httpOptions)
-      .pipe(catchError(this.handleError('putData')));
+      .pipe(catchError(this.handleError()));
   }
 
   delete<T>(
@@ -69,7 +69,7 @@ export class HttpClientService {
 
     return this.httpClient
       .delete<T>(`${this.url}${relativePath}`, httpOptions)
-      .pipe(catchError(this.handleError('deleteData')));
+      .pipe(catchError(this.handleError()));
   }
   private mergeAdditionalHeaders(additionalHeaders?: HttpHeaders): HttpOptions {
     let httpHeaders = this.defaultHttpHeaders;
@@ -77,10 +77,7 @@ export class HttpClientService {
     if (additionalHeaders) {
       additionalHeaders.keys().forEach((key) => {
         const value = additionalHeaders.getAll(key);
-
-        if (value) {
-          httpHeaders = httpHeaders.append(key, value);
-        }
+        httpHeaders = httpHeaders.append(key, value as string[]);
       });
     }
 
@@ -90,17 +87,8 @@ export class HttpClientService {
     };
   }
 
-  // TODO declare explicitly this type?
-  /*  private handleError<T>() {
-    return (error: HttpErrorResponse): Observable<T> => {
-      console.error(error);
-      Observable.throw('');
-    };
-  } */
-  private handleError(operation: string) {
+  private handleError() {
     return (err: HttpErrorResponse) => {
-      const errMsg = `error in ${operation}() retrieving ${this.url}`;
-      console.log(`${errMsg}:`, err);
       // more info about the error
       console.log(`status: ${err.status}, ${err.statusText}`);
       return throwError(err.message);

@@ -32,7 +32,9 @@ export class OrganizationService {
       .pipe(
         map(
           (response: HttpResponse<{organizations: Organization[]}>) =>
-            response.body?.organizations[organizationId] as Organization,
+            (response.body as {organizations: Organization[]}).organizations[
+              organizationId
+            ],
         ),
       );
   }

@@ -13,10 +13,13 @@ describe('LoginService', () => {
     // 'put',
     // 'delete',
   ]);
+  const defaultUser = {email: 'default@mail', password: 'Default1!'};
+
+  let httpPostSpy = httpClientService.post.and.returnValue(
+    of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
+  );
 
   let sut: LoginService;
-
-  const defaultUser = {email: 'default@mail', password: 'Default1!'};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,7 +34,7 @@ describe('LoginService', () => {
   });
 
   it('should call the httpClientService post', () => {
-    const httpPostSpy = httpClientService.post.and.returnValue(
+    httpPostSpy = httpClientService.post.and.returnValue(
       of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
     );
     let result: {email: string; password: string} = {email: '', password: ''};
@@ -43,7 +46,7 @@ describe('LoginService', () => {
   });
 
   it('should call the httpClientService with additional headers', () => {
-    const httpPostSpy = httpClientService.post.and.returnValue(
+    httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
           body: defaultUser,

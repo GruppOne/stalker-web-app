@@ -34,23 +34,11 @@ describe('EditOrganizationComponent', () => {
   ]);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-    of(
-      new HttpResponse({
-        body: {organizations: []},
-        headers: new HttpHeaders(),
-        status: 200,
-      }),
-    ),
+    of({organizations: []}),
   );
 
   let organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
-    of(
-      new HttpResponse({
-        body: {name: 'unipd', isPrivate: false},
-        headers: new HttpHeaders(),
-        status: 200,
-      }),
-    ),
+    of({name: 'unipd', isPrivate: false}),
   );
 
   let administratorAddSpy = administratorService.addAdministrator.and.returnValue(of({}));
@@ -129,13 +117,7 @@ describe('EditOrganizationComponent', () => {
 
   it('should call Organization get and handle not empty response', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {organizations: [{name: 'unipd', isPrivate: false}]},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      of({organizations: [{name: 'unipd', isPrivate: false}]}),
     );
     component.getOrganizationById(1);
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
@@ -145,13 +127,7 @@ describe('EditOrganizationComponent', () => {
     const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
     console.log(num);
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {name: 'unipd', isPrivate: false},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      of({name: 'unipd', isPrivate: false}),
     );
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
@@ -165,6 +141,15 @@ describe('EditOrganizationComponent', () => {
     component.submitOrganizationForm();
     expect(console.error).toHaveBeenCalledWith('');
   });
+  /*   it('should not submit the form in case of empty organization', () => {
+    organizationSubmitSpy = organizationService.editOrganization.and.returnValue({
+      name: 'unipd',
+      isPrivate: false,
+    });
+    component.organization = {name: '', isPrivate: false};
+    component.submitOrganizationForm();
+    expect(organizationSubmitSpy.calls.any()).toBe(false, 'submit not done');
+  }); */
 
   it('should remove an admin correctly and handle responses', () => {
     administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(

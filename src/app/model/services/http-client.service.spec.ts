@@ -70,14 +70,9 @@ describe('HttpClientService', () => {
     service.post('url', 'test', newHttpHeaders);
     expect(httpPostSpy.calls.any()).toBe(true, 'get called');
   });
-  /* it('should handle errors', () => {
-    const httpPostSpy = httpClient.post.and.returnValue(
-      of(new HttpErrorResponse({error: ''})),
-    );
-    const errorspy = jasmine.createSpy('catchError');
-    service.post('url', 'test');
-    expect(httpPostSpy.calls.any()).toBeTrue();
-    expect(errorspy.calls.any()).toBeTrue();
-    expect(errorspy).toThrow();
+  /*   it('should handle errors', () => {
+    const result = service.handleError('post');
+
+    expect(result(new HttpErrorResponse({error: ''}))).toThrow();
   }); */
 });
