@@ -28,10 +28,9 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: {title: 'Stalker - Home'},
-    canActivate: [AuthGuard],
   },
   {path: 'users/:id', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'organizations', component: OrganizationsComponent, canActivate: [AuthGuard]},
   {
     path: 'organizations/:id',
     component: OrganizationComponent,
