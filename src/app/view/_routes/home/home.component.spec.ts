@@ -1,4 +1,3 @@
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Router} from '@angular/router';
@@ -47,17 +46,9 @@ describe('HomeComponent', () => {
     expect(component.validateInput('mariorossi@gmail.com', 'Casua1pass!')).toBeTrue();
   });
   it('should redirect to home page', () => {
-    loginSpy = loginService.login.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {email: 'test', password: 'test'},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
-    );
+    loginSpy = loginService.login.and.returnValue(of({email: 'test', password: 'test'}));
     component.login('mariorossi@gmail.com', 'Casua1pass!');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/organizations']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/profile']);
     expect(loginSpy.calls.any()).toBe(true, 'login called');
   });
   it('should not redirect to home page in case of failed input validation', () => {

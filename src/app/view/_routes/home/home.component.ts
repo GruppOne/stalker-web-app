@@ -1,4 +1,3 @@
-import {ViewportScroller} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
@@ -40,7 +39,7 @@ export class HomeComponent implements OnInit {
     this.loginService.login(userBuilder.build()).subscribe(
       (response: User) => {
         console.log(response);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profile']);
       },
       (err: Error) => console.error(err),
     );
