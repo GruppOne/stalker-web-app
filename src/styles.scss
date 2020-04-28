@@ -132,11 +132,21 @@ body {
   flex: 1 1 auto;
 }
 
-// container of all pages
+/**
+ * container of all pages, change width from here
+ */
 .container {
   margin: auto;
   min-height: 100%;
   width: 75% !important;
+
+  .mat-stepper-vertical,
+  .mat-card.organizationTable,
+  .title-page-under-toolbar,
+  .subtitle-page-under-toolbar {
+    margin: auto;
+    width: 65%;
+  }
 
   > * {
     z-index: 2;
@@ -154,19 +164,28 @@ body {
 .subtitle-page-under-toolbar {
   color: #fff !important;
   font-weight: 300 !important;
-  margin: auto !important;
   position: relative;
-  width: 65%;
 }
 
 .title-page-under-toolbar {
   font-size: 26px !important;
   font-weight: 500 !important;
-  margin: -170px auto 10px !important;
+  margin: -150px auto 10px !important;
 }
 
 .subtitle-page-under-toolbar {
   font-size: 18px !important;
+}
+
+.mat-stepper-vertical {
+  border-radius: 4px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+
+.mat-card.organizationTable {
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /*
@@ -201,8 +220,10 @@ body {
     width: 95% !important;
   }
 
+  .mat-stepper-vertical,
+  .mat-card.organizationTable,
   .title-page-under-toolbar,
   .subtitle-page-under-toolbar {
-    width: 100%;
+    width: 100% !important;
   }
 }
