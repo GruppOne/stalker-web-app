@@ -40,3 +40,15 @@
     padding-bottom: 2px;
   }
 }
+
+@media only screen and (max-width: 896px) {
+  .background {
+    max-width: 190%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .background {
+    max-width: 340%;
+  }
+}

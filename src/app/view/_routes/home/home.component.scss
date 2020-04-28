@@ -110,7 +110,7 @@ h2 {
 
   .mat-card {
     flex-grow: 1;
-    height: 140px;
+    height: 150px;
     margin: 0 10px;
     text-align: center;
     width: 180px;
@@ -142,4 +142,70 @@ h2 {
 
 .right {
   text-align: right;
+}
+
+@media only screen and (max-width: 896px) {
+  h1,
+  h2 {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin-top: 40px;
+  }
+
+  .login-form-container {
+    margin: auto;
+    width: 90%;
+
+    .formsContainer {
+      width: 200%;
+    }
+  }
+
+  .text-block-container {
+    padding-top: 80px;
+  }
+
+  .how-it-works {
+    display: block;
+    margin: 40px auto;
+    width: 90%;
+
+    .mat-card {
+      display: inline-block;
+      height: auto;
+      margin: 30px auto;
+      width: 90%;
+    }
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .translate {
+    transform: translateX(-52.5%) !important;
+  }
+}
+
+@media only screen and (max-width: 415px) {
+  .translate {
+    transform: translateX(-54.5%) !important;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .translate {
+    transform: translateX(-55%) !important;
+  }
+}
+
+@media only screen and (max-width: 321px) {
+  .translate {
+    transform: translateX(-56%) !important;
+  }
 }
