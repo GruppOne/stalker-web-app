@@ -1,27 +1,50 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <button mat-button class="logo" (click)="backHome()">
-      <img class="stalker-logo" src="../assets/stalker-logo.png" />&nbsp;<span class="logoFirstLetter">S</span
+    <button
+      mat-button
+      class="logo"
+      (click)="backHome()"
+      [matTooltip]="this.getRoute() != '/home' ? 'Back to homepage' : ''"
+    >
+      <img class="stalker-logo" src="../assets/stalker-logo.png" alt="Stalker logo" />&nbsp;<span
+        class="logoFirstLetter"
+        >S</span
       ><span>talker</span>
     </button>
     <span class="spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>menu</mat-icon>
+    <!-- only when a user is authenticathed -->
+    <button mat-button *ngIf="this.getRoute() != '/home'" matTooltip="Logout">
+      <mat-icon>exit_to_app</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>build</mat-icon>
-        <span>How it works</span>
+    <div *ngIf="this.getRoute() == '/home'">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
       </button>
-      <button mat-menu-item>
-        <mat-icon>group</mat-icon>
-        <span>Who we are</span>
-      </button>
-    </mat-menu>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>build</mat-icon>
+          <span>How it works</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>group</mat-icon>
+          <span>Who we are</span>
+        </button>
+        <!-- only when a user is authenticathed -->
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
   </mat-toolbar-row>
   <div class="white-triangle" *ngIf="this.getRoute() != '/home'"></div>
 </mat-toolbar>
-<img class="background" *ngIf="this.getRoute() == '/home'" src="../assets/walking-crowd.png" />
+<img
+  class="background"
+  *ngIf="this.getRoute() == '/home'"
+  src="../assets/walking-crowd.png"
+  alt="Stalker background image"
+/>
 <div class="whiteBar" *ngIf="this.getRoute().toString().includes('/users/')"></div>
 <div class="container">
   <router-outlet></router-outlet>
