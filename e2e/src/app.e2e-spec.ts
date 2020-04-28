@@ -12,5 +12,11 @@ Before(() => {
 Given('I am on the stalker site', async () => app.navigateTo());
 
 Then('I should see the Login Page', async () =>
-  app.getLoginText().then((elem) => expect(elem.toString()).to.be.equal('Stalker')),
+  app
+    .getLoginText()
+    .then((elem) =>
+      expect(elem.toString()).to.be.equal(
+        'Easily monitor and protect people within your organizations',
+      ),
+    ),
 );
