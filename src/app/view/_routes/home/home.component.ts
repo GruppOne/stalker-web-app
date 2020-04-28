@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit {
       .login(userBuilder.build())
       .subscribe((response: HttpResponse<User>) => {
         if (response && response.status === 200) {
-          this.router.navigate(['/home']);
+          console.log(response);
+          this.router.navigate(['/organizations']);
         } else {
           console.log('something went wrong, try again');
         }
