@@ -1,0 +1,10 @@
+@startuml LdapConfiguration diagram
+interface LdapConfiguration {
+  ..<<readonly>>..
+
+  + host : string
+  + username : string
+  + password : string
+  ....
+}
+@enduml

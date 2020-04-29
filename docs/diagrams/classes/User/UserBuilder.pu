@@ -1,0 +1,16 @@
+@startuml UserBuilder Diagram
+class UserBuilder {
+  - id : integer
+  - userData : UserData
+  == constructor ==
+
+  + constructor(private email : string, private password : string)
+  == methods ==
+
+  + addId(id : integer)
+  + addEmail(email : string)
+  + addPassword(password : string)
+  + addUserData(userData : UserData)
+  + build()
+}
+@enduml

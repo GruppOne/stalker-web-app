@@ -1,0 +1,15 @@
+@startuml Organization Diagram
+interface Organization {
+  ..<<readonly>>..
+
+  + id : integer
+  + name : string
+  + description : string
+  + ldapConfiguration : LdapConfiguration
+  + places : Place[]
+  + isPrivate : boolean
+  + createdDate : string
+  + lastModifiedDate : string
+  ....
+}
+@enduml

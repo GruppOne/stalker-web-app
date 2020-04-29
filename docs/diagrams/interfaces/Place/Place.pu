@@ -1,0 +1,14 @@
+@startuml Place Diagram
+interface Place {
+  ..<<readonly>>..
+
+  + id : number
+  + name : string
+  + polyline : MyLatLng[]
+  + placeData : PlaceData
+  ....
+  == methods ==
+
+  + getLatLng(polyline : MyLatLng[])
+}
+@enduml

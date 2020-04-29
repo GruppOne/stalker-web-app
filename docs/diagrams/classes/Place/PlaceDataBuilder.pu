@@ -1,0 +1,15 @@
+@startuml PlaceDataBuilder Diagram
+class PlaceDataBuilder {
+  - address : string
+  - city : string
+  - zipcode : string
+  - state : string
+  ==methods==
+
+  + addAddress(address : string)
+  + addCity(city : string)
+  + addZipcode(zipcode : string)
+  + addState(state : string)
+  + build()
+}
+@enduml

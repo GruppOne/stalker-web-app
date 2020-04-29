@@ -1,0 +1,17 @@
+@startuml UserDataBuilder Diagram
+class UserDataBuilder {
+  - firstName : string
+  - lastName : string
+  - birthDate : string
+  - createdDate : string
+  - lastModifiedDate : string
+  ==methods==
+
+  + addFirstName(firstName : string)
+  + addLastName(lastName : string)
+  + addBirthDate(birthDate : string)
+  + addCreatedDate(createdDate : string)
+  + addLastModifiedDate(lastModifiedDate : string)
+  + build()
+}
+@enduml

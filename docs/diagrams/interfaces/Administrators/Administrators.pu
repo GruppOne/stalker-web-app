@@ -1,0 +1,15 @@
+@startuml Administrator
+interface Administrator {
+  ..<<readonly>>..
+
+  + id : integer
+  + email : string
+  + role : AdminType
+  ....
+}
+
+enum AdminType {
+  + manager = 'Manager'
+  + viewer = 'Viewer'
+}
+@enduml
