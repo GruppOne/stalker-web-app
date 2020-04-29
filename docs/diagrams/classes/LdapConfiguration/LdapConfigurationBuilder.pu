@@ -1,4 +1,4 @@
- @startuml LdapConfigurationBuilder diagram
+@startuml LdapConfigurationBuilder diagram
 class LdapConfigurationBuilder {
   - username : string
   - password : string
