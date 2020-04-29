@@ -1,0 +1,19 @@
+@startuml HomeComponent diagram
+class HomeComponent {
+  + toggle : boolean
+  + nestedForm : FormGroup
+  ==constructor==
+
+  + constructor(
+    private readonly loginService: LoginService,
+    private readonly router: Router,
+    private readonly titleService: Title,
+  )
+  ==methods==
+
+  + ngOnInit()
+  + login(email : string, password : string)
+  + validateInput(email : string, password : string)
+  + translate(i : number)
+}
+@enduml

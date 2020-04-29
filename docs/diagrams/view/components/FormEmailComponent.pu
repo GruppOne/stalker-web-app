@@ -1,0 +1,16 @@
+@startuml FormEmailComponent diagram
+class FormEmailComponent {
+  + emailForm : FormGroup
+  ==methods==
+
+  + ngOnInit()
+  + onTouched()
+  + writeValue(val: MailType)
+  + registerOnChange(fn: () => void)
+  + registerOnTouched(fn: () => void)
+}
+
+interface MailType {
+  + email : string
+}
+@enduml
