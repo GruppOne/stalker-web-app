@@ -12,6 +12,7 @@ import {AuthGuard} from './auth.guard';
 import {AdminType} from './model/classes/administrator';
 import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor.service';
 import {CustomMaterialModule} from './modules/material.module';
+import {CreateOrganizationComponent} from './view/_routes/create-organization/create-organization.component';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './view/_routes/home/home.component';
 import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
@@ -33,16 +34,20 @@ const routes: Routes = [
   {path: 'users/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'organizations', component: OrganizationsComponent, canActivate: [AuthGuard]},
   {
-    path: 'organizations/:id',
+    path: 'organization/:id',
     component: OrganizationComponent,
     canActivate: [AuthGuard],
     data: {roles: AdminType.viewer},
   },
   {
-    path: 'organizations/:id/edit',
+    path: 'organization/:id/edit',
     component: EditOrganizationComponent,
     canActivate: [AuthGuard],
     data: {roles: AdminType.manager},
+  },
+  {
+    path: 'organization/create',
+    component: CreateOrganizationComponent,
   },
   // route to 404
   {path: '**', component: NotFoundComponent},
@@ -61,6 +66,7 @@ const routes: Routes = [
     MapComponent,
     NotFoundComponent,
     OrganizationsComponent,
+    CreateOrganizationComponent,
     AdministratorComponent,
   ],
   imports: [

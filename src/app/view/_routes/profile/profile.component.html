@@ -3,7 +3,7 @@
   <div class="profileImage">
     <!-- if profile pic exists
       <img src="{{ user.id }}.png" class="profilePic"/>-->
-    <img src="../../../../assets/default-profile-pic.jpg" class="profilePic" />
+    <img src="../../../../assets/default-profile-pic.jpg" class="profilePic" alt="profile pic" />
   </div>
   <div class="infoContainer">
     <h1>John Smith</h1>
@@ -23,7 +23,7 @@
       >
         <mat-icon>list</mat-icon> Organizations list
       </button>
-      <button color="accent" mat-raised-button matTooltip="Create new organization">
+      <button color="accent" mat-raised-button matTooltip="Create new organization" routerLink="/organization/create">
         <mat-icon>add</mat-icon> Create
       </button>
     </div>
