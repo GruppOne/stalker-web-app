@@ -1,0 +1,19 @@
+@startuml Class Diagram
+class UserRole{
+  __ private data __
+  - userId : number
+  - role : Role
+  ==
+  + UserRole(userId : number, role : Role)
+  + getUserId()
+  + getRole()
+  + setRole(role : Role)
+}
+enum Role {
+  GENERIC
+  VIEWER
+  MANAGER
+  OWNER
+  ADMIN
+}
+@enduml
