@@ -6,10 +6,10 @@ class PlaceDataBuilder {
   - state : string
   ==methods==
 
-  + addAddress(address : string)
-  + addCity(city : string)
-  + addZipcode(zipcode : string)
-  + addState(state : string)
-  + build()
+  + addAddress(address : string) : PlaceDataBuilder
+  + addCity(city : string) : PlaceDataBuilder
+  + addZipcode(zipcode : string) : PlaceDataBuilder
+  + addState(state : string) : PlaceDataBuilder
+  + build() : PlaceData
 }
 @enduml

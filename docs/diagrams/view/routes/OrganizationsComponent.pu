@@ -1,0 +1,12 @@
+@startuml OrganizationsComponent diagram
+class OrganizationsComponent {
+  + displayedColumns : string[]
+  + paginator : MatPaginator
+  + sort: MatSort
+  ==methods==
+
+  + ngOnInit() : void
+  + applyFilter(event : Event) : void
+  + createNewUser(id : number) : UserData
+}
+@enduml

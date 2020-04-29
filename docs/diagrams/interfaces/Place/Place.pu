@@ -9,6 +9,6 @@ interface Place {
   ....
   == methods ==
 
-  + getLatLng(polyline : MyLatLng[])
+  + getLatLng(polyline : MyLatLng[]) : LatLng[]
 }
 @enduml

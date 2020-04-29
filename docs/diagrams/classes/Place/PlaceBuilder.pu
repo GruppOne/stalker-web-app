@@ -8,10 +8,10 @@ class PlaceBuilder {
   + constructor(private polyline : MyLatLng[])
   == methods ==
 
-  + addId(id : integer)
-  + addName(name : string)
-  + addPolyline(polyline : MyLatLng[])
-  + addPlaceData(placeData : PlaceData)
-  + build()
+  + addId(id : integer) : PlaceBuilder
+  + addName(name : string) : PlaceBuilder
+  + addPolyline(polyline : MyLatLng[]) : PlaceBuilder
+  + addPlaceData(placeData : PlaceData) : PlaceBuilder
+  + build() : Place
 }
 @enduml

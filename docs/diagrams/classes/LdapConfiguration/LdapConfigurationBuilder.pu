@@ -7,9 +7,9 @@ class LdapConfigurationBuilder {
   + constructor(private host : string)
   ==methods==
 
-  + addHost(host : string)
-  + addUsername(username : string)
-  + addPassword(password : string)
-  + build()
+  + addHost(host : string) : LdapConfigurationBuilder
+  + addUsername(username : string) : LdapConfigurationBuilder
+  + addPassword(password : string) : LdapConfigurationBuilder
+  + build() : LdapConfiguration
 }
 @enduml

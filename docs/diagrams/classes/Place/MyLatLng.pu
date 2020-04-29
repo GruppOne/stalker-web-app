@@ -11,8 +11,8 @@ class MyLatLng {
   + constructor(latitude : number, longitude : number, leafletLatLng : LatLng)
   ==methods==
 
-  + getLeafletLatLng()
-  + getLongitude()
-  + getLatitude()
+  + getLeafletLatLng() : LatLng
+  + getLongitude() : number
+  + getLatitude() : number
 }
 @enduml

@@ -11,9 +11,9 @@ class HomeComponent {
   )
   ==methods==
 
-  + ngOnInit()
-  + login(email : string, password : string)
-  + validateInput(email : string, password : string)
-  + translate(i : number)
+  + ngOnInit() : void
+  + login(email : string, password : string) : void
+  + validateInput(email : string, password : string) : boolean
+  + translate(i : number) : void
 }
 @enduml
