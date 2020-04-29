@@ -1,0 +1,13 @@
+@startuml LoginService
+class AuthenticationService {
+  == constructor ==
+
+  + constructor(httpClient : HttpClientService)
+  == methods ==
+
+  + login(user : User): Observable<User>
+  + checkPermissionOnOrg(role: AdminType, organizationId: number): boolean
+  + logout(): void
+  + isLoggedIn(): boolean
+}
+@enduml

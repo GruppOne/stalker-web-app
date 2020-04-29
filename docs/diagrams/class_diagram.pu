@@ -28,6 +28,23 @@
 !include classes/OrganizationBuilder/OrganizationBuilder.pu
 ' END include classes
 
+'---------------------------------------------------
+
+' START include services
+
+!include services/auth-http-interceptorservice.pu
+!include services/loginservice.pu
+!include services/organizationservice.pu
+!include services/userservice.pu
+!include services/placeservice.pu
+!include services/http-clientservice.pu
+!include services/connected-userservice.pu
+
+' END include services
+
+'---------------------------------------------------
+
+
 class LoginComponent {
   __ private data __
   - User : user
@@ -40,17 +57,7 @@ class LoginComponent {
 class environment{
   + apiUrl : string
 }
-class AuthenticationService {
-  __ private data __
-  - clientId : number
-  ==
-  + constructor(http : HttpClient)
-  + login(user : User)
-  + checkCookie()
-  + logout()
-  + getToken(code : any)
-  + saveToken()
-}
+
 
 class HomePageComponent {
  + constructor(auth : AuthenticationService)
@@ -74,11 +81,6 @@ class ProfileComponent {
   + getUser()
 }
 
-class UserService {
-  + constructor()
-  + getUser()
-}
-
 class ShowOrganizationComponent {
   __ private data __
   - organizations : Organization[]
@@ -90,12 +92,6 @@ class ShowOrganizationComponent {
 class OrganizationRequestComponent {
   + constructor(auth : AuthenticationService, userService : UserService, organizationService : OrganizationService)
   + sendRequest( organization : Organization)
-}
-
-class OrganizationService {
- + constructor()
- + getOrganization( userId : number)
- + createOrganization( organization : Organization)
 }
 
 class MonitorOrganizationComponent
