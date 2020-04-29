@@ -1,0 +1,14 @@
+@startuml ProfileComponent diagram
+class ProfileComponent {
+  - userBuilder : UserBuilder
+  + fetched : boolean
+  + user : User
+  ==constructor==
+
+  + constructor(private readonly userService : UserService)
+  ==methods==
+
+  + ngOnInit()
+  + getUser(id: number)
+}
+@enduml

@@ -1,0 +1,29 @@
+@startuml MapComponent diagram
+class MapComponent {
+  + arrayCoord : LatLng[]
+  + arrayRoad : string[]
+  + arrayCity : string[]
+  + arrayPostcode : string[]
+  + arrayCountry : string[]
+  + arrayName : string[]
+  + organization : Organization
+  + organizationBuilder : OrganizationBuilder
+  + options : object
+  + drawOptions : object
+  + polygonLayers : Polygon[]
+  + bounds: LatLngBounds[]
+  ==constructor==
+
+  + constructor(
+    private readonly placeService: PlaceService,
+    private readonly organizationService: OrganizationService,
+  )
+  ==methods==
+
+  + ngOnInit()
+  + onDrawCreated(e : {layer : Polygon})
+  + getOrganizationById(id : number)
+  + getRandomColor()
+  + getCentroid(latlngs : LatLng[])
+}
+@enduml
