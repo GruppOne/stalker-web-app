@@ -2,6 +2,6 @@
 class NotFoundComponent {
   ==methods==
 
-  + ngOnInit()
+  + ngOnInit() : void
 }
 @enduml

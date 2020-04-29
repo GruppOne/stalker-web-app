@@ -88,6 +88,7 @@ export class OrganizationsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   /** Builds and returns a new User. */
   createNewUser(id: number): UserData {
     const name =

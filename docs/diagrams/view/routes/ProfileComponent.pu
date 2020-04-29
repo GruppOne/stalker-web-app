@@ -8,7 +8,7 @@ class ProfileComponent {
   + constructor(private readonly userService : UserService)
   ==methods==
 
-  + ngOnInit()
-  + getUser(id: number)
+  + ngOnInit() : void
+  + getUser(id: number) : void
 }
 @enduml

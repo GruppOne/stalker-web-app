@@ -7,11 +7,11 @@ class UserDataBuilder {
   - lastModifiedDate : string
   ==methods==
 
-  + addFirstName(firstName : string)
-  + addLastName(lastName : string)
-  + addBirthDate(birthDate : string)
-  + addCreatedDate(createdDate : string)
-  + addLastModifiedDate(lastModifiedDate : string)
-  + build()
+  + addFirstName(firstName : string) : UserDataBuilder
+  + addLastName(lastName : string) : UserDataBuilder
+  + addBirthDate(birthDate : string) : UserDataBuilder
+  + addCreatedDate(createdDate : string) : UserDataBuilder
+  + addLastModifiedDate(lastModifiedDate : string) : UserDataBuilder
+  + build() : UserData
 }
 @enduml

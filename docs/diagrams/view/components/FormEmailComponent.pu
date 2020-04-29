@@ -3,11 +3,11 @@ class FormEmailComponent {
   + emailForm : FormGroup
   ==methods==
 
-  + ngOnInit()
+  + ngOnInit() : void
   + onTouched()
-  + writeValue(val: MailType)
-  + registerOnChange(fn: () => void)
-  + registerOnTouched(fn: () => void)
+  + writeValue(val: MailType) : void
+  + registerOnChange(fn: () => void) : void
+  + registerOnTouched(fn: () => void) : void
 }
 
 interface MailType {

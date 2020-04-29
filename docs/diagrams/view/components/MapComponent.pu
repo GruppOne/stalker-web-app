@@ -20,10 +20,10 @@ class MapComponent {
   )
   ==methods==
 
-  + ngOnInit()
-  + onDrawCreated(e : {layer : Polygon})
-  + getOrganizationById(id : number)
-  + getRandomColor()
-  + getCentroid(latlngs : LatLng[])
+  + ngOnInit() : void
+  + onDrawCreated(e : {layer : Polygon}) : void
+  + getOrganizationById(id : number) : void
+  + getRandomColor() : string
+  + getCentroid(latlngs : LatLng[]) : LatLng
 }
 @enduml

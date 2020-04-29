@@ -11,14 +11,14 @@ class OrganizationBuilder {
   + constructor(private name : string, private isPrivate : boolean)
   == methods ==
 
-  + addId(id : integer)
-  + addName(name : string)
-  + addDescription(description : string)
-  + addLdapConfiguration(ldapConfiguration : LdapConfiguration)
-  + addPlaces(places : Place[])
-  + addIsPrivate(isPrivate : boolean)
-  + addCreatedDate(createdDate : string)
-  + addLastModifiedDate(lastModifiedDate : string)
-  + build()
+  + addId(id : integer) : OrganizationBuilder
+  + addName(name : string) : OrganizationBuilder
+  + addDescription(description : string) : OrganizationBuilder
+  + addLdapConfiguration(ldapConfiguration : LdapConfiguration) : OrganizationBuilder
+  + addPlaces(places : Place[]) : OrganizationBuilder
+  + addIsPrivate(isPrivate : boolean) : OrganizationBuilder
+  + addCreatedDate(createdDate : string) : OrganizationBuilder
+  + addLastModifiedDate(lastModifiedDate : string) : OrganizationBuilder
+  + build() : Organization
 }
 @enduml
