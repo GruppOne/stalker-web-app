@@ -1,0 +1,11 @@
+@startuml Class Diagram
+class MyLatLng{
+__ private data __
+- longitude : number
+- latitude : number
+==
++ MyLatLng(longitude : number, latitude : number)
++ getLongitude()
++ getLatitude()
+}
+@enduml

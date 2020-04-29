@@ -1,0 +1,18 @@
+@startuml Class Diagram
+class Place{
+__ private data __
+- id : number
+- name : string
+- polyline : MyLatLng[]
+- data : PlaceData
+==
++ Place(id : number, name : string, polyline : MyLatLng[], data : PlaceData)
++ Place(name : string, polyline : MyLatLng[], data : PlaceData)
++ Place(id : number, name : string, polyline : MyLatLng[])
++ getPlaceId()
++ getName()
++ getPolyline()
++ setName(name : string)
++ setPolyline(polyline : MyLatLng[])
+}
+@enduml

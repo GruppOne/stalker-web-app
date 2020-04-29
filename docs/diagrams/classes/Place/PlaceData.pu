@@ -1,0 +1,22 @@
+@startuml Class Diagram
+class PlaceData{
+__ private data __
+- id : number
+- address : string
+- city : string
+- zipcode : string
+- state : string
+==
++ PlaceData(address : string, city : string, zipcode : string, state : string)
++ PlaceData(id : number, address : string, city : string, zipcode : string, state : string)
++ getId()
++ getAddress()
++ getCity()
++ getZipcode()
++ getState()
++ setAddress(address : string)
++ setCity(city : string)
++ setZipcode(zipcode : string)
++ setState(state : string)
+}
+@enduml
