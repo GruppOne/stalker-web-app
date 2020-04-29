@@ -1,0 +1,8 @@
+@startuml AuthHttpInterceptor
+
+class AuthHttpInterceptor {
+  == methods ==
+
+  + intercept(req: HttpRequest<BodyType>, next: HttpHandler): Observable<HttpEvent<BodyType>>
+}
+@enduml
