@@ -3,6 +3,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
+import {AdminType} from '../classes/administrator';
+
 import {HttpClientService} from './http-client.service';
 import {LoginService} from './login.service';
 
@@ -44,8 +46,14 @@ describe('LoginService', () => {
     expect(result).toEqual(defaultUser);
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
-
-  it('should call the httpClientService with additional headers', () => {
+  it('should check if the user isLoggedIn and return false', () => {
+    sut.logout();
+    const result: boolean = sut.isLoggedIn();
+    expect(result).toBe(false);
+    sut.logout();
+  });
+  it('should check if the user isLoggedIn and return true', () => {
+    sut.logout();
     httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
@@ -55,12 +63,41 @@ describe('LoginService', () => {
         }),
       ),
     );
-    const headers = new HttpHeaders({key: 'value'});
-    let result: {email: string; password: string} = {email: '', password: ''};
-    sut
-      .loginWithAdditionalHeader(defaultUser, headers)
-      .subscribe((response) => (result = response));
-    expect(result).toEqual(defaultUser);
-    expect(httpPostSpy.calls.any()).toBe(true, 'post called');
+    sut.login(defaultUser).subscribe();
+    const result: boolean = sut.isLoggedIn();
+    expect(result).toBe(true);
+    sut.logout();
+  });
+  it('should check if the user has sufficient permissions given a token', () => {
+    sut.logout();
+    httpPostSpy = httpClientService.post.and.returnValue(
+      of(
+        new HttpResponse({
+          body: defaultUser,
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    sut.login(defaultUser).subscribe();
+    const result: boolean = sut.checkAuthorization(2, AdminType.viewer);
+    expect(result).toBe(true);
+    sut.logout();
+  });
+  it('should check if the user has sufficient permissions given a token', () => {
+    sut.logout();
+    httpPostSpy = httpClientService.post.and.returnValue(
+      of(
+        new HttpResponse({
+          body: defaultUser,
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    sut.login(defaultUser).subscribe();
+    const result: boolean = sut.checkAuthorization(2, AdminType.owner);
+    expect(result).toBe(false);
+    sut.logout();
   });
 });

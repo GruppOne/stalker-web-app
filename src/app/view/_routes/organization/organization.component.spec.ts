@@ -47,7 +47,21 @@ describe('OrganizationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create with organization got from http request', () => {
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+      of({name: 'unipd', isPrivate: false}),
+    );
+    fixture = TestBed.createComponent(OrganizationComponent);
+    component = fixture.componentInstance;
+    expect(component).toBeTruthy();
+  });
+
+  it('should create without organization got from http request', () => {
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+      throwError(''),
+    );
+    fixture = TestBed.createComponent(OrganizationComponent);
+    component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 

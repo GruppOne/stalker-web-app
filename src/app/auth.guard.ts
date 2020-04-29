@@ -16,11 +16,12 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.loginService.isLoggedIn()) {
       const actualOrgId = +(route.paramMap.get('id') as string);
-      return this.loginService.checkAuthorization(
-        actualOrgId,
-        route.data.roles,
-        this.location,
-      );
+      if (this.loginService.checkAuthorization(actualOrgId, route.data.roles)) {
+        return true;
+      } else {
+        this.location.back();
+        return false;
+      }
     } else {
       this.router.navigate(['/home']);
       return false;
