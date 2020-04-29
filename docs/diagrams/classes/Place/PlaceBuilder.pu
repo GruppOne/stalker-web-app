@@ -1,0 +1,17 @@
+@startuml PlaceBuilder Diagram
+class PlaceBuilder {
+  - id : integer
+  - name : string
+  - placeData : PlaceData
+  == contructor ==
+
+  + constructor(private polyline : MyLatLng[])
+  == methods ==
+
+  + addId(id : integer)
+  + addName(name : string)
+  + addPolyline(polyline : MyLatLng[])
+  + addPlaceData(placeData : PlaceData)
+  + build()
+}
+@enduml

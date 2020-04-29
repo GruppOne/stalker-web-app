@@ -1,0 +1,15 @@
+ @startuml LdapConfigurationBuilder diagram
+class LdapConfigurationBuilder {
+  - username : string
+  - password : string
+  ==constructor==
+
+  + constructor(private host : string)
+  ==methods==
+
+  + addHost(host : string)
+  + addUsername(username : string)
+  + addPassword(password : string)
+  + build()
+}
+@enduml

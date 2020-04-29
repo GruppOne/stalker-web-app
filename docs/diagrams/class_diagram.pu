@@ -1,19 +1,32 @@
 @startuml Class Diagram
 
-' START include classes
-
+' START include interfaces
 ' -------------------------------------------------- User
-!include classes/User/User.pu
-!include classes/User/UserData.pu
-!include classes/User/UserRole.pu
+!include interfaces/User/User.pu
+!include interfaces/User/UserData.pu
+!include interfaces/User/UserRole.pu
 
 ' -------------------------------------------------- Place
-!include classes/Place/Place.pu
-!include classes/Place/MyLatLng.pu
-!include classes/Place/PlaceData.pu
+!include interfaces/Place/Place.pu
+!include interfaces/Place/MyLatLng.pu
+!include interfaces/Place/PlaceData.pu
 
 ' -------------------------------------------------- Organization
+!include interfaces/Organization/Organization.pu
+' END include interfaces
 
+'---------------------------------------------------
+
+' START include classes
+' -------------------------------------------------- UserBuilder
+!include classes/UserBuilder/UserBuilder.pu
+
+' -------------------------------------------------- PlaceBuilder
+!include classes/PlaceBuilder/PlaceBuilder.pu
+
+' -------------------------------------------------- OrganizationBuilder
+!include classes/OrganizationBuilder/OrganizationBuilder.pu
+' END include classes
 
 class LoginComponent {
   __ private data __

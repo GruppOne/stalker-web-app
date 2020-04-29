@@ -1,0 +1,11 @@
+@startuml User Diagram
+interface User {
+  ..<<readonly>>..
+
+  + email : string
+  + password : string
+  + id : number
+  + userData : UserData
+  ....
+}
+@enduml

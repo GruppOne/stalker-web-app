@@ -1,11 +1,18 @@
-@startuml Class Diagram
-class MyLatLng{
-__ private data __
-- longitude : number
-- latitude : number
-==
-+ MyLatLng(longitude : number, latitude : number)
-+ getLongitude()
-+ getLatitude()
+@startuml MyLatLng Diagram
+class MyLatLng {
+  ..<<readonly>>..
+
+  - longitude : number
+  - latitude : number
+  - leafletLatLng : LatLng
+  ....
+  ==constructor==
+
+  + constructor(latitude : number, longitude : number, leafletLatLng : LatLng)
+  ==methods==
+
+  + getLeafletLatLng()
+  + getLongitude()
+  + getLatitude()
 }
 @enduml

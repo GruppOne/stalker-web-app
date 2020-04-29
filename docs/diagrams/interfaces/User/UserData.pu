@@ -1,0 +1,12 @@
+@startuml UserData Diagram
+interface UserData{
+  ..<<readonly>>..
+
+  - firstName : string
+  - lastName : string
+  - birthDate : string
+  - createdDate : string
+  - lastModifiedDate : string
+  ....
+}
+@enduml

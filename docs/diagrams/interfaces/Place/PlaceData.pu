@@ -1,0 +1,11 @@
+@startuml PlaceData Diagram
+class PlaceData {
+  ..<<readonly>>..
+
+  + address : string
+  + city : string
+  + zipcode : string
+  + state : string
+  ....
+}
+@enduml
