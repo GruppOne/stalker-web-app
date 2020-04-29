@@ -1,5 +1,4 @@
-import {Location} from '@angular/common';
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import * as jwt from 'jsonwebtoken';
 import * as moment from 'moment';
@@ -76,13 +75,10 @@ export class LoginService {
     localStorage.removeItem('creation_time');
   }
 
-  checkAuthorization(
-    actualOrgId: number,
-    desiredRole: string,
-    location: Location,
-  ): boolean {
+  checkAuthorization(actualOrgId: number, desiredRole: string): boolean {
     let authroized = false;
     const connectedOrg = JSON.parse(localStorage.getItem('organizations') as string);
+    console.log(connectedOrg);
     connectedOrg.forEach((element: {organizationId: number; role: string}) => {
       if (
         element.organizationId === actualOrgId &&
@@ -91,21 +87,6 @@ export class LoginService {
         authroized = true;
       }
     });
-    if (authroized) {
-      return true;
-    } else {
-      location.back();
-      return false;
-    }
-  }
-
-  // TODO this might be unneded
-  loginWithAdditionalHeader(
-    user: User,
-    additionalHeaders: HttpHeaders,
-  ): Observable<User> {
-    return this.httpClientService
-      .post<User>('/user/login', user, additionalHeaders)
-      .pipe(map((response: HttpResponse<User>) => response.body as User));
+    return authroized;
   }
 }

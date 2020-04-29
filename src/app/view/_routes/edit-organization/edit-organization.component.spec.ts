@@ -35,7 +35,7 @@ describe('EditOrganizationComponent', () => {
   ]);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-    of({organizations: []}),
+    of(null),
   );
 
   let organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
@@ -90,6 +90,22 @@ describe('EditOrganizationComponent', () => {
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+  it('should create with organization got from http request', () => {
+    organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
+      of({name: 'unipd', isPrivate: false}),
+    );
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
+  });
+  it('should create without organization got from http request', () => {
+    organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
+      throwError(''),
+    );
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
