@@ -1,5 +1,5 @@
 @startuml LoginService
-class AuthenticationService {
+class LoginService {
   == constructor ==
 
   + constructor(httpClient : HttpClientService)

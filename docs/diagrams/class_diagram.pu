@@ -4,11 +4,9 @@
 ' -------------------------------------------------- User
 !include interfaces/User/User.pu
 !include interfaces/User/UserData.pu
-!include interfaces/User/UserRole.pu
 
 ' -------------------------------------------------- Place
 !include interfaces/Place/Place.pu
-!include interfaces/Place/MyLatLng.pu
 !include interfaces/Place/PlaceData.pu
 
 ' -------------------------------------------------- Organization
@@ -19,13 +17,13 @@
 
 ' START include classes
 ' -------------------------------------------------- UserBuilder
-!include classes/UserBuilder/UserBuilder.pu
+!include classes/User/UserBuilder.pu
 
 ' -------------------------------------------------- PlaceBuilder
-!include classes/PlaceBuilder/PlaceBuilder.pu
+!include classes/Place/PlaceBuilder.pu
 
 ' -------------------------------------------------- OrganizationBuilder
-!include classes/OrganizationBuilder/OrganizationBuilder.pu
+!include classes/Organization/OrganizationBuilder.pu
 ' END include classes
 
 '---------------------------------------------------
@@ -44,67 +42,26 @@
 
 '---------------------------------------------------
 
+' START include components
 
-class LoginComponent {
-  __ private data __
-  - User : user
-  ==
-  + constructor(auth : AuthenticationService)
-  + login()
-  + loginError()
-}
+!include view/components/MapComponent.pu
+!include view/components/ButtonConfirmComponent.pu
+!include view/components/FormEmailComponent.pu
+!include view/components/FormPasswordComponent.pu
+
+!include view/routes/editorganizationcomponent.pu
+!include view/routes/HomeComponent.pu
+!include view/routes/NotFoundComponent.pu
+!include view/routes/organizationcomponent.pu
+!include view/routes/ProfileComponent.pu
+!include view/routes/OrganizationsComponent.pu
+
+' END include components
 
 class environment{
   + apiUrl : string
 }
 
-
-class HomePageComponent {
- + constructor(auth : AuthenticationService)
-}
-
-class TopBarComponent {
- __ private data __
- - User : user
- ==
- + constructor(auth : AuthenticationService, userService : UserService)
- + getUser()
- + getDate()
- + getTime()
-}
-
-class ProfileComponent {
-  __ private data __
-  - User : user
-  ==
-  + constructor(auth : AuthenticationService, userService : UserService)
-  + getUser()
-}
-
-class ShowOrganizationComponent {
-  __ private data __
-  - organizations : Organization[]
-  ==
-  + constructor(auth : AuthenticationService, userService : UserService, organizationService : OrganizationService)
-  + getOrganizations( userId : number)
-}
-
-class OrganizationRequestComponent {
-  + constructor(auth : AuthenticationService, userService : UserService, organizationService : OrganizationService)
-  + sendRequest( organization : Organization)
-}
-
-class MonitorOrganizationComponent
-class ShowEmployeesComponent
-class ShowPlacesComponent
-class ManagePlacesComponent
-class ManageOrganizationsComponent
-class ManageUsersComponent
-
-class OrganizationListComponent
-class OrganizationListService
-class OrganizationDetailsComponent
-class OrganizationDetailsService
 LoginComponent o-- AuthenticationService
 AuthenticationService ..> User
 LoginComponent --> User
