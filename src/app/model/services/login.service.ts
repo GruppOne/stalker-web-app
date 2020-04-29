@@ -38,9 +38,9 @@ export class LoginService {
         // let jwtTokenHeader = response.headers.get('Authorization') as string;
         const jwtTokenHeader =
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25zIjpbeyJvcmdhbml6YXRpb25JZCI6' +
-          'Miwicm9sZSI6IlJPTEVfTUFOQUdFUiJ9LHsib3JnYW5pemF0aW9uSWQiOjMsInJvbGUiOiJST0x' +
-          'FX1ZJRVdFUiJ9XSwic3ViIjoidXNlciIsImlhdCI6MTU4NzkxMDQyNywiZXhwIjoxNTkwOTEwND' +
-          'I3fQ.cxdSfwuN8orpXLD_O9pRuVfdnzyvHkm2Efd5MWUVe6M';
+          'Miwicm9sZSI6Ik1hbmFnZXIifSx7Im9yZ2FuaXphdGlvbklkIjozLCJyb2xlIjoiVmlld2VyIn1' +
+          'dLCJzdWIiOiJ1c2VyIiwiaWF0IjoxNTg3OTEwNDI3LCJleHAiOjE1OTA5MTA0Mjd9.xOKpTUzPDM' +
+          'mjIffL7uUNJ48VY5bUun2rZDD7nmK9zt4';
         const jwtToken = jwtTokenHeader.substring(7);
         const payload: StalkerJWT = jwt.verify(
           jwtToken,
