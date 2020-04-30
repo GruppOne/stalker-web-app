@@ -1,5 +1,6 @@
 @startuml Class Diagram
 
+!include ../style/class.pu
 ' START include interfaces
 ' -------------------------------------------------- User
 !include interfaces/User/User.pu
@@ -74,12 +75,34 @@
 
 '---------------------------------------------------------------------------
 
+package "Angular" {
+  class FormGroup
+  class AbstractControl
+  class FormBuilder
+  class HttpRequest
+  class HttpHeaders
+  class Validators
+  class HttpClient
+  class Title
+  class Router
+}
 
+package "Leaflet" {
+  class LatLng
+  class LatLngBounds
+  class Polygon
+}
+
+package "Angular Material" {
+  class MatTableDataSource
+  class MatPaginator
+  class MatSort
+}
 EditOrganizationComponent --> AdminType
 EditOrganizationComponent --> MapComponent
 EditOrganizationComponent -- Organization
 EditOrganizationComponent o-- OrganizationBuilder
-EditOrganizationComponent -- Administrators
+EditOrganizationComponent -- Administrator
 EditOrganizationComponent -- User
 EditOrganizationComponent --> FormGroup
 EditOrganizationComponent ..> AbstractControl
@@ -128,7 +151,7 @@ MapComponent --> PlaceService
 MapComponent --> OrganizationService
 
 
-AdministratoService --> HttpClientService
+AdministratorService --> HttpClientService
 AdministratorService -- Administrator
 
 
