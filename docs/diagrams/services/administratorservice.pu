@@ -2,11 +2,21 @@
 class AdministratorService {
   == constructor ==
 
-  + constructor(private readonly httpClientService: HttpClientService)
+  + constructor(
+    private <<readonly>> httpClientService: HttpClientService
+    )
   == methods ==
 
-  + addAdministrator(organizationId: number, userId: number): Observable<Administrator>
-  + removeAdministrator(organizationId: number, administratorId: number): Observable<Administrator>
-  + getAdministrators(organizationId: number): Observable<Administrator[]>
+  + addAdministrator(
+    organizationId: number,
+    userId: number
+    ): Observable<Administrator>
+  + removeAdministrator(
+    organizationId: number,
+    administratorId: number
+    ): Observable<Administrator>
+  + getAdministrators(
+    organizationId: number
+    ): Observable<Administrator[]>
 }
 @enduml

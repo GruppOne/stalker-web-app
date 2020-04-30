@@ -5,7 +5,9 @@ class OrganizationComponent {
   - organizationBuilder?: OrganizationBuilder
   == constructor ==
 
-  constructor(private readonly organizationService: OrganizationService)
+  + constructor(
+    private <<readonly>> organizationService: OrganizationService
+    )
   == methods ==
 
   + ngOnInit() : void

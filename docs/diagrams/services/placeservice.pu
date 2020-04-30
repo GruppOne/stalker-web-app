@@ -18,10 +18,15 @@ interface AddressType {
 class PlaceService {
   == constructor ==
 
-  + constructor(private readonly httpClient: HttpClient)
+  + constructor(
+    private <<readonly>> httpClient : HttpClient
+    )
   == methods ==
 
-  + reverseGeocoding(lat: number, lng: number): Observable<Geocoding>
+  + reverseGeocoding(
+    lat : number,
+    lng : number
+    ) : Observable<Geocoding>
 }
 
 Geocoding *-- AddressType

@@ -14,11 +14,15 @@ class OrganizationBuilder {
   + addId(id : integer) : OrganizationBuilder
   + addName(name : string) : OrganizationBuilder
   + addDescription(description : string) : OrganizationBuilder
-  + addLdapConfiguration(ldapConfiguration : LdapConfiguration) : OrganizationBuilder
+  + addLdapConfiguration(
+    ldapConfiguration : LdapConfiguration
+    ) : OrganizationBuilder
   + addPlaces(places : Place[]) : OrganizationBuilder
   + addIsPrivate(isPrivate : boolean) : OrganizationBuilder
   + addCreatedDate(createdDate : string) : OrganizationBuilder
-  + addLastModifiedDate(lastModifiedDate : string) : OrganizationBuilder
+  + addLastModifiedDate(
+    lastModifiedDate : string
+    ) : OrganizationBuilder
   + build() : Organization
 }
 
