@@ -10,7 +10,7 @@ class FormEmailComponent {
   + registerOnTouched(fn: () => void) : void
 }
 
-interface MailType {
+interface MailType <<interface>> {
   + email : string
 }
 

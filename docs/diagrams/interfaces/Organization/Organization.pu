@@ -1,5 +1,5 @@
 @startuml Organization Diagram
-interface Organization {
+interface Organization <<interface>> {
   ..<<readonly>>..
 
   + id ?: integer

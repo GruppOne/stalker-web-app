@@ -1,11 +1,11 @@
 @startuml PlaceService
 
-interface Geocoding {
+interface Geocoding <<interface>> {
   + display_name : string
   + address : AddressType
 }
 
-interface AddressType {
+interface AddressType <<interface>> {
   + city : string
   + country : string
   + postcode : string

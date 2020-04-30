@@ -1,5 +1,5 @@
 @startuml LdapConfiguration diagram
-interface LdapConfiguration {
+interface LdapConfiguration <<interface>> {
   ..<<readonly>>..
 
   + host : string
