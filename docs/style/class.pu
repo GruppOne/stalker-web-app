@@ -2,7 +2,7 @@
 
 skinparam {
   ArrowColor #000
-  BackgroundColor #dfdfdf
+  BackgroundColor #efefef
   DefaultFontName Roboto
   Linetype ortho
   NoteFontName Roboto
@@ -26,12 +26,12 @@ skinparam {
   }
 
   Package {
-    BackgroundColor #b3b3b3
+    BackgroundColor #c3c3c3
     BorderColor #989898
   }
 
   Note {
-    BackgroundColor #b3b3b3
+    BackgroundColor #c3c3c3
     BorderColor #989898
   }
 }
