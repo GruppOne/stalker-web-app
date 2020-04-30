@@ -22,7 +22,7 @@
   <div class="white-triangle" *ngIf="this.getRoute() != '/home'"></div>
 </mat-toolbar>
 <img class="background" *ngIf="this.getRoute() == '/home'" src="../assets/walking-crowd.png" />
-<div class="whiteBar" *ngIf="this.getRoute() == '/profile'"></div>
+<div class="whiteBar" *ngIf="this.getRoute().toString().includes('/users/')"></div>
 <div class="container">
   <router-outlet></router-outlet>
 </div>

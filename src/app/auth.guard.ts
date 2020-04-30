@@ -15,12 +15,20 @@ export class AuthGuard implements CanActivate {
   ) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.loginService.isLoggedIn()) {
-      const actualOrgId = +(route.paramMap.get('id') as string);
-      if (this.loginService.checkAuthorization(actualOrgId, route.data.roles)) {
-        return true;
+      if (route.url.toString().includes('organization')) {
+        const actualOrgId = +(route.paramMap.get('id') as string);
+        if (actualOrgId) {
+          if (this.loginService.checkAuthorization(actualOrgId, route.data.roles)) {
+            return true;
+          } else {
+            this.location.back();
+            return false;
+          }
+        } else {
+          return true;
+        }
       } else {
-        this.location.back();
-        return false;
+        return true;
       }
     } else {
       this.router.navigate(['/home']);
