@@ -26,11 +26,13 @@ skinparam {
   }
 
   Package {
-    HeaderBackgroundColor #989898
+    BackgroundColor #b3b3b3
+    BorderColor #989898
   }
 
   Note {
     BackgroundColor #b3b3b3
+    BorderColor #989898
   }
 }
 @enduml
