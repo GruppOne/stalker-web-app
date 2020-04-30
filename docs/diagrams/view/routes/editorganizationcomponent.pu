@@ -1,5 +1,5 @@
 @startuml EditOrganizationComponent
-class EditOrganization {
+class EditOrganizationComponent {
   - mapDataChild?
   - organization?: Organization
   - organizationBuilder?: OrganizationBuilder
