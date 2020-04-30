@@ -5,9 +5,12 @@ class LoginService {
   + constructor(httpClient : HttpClientService)
   == methods ==
 
-  + login(user : User): Observable<User>
-  + checkPermissionOnOrg(role: AdminType, organizationId: number): boolean
-  + logout(): void
-  + isLoggedIn(): boolean
+  + login(user : User) : Observable<User>
+  + checkPermissionOnOrg(
+    role : AdminType,
+    organizationId : number
+    ) : boolean
+  + logout() : void
+  + isLoggedIn() : boolean
 }
 @enduml

@@ -7,7 +7,12 @@ class EditOrganizationComponent {
   - formGroup: FormGroup
   == constructor ==
 
-  + constructor(private readonly formBuilder: FormBuilder, private readonly organizationService: OrganizationService, private readonly administratorService: AdministratorService, private readonly connectedUserService: ConnectedUserService)
+  + constructor(
+    private <<readonly>> formBuilder : FormBuilder,
+    private <<readonly>> organizationService : OrganizationService,
+    private <<readonly>> administratorService : AdministratorService,
+    private <<readonly>> connectedUserService : ConnectedUserService
+    )
   == methods ==
   + ngOnInit(): void
   + get formArray(): AbstractControll | null

@@ -10,14 +10,32 @@ interface HttpOptions  {
   ....
   == constructor ==
 
-  + constructor(private readonly httpClient: HttpClient)
+  + constructor(
+    private <<readonly>> httpClient: HttpClient
+    )
   == methods ==
 
-  + get<T>(relativePath: string, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>>
-  + post<T>(relativePath: string, body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>>
-  + put<T>(relativePath: string, body: T, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>>
-  + delete<T>(relativePath: string, additionalHeaders?: HttpHeaders): Observable<HttpResponse<T>>
-  - mergeAdditionalHeaders(additionalHeaders?: HttpHeaders): HttpOptions
+  + get<T>(
+    relativePath : string,
+    additionalHeaders ?: HttpHeaders
+    ) : Observable<HttpResponse<T>>
+  + post<T>(
+    relativePath : string,
+    body : T,
+    additionalHeaders ?: HttpHeaders
+    ): Observable<HttpResponse<T>>
+  + put<T>(
+    relativePath : string,
+    body : T,
+    additionalHeaders ?: HttpHeaders
+    ): Observable<HttpResponse<T>>
+  + delete<T>(
+    relativePath : string,
+    additionalHeaders ?: HttpHeaders
+    ) : Observable<HttpResponse<T>>
+  - mergeAdditionalHeaders(
+    additionalHeaders ?: HttpHeaders
+    ): HttpOptions
   - handleError()
  }
 

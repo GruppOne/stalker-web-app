@@ -15,8 +15,8 @@ class MapComponent {
   ==constructor==
 
   + constructor(
-    private readonly placeService: PlaceService,
-    private readonly organizationService: OrganizationService,
+    private <<readonly>> placeService : PlaceService,
+    private <<readonly>> organizationService : OrganizationService,
   )
   ==methods==
 
