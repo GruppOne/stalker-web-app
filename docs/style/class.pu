@@ -31,8 +31,8 @@ skinparam {
   }
 
   Note {
-    BackgroundColor #c3c3c3
-    BorderColor #989898
+    BackgroundColor #fdfd96
+    BorderColor #ffd400
   }
 }
 @enduml
