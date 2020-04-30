@@ -1,11 +1,11 @@
 @startuml OrganizationBuilder Diagram
 class OrganizationBuilder {
-  - id : integer
-  - description : string
-  - ldapConfiguration : LdapConfiguration
-  - places : Place[]
-  - createdDate : string
-  - lastModifiedDate : string
+  - id ?: integer
+  - description ?: string
+  - ldapConfiguration ?: LdapConfiguration
+  - places ?: Place[]
+  - createdDate ?: string
+  - lastModifiedDate ?: string
   == constructor ==
 
   + constructor(private name : string, private isPrivate : boolean)

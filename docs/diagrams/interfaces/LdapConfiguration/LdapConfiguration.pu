@@ -3,8 +3,8 @@ interface LdapConfiguration {
   ..<<readonly>>..
 
   + host : string
-  + username : string
-  + password : string
+  + username ?: string
+  + password ?: string
   ....
 }
 @enduml

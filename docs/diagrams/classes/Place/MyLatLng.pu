@@ -8,7 +8,11 @@ class MyLatLng {
   ....
   ==constructor==
 
-  + constructor(latitude : number, longitude : number, leafletLatLng : LatLng)
+  + constructor(
+    latitude : number,
+    longitude : number,
+    leafletLatLng ?: LatLng
+    )
   ==methods==
 
   + getLeafletLatLng() : LatLng

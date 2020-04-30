@@ -4,8 +4,8 @@ interface User {
 
   + email : string
   + password : string
-  + id : number
-  + userData : UserData
+  + id ?: number
+  + userData ?: UserData
   ....
 }
 

@@ -2,10 +2,10 @@
 interface Place {
   ..<<readonly>>..
 
-  + id : number
-  + name : string
+  + id ?: number
+  + name ?: string
   + polyline : MyLatLng[]
-  + placeData : PlaceData
+  + placeData ?: PlaceData
   ....
   == methods ==
 

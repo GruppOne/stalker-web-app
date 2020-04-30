@@ -2,17 +2,17 @@
 interface Organization {
   ..<<readonly>>..
 
-  + id : integer
+  + id ?: integer
   + name : string
-  + description : string
-  + ldapConfiguration : LdapConfiguration
-  + places : Place[]
+  + description ?: string
+  + ldapConfiguration ?: LdapConfiguration
   + isPrivate : boolean
-  + createdDate : string
-  + lastModifiedDate : string
+  + createdDate ?: string
+  + lastModifiedDate ?: string
   ....
+  + places ?: Place[]
 }
 
-Organization .. LdapConfiguration
-Organization .. Place
+Organization -- LdapConfiguration
+Organization -- Place
 @enduml
