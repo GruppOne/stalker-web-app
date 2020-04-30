@@ -48,7 +48,7 @@ describe('HomeComponent', () => {
   it('should redirect to home page', () => {
     loginSpy = loginService.login.and.returnValue(of({email: 'test', password: 'test'}));
     component.login('mariorossi@gmail.com', 'Casua1pass!');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/profile']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/users/1']);
     expect(loginSpy.calls.any()).toBe(true, 'login called');
   });
   it('should not redirect to home page in case of failed input validation', () => {
