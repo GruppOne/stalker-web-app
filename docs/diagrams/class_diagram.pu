@@ -59,8 +59,6 @@
 '---------------------------------------------------------------------------
 
 ' START include components
-
-!include view/components/ButtonConfirmComponent.pu
 !include view/components/FormEmailComponent.pu
 !include view/components/FormPasswordComponent.pu
 !include view/components/MapComponent.pu
