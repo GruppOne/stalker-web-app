@@ -75,6 +75,7 @@
 
 '---------------------------------------------------------------------------
 
+' START packages
 package "Angular" {
   class FormGroup
   class AbstractControl
@@ -98,6 +99,10 @@ package "Angular Material" {
   class MatPaginator
   class MatSort
 }
+' END packages
+
+'---------------------------------------------------------------------------
+
 EditOrganizationComponent --> AdminType
 EditOrganizationComponent --> MapComponent
 EditOrganizationComponent -- Organization
@@ -152,7 +157,7 @@ MapComponent --> OrganizationService
 
 
 AdministratorService --> HttpClientService
-AdministratorService -- Administrator
+AdministratorService .. Administrator
 
 
 AuthHttpInterceptor .. User
@@ -174,6 +179,7 @@ HttpClientService --> HttpHeaders
 
 LoginService --> HttpClientService
 LoginService .. User
+LoginService .. AdminType
 
 
 OrganizationService --> HttpClientService

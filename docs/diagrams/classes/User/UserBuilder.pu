@@ -1,7 +1,7 @@
 @startuml UserBuilder Diagram
 class UserBuilder {
-  - id : integer
-  - userData : UserData
+  - id ?: integer
+  - userData ?: UserData
   == constructor ==
 
   + constructor(private email : string, private password : string)

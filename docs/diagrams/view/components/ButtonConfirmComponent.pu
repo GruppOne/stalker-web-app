@@ -1,7 +1,0 @@
-@startuml ButtonConfirmComponent diagram
-class ButtonConfirmComponent {
-  ==methods==
-
-  + ngOnInit() : void
-}
-@enduml

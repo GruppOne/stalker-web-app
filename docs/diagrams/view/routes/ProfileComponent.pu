@@ -5,7 +5,7 @@ class ProfileComponent {
   + user : User
   ==constructor==
 
-  + constructor(private readonly userService : UserService)
+  + constructor(private <<readonly>> userService : UserService)
   ==methods==
 
   + ngOnInit() : void

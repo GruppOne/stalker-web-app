@@ -1,18 +1,15 @@
 @startuml PlaceService
 
 interface Geocoding {
-  + display_name: string
-  + address: AddressType
+  + display_name : string
+  + address : AddressType
 }
 
 interface AddressType {
-  + building?: string
-  + university?: string
-  + school?: string
-  + city: string
-  + country: string
-  + postcode: string
-  + road: string
+  + city : string
+  + country : string
+  + postcode : string
+  + road : string
 }
 
 class PlaceService {
@@ -30,5 +27,5 @@ class PlaceService {
 }
 
 Geocoding *-- AddressType
-PlaceService o-- Geocoding
+PlaceService .. Geocoding
 @enduml

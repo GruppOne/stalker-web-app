@@ -5,6 +5,7 @@ interface HttpOptions  {
 }
  class HttpClientService {
    ..<<readonly>>..
+
   - url : string
   - defaultHttpHeaders : HttpHeaders
   ....

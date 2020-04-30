@@ -1,8 +1,8 @@
 @startuml PlaceBuilder Diagram
 class PlaceBuilder {
-  - id : integer
-  - name : string
-  - placeData : PlaceData
+  - id ?: integer
+  - name ?: string
+  - placeData ?: PlaceData
   == contructor ==
 
   + constructor(private polyline : MyLatLng[])
