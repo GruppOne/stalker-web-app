@@ -12,4 +12,7 @@ interface Organization {
   + lastModifiedDate : string
   ....
 }
+
+Organization .. LdapConfiguration
+Organization .. Place
 @enduml

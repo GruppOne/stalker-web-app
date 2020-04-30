@@ -12,4 +12,6 @@ enum AdminType {
   + manager = 'Manager'
   + viewer = 'Viewer'
 }
+
+Administrator --> AdminType
 @enduml

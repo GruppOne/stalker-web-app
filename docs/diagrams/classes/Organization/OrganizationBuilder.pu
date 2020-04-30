@@ -21,4 +21,8 @@ class OrganizationBuilder {
   + addLastModifiedDate(lastModifiedDate : string) : OrganizationBuilder
   + build() : Organization
 }
+
+OrganizationBuilder -- LdapConfiguration
+OrganizationBuilder -- Place
+OrganizationBuilder .. Organization
 @enduml

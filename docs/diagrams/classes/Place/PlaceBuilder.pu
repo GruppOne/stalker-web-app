@@ -14,4 +14,8 @@ class PlaceBuilder {
   + addPlaceData(placeData : PlaceData) : PlaceBuilder
   + build() : Place
 }
+
+PlaceBuilder -- PlaceData
+PlaceBuilder --> MyLatLng
+PlaceBuilder .. Place
 @enduml

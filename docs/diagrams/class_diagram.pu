@@ -11,81 +11,157 @@
 
 ' -------------------------------------------------- Organization
 !include interfaces/Organization/Organization.pu
+
+' -------------------------------------------------- LdapConfiguration
+!include interfaces/LdapConfiguration/LdapConfiguration.pu
+
+' -------------------------------------------------- Administrators
+!include interfaces/Administrators/Administrators.pu
 ' END include interfaces
 
-'---------------------------------------------------
+'---------------------------------------------------------------------------
 
 ' START include classes
 ' -------------------------------------------------- UserBuilder
 !include classes/User/UserBuilder.pu
+!include classes/User/UserDataBuilder.pu
 
 ' -------------------------------------------------- PlaceBuilder
 !include classes/Place/PlaceBuilder.pu
+!include classes/Place/PlaceDataBuilder.pu
+!include classes/Place/MyLatLng.pu
 
 ' -------------------------------------------------- OrganizationBuilder
 !include classes/Organization/OrganizationBuilder.pu
+
+' -------------------------------------------------- LdapConfiguration
+!include classes/LdapConfiguration/LdapConfigurationBuilder.pu
+
+' -------------------------------------------------- Environment
+!include classes/Environment/Environment.pu
 ' END include classes
 
-'---------------------------------------------------
+'---------------------------------------------------------------------------
 
 ' START include services
 
+!include services/administratorservice.pu
 !include services/auth-http-interceptorservice.pu
+!include services/connected-userservice.pu
+!include services/http-clientservice.pu
 !include services/loginservice.pu
 !include services/organizationservice.pu
-!include services/userservice.pu
 !include services/placeservice.pu
-!include services/http-clientservice.pu
-!include services/connected-userservice.pu
-
+!include services/userservice.pu
 ' END include services
 
-'---------------------------------------------------
+'---------------------------------------------------------------------------
 
 ' START include components
 
-!include view/components/MapComponent.pu
 !include view/components/ButtonConfirmComponent.pu
 !include view/components/FormEmailComponent.pu
 !include view/components/FormPasswordComponent.pu
+!include view/components/MapComponent.pu
 
 !include view/routes/editorganizationcomponent.pu
 !include view/routes/HomeComponent.pu
 !include view/routes/NotFoundComponent.pu
 !include view/routes/organizationcomponent.pu
-!include view/routes/ProfileComponent.pu
 !include view/routes/OrganizationsComponent.pu
-
+!include view/routes/ProfileComponent.pu
 ' END include components
 
-class environment{
-  + apiUrl : string
-}
+'---------------------------------------------------------------------------
 
-LoginComponent o-- AuthenticationService
-AuthenticationService ..> User
-LoginComponent --> User
-Organization *-- UserRole
-Organization *-- Place
-UserRole --> Role
-Place *-- MyLatLng
-Place *-- PlaceData
-User *-- UserData
-HomePageComponent o-- AuthenticationService
-ProfileComponent o-- AuthenticationService
-TopBarComponent o-- AuthenticationService
-ShowOrganizationComponent o-- AuthenticationService
-OrganizationRequestComponent o-- AuthenticationService
-TopBarComponent --> User
-ProfileComponent --> User
-ShowOrganizationComponent --> Organization
-ShowOrganizationComponent ..> User
-OrganizationRequestComponent ..> Organization
-TopBarComponent o-- UserService
-ProfileComponent o-- UserService
-ShowOrganizationComponent o-- UserService
-ShowOrganizationComponent o-- OrganizationService
-OrganizationRequestComponent o-- OrganizationService
-UserService ..> User
-OrganizationService ..> Organization
+
+EditOrganizationComponent --> AdminType
+EditOrganizationComponent --> MapComponent
+EditOrganizationComponent -- Organization
+EditOrganizationComponent o-- OrganizationBuilder
+EditOrganizationComponent -- Administrators
+EditOrganizationComponent -- User
+EditOrganizationComponent --> FormGroup
+EditOrganizationComponent ..> AbstractControl
+EditOrganizationComponent --> FormBuilder
+EditOrganizationComponent --> OrganizationService
+EditOrganizationComponent --> AdministratorService
+EditOrganizationComponent --> ConnectedUserService
+EditOrganizationComponent ..> Validators
+EditOrganizationComponent ..> MyLatLng
+EditOrganizationComponent ..> LdapConfigurationBuilder
+
+
+HomeComponent --> LoginService
+' -------------------------------------------------- Angular
+HomeComponent --> Title
+HomeComponent --> FormGroup
+HomeComponent --> Router
+
+
+OrganizationComponent -- Organization
+OrganizationComponent o-- OrganizationBuilder
+OrganizationComponent --> OrganizationService
+
+
+' -------------------------------------------------- Angular Material
+OrganizationsComponent --> MatTableDataSource
+OrganizationsComponent --> MatPaginator
+OrganizationsComponent --> MatSort
+
+
+ProfileComponent o-- UserBuilder
+ProfileComponent -- User
+ProfileComponent --> UserService
+
+
+' -------------------------------------------------- Angular
+FormEmailComponent --> FormGroup
+
+
+MapComponent --> LatLng
+MapComponent -- Organization
+MapComponent o-- OrganizationBuilder
+MapComponent --> Polygon
+MapComponent --> LatLngBounds
+MapComponent --> PlaceService
+MapComponent --> OrganizationService
+
+
+AdministratoService --> HttpClientService
+AdministratorService -- Administrator
+
+
+AuthHttpInterceptor .. User
+AuthHttpInterceptor .. Organization
+AuthHttpInterceptor .. Geocoding
+' -------------------------------------------------- Angular
+AuthHttpInterceptor ..> HttpRequest
+
+
+ConnectedUserService --> HttpClientService
+ConnectedUserService .. User
+
+
+HttpClientService ..> Environment
+' -------------------------------------------------- Angular
+HttpClientService --> HttpClient
+HttpClientService --> HttpHeaders
+
+
+LoginService --> HttpClientService
+LoginService .. User
+
+
+OrganizationService --> HttpClientService
+OrganizationService .. Organization
+
+
+PlaceService .. Geocoding
+' -------------------------------------------------- Angular
+PlaceService --> HttpClient
+
+
+UserService --> HttpClientService
+UserService .. User
 @enduml

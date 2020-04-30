@@ -12,4 +12,6 @@ class PlaceDataBuilder {
   + addState(state : string) : PlaceDataBuilder
   + build() : PlaceData
 }
+
+PlaceDataBuilder .. PlaceData
 @enduml

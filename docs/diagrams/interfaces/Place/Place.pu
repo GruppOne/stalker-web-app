@@ -11,4 +11,8 @@ interface Place {
 
   + getLatLng(polyline : MyLatLng[]) : LatLng[]
 }
+
+Place --> MyLatLng
+Place -- PlaceData
+Place ..> LatLng
 @enduml

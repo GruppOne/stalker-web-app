@@ -8,4 +8,6 @@ interface User {
   + userData : UserData
   ....
 }
+
+User -- UserData
 @enduml

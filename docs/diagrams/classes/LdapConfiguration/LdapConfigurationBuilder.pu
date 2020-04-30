@@ -12,4 +12,6 @@ class LdapConfigurationBuilder {
   + addPassword(password : string) : LdapConfigurationBuilder
   + build() : LdapConfiguration
 }
+
+LdapConfigurationBuilder .. LdapConfiguration
 @enduml
