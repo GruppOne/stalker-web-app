@@ -1,5 +1,5 @@
 @startuml User Diagram
-interface User {
+interface User <<interface>> {
   ..<<readonly>>..
 
   + email : string

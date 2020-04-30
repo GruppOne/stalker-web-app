@@ -1,5 +1,5 @@
 @startuml Administrator
-interface Administrator {
+interface Administrator <<interface>> {
   ..<<readonly>>..
 
   + id : integer
@@ -8,7 +8,7 @@ interface Administrator {
   ....
 }
 
-enum AdminType {
+enum AdminType <<enumeration>> {
   + manager = 'Manager'
   + viewer = 'Viewer'
 }

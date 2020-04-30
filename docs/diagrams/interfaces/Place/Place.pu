@@ -1,5 +1,5 @@
 @startuml Place Diagram
-interface Place {
+interface Place <<interface>> {
   ..<<readonly>>..
 
   + id ?: number

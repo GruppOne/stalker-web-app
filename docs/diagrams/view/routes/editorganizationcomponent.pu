@@ -23,6 +23,5 @@ class EditOrganizationComponent {
   + getOrgAdministrators(organizationId: number): void
   + getOrgUsers(organizationId: number): void
   + checkifEmailIsUser(email: string, userList: User[]): number
-
 }
 @enduml

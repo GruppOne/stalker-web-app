@@ -1,5 +1,5 @@
 @startuml PlaceData Diagram
-class PlaceData {
+class PlaceData <<interface>> {
   ..<<readonly>>..
 
   + address : string
