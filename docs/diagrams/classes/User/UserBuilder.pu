@@ -13,4 +13,7 @@ class UserBuilder {
   + addUserData(userData : UserData) : UserBuilder
   + build() : User
 }
+
+UserBuilder -- UserData
+UserBuilder .. User
 @enduml

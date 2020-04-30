@@ -15,4 +15,6 @@ class MyLatLng {
   + getLongitude() : number
   + getLatitude() : number
 }
+
+MyLatLng --> LatLng
 @enduml
