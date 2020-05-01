@@ -36,6 +36,7 @@ describe('LoginService', () => {
   });
 
   it('should get the user_id', () => {
+    sut.logout();
     expect(sut.getUserId()).toBeNull();
   });
   it('should call the httpClientService post', () => {
