@@ -4,8 +4,8 @@ import {Router, UrlSegment, ActivatedRouteSnapshot} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
 import {AuthGuard} from './auth.guard';
-import {LoginService} from './model/services/login.service';
 import {AdminType} from './model/classes/administrator';
+import {LoginService} from './model/services/login.service';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;

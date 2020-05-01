@@ -1,12 +1,12 @@
 import {TestBed, async} from '@angular/core/testing';
 import {MatMenuModule} from '@angular/material/menu';
+import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
 import {AppComponent} from './app.component';
-import {Router} from '@angular/router';
 
 describe('AppComponent', () => {
-  let mockRouter = {
+  const mockRouter = {
     navigate: jasmine.createSpy('navigate'),
     url: '/',
   };
@@ -28,21 +28,18 @@ describe('AppComponent', () => {
   });
 
   it('should get route', () => {
+    mockRouter.url = '/';
     expect(app.getRoute()).toEqual('/');
   });
-  it('should  route', () => {
-    mockRouter = {
-      navigate: jasmine.createSpy('navigate'),
-      url: '/',
-    };
+  it('should route back to Home', () => {
+    mockRouter.navigate = jasmine.createSpy('navigate');
+    mockRouter.url = '/organizations';
     app.backHome();
-    expect(mockRouter.navigate).toHaveBeenCalled();
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
   });
-  it('should  route', () => {
-    mockRouter = {
-      navigate: jasmine.createSpy('navigate'),
-      url: '/home',
-    };
+  it('should not route back to home', () => {
+    mockRouter.navigate = jasmine.createSpy('navigate');
+    mockRouter.url = '/home';
     app.backHome();
     expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
