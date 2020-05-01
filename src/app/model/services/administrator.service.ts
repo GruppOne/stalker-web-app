@@ -18,7 +18,7 @@ export class AdministratorService {
     administrator: Administrator,
   ): Observable<Administrator> {
     return this.httpClientService
-      .post<Administrator>(`organization/${organizationId}/users/role`, administrator)
+      .post<Administrator>(`/organization/${organizationId}/users/role`, administrator)
       .pipe(
         map((response: HttpResponse<Administrator>) => response.body as Administrator),
       );
@@ -29,7 +29,7 @@ export class AdministratorService {
   ): Observable<Administrator> {
     return this.httpClientService
       .delete<Administrator>(
-        `organization/${organizationId}/users/role/${administratorId}`,
+        `/organization/${organizationId}/users/role/${administratorId}`,
       )
       .pipe(
         map((response: HttpResponse<Administrator>) => response.body as Administrator),
@@ -38,7 +38,7 @@ export class AdministratorService {
 
   getAdministrators(organizationId: number): Observable<Administrator[]> {
     return this.httpClientService
-      .get<Administrator[]>(`organization/${organizationId}`)
+      .get<Administrator[]>(`/organization/${organizationId}`)
       .pipe(
         map(
           (response: HttpResponse<Administrator[]>) => response.body as Administrator[],

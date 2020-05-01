@@ -6,12 +6,8 @@ import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration'
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
-import {User} from 'src/app/model/classes/users/user';
-import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
 
-import {Administrator, AdminType} from '../../../model/classes/administrator';
 import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
-import {AdministratorService} from '../../../model/services/administrator.service';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
@@ -20,8 +16,6 @@ import {OrganizationService} from '../../../model/services/organization.service'
   styleUrls: ['edit-organization.component.scss'],
 })
 export class EditOrganizationComponent implements OnInit {
-  adminType: AdminType[] = [AdminType.manager, AdminType.viewer];
-
   @ViewChild('map') mapDataChild?: {
     arrayCoord: LatLng[][];
     arrayName: string[];
@@ -33,10 +27,6 @@ export class EditOrganizationComponent implements OnInit {
 
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
-
-  administrators: Administrator[] = [];
-
-  organizationUsers: User[] = [];
   formGroup: FormGroup = new FormGroup({});
 
   /**
@@ -49,9 +39,7 @@ export class EditOrganizationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
-    private readonly administratorService: AdministratorService,
     public readonly route: ActivatedRoute,
-    private readonly connectedUserService: ConnectedUserService,
   ) {}
 
   /**
@@ -101,15 +89,8 @@ export class EditOrganizationComponent implements OnInit {
             Validators.required,
           ],
         }),
-        this.formBuilder.group({
-          adminRole: [],
-          adminEmail: [],
-        }),
       ]),
     });
-    this.getOrgAdministrators(this.organization.id as number);
-    // TODO move this to administratorService
-    this.getOrgUsers(this.organization.id as number);
   }
 
   /**
@@ -181,73 +162,5 @@ export class EditOrganizationComponent implements OnInit {
           (err: Error) => console.error(err),
         );
     }
-  }
-
-  /**
-   * Add administrator email and role to the administrators array defined above
-   */
-  addAdmin(): void {
-    const admin: Administrator = {
-      id: this.checkIfEmailIsUser(
-        this.formArray?.value[2].adminEmail,
-        this.organizationUsers,
-      ),
-      email: this.formArray?.value[2].adminEmail,
-      role: this.formArray?.value[2].adminRole as AdminType,
-    };
-
-    this.administratorService
-      .addAdministrator(this.organization?.id as number, admin)
-      .subscribe(
-        (response: Administrator) => this.administrators.push(response),
-        (err: Error) => console.error(err),
-      );
-  }
-
-  /**
-   * Remove administrator 'admin' from administrator array defined above
-   */
-  deleteAdmin(administratorId: number): void {
-    // get index in the administrators array of admin
-    this.administratorService
-      .removeAdministrator(this.organization?.id as number, administratorId)
-      .subscribe((response: Administrator) => {
-        const indexOf = this.administrators.indexOf(response);
-        this.administrators.splice(indexOf, 1);
-      });
-  }
-
-  /**
-   * Get administrators of a certain organization
-   */
-  getOrgAdministrators(organizationId: number): void {
-    this.administratorService
-      .getAdministrators(organizationId)
-      .subscribe((response: Administrator[]) => {
-        this.administrators = response;
-      });
-  }
-
-  /**
-   * Get users connected to a certain organization
-   */
-  getOrgUsers(organizationId: number): void {
-    this.connectedUserService.getUserConnectedToOrg(organizationId).subscribe(
-      (response: User[]) => (this.organizationUsers = response),
-      (err: Error) => console.error(err),
-    );
-  }
-
-  /**
-   * Check if the given email is registered in Stalker anc if it's connected with this organization
-   */
-  checkIfEmailIsUser(email: string, userList: User[]): number {
-    let found = -1;
-    userList.forEach((element) => {
-      if (element.email === email) {
-        found = element.id as number;
-      }
-    });
-    return found;
   }
 }
