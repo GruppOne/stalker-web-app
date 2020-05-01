@@ -14,5 +14,5 @@ interface MailType <<interface>> {
   + email : string
 }
 
-FormEmailComponent .. MailType
+FormEmailComponent ..> MailType
 @enduml

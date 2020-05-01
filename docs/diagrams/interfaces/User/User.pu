@@ -9,5 +9,5 @@ interface User <<interface>> {
   ....
 }
 
-User -- UserData
+User o-- UserData
 @enduml

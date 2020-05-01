@@ -13,5 +13,5 @@ class LdapConfigurationBuilder {
   + build() : LdapConfiguration
 }
 
-LdapConfigurationBuilder .. LdapConfiguration
+LdapConfigurationBuilder ..> "<<create>>" LdapConfiguration
 @enduml
