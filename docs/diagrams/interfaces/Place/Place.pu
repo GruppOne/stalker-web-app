@@ -14,5 +14,11 @@ interface Place <<interface>> {
 
 Place --> MyLatLng
 Place -- PlaceData
-Place ..> LatLng
+
+/'
+' if you decomment this part it will no longer appear within the package
+' leaflet, this part has already been moved to the main file, it's here
+' just to remember it
+'/
+' Place ..> LatLng
 @enduml

@@ -143,9 +143,9 @@ ProfileComponent --> UserService
 
 ' -------------------------------------------------- Angular
 FormEmailComponent --> FormGroup
+FormPasswordComponent --> FormGroup
 
 
-MapComponent --> LatLng
 MapComponent -- Organization
 MapComponent o-- OrganizationBuilder
 MapComponent --> Polygon
@@ -191,4 +191,10 @@ PlaceService --> HttpClient
 
 UserService --> HttpClientService
 UserService .. User
+
+
+' keep them here instead of inside included components
+MapComponent --> LatLng
+Place ..> LatLng
+MyLatLng --> LatLng
 @enduml
