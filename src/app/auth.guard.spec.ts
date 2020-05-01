@@ -15,6 +15,7 @@ describe('AuthGuard', () => {
   const loginService = jasmine.createSpyObj('LoginService', [
     'isLoggedIn',
     'checkAuthorization',
+    'getUserId',
   ]);
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
   const mockParamMap = jasmine.createSpyObj('ParamMap', ['get']);
@@ -46,8 +47,44 @@ describe('AuthGuard', () => {
     expect(result).toBe(false);
     expect(loginService.redirectUrl).toBeUndefined();
   });
+
   it(
-    'should return false for canActivate() when isLoggedIn === true and' +
+    'should return true for canActivate() and redirect when isLoggedIn === false and ' +
+      'url contains home',
+    () => {
+      loginService.isLoggedIn.and.returnValue(false);
+      loginService.checkAuthorization.and.returnValue(false);
+      urlSegment.toString.and.returnValue('home,1');
+      mockParamMap.get.and.returnValue('1');
+      const result = guard.canActivate(({
+        url: [urlSegment],
+        paramMap: mockParamMap,
+        data: {roles: AdminType.viewer},
+      } as unknown) as ActivatedRouteSnapshot);
+      expect(result).toBe(true);
+      expect(loginService.redirectUrl).toBeUndefined();
+    },
+  );
+
+  it(
+    'should return true for canActivate() and redirect when isLoggedIn === true and ' +
+      'url contains home',
+    () => {
+      loginService.isLoggedIn.and.returnValue(true);
+      loginService.checkAuthorization.and.returnValue(false);
+      urlSegment.toString.and.returnValue('home,1');
+      mockParamMap.get.and.returnValue('1');
+      const result = guard.canActivate(({
+        url: [urlSegment],
+        paramMap: mockParamMap,
+        data: {roles: AdminType.viewer},
+      } as unknown) as ActivatedRouteSnapshot);
+      expect(result).toBe(true);
+      expect(loginService.redirectUrl).toBeUndefined();
+    },
+  );
+  it(
+    'should return false for canActivate() when isLoggedIn === true and ' +
       'checkAuthorization === false and id returns params and url contains organization',
     () => {
       loginService.isLoggedIn.and.returnValue(true);
@@ -64,7 +101,7 @@ describe('AuthGuard', () => {
     },
   );
   it(
-    'should return true for canActivate() when isLoggedIn === true and' +
+    'should return true for canActivate() when isLoggedIn === true and ' +
       ' id does not return a params and url contains organization',
     () => {
       loginService.isLoggedIn.and.returnValue(true);
@@ -81,12 +118,12 @@ describe('AuthGuard', () => {
     },
   );
   it(
-    'should return true for canActivate() when isLoggedIn === true,' +
-      'and organization does not contain organization',
+    'should return true for canActivate() when isLoggedIn === true, ' +
+      'and url does not contain organization or user',
     () => {
       loginService.isLoggedIn.and.returnValue(true);
       loginService.checkAuthorization.and.returnValue(false);
-      urlSegment.toString.and.returnValue('users,1');
+      urlSegment.toString.and.returnValue('test,1');
       mockParamMap.get.and.returnValue(null);
       const result = guard.canActivate(({
         url: [urlSegment],
@@ -98,7 +135,7 @@ describe('AuthGuard', () => {
     },
   );
   it(
-    'should return false for canActivate() when isLoggedIn === true and' +
+    'should return true for canActivate() when isLoggedIn === true and ' +
       'checkAuthorization === true and id returns params and url contains organization',
     () => {
       loginService.isLoggedIn.and.returnValue(true);
@@ -112,6 +149,44 @@ describe('AuthGuard', () => {
       } as unknown) as ActivatedRouteSnapshot);
       expect(result).toBe(true);
       expect(loginService.redirectUrl).toBeUndefined();
+    },
+  );
+  it(
+    'should return true for canActivate() when isLoggedIn === true and ' +
+      'url contains user and user has permission',
+    () => {
+      loginService.isLoggedIn.and.returnValue(true);
+      loginService.checkAuthorization.and.returnValue(true);
+      urlSegment.toString.and.returnValue('user,1');
+      const userSpy = loginService.getUserId.and.returnValue('1');
+      mockParamMap.get.and.returnValue('1');
+      const result = guard.canActivate(({
+        url: [urlSegment],
+        paramMap: mockParamMap,
+        data: {roles: AdminType.viewer},
+      } as unknown) as ActivatedRouteSnapshot);
+      expect(result).toBe(true);
+      expect(loginService.redirectUrl).toBeUndefined();
+      expect(userSpy.calls.any()).toBe(true);
+    },
+  );
+  it(
+    'should return false for canActivate() when isLoggedIn === true and ' +
+      'url contains user and user has not enough permissions',
+    () => {
+      loginService.isLoggedIn.and.returnValue(true);
+      loginService.checkAuthorization.and.returnValue(true);
+      urlSegment.toString.and.returnValue('user,1');
+      const userSpy = loginService.getUserId.and.returnValue('1');
+      mockParamMap.get.and.returnValue('2');
+      const result = guard.canActivate(({
+        url: [urlSegment],
+        paramMap: mockParamMap,
+        data: {roles: AdminType.viewer},
+      } as unknown) as ActivatedRouteSnapshot);
+      expect(result).toBe(false);
+      expect(loginService.redirectUrl).toBeUndefined();
+      expect(userSpy.calls.any()).toBe(true);
     },
   );
 });

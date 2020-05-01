@@ -35,6 +35,9 @@ describe('LoginService', () => {
     expect(sut).toBeTruthy();
   });
 
+  it('should get the user_id', () => {
+    expect(sut.getUserId()).toBeNull();
+  });
   it('should call the httpClientService post', () => {
     httpPostSpy = httpClientService.post.and.returnValue(
       of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
@@ -80,7 +83,7 @@ describe('LoginService', () => {
       ),
     );
     sut.login(defaultUser).subscribe();
-    const result: boolean = sut.checkAuthorization(2, AdminType.viewer);
+    const result: boolean = sut.checkAuthorization(1, AdminType.viewer);
     expect(result).toBe(true);
     sut.logout();
   });
@@ -96,7 +99,7 @@ describe('LoginService', () => {
       ),
     );
     sut.login(defaultUser).subscribe();
-    const result: boolean = sut.checkAuthorization(2, AdminType.owner);
+    const result: boolean = sut.checkAuthorization(1, AdminType.owner);
     expect(result).toBe(false);
     sut.logout();
   });
