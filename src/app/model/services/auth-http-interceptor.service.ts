@@ -20,14 +20,18 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
     req: HttpRequest<BodyType>,
     next: HttpHandler,
   ): Observable<HttpEvent<BodyType>> {
-    // if (sessionStorage.getItem('username') && sessionStorage.getItem('token')) {
-    req = req.clone({
-      setHeaders: {
-        'STALKER-ADMIN-API-KEY': 'apirandomKey1',
-      },
-    });
+    if (
+      localStorage.getItem('user_email') &&
+      localStorage.getItem('token') &&
+      !req.url.toString().includes('user/login')
+    ) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+    }
     console.log(req);
-    // }
     return next.handle(req);
   }
 }
