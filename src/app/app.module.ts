@@ -18,6 +18,7 @@ import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
 import {OrganizationsComponent} from './view/_routes/organizations/organizations.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
+import {AdministratorComponent} from './view/components/administrator/administrator.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
 import {FormEmailComponent} from './view/components/form-email/form-email.component';
 import {FormPasswordComponent} from './view/components/form-password/form-password.component';
@@ -64,6 +65,7 @@ const routes: Routes = [
     MapComponent,
     NotFoundComponent,
     OrganizationsComponent,
+    AdministratorComponent,
   ],
   imports: [
     CustomMaterialModule,

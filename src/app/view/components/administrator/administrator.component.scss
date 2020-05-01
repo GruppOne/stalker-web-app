@@ -1,0 +1,18 @@
+.mat-form-field.adminEmail,
+.mat-form-field.adminType {
+  display: inline-block;
+}
+
+.mat-form-field.adminEmail {
+  margin-left: 1%;
+  width: 65% !important;
+}
+
+.mat-form-field.adminType {
+  margin-right: 1%;
+  width: 18% !important;
+}
+
+.adminConfirm:hover {
+  color: #1a9848;
+}
