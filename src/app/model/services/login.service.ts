@@ -10,12 +10,11 @@ import {User} from '../classes/users/user';
 import {HttpClientService} from './http-client.service';
 
 export interface StalkerJWT {
-  exp: number;
-  iat: number;
-
   organizations: {organizationId: number; role: string}[];
-
+  jti: string;
   sub: string;
+  iat: number;
+  exp: number;
 }
 
 @Injectable({
@@ -37,9 +36,9 @@ export class LoginService {
         // let jwtTokenHeader = response.headers.get('Authorization') as string;
         const jwtTokenHeader =
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25zIjpbeyJvcmdhbml6YXRpb25JZCI6' +
-          'Miwicm9sZSI6Ik1hbmFnZXIifSx7Im9yZ2FuaXphdGlvbklkIjozLCJyb2xlIjoiVmlld2VyIn1' +
-          'dLCJzdWIiOiJ1c2VyIiwiaWF0IjoxNTg3OTEwNDI3LCJleHAiOjE1OTA5MTA0Mjd9.xOKpTUzPDM' +
-          'mjIffL7uUNJ48VY5bUun2rZDD7nmK9zt4';
+          'MSwicm9sZSI6IlZpZXdlciJ9LHsib3JnYW5pemF0aW9uSWQiOjIsInJvbGUiOiJBZG1pbiJ9XSwi' +
+          'anRpIjoiMiIsInN1YiI6Imdpb3JnaW90ZXN0MDJAaG90bWFpbC5pdCIsImlhdCI6MTU4ODMyODkz' +
+          'MSwiZXhwIjoxNTkxMzI4OTMxfQ.E7IRmte9p6-Yrl2B6iQBvQ9qxzwoCkO1lXgmjvbhlKk';
         const jwtToken = jwtTokenHeader.substring(7);
         const payload: StalkerJWT = jwt.verify(
           jwtToken,
@@ -48,6 +47,7 @@ export class LoginService {
 
         console.log(payload);
         localStorage.setItem('token', jwtToken);
+        localStorage.setItem('user_id', payload.jti);
         localStorage.setItem('user_email', payload.sub);
         localStorage.setItem('organizations', JSON.stringify(payload.organizations));
         localStorage.setItem('expiration_time', payload.exp.toString());
@@ -55,6 +55,10 @@ export class LoginService {
         return response.body as User;
       }),
     );
+  }
+  /** check if the user id is the same as the one he's trying to reach */
+  getUserId(): string {
+    return localStorage.getItem('user_id') as string;
   }
 
   isLoggedIn(): boolean {
@@ -69,6 +73,7 @@ export class LoginService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
     localStorage.removeItem('user_email');
     localStorage.removeItem('organizations');
     localStorage.removeItem('expiration_time');

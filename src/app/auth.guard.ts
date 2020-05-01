@@ -14,8 +14,13 @@ export class AuthGuard implements CanActivate {
     private readonly location: Location,
   ) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
+    if (route.url.toString().includes('home')) {
+      if (this.loginService.isLoggedIn()) {
+        this.router.navigate(['/organizations']);
+      }
+      return true;
+    }
     if (this.loginService.isLoggedIn()) {
-      console.log(route.url.toString());
       if (route.url.toString().includes('organization')) {
         const actualOrgId = +(route.paramMap.get('id') as string);
         if (actualOrgId) {
@@ -29,7 +34,15 @@ export class AuthGuard implements CanActivate {
           return true;
         }
       } else {
-        return true;
+        if (route.url.toString().includes('user')) {
+          if ((route.paramMap.get('id') as string) === this.loginService.getUserId()) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
       }
     } else {
       this.router.navigate(['/home']);

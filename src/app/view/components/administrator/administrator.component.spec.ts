@@ -1,16 +1,16 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {of, throwError} from 'rxjs';
-import {AdministratorService} from 'src/app/model/services/administrator.service';
-
-import {AdministratorComponent} from './administrator.component';
-import {AdminType} from 'src/app/model/classes/administrator';
-import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
-import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {CustomMaterialModule} from 'src/app/modules/material.module';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {of, throwError} from 'rxjs';
+import {AdminType} from 'src/app/model/classes/administrator';
+import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
+import {CustomMaterialModule} from 'src/app/modules/material.module';
+
+import {AdministratorComponent} from './administrator.component';
 
 describe('AdministratorComponent', () => {
   let component: AdministratorComponent;

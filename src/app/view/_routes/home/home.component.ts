@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
     this.loginService.login(userBuilder.build()).subscribe(
       (response: User) => {
         console.log(response);
-        this.router.navigate([`/users/${1}`]);
+        this.router.navigate([`/users/${this.loginService.getUserId()}`]);
       },
       (err: Error) => console.error(err),
     );

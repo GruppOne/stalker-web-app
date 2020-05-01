@@ -29,6 +29,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {path: 'users/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'organizations', component: OrganizationsComponent, canActivate: [AuthGuard]},
@@ -37,10 +38,6 @@ const routes: Routes = [
     component: OrganizationComponent,
     canActivate: [AuthGuard],
     data: {roles: AdminType.viewer},
-  },
-  {
-    path: 'organizations',
-    component: OrganizationsComponent,
   },
   {
     path: 'organizations/:id/edit',
