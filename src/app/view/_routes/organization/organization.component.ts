@@ -23,7 +23,7 @@ export class OrganizationComponent implements OnInit {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getOrganizationById(organizationId);
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('Unipd', true)
+      this.organizationBuilder = new OrganizationBuilder('Unipd', true)
         .addDescription(
           'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor...',
         )
@@ -33,8 +33,8 @@ export class OrganizationComponent implements OnInit {
             .addUsername('mariorossi@gmail.com')
             .addPassword('password')
             .build(),
-        )
-        .build();
+        );
+      this.organization = this.organizationBuilder.build();
     }
   }
 
@@ -44,11 +44,7 @@ export class OrganizationComponent implements OnInit {
   getOrganizationById(id: number): void {
     this.organizationService.getOrganizationById(id).subscribe(
       (response: Organization) => {
-        this.organizationBuilder = new OrganizationBuilder(
-          response.name,
-          response.isPrivate,
-        );
-        this.organization = this.organizationBuilder.build();
+        this.organization = response;
       },
       (err: Error) => console.error(err),
     );
