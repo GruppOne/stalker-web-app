@@ -13,6 +13,6 @@ interface Organization <<interface>> {
   + places ?: Place[]
 }
 
-Organization -- LdapConfiguration
-Organization -- Place
+Organization --> LdapConfiguration
+Organization --> Place
 @enduml

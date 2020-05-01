@@ -26,6 +26,6 @@ class PlaceService {
     ) : Observable<Geocoding>
 }
 
-Geocoding *-- AddressType
-PlaceService .. Geocoding
+Geocoding *--> AddressType
+PlaceService ..> Geocoding
 @enduml

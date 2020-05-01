@@ -103,10 +103,10 @@ package "Angular Material" {
 
 EditOrganizationComponent --> AdminType
 EditOrganizationComponent --> MapComponent
-EditOrganizationComponent -- Organization
+EditOrganizationComponent --> Organization
 EditOrganizationComponent o-- OrganizationBuilder
-EditOrganizationComponent -- Administrator
-EditOrganizationComponent -- User
+EditOrganizationComponent --> Administrator
+EditOrganizationComponent --> User
 EditOrganizationComponent --> FormGroup
 EditOrganizationComponent ..> AbstractControl
 EditOrganizationComponent --> FormBuilder
@@ -125,7 +125,7 @@ HomeComponent --> FormGroup
 HomeComponent --> Router
 
 
-OrganizationComponent -- Organization
+OrganizationComponent --> Organization
 OrganizationComponent o-- OrganizationBuilder
 OrganizationComponent --> OrganizationService
 
@@ -137,7 +137,7 @@ OrganizationsComponent --> MatSort
 
 
 ProfileComponent o-- UserBuilder
-ProfileComponent -- User
+ProfileComponent --> User
 ProfileComponent --> UserService
 
 
@@ -146,7 +146,7 @@ FormEmailComponent --> FormGroup
 FormPasswordComponent --> FormGroup
 
 
-MapComponent -- Organization
+MapComponent --> Organization
 MapComponent o-- OrganizationBuilder
 MapComponent --> Polygon
 MapComponent --> LatLngBounds
@@ -155,18 +155,18 @@ MapComponent --> OrganizationService
 
 
 AdministratorService --> HttpClientService
-AdministratorService .. Administrator
+AdministratorService ..> Administrator
 
 
-AuthHttpInterceptor .. User
-AuthHttpInterceptor .. Organization
-AuthHttpInterceptor .. Geocoding
+AuthHttpInterceptor ..> User
+AuthHttpInterceptor ..> Organization
+AuthHttpInterceptor ..> Geocoding
 ' -------------------------------------------------- Angular
 AuthHttpInterceptor ..> HttpRequest
 
 
 ConnectedUserService --> HttpClientService
-ConnectedUserService .. User
+ConnectedUserService ..> User
 
 
 HttpClientService ..> Environment
@@ -176,21 +176,21 @@ HttpClientService --> HttpHeaders
 
 
 LoginService --> HttpClientService
-LoginService .. User
-LoginService .. AdminType
+LoginService ..> User
+LoginService ..> AdminType
 
 
 OrganizationService --> HttpClientService
-OrganizationService .. Organization
+OrganizationService ..> Organization
 
 
-PlaceService .. Geocoding
+PlaceService ..> Geocoding
 ' -------------------------------------------------- Angular
 PlaceService --> HttpClient
 
 
 UserService --> HttpClientService
-UserService .. User
+UserService ..> User
 
 
 ' keep them here instead of inside included components

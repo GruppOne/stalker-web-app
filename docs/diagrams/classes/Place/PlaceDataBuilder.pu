@@ -17,5 +17,5 @@ class PlaceDataBuilder {
   + build() : PlaceData
 }
 
-PlaceDataBuilder .. PlaceData
+PlaceDataBuilder ..> "<<create>>" PlaceData
 @enduml

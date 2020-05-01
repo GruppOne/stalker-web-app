@@ -26,7 +26,7 @@ class OrganizationBuilder {
   + build() : Organization
 }
 
-OrganizationBuilder -- LdapConfiguration
-OrganizationBuilder -- Place
-OrganizationBuilder .. Organization
+OrganizationBuilder -->  LdapConfiguration
+OrganizationBuilder --> Place
+OrganizationBuilder ..> "<<create>>" Organization
 @enduml
