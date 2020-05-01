@@ -48,4 +48,8 @@ describe('AppComponent', () => {
     app.backHome();
     expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
+  it('should generate the components tooltip ', () => {
+    app.generateComponents();
+    expect(app.componentsTooltip.length).toEqual(125);
+  });
 });

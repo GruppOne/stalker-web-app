@@ -67,9 +67,6 @@
 <div class="footer">
   <p>
     Copyright &copy; 2020 - Stalker is provided by
-    <span
-      matTooltip="Fabio Scettro, Alessandro Rizzo, Riccardo Agatea, Luca Ercole, Riccardo Cestaro, Alberto Cocco, Alberto Gobbo, Tobia Apolloni"
-      >GruppOne</span
-    >
+    <span [matTooltip]="componentsTooltip" (mouseover)="generateComponents()">GruppOne</span>
   </p>
 </div>
