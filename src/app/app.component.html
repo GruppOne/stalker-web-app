@@ -28,11 +28,7 @@
       </div>
       <!-- only when a user is authenticathed -->
       <div *ngIf="userLoggedIn()">
-        <button
-          mat-menu-item
-          [disabled]="this.getRoute().includes('/users/')"
-          [routerLink]="'/users/' + this.loginService.getUserId()"
-        >
+        <button mat-menu-item [disabled]="this.getRoute().includes('/users/')" [routerLink]="'/users/' + getUserId()">
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
@@ -45,7 +41,7 @@
           <mat-icon>list</mat-icon>
           <span>Organizations</span>
         </button>
-        <button mat-menu-item (click)="this.loginService.logout()">
+        <button mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           <span>Logout</span>
         </button>
