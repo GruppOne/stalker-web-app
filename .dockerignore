@@ -1,3 +1,11 @@
 .git/
+.github/
+.jscpd-report/
+.vscode/
+coverage/
 dist/
 node_modules/
+
+.gitignore
+Dockerfile*
+docker-compose*
