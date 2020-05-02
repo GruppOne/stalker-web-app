@@ -47,42 +47,6 @@ describe('AuthGuard', () => {
     expect(result).toBe(false);
     expect(loginService.redirectUrl).toBeUndefined();
   });
-
-  it(
-    'should return true for canActivate() and redirect when isLoggedIn === false and ' +
-      'url contains home',
-    () => {
-      loginService.isLoggedIn.and.returnValue(false);
-      loginService.checkAuthorization.and.returnValue(false);
-      urlSegment.toString.and.returnValue('home,1');
-      mockParamMap.get.and.returnValue('1');
-      const result = guard.canActivate(({
-        url: [urlSegment],
-        paramMap: mockParamMap,
-        data: {roles: AdminType.viewer},
-      } as unknown) as ActivatedRouteSnapshot);
-      expect(result).toBe(true);
-      expect(loginService.redirectUrl).toBeUndefined();
-    },
-  );
-
-  it(
-    'should return true for canActivate() and redirect when isLoggedIn === true and ' +
-      'url contains home',
-    () => {
-      loginService.isLoggedIn.and.returnValue(true);
-      loginService.checkAuthorization.and.returnValue(false);
-      urlSegment.toString.and.returnValue('home,1');
-      mockParamMap.get.and.returnValue('1');
-      const result = guard.canActivate(({
-        url: [urlSegment],
-        paramMap: mockParamMap,
-        data: {roles: AdminType.viewer},
-      } as unknown) as ActivatedRouteSnapshot);
-      expect(result).toBe(true);
-      expect(loginService.redirectUrl).toBeUndefined();
-    },
-  );
   it(
     'should return false for canActivate() when isLoggedIn === true and ' +
       'checkAuthorization === false and id returns params and url contains organization',

@@ -4,17 +4,22 @@ import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
 import {AppComponent} from './app.component';
+import {LoginService} from './model/services/login.service';
 
 describe('AppComponent', () => {
   const mockRouter = {
     navigate: jasmine.createSpy('navigate'),
     url: '/',
   };
+  const loginService = jasmine.createSpyObj('LoginService', ['getUserId']);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, MatMenuModule],
       declarations: [AppComponent],
-      providers: [{provide: Router, useValue: mockRouter}],
+      providers: [
+        {provide: Router, useValue: mockRouter},
+        {provide: LoginService, useValue: loginService},
+      ],
     }).compileComponents();
   }));
 
