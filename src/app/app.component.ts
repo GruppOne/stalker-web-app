@@ -21,7 +21,7 @@ export class AppComponent {
     'Tobia Apolloni',
   ];
 
-  constructor(public router: Router, readonly loginService: LoginService) {}
+  constructor(public router: Router, private readonly loginService: LoginService) {}
 
   getRoute(): string {
     return this.router.url;
@@ -50,6 +50,10 @@ export class AppComponent {
 
     // delete last comma
     this.componentsTooltip = this.componentsTooltip.slice(0, -2);
+  }
+
+  userLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
   }
 }
 

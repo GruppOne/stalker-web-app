@@ -27,7 +27,7 @@
         </button>
       </div>
       <!-- only when a user is authenticathed -->
-      <div *ngIf="this.loginService.isLoggedIn()">
+      <div *ngIf="userLoggedIn()">
         <button
           mat-menu-item
           [disabled]="this.getRoute().includes('/users/')"
