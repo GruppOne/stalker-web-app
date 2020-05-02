@@ -81,6 +81,15 @@ describe('AdministratorComponent', () => {
     expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
     expect(component.administrators.length).toEqual(0);
   });
+  it('should call Adminstrators get and handle error responses', () => {
+    spyOn(console, 'error').and.callThrough();
+    administratorGetSpy = administratorService.getAdministrators.and.returnValue(
+      throwError(''),
+    );
+    component.getOrgAdministrators(1);
+    expect(administratorGetSpy.calls.any()).toBe(true, 'get called');
+    expect(console.error).toHaveBeenCalled();
+  });
 
   it('should call user connected to organization get and handle responses', () => {
     userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
@@ -107,13 +116,22 @@ describe('AdministratorComponent', () => {
     component.deleteAdmin(1);
     expect(administratorRemoveSpy.calls.any()).toBe(true, 'sumbit done');
   });
+  it('should not remove an admin in case of http errors', () => {
+    spyOn(console, 'error').and.callThrough();
+    administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
+      throwError(''),
+    );
+    component.deleteAdmin(1);
+    expect(administratorRemoveSpy.calls.any()).toBe(true, 'remove call done');
+    expect(console.error).toHaveBeenCalledWith('');
+  });
 
   it('should add an admin correctly and handle responses', () => {
     administratorAddSpy = administratorService.addAdministrator.and.returnValue(
       of({id: 1, email: 'mariorossi@gmail.com', role: AdminType.manager}),
     );
     component.addAdmin();
-    expect(administratorAddSpy.calls.any()).toBe(true, 'sumbit done');
+    expect(administratorAddSpy.calls.any()).toBe(true, 'add call done');
   });
 
   it('should not add an admin in case of http errors', () => {

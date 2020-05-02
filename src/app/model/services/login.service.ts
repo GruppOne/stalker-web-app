@@ -1,5 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import * as jwt from 'jsonwebtoken';
 import * as moment from 'moment';
 import {Observable} from 'rxjs';
@@ -22,7 +23,10 @@ export interface StalkerJWT {
 })
 export class LoginService {
   private readonly adminMapping = new Map();
-  constructor(private readonly httpClientService: HttpClientService) {
+  constructor(
+    private readonly httpClientService: HttpClientService,
+    private readonly router: Router,
+  ) {
     this.adminMapping.set('Admin', 4);
     this.adminMapping.set('Owner', 3);
     this.adminMapping.set('Manager', 2);
@@ -78,6 +82,7 @@ export class LoginService {
     localStorage.removeItem('organizations');
     localStorage.removeItem('expiration_time');
     localStorage.removeItem('creation_time');
+    this.router.navigate(['/home']);
   }
 
   checkAuthorization(actualOrgId: number, desiredRole: string): boolean {
