@@ -16,7 +16,12 @@ describe('HomeComponent', () => {
   };
   let loginSpy;
   let userIdSpy;
-  const loginService = jasmine.createSpyObj('LoginService', ['login', 'getUserId']);
+  let userLoggedInSpy;
+  const loginService = jasmine.createSpyObj('LoginService', [
+    'login',
+    'getUserId',
+    'isLoggedIn',
+  ]);
   beforeEach(async(() => {
     mockRouter = {
       navigate: jasmine.createSpy('navigate'),
@@ -78,5 +83,17 @@ describe('HomeComponent', () => {
   it('should set toggle to true', () => {
     component.translate(0);
     expect(component.toggle).toBeTrue();
+  });
+
+  it('should not display login and recovery buttons if already logged in', () => {
+    userLoggedInSpy = loginService.isLoggedIn.and.returnValue(true);
+    expect(component.userLoggedIn()).toBe(true);
+    expect(userLoggedInSpy.calls.any()).toBe(true);
+  });
+
+  it('should display login and recovery buttons if not logged in', () => {
+    userLoggedInSpy = loginService.isLoggedIn.and.returnValue(false);
+    expect(component.userLoggedIn()).toBe(false);
+    expect(userLoggedInSpy.calls.any()).toBe(true);
   });
 });

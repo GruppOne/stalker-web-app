@@ -11,7 +11,7 @@ describe('AppComponent', () => {
     navigate: jasmine.createSpy('navigate'),
     url: '/',
   };
-  const loginService = jasmine.createSpyObj('LoginService', ['getUserId']);
+  const loginService = jasmine.createSpyObj('LoginService', ['getUserId', 'isLoggedIn']);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, MatMenuModule],
@@ -24,6 +24,8 @@ describe('AppComponent', () => {
   }));
 
   let app: AppComponent;
+  let userLoggedInSpy;
+
   beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
@@ -51,5 +53,17 @@ describe('AppComponent', () => {
   it('should generate the components tooltip ', () => {
     app.generateComponents();
     expect(app.componentsTooltip.length).toEqual(125);
+  });
+
+  it('should display buttons inside menu if user is logged in', () => {
+    userLoggedInSpy = loginService.isLoggedIn.and.returnValue(true);
+    expect(app.userLoggedIn()).toBe(true);
+    expect(userLoggedInSpy.calls.any()).toBe(true);
+  });
+
+  it('should not display buttons inside menu if user is not logged in', () => {
+    userLoggedInSpy = loginService.isLoggedIn.and.returnValue(false);
+    expect(app.userLoggedIn()).toBe(false);
+    expect(userLoggedInSpy.calls.any()).toBe(true);
   });
 });
