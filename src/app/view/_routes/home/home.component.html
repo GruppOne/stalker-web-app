@@ -6,7 +6,9 @@
       <form
         class="login-form centered-form"
         [formGroup]="nestedForm"
-        (ngSubmit)="login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)"
+        (ngSubmit)="
+          userLoggedIn() ? '' : login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)
+        "
       >
         <app-form-email formControlName="emailForm"></app-form-email>
         <app-form-password formControlName="passwordForm"></app-form-password>
@@ -15,10 +17,11 @@
             mat-raised-button
             color="accent"
             type="submit"
-            matTooltip="Login to Stalker"
+            [matTooltip]="userLoggedIn() ? '' : 'Login to Stalker'"
             matTooltipPosition="right"
+            [disabled]="userLoggedIn()"
           >
-            Login
+            {{ userLoggedIn() ? 'Already logged in' : 'Login' }}
           </button>
         </mat-card-actions>
         <button
@@ -44,7 +47,11 @@
       >
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <form>
+      <form
+        (ngSubmit)="
+          userLoggedIn() ? '' : login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)
+        "
+      >
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input type="email" matInput placeholder="Ex. mariorossi@gmail.com" />
@@ -61,8 +68,9 @@
             type="submit"
             matTooltip="Recover your password"
             matTooltipPosition="right"
+            [disabled]="userLoggedIn()"
           >
-            Recover
+            {{ userLoggedIn() ? 'Already logged in' : 'Recover' }}
           </button>
         </mat-card-actions>
       </form>

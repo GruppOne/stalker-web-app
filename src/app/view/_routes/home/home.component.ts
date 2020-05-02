@@ -63,4 +63,8 @@ export class HomeComponent implements OnInit {
       this.toggle = true;
     }
   }
+
+  public userLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
+  }
 }
