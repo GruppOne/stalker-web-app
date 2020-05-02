@@ -30,7 +30,7 @@ export class OrganizationComponent implements OnInit {
         .addId(organizationId)
         .addLdapConfiguration(
           new LdapConfigurationBuilder('127.0.0.1')
-            .addUsername('mariorossi@gmail.com')
+            .addUsername('root')
             .addPassword('password')
             .build(),
         );
