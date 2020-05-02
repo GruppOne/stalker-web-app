@@ -23,7 +23,7 @@ export class AuthHttpInterceptorService implements HttpInterceptor {
     if (
       localStorage.getItem('user_email') &&
       localStorage.getItem('token') &&
-      !req.url.toString().includes('user/login')
+      !req.url.includes('user/login')
     ) {
       req = req.clone({
         setHeaders: {

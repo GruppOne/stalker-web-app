@@ -19,6 +19,12 @@ describe('LoginService', () => {
   ]);
   const defaultUser = {email: 'default@mail', password: 'Default1!'};
 
+  const localStor = jasmine.createSpyObj('localStorage', [
+    'getItem',
+    'removeItem',
+    'setItem',
+  ]);
+
   let httpPostSpy = httpClientService.post.and.returnValue(
     of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
   );
@@ -37,8 +43,10 @@ describe('LoginService', () => {
       providers: [
         {provide: HttpClientService, useValue: httpClientService},
         {provide: Router, useValue: mockRouter},
+        {provide: localStorage, useValue: localStor},
       ],
     });
+    Object.defineProperty(window, 'localStorage', {value: localStor});
     sut = TestBed.inject(LoginService);
     sut.logout();
   });
@@ -48,6 +56,7 @@ describe('LoginService', () => {
   });
 
   it('should get the user_id', () => {
+    localStor.getItem.and.returnValue(null);
     expect(sut.getUserId()).toBeNull();
   });
 
@@ -68,48 +77,26 @@ describe('LoginService', () => {
   });
 
   it('should check if the user isLoggedIn and return false', () => {
+    localStor.getItem.and.returnValue(null);
     const result: boolean = sut.isLoggedIn();
     expect(result).toBe(false);
   });
   it('should check if the user isLoggedIn and return true', () => {
-    httpPostSpy = httpClientService.post.and.returnValue(
-      of(
-        new HttpResponse({
-          body: defaultUser,
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
-    );
-    sut.login(defaultUser).subscribe();
+    localStor.getItem.and.returnValue('3091328931');
     const result: boolean = sut.isLoggedIn();
     expect(result).toBe(true);
   });
-  it('should check if the user has sufficient permissions given a token', () => {
-    httpPostSpy = httpClientService.post.and.returnValue(
-      of(
-        new HttpResponse({
-          body: defaultUser,
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+  it('should check if the user has insufficient permissions given a token', () => {
+    localStor.getItem.and.returnValue(
+      '[{"organizationId": 1,"role": "Viewer"},{"organizationId": 2,"role": "Admin"}]',
     );
-    sut.login(defaultUser).subscribe();
     const result: boolean = sut.checkAuthorization(1, AdminType.viewer);
     expect(result).toBe(true);
   });
   it('should check if the user has sufficient permissions given a token', () => {
-    httpPostSpy = httpClientService.post.and.returnValue(
-      of(
-        new HttpResponse({
-          body: defaultUser,
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+    localStor.getItem.and.returnValue(
+      '[{"organizationId": 1,"role": "Viewer"},{"organizationId": 2,"role": "Admin"}]',
     );
-    sut.login(defaultUser).subscribe();
     const result: boolean = sut.checkAuthorization(1, AdminType.owner);
     expect(result).toBe(false);
   });
