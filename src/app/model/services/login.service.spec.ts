@@ -1,6 +1,8 @@
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Router} from '@angular/router';
 import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
 import {AdminType} from '../classes/administrator';
@@ -22,13 +24,23 @@ describe('LoginService', () => {
   );
 
   let sut: LoginService;
+  let mockRouter = {
+    navigate: jasmine.createSpy('navigate'),
+  };
 
   beforeEach(() => {
+    mockRouter = {
+      navigate: jasmine.createSpy('navigate'),
+    };
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [{provide: HttpClientService, useValue: httpClientService}],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [
+        {provide: HttpClientService, useValue: httpClientService},
+        {provide: Router, useValue: mockRouter},
+      ],
     });
     sut = TestBed.inject(LoginService);
+    sut.logout();
   });
 
   it('should be created', () => {
@@ -36,8 +48,12 @@ describe('LoginService', () => {
   });
 
   it('should get the user_id', () => {
-    sut.logout();
     expect(sut.getUserId()).toBeNull();
+  });
+
+  it('should log the user out and redirect to the home page', () => {
+    sut.logout();
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
   });
   it('should call the httpClientService post', () => {
     httpPostSpy = httpClientService.post.and.returnValue(
@@ -50,14 +66,12 @@ describe('LoginService', () => {
     expect(result).toEqual(defaultUser);
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
+
   it('should check if the user isLoggedIn and return false', () => {
-    sut.logout();
     const result: boolean = sut.isLoggedIn();
     expect(result).toBe(false);
-    sut.logout();
   });
   it('should check if the user isLoggedIn and return true', () => {
-    sut.logout();
     httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
@@ -70,10 +84,8 @@ describe('LoginService', () => {
     sut.login(defaultUser).subscribe();
     const result: boolean = sut.isLoggedIn();
     expect(result).toBe(true);
-    sut.logout();
   });
   it('should check if the user has sufficient permissions given a token', () => {
-    sut.logout();
     httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
@@ -86,10 +98,8 @@ describe('LoginService', () => {
     sut.login(defaultUser).subscribe();
     const result: boolean = sut.checkAuthorization(1, AdminType.viewer);
     expect(result).toBe(true);
-    sut.logout();
   });
   it('should check if the user has sufficient permissions given a token', () => {
-    sut.logout();
     httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
@@ -102,6 +112,5 @@ describe('LoginService', () => {
     sut.login(defaultUser).subscribe();
     const result: boolean = sut.checkAuthorization(1, AdminType.owner);
     expect(result).toBe(false);
-    sut.logout();
   });
 });
