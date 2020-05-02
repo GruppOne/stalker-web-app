@@ -1,15 +1,14 @@
 <!--user.id, user.userData?.firstName, user.email, user.userData?.lastName, user.userData?.birthDate -->
-<!-- <div *ngIf="user && !fetched"> -->
-<div>
+<div *ngIf="user && fetched">
   <div class="profileImage">
     <!-- if profile pic exists
       <img src="{{ user.id }}.png" class="profilePic"/>-->
     <img src="../../../../assets/default-profile-pic.jpg" class="profilePic" />
   </div>
   <div class="infoContainer">
-    <h1>Fabio Scettro</h1>
+    <h1>John Smith</h1>
     <h2><mat-icon>event</mat-icon> 20/02/1993</h2>
-    <h3><mat-icon>email</mat-icon> fabioscettro@gmail.com</h3>
+    <h3><mat-icon>email</mat-icon> address@example.com</h3>
     <h4><mat-icon>schedule</mat-icon> Joined:</h4>
     <h5><mat-icon>calendar_today</mat-icon> March 20, 2020</h5>
   </div>
@@ -47,7 +46,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="fetched" class="loadFail">
+<div *ngIf="!fetched" class="loadFail">
   <mat-icon>warning</mat-icon>
   <h1>Failed to load your profile data, try again!</h1>
 </div>
