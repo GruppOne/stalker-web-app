@@ -51,51 +51,6 @@
         <button mat-button matStepperNext type="button">Next</button>
       </div>
     </mat-step>
-    <mat-step formGroupName="2" [optional]="true">
-      <ng-template matStepLabel>Administrator management</ng-template>
-      <mat-list>
-        <div *ngFor="let admin of administrators">
-          <mat-list-item class="fieldName">{{ admin.role }}</mat-list-item>
-          <mat-list-item class="fieldData">{{ admin.email }}</mat-list-item>
-          <button
-            mat-button
-            matTooltip="Remove from administrators"
-            aria-label="Remove this user from administrators"
-            type="button"
-            (click)="deleteAdmin(admin.id)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-          <mat-divider></mat-divider>
-        </div>
-      </mat-list>
-      <mat-form-field class="adminType">
-        <mat-label>Administrator type</mat-label>
-        <mat-select formControlName="adminRole">
-          <mat-option *ngFor="let admin of adminType" [value]="admin">
-            {{ admin }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="adminEmail">
-        <mat-label>New administrator</mat-label>
-        <input formControlName="adminEmail" matInput placeholder="example@address.com" />
-      </mat-form-field>
-      <button
-        mat-button
-        matTooltip="Add to administrators"
-        aria-label="Button to add a new administrator when pressed"
-        class="adminConfirm"
-        type="button"
-        (click)="addAdmin()"
-      >
-        <mat-icon>done</mat-icon>
-      </button>
-      <div>
-        <button mat-button matStepperPrevious type="button">Back</button>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-    </mat-step>
     <mat-step onclick="">
       <ng-template matStepLabel>Confirm</ng-template>
       <p>You are now done.</p>

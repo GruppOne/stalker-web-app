@@ -13,12 +13,11 @@ import {HttpClientService} from './http-client.service';
 export class OrganizationService {
   constructor(private readonly httpClientService: HttpClientService) {}
 
-  // TODO: implement adding organization
-  /* addOrganization(organization: Organization): any {
-    return this.httpStalker
-      .fakeAddOrganization(this.organizationURL, organization)
-      .pipe(catchError(this.handleError<any>([])));
-  } */
+  addOrganization(organization: Organization): Observable<Organization> {
+    return this.httpClientService
+      .post<Organization>(`/organizations`, organization)
+      .pipe(map((response: HttpResponse<Organization>) => response.body as Organization));
+  }
 
   editOrganization(organization: Organization): Observable<Organization> {
     return this.httpClientService

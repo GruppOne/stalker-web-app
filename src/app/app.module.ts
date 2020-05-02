@@ -34,6 +34,11 @@ const routes: Routes = [
   {path: 'users/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'organizations', component: OrganizationsComponent, canActivate: [AuthGuard]},
   {
+    path: 'organization/create',
+    component: CreateOrganizationComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'organization/:id',
     component: OrganizationComponent,
     canActivate: [AuthGuard],
@@ -44,10 +49,6 @@ const routes: Routes = [
     component: EditOrganizationComponent,
     canActivate: [AuthGuard],
     data: {roles: AdminType.manager},
-  },
-  {
-    path: 'organization/create',
-    component: CreateOrganizationComponent,
   },
   // route to 404
   {path: '**', component: NotFoundComponent},

@@ -77,8 +77,10 @@ export class MapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
-    this.getOrganizationById(organizationId);
+    if (!this.route.snapshot.url.toString().includes('create')) {
+      const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+      this.getOrganizationById(organizationId);
+    }
     if (!this.organization) {
       this.organization = new OrganizationBuilder('GruppOne', true)
         .addPlaces([
