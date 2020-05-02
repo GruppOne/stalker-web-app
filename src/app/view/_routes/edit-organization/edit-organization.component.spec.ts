@@ -22,6 +22,8 @@ describe('EditOrganizationComponent', () => {
     'editOrganization',
   ]);
 
+  const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
+
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
     of(null),
   );
@@ -31,6 +33,7 @@ describe('EditOrganizationComponent', () => {
   );
 
   beforeEach(async(() => {
+    urlSegment.toString.and.returnValue('organization/1');
     TestBed.configureTestingModule({
       declarations: [EditOrganizationComponent, MapComponent],
       imports: [
@@ -51,6 +54,7 @@ describe('EditOrganizationComponent', () => {
               paramMap: convertToParamMap({
                 id: '1',
               }),
+              url: [urlSegment],
             },
           },
         },
