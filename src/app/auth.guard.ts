@@ -14,14 +14,6 @@ export class AuthGuard implements CanActivate {
     private readonly location: Location,
   ) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    /*
-    if (route.url.toString().includes('home')) {
-      if (this.loginService.isLoggedIn()) {
-        this.router.navigate(['/organizations']);
-      }
-      return true;
-    }
-    */
     if (this.loginService.isLoggedIn()) {
       if (route.url.toString().includes('organization')) {
         const actualOrgId = +(route.paramMap.get('id') as string);
