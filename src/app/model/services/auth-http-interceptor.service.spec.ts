@@ -5,11 +5,23 @@ import {AuthHttpInterceptorService, BodyType} from './auth-http-interceptor.serv
 
 describe('AuthHttpInterceptorService', () => {
   const mockHttpHandler = {handle: jasmine.createSpy('handle')};
-  const localStor = jasmine.createSpyObj('localStorage', ['getItem']);
+  const localStor = jasmine.createSpyObj('localStorage', [
+    'getItem',
+    'removeItem',
+    'setItem',
+  ]);
   let service: AuthHttpInterceptorService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: localStorage,
+          useValue: localStor,
+        },
+      ],
+    });
+    Object.defineProperty(window, 'localStorage', {value: localStor});
     service = TestBed.inject(AuthHttpInterceptorService);
   });
 
@@ -18,10 +30,7 @@ describe('AuthHttpInterceptorService', () => {
   });
   // TODO might improve how to check expected results
   it('should not attach jwtToken if the request goes to the login endpoint', () => {
-    const fakeHttpRequest = {
-      url: 'user/login',
-      clone: jasmine.createSpy('clone'),
-    };
+    const fakeHttpRequest = {url: 'user/login', clone: jasmine.createSpy('clone')};
     localStor.getItem.and.returnValue('nice');
     service.intercept(
       (fakeHttpRequest as unknown) as HttpRequest<BodyType>,
@@ -40,11 +49,11 @@ describe('AuthHttpInterceptorService', () => {
   });
   it('should attach jwtToken if the user is already logged in', () => {
     const fakeHttpRequest = {url: 'organizations', clone: jasmine.createSpy('clone')};
-    localStor.getItem.and.returnValue('nice');
+    localStor.getItem.and.returnValue('nicer');
     service.intercept(
       (fakeHttpRequest as unknown) as HttpRequest<BodyType>,
       mockHttpHandler,
     );
-    expect(mockHttpHandler.handle).toHaveBeenCalled();
+    expect(fakeHttpRequest.clone).toHaveBeenCalled();
   });
 });

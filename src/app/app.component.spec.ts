@@ -12,7 +12,11 @@ describe('AppComponent', () => {
     url: '/',
   };
 
-  const loginService = jasmine.createSpyObj('LoginService', ['getUserId', 'isLoggedIn']);
+  const loginService = jasmine.createSpyObj('LoginService', [
+    'getUserId',
+    'isLoggedIn',
+    'logout',
+  ]);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,6 +32,7 @@ describe('AppComponent', () => {
   let app: AppComponent;
   let userLoggedInSpy;
   let userSpy;
+  let userLogout;
 
   beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -76,5 +81,9 @@ describe('AppComponent', () => {
     expect(userSpy.calls.any()).toBe(true);
   });
 
-  it('should logout', () => {});
+  it('should logout', () => {
+    userLogout = loginService.logout;
+    app.logout();
+    expect(userLogout).toHaveBeenCalledTimes(1);
+  });
 });
