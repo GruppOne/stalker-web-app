@@ -55,6 +55,14 @@ export class AppComponent {
   userLoggedIn(): boolean {
     return this.loginService.isLoggedIn();
   }
+
+  getUserId(): string {
+    return this.loginService.getUserId();
+  }
+
+  logout(): void {
+    return this.loginService.logout();
+  }
 }
 
 // Fabio Scettro, Alessandro Rizzo, Riccardo Agatea, Luca Ercole, Riccardo Cestaro, Alberto Cocco, Alberto Gobbo, Tobia Apolloni
