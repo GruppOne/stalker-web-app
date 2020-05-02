@@ -29,8 +29,6 @@ export class CreateOrganizationComponent implements OnInit {
     arrayCity: string[];
     arrayCountry: string[];
   };
-
-  organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
   formGroup: FormGroup = new FormGroup({});
 
@@ -68,7 +66,7 @@ export class CreateOrganizationComponent implements OnInit {
    * the service for updating the organization in the server
    */
   submitOrganizationForm(): void {
-    if (this.mapDataChild && this.formArray && this.organization) {
+    if (this.mapDataChild && this.formArray) {
       console.log(this.formArray.value);
       console.log(this.mapDataChild.arrayCoord);
       console.log(this.mapDataChild.arrayName);
@@ -78,12 +76,9 @@ export class CreateOrganizationComponent implements OnInit {
       console.log(this.mapDataChild.arrayCountry);
       this.organizationBuilder = new OrganizationBuilder(
         this.formArray.value[0].orgNameCtrl,
-        true,
+        this.toggle,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        .addId(this.organization.id as number)
-        .addCreatedDate(this.organization.createdDate as string)
-        .addLastModifiedDate(this.organization.lastModifiedDate as string)
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
             .addUsername(this.formArray.value[1].orgUserCtrl)
@@ -115,7 +110,7 @@ export class CreateOrganizationComponent implements OnInit {
         .subscribe(
           (response: Organization) => {
             console.log(response);
-            this.router.navigate([`/organization/${this.organization?.id}`]);
+            this.router.navigate([`/organizations`]);
           },
           (err: Error) => console.error(err),
         );

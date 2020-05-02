@@ -1,7 +1,7 @@
 import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {ActivatedRoute, convertToParamMap, UrlSegment} from '@angular/router';
 import {LatLng, Polygon} from 'leaflet';
 import {of} from 'rxjs';
 import {OrganizationService} from 'src/app/model/services/organization.service';
@@ -12,6 +12,8 @@ import {MapComponent} from './map.component';
 describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
+
+  const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   const organizationService = jasmine.createSpyObj('OrganizationService', [
     'getOrganizationById',
@@ -41,11 +43,13 @@ describe('MapComponent', () => {
     new LatLng(45.41144, 11.88795),
   ]);
   beforeEach(async(() => {
+    urlSegment.toString.and.returnValue('organization/1');
     TestBed.configureTestingModule({
       declarations: [MapComponent],
       imports: [HttpClientTestingModule],
       providers: [
         {provide: HttpClient},
+        {provide: UrlSegment, useValue: urlSegment},
         {
           provide: ActivatedRoute,
           useValue: {
@@ -53,6 +57,7 @@ describe('MapComponent', () => {
               paramMap: convertToParamMap({
                 id: '1',
               }),
+              url: [urlSegment],
             },
           },
         },
@@ -68,32 +73,28 @@ describe('MapComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and ask for organization places', () => {
+    expect(component).toBeTruthy();
+  });
+  // TODO check this test
+  it('should create and not ask for organization places', () => {
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(of(null));
+    urlSegment.toString.and.returnValue('create');
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should call Organization get and handle empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {organization: []},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      of({organizations: []}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {organizations: [{name: 'unipd', isPrivate: false}]},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      of({organizations: [{name: 'unipd', isPrivate: false}]}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
