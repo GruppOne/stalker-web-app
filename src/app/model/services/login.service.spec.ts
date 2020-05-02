@@ -1,7 +1,7 @@
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {Router} from '@angular/router';
 import {TestBed} from '@angular/core/testing';
+import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
