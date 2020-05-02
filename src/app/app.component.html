@@ -12,31 +12,44 @@
       ><span>talker</span>
     </button>
     <span class="spacer"></span>
-    <!-- only when a user is authenticathed -->
-    <button mat-button *ngIf="this.getRoute() == '/profile'" matTooltip="Logout">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="this.getRoute() != '/profile'">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngIf="this.getRoute() == '/home'">
-        <mat-icon>build</mat-icon>
-        <span>How it works</span>
-      </button>
-      <button mat-menu-item *ngIf="this.getRoute() == '/home'">
-        <mat-icon>group</mat-icon>
-        <span>Who we are</span>
-      </button>
+      <div *ngIf="this.getRoute() == '/home'">
+        <button mat-menu-item>
+          <mat-icon>build</mat-icon>
+          <span>How it works</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>group</mat-icon>
+          <span>Who we are</span>
+        </button>
+      </div>
       <!-- only when a user is authenticathed -->
-      <button mat-menu-item>
-        <mat-icon>person</mat-icon>
-        <span>Profile</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
+      <div *ngIf="this.loginService.isLoggedIn()">
+        <button
+          mat-menu-item
+          [disabled]="this.getRoute().includes('/users/')"
+          [routerLink]="'/users/' + this.loginService.getUserId()"
+        >
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button
+          mat-menu-item
+          matTooltip="Go to organizations list"
+          routerLink="/organizations"
+          [disabled]="this.getRoute() == '/organizations'"
+        >
+          <mat-icon>list</mat-icon>
+          <span>Organizations</span>
+        </button>
+        <button mat-menu-item (click)="this.loginService.logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </div>
     </mat-menu>
   </mat-toolbar-row>
   <div class="white-triangle" *ngIf="this.getRoute() != '/home'"></div>
@@ -47,7 +60,7 @@
   src="../assets/walking-crowd.png"
   alt="Stalker background image"
 />
-<div class="whiteBar" *ngIf="this.getRoute().toString().includes('/users/')"></div>
+<div class="whiteBar" *ngIf="this.getRoute().includes('/users/')"></div>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
