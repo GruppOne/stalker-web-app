@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {AdminType} from '../classes/administrator';
@@ -33,23 +33,8 @@ export class OrganizationService {
   }
   getOrganizationById(organizationId: number): Observable<Organization> {
     return this.httpClientService
-      .get<{organizations: Organization[]}>('/organizations')
-      .pipe(
-        map((response: HttpResponse<{organizations: Organization[]}>) => {
-          this.organizations = (response.body as {
-            organizations: Organization[];
-          }).organizations;
-          for (const i of this.organizations) {
-            const element = i;
-            if (element.id === organizationId) {
-              return element;
-            }
-
-            throwError('organization not found');
-          }
-          return {} as Organization;
-        }),
-      );
+      .get<Organization>(`/organization/${organizationId}`)
+      .pipe(map((response: HttpResponse<Organization>) => response.body as Organization));
   }
   getAdminOrganizations(): Observable<
     {

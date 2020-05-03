@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+import {AdminType} from '../classes/administrator';
 import {User} from '../classes/users/user';
 
 import {HttpClientService} from './http-client.service';
@@ -72,7 +73,7 @@ export class LoginService {
     return false;
   }
 
-  getAdminOrganizations(): {organizationId: number; role: string}[] {
+  getAdminOrganizations(): {organizationId: number; role: AdminType}[] {
     return JSON.parse(localStorage.getItem('organizations') as string).organizations;
   }
 
