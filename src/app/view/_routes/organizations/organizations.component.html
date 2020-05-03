@@ -6,33 +6,44 @@
     <input matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort>
+    <caption style="display: none;">
+      Organizations where you have a role
+    </caption>
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="nameCol">Name</th>
+      <td mat-cell *matCellDef="let row" class="nameCol" routerLink="/organization/{{ row.id }}">{{ row.name }}</td>
     </ng-container>
-
     <!-- Description Column -->
     <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-      <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="descCol">Description</th>
+      <td mat-cell *matCellDef="let row" class="descCol" routerLink="/organization/{{ row.id }}">
+        {{ row.description }}
+      </td>
     </ng-container>
-
     <!-- Role Column -->
     <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
-      <td mat-cell *matCellDef="let row">{{ row.role }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Role</th>
+      <td mat-cell *matCellDef="let row" routerLink="/organization/{{ row.id }}">
+        <mat-icon
+          [matTooltip]="row.role != 'Viewer' ? (row.role != 'Manager' ? 'Owner' : 'Manager') : 'Viewer'"
+          matTooltipPosition="above"
+        >
+          {{ row.role != 'Viewer' ? (row.role != 'Manager' ? 'event_seat' : 'build') : 'visibility' }}
+        </mat-icon>
+      </td>
     </ng-container>
-
-    <!-- Color Column -->
+    <!-- Type Column -->
     <ng-container matColumnDef="private">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Private/Public</th>
-      <td mat-cell *matCellDef="let row">{{ row.private }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Type</th>
+      <td mat-cell *matCellDef="let row" routerLink="/organization/{{ row.id }}">
+        <mat-icon [matTooltip]="row.private === 'private' ? 'Private' : 'Public'" matTooltipPosition="above">{{
+          row.private === 'private' ? 'lock' : 'lock_open'
+        }}</mat-icon>
+      </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

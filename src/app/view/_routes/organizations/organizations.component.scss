@@ -12,6 +12,7 @@ h2 {
 }
 
 table {
+  max-width: 100%;
   width: 100%;
 }
 
@@ -27,5 +28,55 @@ table {
 
 td,
 th {
-  width: 25%;
+  width: 7%;
+}
+
+.nameCol {
+  font-weight: 500;
+  padding-right: 15px;
+  width: 27%;
+}
+
+.descCol {
+  padding-right: 15px;
+  width: 58%;
+}
+
+.mat-row:hover {
+  box-shadow: 0 5px 3px -3px rgba(0, 0, 0, 0.2), 0 2px 8px 2px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+@media only screen and (max-width: 767px) {
+  .material-icons {
+    font-size: 18px !important;
+    margin-left: 6px;
+  }
+
+  td,
+  th {
+    width: 45px;
+  }
+
+  .nameCol {
+    width: 29%;
+  }
+
+  .descCol {
+    width: 60%;
+  }
+
+  th.mat-header-cell:first-of-type,
+  td.mat-cell:first-of-type,
+  td.mat-footer-cell:first-of-type {
+    padding-left: 8px;
+  }
+
+  th.mat-header-cell:last-of-type,
+  td.mat-cell:last-of-type,
+  td.mat-footer-cell:last-of-type {
+    padding-right: 8px;
+  }
 }
