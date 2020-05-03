@@ -88,7 +88,7 @@ export class OrganizationsComponent implements OnInit {
         }[],
       ) => (this.organizationsRoles = response),
 
-      (err: Error) => console.error(err.message),
+      (err: Error) => console.error(err),
     );
   }
 }

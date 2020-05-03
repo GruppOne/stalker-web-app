@@ -86,6 +86,27 @@ describe('LoginService', () => {
     const result: boolean = sut.isLoggedIn();
     expect(result).toBe(true);
   });
+  it('should get Organization the user si admin of and role', () => {
+    localStor.getItem.and.returnValue(
+      '{"organizations":[{"organizationId": 1,"role": "Viewer"}' +
+        ',{"organizationId": 2,"role": "Admin"}]}',
+    );
+    const expectedResult = [
+      {
+        organizationId: 1,
+        role: AdminType.viewer,
+      },
+      {
+        organizationId: 2,
+        role: AdminType.admin,
+      },
+    ];
+    const result: {
+      organizationId: number;
+      role: AdminType;
+    }[] = sut.getAdminOrganizations();
+    expect(result).toEqual(expectedResult);
+  });
   it('should check if the user has insufficient permissions given a token', () => {
     localStor.getItem.and.returnValue(
       '[{"organizationId": 1,"role": "Viewer"},{"organizationId": 2,"role": "Admin"}]',
