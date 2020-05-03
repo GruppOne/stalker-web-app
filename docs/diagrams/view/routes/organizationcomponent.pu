@@ -1,5 +1,4 @@
-@startuml OrganizationComponent
-
+@startuml OrganizationComponent diagram
 class OrganizationComponent {
   - organization?: Organization
   - organizationBuilder?: OrganizationBuilder

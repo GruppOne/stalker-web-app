@@ -1,0 +1,14 @@
+@startuml AuthGuard diagram
+class AuthGuard {
+  ==constructor==
+
+  + constructor(
+    private <<readonly>> loginService : LoginService,
+    private <<readonly>> router : Router,
+    private <<readonly>> location : Location,
+    )
+  ==methods==
+
+  + canActivate(route: ActivatedRouteSnapshot) : boolean
+}
+@enduml
