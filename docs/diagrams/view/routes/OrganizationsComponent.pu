@@ -1,12 +1,19 @@
 @startuml OrganizationsComponent diagram
 class OrganizationsComponent {
-  + displayedColumns : string[]
-  + paginator : MatPaginator
-  + sort: MatSort
+  - displayedColumns : string[]
+  - dataSource : MatTableDataSource
+  - paginator : MatPaginator
+  - sort : MatSort
+  - organizationsRoles : object
+  ==constructor==
+
+  + constructor(
+    private <<readonly>> organizationService: OrganizationService
+    )
   ==methods==
 
   + ngOnInit() : void
   + applyFilter(event : Event) : void
-  + createNewUser(id : number) : UserData
+  + getAdminOrganizations() : void
 }
 @enduml

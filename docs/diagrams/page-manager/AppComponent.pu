@@ -1,0 +1,20 @@
+@startuml AppComponent diagram
+class AppComponent {
+  - componentsTooltip : string
+  - components : string[]
+  ==constructor==
+
+  + constructor(
+    public router: Router
+    private <<readonly>> loginService: LoginService
+    )
+  ==methods==
+
+  + getRoute() : string
+  + backHome() : void
+  + generateComponents() : void
+  + userLoggedIn(): boolean
+  + getUserId() : string
+  + logout() : void
+}
+@enduml

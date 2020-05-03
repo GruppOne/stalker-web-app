@@ -1,0 +1,22 @@
+@startuml CreateOrganizationComponent diagram
+class CreateOrganizationComponent {
+  - toggle : boolean
+  - adminType : AdminType[]
+  - mapDataChild ?
+  - organizationBuilder ?: OrganizationBuilder
+  - formGroup : FormGroup
+  ==constructor==
+
+  + constructor(
+    private <<readonly>> formBuilder : FormBuilder
+    private <<readonly>> organizationService : OrganizationService
+    private <<readonly>> router : Router
+  )
+  ==methods==
+
+  + ngOnInit() : void
+  + get formArray() : AbstractControl | null
+  + submitOrganizationForm() : void
+  + showLdapConfiguration() : void
+}
+@enduml

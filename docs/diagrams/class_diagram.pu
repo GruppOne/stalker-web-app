@@ -63,27 +63,38 @@
 !include view/components/FormPasswordComponent.pu
 !include view/components/MapComponent.pu
 
-!include view/routes/editorganizationcomponent.pu
+!include view/routes/CreateOrganizationComponent.pu
+!include view/routes/EditOrganizationComponent.pu
 !include view/routes/HomeComponent.pu
 !include view/routes/NotFoundComponent.pu
-!include view/routes/organizationcomponent.pu
+!include view/routes/OrganizationComponent.pu
 !include view/routes/OrganizationsComponent.pu
 !include view/routes/ProfileComponent.pu
 ' END include components
 
 '---------------------------------------------------------------------------
 
+' START include managers
+!include page-manager/AppComponent.pu
+!include page-manager/AuthGuard.pu
+' END include managers
+
+'---------------------------------------------------------------------------
+
 ' START packages
 package "Angular" {
-  class FormGroup
   class AbstractControl
+  class ActivatedRouteSnapshot
+  class CanActivate
   class FormBuilder
-  class HttpRequest
-  class HttpHeaders
-  class Validators
+  class FormGroup
   class HttpClient
-  class Title
+  class HttpHeaders
+  class HttpRequest
+  class Location
   class Router
+  class Title
+  class Validators
 }
 
 package "Leaflet" {
@@ -97,9 +108,34 @@ package "Angular Material" {
   class MatPaginator
   class MatSort
 }
+
+package "Typescript" {
+  interface Event <<interface>>
+}
 ' END packages
 
 '---------------------------------------------------------------------------
+
+AppComponent --> Router
+AppComponent --> LoginService
+
+
+AuthGuard --> LoginService
+AuthGuard --> Router
+AuthGuard --> Location
+AuthGuard ..> ActivatedRouteSnapshot
+AuthGuard ..> CanActivate
+
+
+CreateOrganizationComponent --> AdminType
+CreateOrganizationComponent --> MapComponent
+CreateOrganizationComponent o-- OrganizationBuilder
+CreateOrganizationComponent --> FormGroup
+CreateOrganizationComponent ..> AbstractControl
+CreateOrganizationComponent --> FormBuilder
+CreateOrganizationComponent --> OrganizationService
+CreateOrganizationComponent --> Router
+
 
 EditOrganizationComponent --> AdminType
 EditOrganizationComponent --> MapComponent
@@ -130,6 +166,8 @@ OrganizationComponent o-- OrganizationBuilder
 OrganizationComponent --> OrganizationService
 
 
+OrganizationsComponent --> OrganizationService
+OrganizationsComponent ..> Event
 ' -------------------------------------------------- Angular Material
 OrganizationsComponent --> MatTableDataSource
 OrganizationsComponent --> MatPaginator
