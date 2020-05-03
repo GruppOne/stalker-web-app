@@ -1,9 +1,11 @@
 import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
 import {HttpClientService} from './http-client.service';
+import {LoginService} from './login.service';
 import {OrganizationService} from './organization.service';
 
 describe('OrganizationService', () => {
@@ -14,6 +16,7 @@ describe('OrganizationService', () => {
     'put',
     // 'delete',
   ]);
+  const loginService = jasmine.createSpyObj('LoginService', ['getAdminOrganizations']);
   let httpGetSpy = httpClientService.get.and.returnValue(
     of(
       new HttpResponse({
@@ -28,8 +31,11 @@ describe('OrganizationService', () => {
   );
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [{provide: HttpClientService, useValue: httpClientService}],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [
+        {provide: HttpClientService, useValue: httpClientService},
+        {provide: LoginService, useValue: loginService},
+      ],
     });
     service = TestBed.inject(OrganizationService);
   });

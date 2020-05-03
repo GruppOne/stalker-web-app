@@ -1,16 +1,17 @@
+import {HttpClient} from '@angular/common/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ActivatedRoute, convertToParamMap, Router, UrlSegment} from '@angular/router';
+import {LatLng} from 'leaflet';
+import {of, throwError} from 'rxjs';
+import {OrganizationService} from 'src/app/model/services/organization.service';
+import {CustomMaterialModule} from 'src/app/modules/material.module';
+
+import {MapComponent} from '../../components/map/map.component';
 
 import {CreateOrganizationComponent} from './create-organization.component';
-import {of, throwError} from 'rxjs';
-import {LatLng} from 'leaflet';
-import {MapComponent} from '../../components/map/map.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
-import {CustomMaterialModule} from 'src/app/modules/material.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClient} from '@angular/common/http';
-import {OrganizationService} from 'src/app/model/services/organization.service';
-import {ActivatedRoute, convertToParamMap, Router, UrlSegment} from '@angular/router';
 
 describe('CreateOrganizationComponent', () => {
   let component: CreateOrganizationComponent;
