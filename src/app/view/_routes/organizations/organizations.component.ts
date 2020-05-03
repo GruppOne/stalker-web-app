@@ -3,7 +3,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {AdminType} from 'src/app/model/classes/administrator';
-import {Organization} from 'src/app/model/classes/organization';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -14,15 +13,27 @@ import {OrganizationService} from 'src/app/model/services/organization.service';
   templateUrl: 'organizations.component.html',
 })
 export class OrganizationsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'role', 'private'];
-  dataSource: MatTableDataSource<{organization: Organization; role: AdminType}>;
+  displayedColumns: string[] = ['name', 'description', 'role', 'private'];
+  dataSource: MatTableDataSource<{
+    id: number;
+    name: string;
+    description: string;
+    role: AdminType;
+    private: string;
+  }>;
 
   @ViewChild(MatPaginator, {static: true})
   paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true})
   sort: MatSort = new MatSort();
 
-  organizationsRoles: {organization: Organization; role: AdminType}[] = [];
+  organizationsRoles: {
+    id: number;
+    name: string;
+    description: string;
+    role: AdminType;
+    private: string;
+  }[] = [];
 
   constructor(private readonly organizationService: OrganizationService) {
     // Create 100 users
@@ -34,11 +45,23 @@ export class OrganizationsComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    // this.getAdminOrganizations();
+    this.getAdminOrganizations();
     if (this.organizationsRoles.length === 0) {
       this.organizationsRoles = [
-        {organization: {id: 1, name: 'org1', isPrivate: true}, role: AdminType.admin},
-        {organization: {id: 2, name: 'org2', isPrivate: true}, role: AdminType.viewer},
+        {
+          id: 1,
+          name: 'unipd',
+          description: 'lorem ipsum...',
+          role: AdminType.admin,
+          private: 'private',
+        },
+        {
+          id: 2,
+          name: 'GruppOne',
+          description: 'sit amet...',
+          role: AdminType.viewer,
+          private: 'public',
+        },
       ];
     }
     this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
@@ -55,8 +78,15 @@ export class OrganizationsComponent implements OnInit {
 
   getAdminOrganizations(): void {
     this.organizationService.getAdminOrganizations().subscribe(
-      (response: {organization: Organization; role: AdminType}[]) =>
-        (this.organizationsRoles = response),
+      (
+        response: {
+          id: number;
+          name: string;
+          description: string;
+          role: AdminType;
+          private: string;
+        }[],
+      ) => (this.organizationsRoles = response),
 
       (err: Error) => console.error(err.message),
     );

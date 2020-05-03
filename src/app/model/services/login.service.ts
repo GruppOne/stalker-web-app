@@ -73,7 +73,7 @@ export class LoginService {
   }
 
   getAdminOrganizations(): {organizationId: number; role: string}[] {
-    return JSON.parse(localStorage.getItem('user_email') as string).organizations;
+    return JSON.parse(localStorage.getItem('organizations') as string).organizations;
   }
 
   logout(): void {

@@ -88,4 +88,8 @@ describe('CreateOrganizationComponent', () => {
     component.submitOrganizationForm();
     expect(console.error).toHaveBeenCalledWith('');
   });
+  it('should change toggle value', () => {
+    component.showLdapConfiguration();
+    expect(component.toggle).toBe(true);
+  });
 });

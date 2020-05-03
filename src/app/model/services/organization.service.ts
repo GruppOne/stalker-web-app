@@ -51,7 +51,15 @@ export class OrganizationService {
         }),
       );
   }
-  getAdminOrganizations(): Observable<{organization: Organization; role: AdminType}[]> {
+  getAdminOrganizations(): Observable<
+    {
+      id: number;
+      name: string;
+      description: string;
+      role: AdminType;
+      private: string;
+    }[]
+  > {
     const organizationsIds: {
       organizationId: number;
       role: string;
@@ -63,14 +71,23 @@ export class OrganizationService {
           this.organizations = (response.body as {
             organizations: Organization[];
           }).organizations;
-          const adminOrganizations: {organization: Organization; role: AdminType}[] = [];
+          const adminOrganizations: {
+            id: number;
+            name: string;
+            description: string;
+            role: AdminType;
+            private: string;
+          }[] = [];
           for (const iterator of organizationsIds) {
             for (const i of this.organizations) {
               const element = i;
               if (element.id === iterator.organizationId) {
                 adminOrganizations.push({
-                  organization: element,
+                  id: element.id,
+                  name: element.name,
+                  description: element.description as string,
                   role: iterator.role as AdminType,
+                  private: element.isPrivate ? 'private' : 'public',
                 });
               }
             }
