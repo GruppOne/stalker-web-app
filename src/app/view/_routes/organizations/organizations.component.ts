@@ -50,17 +50,18 @@ export class OrganizationsComponent implements OnInit {
       this.organizationsRoles = [
         {
           id: 1,
-          name: 'unipd',
-          description: 'lorem ipsum...',
-          role: AdminType.admin,
-          private: 'private',
+          name: 'Unipd',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          role: AdminType.viewer,
+          private: 'public',
         },
         {
           id: 2,
           name: 'GruppOne',
           description: 'sit amet...',
-          role: AdminType.viewer,
-          private: 'public',
+          role: AdminType.owner,
+          private: 'private',
         },
       ];
     }
