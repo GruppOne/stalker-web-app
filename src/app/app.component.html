@@ -32,12 +32,7 @@
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
-        <button
-          mat-menu-item
-          matTooltip="Go to organizations list"
-          routerLink="/organizations"
-          [disabled]="this.getRoute() == '/organizations'"
-        >
+        <button mat-menu-item routerLink="/organizations" [disabled]="this.getRoute() == '/organizations'">
           <mat-icon>list</mat-icon>
           <span>Organizations</span>
         </button>
