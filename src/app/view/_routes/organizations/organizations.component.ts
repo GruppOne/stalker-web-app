@@ -2,54 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
-
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon',
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
-  'purple',
-  'fuchsia',
-  'lime',
-  'teal',
-  'aqua',
-  'blue',
-  'navy',
-  'black',
-  'gray',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
-
+import {AdminType} from 'src/app/model/classes/administrator';
+import {Organization} from 'src/app/model/classes/organization';
+import {OrganizationService} from 'src/app/model/services/organization.service';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
@@ -59,25 +14,34 @@ const NAMES: string[] = [
   templateUrl: 'organizations.component.html',
 })
 export class OrganizationsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id', 'name', 'role', 'private'];
+  dataSource: MatTableDataSource<{organization: Organization; role: AdminType}>;
 
   @ViewChild(MatPaginator, {static: true})
   paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true})
   sort: MatSort = new MatSort();
 
-  constructor() {
+  organizationsRoles: {organization: Organization; role: AdminType}[] = [];
+
+  constructor(private readonly organizationService: OrganizationService) {
     // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => this.createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    // this.getAdminOrganizations();
+    if (this.organizationsRoles.length === 0) {
+      this.organizationsRoles = [
+        {organization: {id: 1, name: 'org1', isPrivate: true}, role: AdminType.admin},
+        {organization: {id: 2, name: 'org2', isPrivate: true}, role: AdminType.viewer},
+      ];
+    }
+    this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
   }
 
   applyFilter(event: Event): void {
@@ -89,19 +53,12 @@ export class OrganizationsComponent implements OnInit {
     }
   }
 
-  /** Builds and returns a new User. */
-  createNewUser(id: number): UserData {
-    const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-      ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-      '.';
+  getAdminOrganizations(): void {
+    this.organizationService.getAdminOrganizations().subscribe(
+      (response: {organization: Organization; role: AdminType}[]) =>
+        (this.organizationsRoles = response),
 
-    return {
-      id: id.toString(),
-      name,
-      progress: Math.round(Math.random() * 100).toString(),
-      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))],
-    };
+      (err: Error) => console.error(err.message),
+    );
   }
 }

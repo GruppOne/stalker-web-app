@@ -44,10 +44,7 @@ export class LoginService {
           'anRpIjoiMiIsInN1YiI6Imdpb3JnaW90ZXN0MDJAaG90bWFpbC5pdCIsImlhdCI6MTU4ODMyODkz' +
           'MSwiZXhwIjoxNTkxMzI4OTMxfQ.E7IRmte9p6-Yrl2B6iQBvQ9qxzwoCkO1lXgmjvbhlKk';
         const jwtToken = jwtTokenHeader.substring(7);
-        const payload: StalkerJWT = jwt.verify(
-          jwtToken,
-          'OurSecureSecretLongKeyForStalkerJWTtokens',
-        ) as StalkerJWT;
+        const payload: StalkerJWT = jwt.decode(jwtToken) as StalkerJWT;
 
         console.log(payload);
         localStorage.setItem('token', jwtToken);
@@ -73,6 +70,10 @@ export class LoginService {
       return true;
     }
     return false;
+  }
+
+  getAdminOrganizations(): {organizationId: number; role: string}[] {
+    return JSON.parse(localStorage.getItem('user_email') as string).organizations;
   }
 
   logout(): void {
