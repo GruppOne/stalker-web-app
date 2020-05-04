@@ -1,0 +1,36 @@
+@startuml organization classes
+!include ../../style/class.pu
+!include ../view/routes/OrganizationComponent.pu
+!include ../view/components/MapComponent.pu
+
+!include ../services/organizationservice.pu
+' -------------------------------------------------- OrganizationBuilder
+!include ../classes/Organization/OrganizationBuilder.pu
+' -------------------------------------------------- Organization
+!include ../interfaces/Organization/Organization.pu
+' -------------------------------------------------- LdapConfiguration
+!include ../classes/LdapConfiguration/LdapConfigurationBuilder.pu
+' -------------------------------------------------- PlaceBuilder
+!include ../classes/Place/PlaceBuilder.pu
+!include ../classes/Place/PlaceDataBuilder.pu
+!include ../classes/Place/MyLatLng.pu
+' -------------------------------------------------- LdapConfiguration
+!include ../interfaces/LdapConfiguration/LdapConfiguration.pu
+' -------------------------------------------------- Place
+!include ../interfaces/Place/Place.pu
+!include ../interfaces/Place/PlaceData.pu
+
+OrganizationComponent --> Organization
+OrganizationComponent o-- OrganizationBuilder
+OrganizationComponent --> OrganizationService
+OrganizationComponent ..> PlaceBuilder
+OrganizationComponent ..> PlaceDataBuilder
+OrganizationComponent ..> LdapConfigurationBuilder
+MapComponent --> Organization
+MapComponent o-- OrganizationBuilder
+MapComponent --> PlaceService
+MapComponent --> OrganizationService
+OrganizationService --> HttpClientService
+OrganizationService ..> Organization
+
+@enduml

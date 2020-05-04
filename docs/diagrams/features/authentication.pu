@@ -1,0 +1,23 @@
+@startuml authentication and authorization classes
+!include ../../style/class.pu
+!include ../services/auth-http-interceptorservice.pu
+!include ../services/loginservice.pu
+!include ../page-manager/AuthGuard.pu
+
+AuthGuard --> LoginService
+AuthGuard --> Router
+AuthGuard --> Location
+AuthGuard ..> ActivatedRouteSnapshot
+AuthGuard ..> CanActivate
+
+note left of LoginService
+gestisce le operazioni di login e logout e il recupero di
+credenziali sensibili necessarie all'autenticazione
+end note
+
+note right of AuthGuard
+gestisce l'autorizzazione all'accesso dell'utente
+ad una determinata pagina e le conseguenti azioni
+da svolgere
+end note
+@enduml

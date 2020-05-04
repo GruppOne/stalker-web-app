@@ -1,0 +1,13 @@
+@startuml Home classes
+!include ../../style/class.pu
+!include ../view/routes/HomeComponent.pu
+!include ../services/loginservice.pu
+!include ../view/components/FormEmailComponent.pu
+!include ../view/components/FormPasswordComponent.pu
+
+HomeComponent --> LoginService
+LoginService --> HttpClientService
+HomeComponent ..> FormEmailComponent
+HomeComponent ..> FormPasswordComponent
+
+@enduml

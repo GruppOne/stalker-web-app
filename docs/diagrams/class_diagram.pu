@@ -136,9 +136,7 @@ AdministratorComponent --> ActivatedRoute
 AdministratorComponent --> ConnectedUserService
 AdministratorComponent --> AdministratorService
 AdministratorComponent --> Administrator
-EditOrganizationComponent --> User
 
-CreateOrganizationComponent ..> AdministratorComponent
 CreateOrganizationComponent --> MapComponent
 CreateOrganizationComponent o-- OrganizationBuilder
 CreateOrganizationComponent --> FormGroup
@@ -146,6 +144,9 @@ CreateOrganizationComponent ..> AbstractControl
 CreateOrganizationComponent --> FormBuilder
 CreateOrganizationComponent --> OrganizationService
 CreateOrganizationComponent --> Router
+CreateOrganizationComponent ..> LdapConfigurationBuilder
+CreateOrganizationComponent ..> PlaceBuilder
+CreateOrganizationComponent ..> Organization
 
 
 EditOrganizationComponent --> MapComponent
@@ -158,6 +159,7 @@ EditOrganizationComponent --> OrganizationService
 EditOrganizationComponent ..> Validators
 EditOrganizationComponent ..> MyLatLng
 EditOrganizationComponent ..> LdapConfigurationBuilder
+EditOrganizationComponent ..> PlaceBuilder
 
 
 HomeComponent --> LoginService
@@ -165,6 +167,8 @@ HomeComponent --> LoginService
 HomeComponent --> Title
 HomeComponent --> FormGroup
 HomeComponent --> Router
+HomeComponent ..> FormEmailComponent
+HomeComponent ..> FormPasswordComponent
 
 
 OrganizationComponent --> Organization
@@ -205,8 +209,7 @@ AdministratorService ..> Administrator
 AuthHttpInterceptor ..> User
 AuthHttpInterceptor ..> Organization
 AuthHttpInterceptor ..> Geocoding
-' -------------------------------------------------- Angular
-AuthHttpInterceptor ..> HttpRequest
+AuthHttpInterceptor --> LoginService
 
 
 ConnectedUserService --> HttpClientService
@@ -228,6 +231,7 @@ LoginService -->Router
 
 OrganizationService --> HttpClientService
 OrganizationService ..> Organization
+OrganizationService ..> AdminType
 OrganizationService --> LoginService
 
 
