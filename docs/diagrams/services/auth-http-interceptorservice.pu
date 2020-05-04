@@ -7,4 +7,10 @@ class AuthHttpInterceptor {
     next: HttpHandler
     ): Observable<HttpEvent<BodyType>>
 }
+
+note left of AuthHttpInterceptor
+Intercetta tutte le chiamate http in uscita
+verso la nostra API e aggiunge l'header
+necessario per l'autenticazione
+end note
 @enduml
