@@ -2,7 +2,10 @@
 class LoginService {
   == constructor ==
 
-  + constructor(httpClient : HttpClientService)
+  + constructor(
+    private <<readonly>> httpClient : HttpClientService,
+    private <<readonly>> router: Router
+    )
   == methods ==
 
   + login(user : User) : Observable<User>
@@ -12,5 +15,8 @@ class LoginService {
     ) : boolean
   + logout() : void
   + isLoggedIn() : boolean
+  + getUserId(): string
+  + getAdminOrganizations():
+  {organizationId: number, role: AdminType}
 }
 @enduml

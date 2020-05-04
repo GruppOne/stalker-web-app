@@ -3,7 +3,8 @@ class OrganizationService {
   == constructor ==
 
  + constructor(
-   private <<readonly>> httpClientService: HttpClientService
+   private <<readonly>> httpClientService: HttpClientService,
+   private <<readonly>> loginService: LoginService
    )
  == methods ==
  + addOrganization(
@@ -12,6 +13,7 @@ class OrganizationService {
  + getOrganization(
    organizationId : number
    ) : Observable<Organization>
+    + getAdminOrganizations() : Observable<Organization>
  + editOrganization(
    organization : Organization
    ) : Observable<Organization>

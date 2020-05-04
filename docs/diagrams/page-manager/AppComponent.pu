@@ -5,7 +5,7 @@ class AppComponent {
   ==constructor==
 
   + constructor(
-    public router: Router
+    public router: Router,
     private <<readonly>> loginService: LoginService
     )
   ==methods==

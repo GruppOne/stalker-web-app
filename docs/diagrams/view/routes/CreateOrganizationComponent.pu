@@ -1,7 +1,6 @@
 @startuml CreateOrganizationComponent diagram
 class CreateOrganizationComponent {
   - toggle : boolean
-  - adminType : AdminType[]
   - mapDataChild ?
   - organizationBuilder ?: OrganizationBuilder
   - formGroup : FormGroup

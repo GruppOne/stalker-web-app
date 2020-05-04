@@ -62,6 +62,7 @@
 !include view/components/FormEmailComponent.pu
 !include view/components/FormPasswordComponent.pu
 !include view/components/MapComponent.pu
+!include view/components/administratorcomponent.pu
 
 !include view/routes/CreateOrganizationComponent.pu
 !include view/routes/EditOrganizationComponent.pu
@@ -127,7 +128,17 @@ AuthGuard ..> ActivatedRouteSnapshot
 AuthGuard ..> CanActivate
 
 
-CreateOrganizationComponent --> AdminType
+
+AdministratorComponent --> AdminType
+AdministratorComponent --> FormGroup
+AdministratorComponent --> FormBuilder
+AdministratorComponent --> ActivatedRoute
+AdministratorComponent --> ConnectedUserService
+AdministratorComponent --> AdministratorService
+AdministratorComponent --> Administrator
+EditOrganizationComponent --> User
+
+CreateOrganizationComponent ..> AdministratorComponent
 CreateOrganizationComponent --> MapComponent
 CreateOrganizationComponent o-- OrganizationBuilder
 CreateOrganizationComponent --> FormGroup
@@ -137,18 +148,13 @@ CreateOrganizationComponent --> OrganizationService
 CreateOrganizationComponent --> Router
 
 
-EditOrganizationComponent --> AdminType
 EditOrganizationComponent --> MapComponent
 EditOrganizationComponent --> Organization
 EditOrganizationComponent o-- OrganizationBuilder
-EditOrganizationComponent --> Administrator
-EditOrganizationComponent --> User
 EditOrganizationComponent --> FormGroup
 EditOrganizationComponent ..> AbstractControl
 EditOrganizationComponent --> FormBuilder
 EditOrganizationComponent --> OrganizationService
-EditOrganizationComponent --> AdministratorService
-EditOrganizationComponent --> ConnectedUserService
 EditOrganizationComponent ..> Validators
 EditOrganizationComponent ..> MyLatLng
 EditOrganizationComponent ..> LdapConfigurationBuilder
@@ -216,10 +222,13 @@ HttpClientService --> HttpHeaders
 LoginService --> HttpClientService
 LoginService ..> User
 LoginService ..> AdminType
+' -------------------------------------------------- Angular
+LoginService -->Router
 
 
 OrganizationService --> HttpClientService
 OrganizationService ..> Organization
+OrganizationService --> LoginService
 
 
 PlaceService ..> Geocoding

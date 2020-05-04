@@ -1,0 +1,23 @@
+@startuml AdministratorComponent Diagram
+class AdministratorComponent {
+  + adminType: AdminType[]
+  + administrators: Administrator[]
+  + organizationUsers: User[]
+  + formGroup: FormGroup
+  == constructor ==
+
+  + constructor(
+    private <<readonly>> formBuilder: FormBuilder,
+    private <<readonly>> administratorService: AdministratorService,
+    public <<readonly>> route: ActivatedRoute,
+    private <<readonly>> connectedUserService: ConnectedUserService,
+  )
+  == method ==
+  + ngOnInit(): void
+  + addAdmin(): void
+  + deleteAdmin(): void
+  + getOrgAdministrators(organizationId: number): void
+  + getOrgUsers(organizationId: number): void
+  + checIfEmailIsUser(email: string, userList: User[])
+}
+@enduml
