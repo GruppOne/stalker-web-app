@@ -1,4 +1,5 @@
 @startuml MyLatLng Diagram
+!include ../../../style/class.pu
 class MyLatLng {
   ..<<readonly>>..
 

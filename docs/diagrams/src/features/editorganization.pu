@@ -29,15 +29,20 @@
 ' -------------------------------------------------- LdapConfiguration
 !include ../classes/LdapConfiguration/LdapConfigurationBuilder.pu
 
+package LeafLet{
+  class Polygon
+  class LatLngBounds
+}
+
 EditOrganizationComponent --> MapComponent
 EditOrganizationComponent --> Organization
-EditOrganizationComponent o-- OrganizationBuilder
+EditOrganizationComponent o-- AbsOrganizationBuilder
 EditOrganizationComponent --> OrganizationService
 EditOrganizationComponent ..> MyLatLng
-EditOrganizationComponent ..> LdapConfigurationBuilder
-EditOrganizationComponent ..> PlaceBuilder
+EditOrganizationComponent ..> AbsLdapConfigurationBuilder
+EditOrganizationComponent ..> AbsPlaceBuilder
+EditOrganizationComponent ..> AbsPlaceDataBuilder
 MapComponent --> Organization
-MapComponent o-- OrganizationBuilder
 MapComponent --> Polygon
 MapComponent --> LatLngBounds
 MapComponent --> PlaceService
@@ -45,5 +50,4 @@ MapComponent --> OrganizationService
 OrganizationService --> HttpClientService
 OrganizationService ..> Organization
 OrganizationService ..> AdminType
-PlaceService ..> Geocoding
 @enduml

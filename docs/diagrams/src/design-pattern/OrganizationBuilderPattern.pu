@@ -14,13 +14,15 @@
 !include ../classes/Place/PlaceBuilder.pu
 !include ../classes/Place/PlaceDataBuilder.pu
 
-LdapConfigurationBuilder --> AbsLdapConfigurationBuilder
-OrganizationBuilder --> AbsOrganizationBuilder
-PlaceBuilder --> AbsPlaceBuilder
-PlaceDataBuilder --> AbsPlaceDataBuilder
 
 CreateOrganizationComponent o-- AbsOrganizationBuilder
+CreateOrganizationComponent ..> AbsPlaceBuilder
+CreateOrganizationComponent ..> AbsPlaceDataBuilder
+CreateOrganizationComponent ..> AbsLdapConfigurationBuilder
 OrganizationComponent o-- AbsOrganizationBuilder
 OrganizationsComponent o-- AbsOrganizationBuilder
 EditOrganizationComponent o-- AbsOrganizationBuilder
+EditOrganizationComponent ..> AbsPlaceBuilder
+EditOrganizationComponent ..> AbsPlaceDataBuilder
+EditOrganizationComponent ..> AbsLdapConfigurationBuilder
 @enduml

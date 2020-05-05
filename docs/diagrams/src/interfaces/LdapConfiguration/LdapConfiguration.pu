@@ -1,4 +1,5 @@
 @startuml LdapConfiguration diagram
+!include ../../../style/class.pu
 interface LdapConfiguration <<interface>> {
   ..<<readonly>>..
 

@@ -21,16 +21,17 @@
 !include ../interfaces/Place/PlaceData.pu
 
 OrganizationComponent --> Organization
-OrganizationComponent o-- OrganizationBuilder
+OrganizationComponent o-- AbsOrganizationBuilder
+OrganizationComponent ..> AbsPlaceBuilder
+OrganizationComponent ..> AbsPlaceDataBuilder
+OrganizationComponent ..> AbsLdapConfigurationBuilder
 OrganizationComponent --> OrganizationService
-OrganizationComponent ..> PlaceBuilder
-OrganizationComponent ..> PlaceDataBuilder
-OrganizationComponent ..> LdapConfigurationBuilder
 MapComponent --> Organization
 MapComponent o-- OrganizationBuilder
 MapComponent --> PlaceService
 MapComponent --> OrganizationService
 OrganizationService --> HttpClientService
 OrganizationService ..> Organization
+
 
 @enduml

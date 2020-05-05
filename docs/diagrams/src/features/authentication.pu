@@ -3,12 +3,19 @@
 !include ../services/auth-http-interceptorservice.pu
 !include ../services/loginservice.pu
 !include ../page-manager/AuthGuard.pu
-
+Package Angular{
+  class Router
+  class Location
+  class ActivatedRouteSnapshot
+  class CanActivate
+  class Interceptor
+}
 AuthGuard --> LoginService
 AuthGuard --> Router
 AuthGuard --> Location
 AuthGuard ..> ActivatedRouteSnapshot
 AuthGuard --|> CanActivate
+AuthHttpInterceptor --|> Interceptor
 
 note left of LoginService
 gestisce le operazioni di login e logout e il recupero di

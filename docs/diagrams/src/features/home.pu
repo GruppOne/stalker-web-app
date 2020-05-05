@@ -4,10 +4,15 @@
 !include ../services/loginservice.pu
 !include ../view/components/FormEmailComponent.pu
 !include ../view/components/FormPasswordComponent.pu
+' -------------------------------------------------- UserBuilder
+!include classes/User/UserBuilder.pu
+!include classes/User/LoginDataBuilder.pu
 
 HomeComponent --> LoginService
 LoginService --> HttpClientService
 HomeComponent ..> FormEmailComponent
 HomeComponent ..> FormPasswordComponent
+HomeComponent o-- AbsUserBuilder
+HomeComponent o-- AbsLoginDataBuilder
 
 @enduml

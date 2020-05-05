@@ -1,5 +1,10 @@
 @startuml AuthGuard diagram
 class AuthGuard {
+  ..<<readonly>>..
+  - loginService : LoginService
+  - router : Router
+  - location : Location
+  ....
   ==constructor==
 
   + constructor(

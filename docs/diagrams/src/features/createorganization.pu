@@ -26,12 +26,16 @@
 !include ../view/components/MapComponent.pu
 !include ../view/routes/CreateOrganizationComponent.pu
 
+package Leaflet{
+  class Polygon
+  class LatLngBounds
+}
 CreateOrganizationComponent --> MapComponent
-CreateOrganizationComponent o-- OrganizationBuilder
-CreateOrganizationComponent ..> LdapConfigurationBuilder
-CreateOrganizationComponent ..> AbstractControl
+CreateOrganizationComponent o-- AbsOrganizationBuilder
 CreateOrganizationComponent --> OrganizationService
-CreateOrganizationComponent ..> PlaceBuilder
+CreateOrganizationComponent ..> AbsLdapConfigurationBuilder
+CreateOrganizationComponent ..> AbsPlaceBuilder
+CreateOrganizationComponent ..> AbsPlaceDataBuilder
 CreateOrganizationComponent ..> Organization
 
 OrganizationService --> HttpClientService
@@ -39,10 +43,8 @@ OrganizationService ..> Organization
 OrganizationService ..> AdminType
 OrganizationService --> LoginService
 LoginService --> HttpClientService
-LoginService ..> User
 
 MapComponent --> Organization
-MapComponent o-- OrganizationBuilder
 MapComponent --> Polygon
 MapComponent --> LatLngBounds
 MapComponent --> PlaceService

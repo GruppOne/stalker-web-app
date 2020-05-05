@@ -1,5 +1,5 @@
 @startuml UserBuilder Diagram
-
+!include ../../../style/class.pu
 class AbsUserBuilder {
   + addUserData()
   + addLoginData()

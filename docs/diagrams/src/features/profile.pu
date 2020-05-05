@@ -3,6 +3,7 @@
 ' -------------------------------------------------- User
 !include ../interfaces/User/User.pu
 !include ../interfaces/User/UserData.pu
+!include ../interfaces/User/LoginData.pu
 ' -------------------------------------------------- UserBuilder
 !include ../classes/User/UserBuilder.pu
 !include ../classes/User/UserDataBuilder.pu
@@ -12,7 +13,8 @@
 
 !include ../view/routes/ProfileComponent.pu
 
-ProfileComponent o-- UserBuilder
+ProfileComponent o-- AbsUserBuilder
+ProfileComponent o-- AbsUserDataBuilder
 ProfileComponent --> User
 ProfileComponent --> UserService
 
