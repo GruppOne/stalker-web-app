@@ -1,4 +1,9 @@
 @startuml LdapConfigurationBuilder diagram
+
+class AbsLdapCondigurationBuilder {
+  ==methods==
+  + build()
+}
 class LdapConfigurationBuilder {
   - username : string
   - password : string

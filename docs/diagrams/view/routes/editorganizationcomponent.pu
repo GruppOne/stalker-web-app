@@ -9,8 +9,6 @@ class EditOrganizationComponent {
   - mapDataChild
   - organization  : Organization
   - organizationBuilder  : AbsOrganizationBuilder
-  - organizationBuilder  : AbsOrganizationDataBuilder
-  - organizationBuilder  : AbsPlaceBuilder
   - organizationUsers : User[]
   - formGroup : FormGroup
   == constructor ==

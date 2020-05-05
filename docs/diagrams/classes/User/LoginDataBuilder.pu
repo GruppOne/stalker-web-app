@@ -4,8 +4,8 @@ class AbsLoginDataBuilder {
 }
 class LoginDataBuilder {
   - id : integer
-  - userData ?: UserData
-  - loginData ?: LoginData
+  - userData : UserData
+  - loginData : LoginData
   == constructor ==
 
   + constructor(id: integer)

@@ -1,6 +1,9 @@
 @startuml ConnectedUserService
 
 class ConnectedUserService {
+  ..<<readonly>>..
+  - httpClientService: HttpClientService
+  ....
   == constructor ==
 
   + constructor(
