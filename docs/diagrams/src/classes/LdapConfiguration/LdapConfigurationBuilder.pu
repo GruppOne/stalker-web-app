@@ -1,6 +1,6 @@
 @startuml LdapConfigurationBuilder diagram
 
-class AbsLdapCondigurationBuilder {
+class AbsLdapConfigurationBuilder {
   ==methods==
 
   + build()
