@@ -98,6 +98,10 @@ package "Angular" {
   class Router
   class Title
   class Validators
+  class Interceptor
+  class HttpRequest
+  class ActivatedRoute
+  class Interceptor
 }
 
 package "Leaflet" {
@@ -130,7 +134,6 @@ AuthGuard ..> ActivatedRouteSnapshot
 AuthGuard ..> CanActivate
 
 
-
 AdministratorComponent --> AdminType
 AdministratorComponent --> FormGroup
 AdministratorComponent --> FormBuilder
@@ -140,28 +143,31 @@ AdministratorComponent --> AdministratorService
 AdministratorComponent --> Administrator
 
 CreateOrganizationComponent --> MapComponent
-CreateOrganizationComponent o-- OrganizationBuilder
+CreateOrganizationComponent o-- AbsOrganizationBuilder
 CreateOrganizationComponent --> FormGroup
 CreateOrganizationComponent ..> AbstractControl
 CreateOrganizationComponent --> FormBuilder
 CreateOrganizationComponent --> OrganizationService
 CreateOrganizationComponent --> Router
-CreateOrganizationComponent ..> LdapConfigurationBuilder
-CreateOrganizationComponent ..> PlaceBuilder
+CreateOrganizationComponent ..> AbsLdapConfigurationBuilder
+CreateOrganizationComponent ..> AbsPlaceBuilder
+CreateOrganizationComponent ..> AbsPlaceDataBuilder
 CreateOrganizationComponent ..> Organization
 
 
 EditOrganizationComponent --> MapComponent
 EditOrganizationComponent --> Organization
-EditOrganizationComponent o-- OrganizationBuilder
+EditOrganizationComponent o-- AbsOrganizationBuilder
 EditOrganizationComponent --> FormGroup
 EditOrganizationComponent ..> AbstractControl
 EditOrganizationComponent --> FormBuilder
 EditOrganizationComponent --> OrganizationService
 EditOrganizationComponent ..> Validators
 EditOrganizationComponent ..> MyLatLng
-EditOrganizationComponent ..> LdapConfigurationBuilder
-EditOrganizationComponent ..> PlaceBuilder
+EditOrganizationComponent ..> AbsLdapConfigurationBuilder
+EditOrganizationComponent ..> AbsPlaceBuilder
+EditOrganizationComponent ..> AbsPlaceDataBuilder
+
 
 
 HomeComponent --> LoginService
@@ -176,11 +182,15 @@ HomeComponent o-- AbsLoginDataBuilder
 
 
 OrganizationComponent --> Organization
-OrganizationComponent o-- OrganizationBuilder
+OrganizationComponent o-- AbsOrganizationBuilder
+OrganizationComponent ..> AbsPlaceBuilder
+OrganizationComponent ..> AbsPlaceDataBuilder
+OrganizationComponent ..> AbsLdapConfigurationBuilder
 OrganizationComponent --> OrganizationService
 
 
 OrganizationsComponent --> OrganizationService
+OrganizationsComponent ..> AdminType
 OrganizationsComponent ..> Event
 ' -------------------------------------------------- Angular Material
 OrganizationsComponent --> MatTableDataSource
@@ -200,7 +210,6 @@ FormPasswordComponent --> FormGroup
 
 
 MapComponent --> Organization
-MapComponent o-- OrganizationBuilder
 MapComponent --> Polygon
 MapComponent --> LatLngBounds
 MapComponent --> PlaceService
@@ -215,6 +224,7 @@ AuthHttpInterceptor ..> User
 AuthHttpInterceptor ..> Organization
 AuthHttpInterceptor ..> Geocoding
 AuthHttpInterceptor --> LoginService
+AuthHttpInterceptor --|> Interceptor
 
 
 ConnectedUserService --> HttpClientService
@@ -240,7 +250,6 @@ OrganizationService ..> AdminType
 OrganizationService --> LoginService
 
 
-PlaceService ..> Geocoding
 ' -------------------------------------------------- Angular
 PlaceService --> HttpClient
 

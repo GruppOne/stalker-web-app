@@ -1,5 +1,5 @@
 @startuml UserDataBuilder Diagram
-
+!include ../../../style/class.pu
 class AbsUserDataBuilder {
     + build()
 }

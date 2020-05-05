@@ -5,6 +5,7 @@
 ' -------------------------------------------------- User
 !include ../interfaces/User/User.pu
 !include ../interfaces/User/UserData.pu
+!include ../interfaces/User/LoginData.pu
 
 !include ../view/components/administratorcomponent.pu
 !include ../services/connected-userservice.pu

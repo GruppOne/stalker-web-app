@@ -1,5 +1,5 @@
 @startuml LdapConfigurationBuilder diagram
-
+!include ../../../style/class.pu
 class AbsLdapConfigurationBuilder {
   ==methods==
 
@@ -20,4 +20,5 @@ class LdapConfigurationBuilder {
 }
 
 LdapConfigurationBuilder ..> "<<create>>" LdapConfiguration
+LdapConfigurationBuilder --|> AbsLdapConfigurationBuilder
 @enduml

@@ -13,6 +13,10 @@
 
 !include ../classes/Environment/Environment.pu
 
+package Angular{
+  class HttpRequest
+  class Interceptor
+}
 AdministratorService --> HttpClientService
 
 
@@ -36,5 +40,6 @@ UserService --> HttpClientService
 
 AuthHttpInterceptor -[hidden]> HttpClientService
 AuthHttpInterceptor -> LoginService
+AuthHttpInterceptor --|> Interceptor
 
 @enduml

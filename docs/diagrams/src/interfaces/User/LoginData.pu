@@ -1,4 +1,5 @@
 @startuml LoginData Diagram
+!include ../../../style/class.pu
 interface LoginData <<interface>> {
   ..<<readonly>>..
 

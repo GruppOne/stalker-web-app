@@ -1,4 +1,5 @@
 @startuml UserData Diagram
+!include ../../../style/class.pu
 interface UserData <<interface>> {
   ..<<readonly>>..
 
