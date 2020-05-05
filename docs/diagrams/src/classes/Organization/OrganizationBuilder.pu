@@ -1,6 +1,7 @@
 @startuml OrganizationBuilder Diagram
 class AbsOrganizationBuilder {
   ==methods==
+
   + addPlaces(places : Place[])
   + build()
 }
