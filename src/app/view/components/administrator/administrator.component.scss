@@ -1,18 +1,88 @@
-.mat-form-field.adminEmail,
-.mat-form-field.adminType {
-  display: inline-block;
+.adminListContainer,
+.adminChoiceContainer {
+  display: flex;
+
+  .mat-list-item {
+    flex-grow: 1;
+  }
+
+  .adminEmail {
+    margin-left: 10px;
+    min-width: 60%;
+  }
+
+  .adminConfirm:hover {
+    color: #1a9848;
+  }
+
+  .adminDelete:hover {
+    color: #ac1616;
+  }
 }
 
-.mat-form-field.adminEmail {
-  margin-left: 1%;
-  width: 65% !important;
+::ng-deep {
+  .mat-list-item-content {
+    padding: 0 !important;
+  }
 }
 
-.mat-form-field.adminType {
-  margin-right: 1%;
-  width: 18% !important;
-}
+@media only screen and (max-width: 1025px) {
+  .adminListContainer,
+  .adminChoiceContainer {
+    display: block;
+    width: 100%;
+  }
 
-.adminConfirm:hover {
-  color: #1a9848;
+  .mat-list-item {
+    display: inline-block !important;
+    flex-grow: unset;
+    font-size: 14px;
+    height: 30px !important;
+  }
+
+  .adminType,
+  .adminEmail {
+    width: 85% !important;
+  }
+
+  .adminEmail {
+    font-weight: 300;
+    margin-left: 0 !important;
+  }
+
+  .adminConfirm,
+  .adminDelete {
+    float: right;
+    margin-top: -24px;
+    min-width: 32px;
+    padding: 0;
+  }
+
+  ::ng-deep .adminEmail .mat-list-item-content {
+    display: block !important;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+  }
+
+  .adminChoiceContainer {
+    margin-top: 15px;
+
+    .mat-form-field {
+      height: 30px;
+    }
+
+    .adminType {
+      width: 70% !important;
+    }
+
+    .adminEmail {
+      margin-bottom: 30px;
+      width: 100% !important;
+    }
+
+    .adminConfirm {
+      margin-top: -80px;
+    }
+  }
 }
