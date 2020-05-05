@@ -1,0 +1,26 @@
+@startuml User builder design pattern diagram
+!include ../../style/class.pu
+
+' -------------------------------------------------- interfaces
+!include ../interfaces/LdapConfiguration/LdapConfiguration.pu
+!include ../interfaces/Organization/Organization.pu
+!include ../interfaces/Place/Place.pu
+!include ../interfaces/Place/PlaceData.pu
+
+' -------------------------------------------------- classes
+!include ../classes/LdapConfiguration/LdapConfigurationBuilder.pu
+!include ../classes/Organization/OrganizationBuilder.pu
+!include ../classes/Place/MyLatLng.pu
+!include ../classes/Place/PlaceBuilder.pu
+!include ../classes/Place/PlaceDataBuilder.pu
+
+LdapConfigurationBuilder --> AbsLdapConfigurationBuilder
+OrganizationBuilder --> AbsOrganizationBuilder
+PlaceBuilder --> AbsPlaceBuilder
+PlaceDataBuilder --> AbsPlaceDataBuilder
+
+CreateOrganizationComponent o-- AbsOrganizationBuilder
+OrganizationComponent o-- AbsOrganizationBuilder
+OrganizationsComponent o-- AbsOrganizationBuilder
+EditOrganizationComponent o-- AbsOrganizationBuilder
+@enduml
