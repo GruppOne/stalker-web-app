@@ -44,15 +44,18 @@
       <ng-template matStepLabel>LDAP configuration</ng-template>
       <mat-form-field>
         <mat-label>Host</mat-label>
-        <input matInput formControlName="orgHostCtrl" placeholder="192.168.0.1" />
+        <input #orgHostCtrl maxlength="50" matInput formControlName="orgHostCtrl" placeholder="192.168.0.1" />
+        <mat-hint class="hint-end" align="end">{{ orgHostCtrl.value.length }} / 50</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Username</mat-label>
-        <input matInput formControlName="orgUserCtrl" placeholder="johnsmith" />
+        <input #orgUserCtrl maxlength="50" matInput formControlName="orgUserCtrl" placeholder="johnsmith" />
+        <mat-hint class="hint-end" align="end">{{ orgUserCtrl.value.length }} / 50</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput formControlName="orgPwdCtrl" />
+        <input #orgPwdCtrl maxlength="32" matInput formControlName="orgPwdCtrl" />
+        <mat-hint class="hint-end" align="end">{{ orgPwdCtrl.value.length }} / 32</mat-hint>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
