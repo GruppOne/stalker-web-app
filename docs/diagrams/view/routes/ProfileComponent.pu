@@ -2,7 +2,7 @@
 class ProfileComponent {
   ..<<readonly>>..
   - userService : UserService
-  - userBuilder : UserBuilder
+  - userBuilder : AbsUserBuilder
   ....
   + fetched : boolean
   + user : User
