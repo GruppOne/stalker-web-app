@@ -2,12 +2,12 @@
 interface User <<interface>> {
   ..<<readonly>>..
 
-  + email : string
-  + password : string
-  + id ?: number
+  + id ?: integer
   + userData ?: UserData
+  + loginData ?: LoginData
   ....
 }
 
 User o-- UserData
+User o-- LoginData
 @enduml

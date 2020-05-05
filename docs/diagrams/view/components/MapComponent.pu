@@ -22,7 +22,7 @@ class MapComponent {
 
   + ngOnInit() : void
   + onDrawCreated(e : {layer : Polygon}) : void
-  + getOrganizationById(id : number) : void
+  + getOrganizationById(id : integer) : void
   + getRandomColor() : string
   + getCentroid(latlngs : LatLng[]) : LatLng
 }

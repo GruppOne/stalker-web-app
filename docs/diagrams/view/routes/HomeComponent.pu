@@ -17,6 +17,6 @@ class HomeComponent {
     email : string,
     password : string
     ) : boolean
-  + translate(i : number) : void
+  + translate(i : integer) : void
 }
 @enduml

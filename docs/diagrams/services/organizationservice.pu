@@ -11,7 +11,7 @@ class OrganizationService {
    organization: Organization
    ) : Observable<Organization>
  + getOrganization(
-   organizationId : number
+   organizationId : integer
    ) : Observable<Organization>
     + getAdminOrganizations() : Observable<Organization>
  + editOrganization(

@@ -16,12 +16,12 @@ class EditOrganizationComponent {
   == methods ==
   + ngOnInit(): void
   + get formArray() : AbstractControll | null
-  + getOrganizationById(id: number) : void
+  + getOrganizationById(id: integer) : void
   + submitOrganizationForm() : void
   + addAdmin() : void
-  + deleteAdmin(administratorId : number) : void
-  + getOrgAdministrators(organizationId : number): void
-  + getOrgUsers(organizationId : number) : void
-  + checkifEmailIsUser(email : string, userList : User[]) : number
+  + deleteAdmin(administratorId : integer) : void
+  + getOrgAdministrators(organizationId : integer): void
+  + getOrgUsers(organizationId : integer) : void
+  + checkifEmailIsUser(email : string, userList : User[]) : integer
 }
 @enduml

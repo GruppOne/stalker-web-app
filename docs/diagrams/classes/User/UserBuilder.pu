@@ -1,19 +1,25 @@
 @startuml UserBuilder Diagram
+
+class AbsUserBuilder {
+  + addUserData()
+  + addLoginData()
+  + build()
+}
 class UserBuilder {
-  - id ?: integer
+  - id : integer
   - userData ?: UserData
+  - loginData ?: LoginData
   == constructor ==
 
-  + constructor(private email : string, private password : string)
+  + constructor(id: integer)
   == methods ==
 
   + addId(id : integer) : UserBuilder
-  + addEmail(email : string) : UserBuilder
-  + addPassword(password : string) : UserBuilder
   + addUserData(userData : UserData) : UserBuilder
+  + addLoginData(loginData: Logindata) : UserBuilder
   + build() : User
 }
-
+UserBuilder --|> AbsUserBuilder
 UserBuilder --> UserData
 UserBuilder ..> "<<create>>" User
 @enduml

@@ -7,6 +7,6 @@ class UserService {
     )
   == methods ==
 
-  + getUserById(userId: number): Observable<User>
+  + getUserById(userId: integer): Observable<User>
 }
 @enduml

@@ -1,0 +1,10 @@
+@startuml LoginData Diagram
+interface LoginData <<interface>> {
+  ..<<readonly>>..
+
+  + email : string
+  + password : string
+  ....
+}
+
+@enduml

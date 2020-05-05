@@ -11,12 +11,12 @@ class LoginService {
   + login(user : User) : Observable<User>
   + checkPermissionOnOrg(
     role : AdminType,
-    organizationId : number
+    organizationId : integer
     ) : boolean
   + logout() : void
   + isLoggedIn() : boolean
   + getUserId(): string
   + getAdminOrganizations():
-  {organizationId: number, role: AdminType}
+  {organizationId: integer, role: AdminType}
 }
 @enduml
