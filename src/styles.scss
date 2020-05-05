@@ -144,7 +144,8 @@ body {
   .mat-card.organizationTable,
   .title-page-under-toolbar,
   .subtitle-page-under-toolbar,
-  .tableContainer {
+  .tableContainer,
+  .loadFail {
     margin: auto;
     width: 65%;
   }
@@ -207,10 +208,9 @@ body {
  */
 .loadFail {
   color: #fff;
-  margin: -100px auto 0;
+  margin-top: -270px !important;
   position: relative;
   text-align: center;
-  width: 600px;
 
   .mat-icon {
     transform: scale(8);
@@ -233,7 +233,8 @@ body {
   .mat-card.organizationTable,
   .title-page-under-toolbar,
   .subtitle-page-under-toolbar,
-  .tableContainer {
+  .tableContainer,
+  .loadFail {
     width: 100% !important;
   }
 
@@ -245,5 +246,22 @@ body {
   .subtitle-page-under-toolbar {
     font-size: 15px !important;
     line-height: 20px !important;
+  }
+
+  .loadFail {
+    margin-top: -250px !important;
+
+    .mat-icon {
+      transform: scale(5);
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-top: 120px;
+    }
+  }
+
+  .mat-card {
+    padding: 8px !important;
   }
 }

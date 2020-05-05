@@ -20,3 +20,30 @@
 button {
   width: auto !important;
 }
+
+@media only screen and (max-width: 896px) {
+  .mat-list-item.fieldName {
+    font-size: 14px;
+    width: 40%;
+  }
+
+  .mat-list-item.fieldData {
+    font-size: 15px;
+    width: 60%;
+  }
+
+  ::ng-deep {
+    .mat-list-item.fieldName .mat-list-item-content {
+      padding-left: 0 !important;
+      padding-right: 8px !important;
+    }
+
+    .mat-list-item.fieldData .mat-list-item-content {
+      padding: 0 !important;
+    }
+  }
+
+  .mat-card {
+    padding-bottom: 16px !important;
+  }
+}
