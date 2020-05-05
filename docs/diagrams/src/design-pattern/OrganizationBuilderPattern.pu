@@ -1,4 +1,4 @@
-@startuml User builder design pattern diagram
+@startuml Organization builder design pattern diagram
 !include ../../style/class.pu
 
 ' -------------------------------------------------- interfaces
