@@ -1,6 +1,7 @@
 @startuml PlaceDataBuilder Diagram
 class AbsPlaceDataBuilder {
   ==methods==
+
   + build()
 }
 class PlaceDataBuilder {

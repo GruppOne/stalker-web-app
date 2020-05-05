@@ -46,5 +46,7 @@
   "typescript.tsc.autoDetect": "off",
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.run": "onSave",
-  "eslint.alwaysShowStatus": true
+  "eslint.alwaysShowStatus": true,
+  "plantuml.diagramsRoot": "docs/diagrams/src",
+  "plantuml.exportOutDir": "docs/diagrams/out"
 }
