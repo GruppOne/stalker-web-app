@@ -8,15 +8,15 @@ class AdministratorService {
   == methods ==
 
   + addAdministrator(
-    organizationId: number,
-    userId: number
+    organizationId: integer,
+    userId: integer
     ): Observable<Administrator>
   + removeAdministrator(
-    organizationId: number,
-    administratorId: number
+    organizationId: integer,
+    administratorId: integer
     ): Observable<Administrator>
   + getAdministrators(
-    organizationId: number
+    organizationId: integer
     ): Observable<Administrator[]>
 }
 @enduml

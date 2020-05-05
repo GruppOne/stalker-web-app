@@ -1,4 +1,8 @@
 @startuml UserDataBuilder Diagram
+
+class AbsUserDataBuilder {
+    + build()
+}
 class UserDataBuilder {
   - firstName ?: string
   - lastName ?: string
@@ -16,4 +20,5 @@ class UserDataBuilder {
 }
 
 UserDataBuilder ..> "<<create>>" UserData
+UserDataBuilder --|> AbsUserDataBuilder
 @enduml

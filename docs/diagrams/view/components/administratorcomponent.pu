@@ -16,8 +16,8 @@ class AdministratorComponent {
   + ngOnInit(): void
   + addAdmin(): void
   + deleteAdmin(): void
-  + getOrgAdministrators(organizationId: number): void
-  + getOrgUsers(organizationId: number): void
+  + getOrgAdministrators(organizationId: integer): void
+  + getOrgUsers(organizationId: integer): void
   + checIfEmailIsUser(email: string, userList: User[])
 }
 @enduml

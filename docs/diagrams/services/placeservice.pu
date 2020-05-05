@@ -21,8 +21,8 @@ class PlaceService {
   == methods ==
 
   + reverseGeocoding(
-    lat : number,
-    lng : number
+    lat : double,
+    lng : double
     ) : Observable<Geocoding>
 }
 

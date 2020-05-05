@@ -5,6 +5,7 @@
 ' -------------------------------------------------- User
 !include interfaces/User/User.pu
 !include interfaces/User/UserData.pu
+!include interfaces/User/LoginData.pu
 
 ' -------------------------------------------------- Place
 !include interfaces/Place/Place.pu
@@ -26,6 +27,7 @@
 ' -------------------------------------------------- UserBuilder
 !include classes/User/UserBuilder.pu
 !include classes/User/UserDataBuilder.pu
+!include classes/User/LoginDataBuilder.pu
 
 ' -------------------------------------------------- PlaceBuilder
 !include classes/Place/PlaceBuilder.pu
@@ -169,6 +171,8 @@ HomeComponent --> FormGroup
 HomeComponent --> Router
 HomeComponent ..> FormEmailComponent
 HomeComponent ..> FormPasswordComponent
+HomeComponent o-- AbsUserBuilder
+HomeComponent o-- AbsLoginDataBuilder
 
 
 OrganizationComponent --> Organization
@@ -184,7 +188,8 @@ OrganizationsComponent --> MatPaginator
 OrganizationsComponent --> MatSort
 
 
-ProfileComponent o-- UserBuilder
+ProfileComponent o-- AbsUserBuilder
+ProfileComponent o-- AbsUserDataBuilder
 ProfileComponent --> User
 ProfileComponent --> UserService
 

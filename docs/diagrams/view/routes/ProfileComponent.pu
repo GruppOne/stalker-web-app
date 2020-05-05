@@ -9,6 +9,6 @@ class ProfileComponent {
   ==methods==
 
   + ngOnInit() : void
-  + getUser(id: number) : void
+  + getUser(id: integer) : void
 }
 @enduml

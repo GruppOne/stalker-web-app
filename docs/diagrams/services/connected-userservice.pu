@@ -9,7 +9,7 @@ class ConnectedUserService {
   == methods ==
 
   + getUserConnectedToOrg(
-    organizationId: number
+    organizationId: integer
     ): Observable<User[]>
 }
 @enduml

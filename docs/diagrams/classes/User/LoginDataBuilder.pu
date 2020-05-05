@@ -1,0 +1,20 @@
+@startuml Login Builder Diagram
+class AbsLoginDataBuilder {
+  + build()
+}
+class LoginDataBuilder {
+  - id : integer
+  - userData ?: UserData
+  - loginData ?: LoginData
+  == constructor ==
+
+  + constructor(id: integer)
+  == methods ==
+  + addEmail(email : string) : LoginDataBuilder
+  + addPassword(password : string) : LoginDataBuilder
+  + build() : User
+}
+
+LoginDataBuilder ..> "<<create>>" LoginData
+LoginDataBuilder --|>  AbsLoginDataBuilder
+@enduml

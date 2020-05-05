@@ -2,22 +2,22 @@
 class MyLatLng {
   ..<<readonly>>..
 
-  - longitude : number
-  - latitude : number
+  - longitude : double
+  - latitude : double
   - leafletLatLng : LatLng
   ....
   ==constructor==
 
   + constructor(
-    latitude : number,
-    longitude : number,
+    latitude : double,
+    longitude : double,
     leafletLatLng ?: LatLng
     )
   ==methods==
 
   + getLeafletLatLng() : LatLng
-  + getLongitude() : number
-  + getLatitude() : number
+  + getLongitude() : double
+  + getLatitude() : double
 }
 
 /'
