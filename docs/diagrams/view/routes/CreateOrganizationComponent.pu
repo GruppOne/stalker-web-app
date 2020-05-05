@@ -1,8 +1,14 @@
 @startuml CreateOrganizationComponent diagram
 class CreateOrganizationComponent {
+  ..<<readonly>>..
+  - formBuilder : FormBuilder
+  - organizationService : OrganizationService
+  ....
+  - router : Router
   - toggle : boolean
-  - mapDataChild ?
-  - organizationBuilder ?: OrganizationBuilder
+  - mapDataChild
+  - organizationBuilder : OrganizationBuilder
+  - placeBuilder : AbsPlaceBuilder
   - formGroup : FormGroup
   ==constructor==
 

@@ -1,5 +1,8 @@
 @startuml AdministratorService
 class AdministratorService {
+  ..<<readonly>>..
+  - httpClientService: HttpClientService
+  ....
   == constructor ==
 
   + constructor(

@@ -13,6 +13,9 @@ interface AddressType <<interface>> {
 }
 
 class PlaceService {
+  ..<<readonly>>..
+  - httpClient: HttpClient
+  ....
   == constructor ==
 
   + constructor(

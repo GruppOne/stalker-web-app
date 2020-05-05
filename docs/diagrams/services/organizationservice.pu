@@ -1,5 +1,9 @@
 @startuml OrganizationService
 class OrganizationService {
+    ..<<readonly>>..
+  - httpClientService: HttpClientService
+  - loginService: LoginService
+  ....
   == constructor ==
 
  + constructor(

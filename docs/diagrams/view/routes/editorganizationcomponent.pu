@@ -1,8 +1,16 @@
 @startuml EditOrganizationComponent diagram
 class EditOrganizationComponent {
-  - mapDataChild ?
-  - organization ?: Organization
-  - organizationBuilder ?: OrganizationBuilder
+  ..<<readonly>>..
+  - formBuilder : FormBuilder,
+  - organizationService : OrganizationService,
+  - administratorService : AdministratorService,
+  - connectedUserService : ConnectedUserService
+  ....
+  - mapDataChild
+  - organization  : Organization
+  - organizationBuilder  : AbsOrganizationBuilder
+  - organizationBuilder  : AbsOrganizationDataBuilder
+  - organizationBuilder  : AbsPlaceBuilder
   - organizationUsers : User[]
   - formGroup : FormGroup
   == constructor ==

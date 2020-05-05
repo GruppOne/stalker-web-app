@@ -1,5 +1,8 @@
 @startuml OrganizationsComponent diagram
 class OrganizationsComponent {
+  ..<<readonly>>..
+  - organizationService: OrganizationService
+  ....
   - displayedColumns : string[]
   - dataSource : MatTableDataSource
   - paginator : MatPaginator

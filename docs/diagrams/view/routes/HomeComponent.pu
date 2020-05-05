@@ -1,7 +1,13 @@
 @startuml HomeComponent diagram
 class HomeComponent {
+  ..<<readonly>>..
+  - loginService : LoginService,
+  - router : Router,
+  - titleService : Title,
+  ....
   + toggle : boolean
   + nestedForm : FormGroup
+  + loginDataBuilder : AbsLoginDataBuilder
   ==constructor==
 
   + constructor(

@@ -1,5 +1,9 @@
 @startuml MapComponent diagram
 class MapComponent {
+  ..<<readonly>>..
+  - placeService : PlaceService,
+  - organizationService : OrganizationService,
+  ....
   + arrayCoord : LatLng[]
   + arrayRoad : string[]
   + arrayCity : string[]
@@ -7,7 +11,7 @@ class MapComponent {
   + arrayCountry : string[]
   + arrayName : string[]
   + organization : Organization
-  + organizationBuilder : OrganizationBuilder
+  + organizationBuilder : AbsOrganizationBuilder
   + options : object
   + drawOptions : object
   + polygonLayers : Polygon[]

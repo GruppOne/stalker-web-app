@@ -1,7 +1,10 @@
 @startuml OrganizationComponent diagram
 class OrganizationComponent {
-  - organization?: Organization
-  - organizationBuilder?: OrganizationBuilder
+  ..<<readonly>>..
+  - organizationService: OrganizationService
+  ....
+  - organization: Organization
+  - organizationBuilder: AbsOrganizationBuilder
   == constructor ==
 
   + constructor(

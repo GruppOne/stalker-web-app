@@ -1,4 +1,6 @@
 @startuml AuthHttpInterceptor
+class Interceptor
+
 class AuthHttpInterceptor {
   == methods ==
 
@@ -13,4 +15,6 @@ Intercetta tutte le chiamate http in uscita
 verso la nostra API e aggiunge l'header
 necessario per l'autenticazione
 end note
+
+AuthHttpInterceptor --|> Interceptor
 @enduml
