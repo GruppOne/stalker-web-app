@@ -11,7 +11,7 @@ class MyLatLng {
   + constructor(
     latitude : double,
     longitude : double,
-    leafletLatLng ?: LatLng
+    leafletLatLng  : LatLng
     )
   ==methods==
 

@@ -8,7 +8,7 @@ AuthGuard --> LoginService
 AuthGuard --> Router
 AuthGuard --> Location
 AuthGuard ..> ActivatedRouteSnapshot
-AuthGuard ..> CanActivate
+AuthGuard --|> CanActivate
 
 note left of LoginService
 gestisce le operazioni di login e logout e il recupero di

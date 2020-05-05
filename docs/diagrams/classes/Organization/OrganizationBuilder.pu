@@ -1,11 +1,16 @@
 @startuml OrganizationBuilder Diagram
+class AbsOrganizationBuilder {
+  ==methods==
+  + addPlaces(places : Place[])
+  + build()
+}
 class OrganizationBuilder {
-  - id ?: integer
-  - description ?: string
-  - ldapConfiguration ?: LdapConfiguration
-  - places ?: Place[]
-  - createdDate ?: string
-  - lastModifiedDate ?: string
+  - id : integer
+  - description : string
+  - ldapConfiguration : LdapConfiguration
+  - places : Place[]
+  - createdDate : string
+  - lastModifiedDate : string
   == constructor ==
 
   + constructor(private name : string, private isPrivate : boolean)

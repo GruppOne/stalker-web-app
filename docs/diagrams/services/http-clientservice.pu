@@ -5,7 +5,7 @@ interface HttpOptions  {
 }
  class HttpClientService {
    ..<<readonly>>..
-
+  - httpClient: HttpClient
   - url : string
   - defaultHttpHeaders : HttpHeaders
   ....
@@ -18,24 +18,24 @@ interface HttpOptions  {
 
   + get<T>(
     relativePath : string,
-    additionalHeaders ?: HttpHeaders
+    additionalHeaders  : HttpHeaders
     ) : Observable<HttpResponse<T>>
   + post<T>(
     relativePath : string,
     body : T,
-    additionalHeaders ?: HttpHeaders
+    additionalHeaders  : HttpHeaders
     ): Observable<HttpResponse<T>>
   + put<T>(
     relativePath : string,
     body : T,
-    additionalHeaders ?: HttpHeaders
+    additionalHeaders  : HttpHeaders
     ): Observable<HttpResponse<T>>
   + delete<T>(
     relativePath : string,
-    additionalHeaders ?: HttpHeaders
+    additionalHeaders  : HttpHeaders
     ) : Observable<HttpResponse<T>>
   - mergeAdditionalHeaders(
-    additionalHeaders ?: HttpHeaders
+    additionalHeaders  : HttpHeaders
     ): HttpOptions
   - handleError()
  }
@@ -44,7 +44,7 @@ note right of HttpClientService
 funzionamento simile per i metodi put, post e delete
 get<T>(
     relativePath: string,
-    additionalHeaders?: HttpHeaders,
+    additionalHeaders : HttpHeaders,
   ): Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
 

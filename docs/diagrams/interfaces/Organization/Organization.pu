@@ -2,15 +2,15 @@
 interface Organization <<interface>> {
   ..<<readonly>>..
 
-  + id ?: integer
+  + id : integer
   + name : string
-  + description ?: string
-  + ldapConfiguration ?: LdapConfiguration
+  + description : string
+  + ldapConfiguration : LdapConfiguration
   + isPrivate : boolean
-  + createdDate ?: string
-  + lastModifiedDate ?: string
+  + createdDate : string
+  + lastModifiedDate : string
   ....
-  + places ?: Place[]
+  + places  : Place[]
 }
 
 Organization --> LdapConfiguration

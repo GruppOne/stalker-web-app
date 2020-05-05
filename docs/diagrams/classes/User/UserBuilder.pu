@@ -7,8 +7,8 @@ class AbsUserBuilder {
 }
 class UserBuilder {
   - id : integer
-  - userData ?: UserData
-  - loginData ?: LoginData
+  - userData : UserData
+  - loginData : LoginData
   == constructor ==
 
   + constructor(id: integer)
@@ -20,6 +20,7 @@ class UserBuilder {
   + build() : User
 }
 UserBuilder --|> AbsUserBuilder
+UserBuilder --> LoginData
 UserBuilder --> UserData
 UserBuilder ..> "<<create>>" User
 @enduml

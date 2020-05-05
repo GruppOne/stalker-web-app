@@ -2,11 +2,11 @@
 interface UserData <<interface>> {
   ..<<readonly>>..
 
-  - firstName ?: string
-  - lastName ?: string
-  - birthDate ?: string
-  - createdDate ?: string
-  - lastModifiedDate ?: string
+  - firstName : string
+  - lastName : string
+  - birthDate : string
+  - createdDate : string
+  - lastModifiedDate : string
   ....
 }
 @enduml

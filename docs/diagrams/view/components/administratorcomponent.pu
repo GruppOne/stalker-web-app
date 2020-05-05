@@ -1,8 +1,14 @@
 @startuml AdministratorComponent Diagram
 class AdministratorComponent {
+  ..<<readonly>>..
+  - formBuilder: FormBuilder,
+  - administratorService: AdministratorService,
+  - route: ActivatedRoute,
+  - connectedUserService: ConnectedUserService,
   + adminType: AdminType[]
   + administrators: Administrator[]
   + organizationUsers: User[]
+  ....
   + formGroup: FormGroup
   == constructor ==
 

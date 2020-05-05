@@ -1,9 +1,12 @@
 @startuml LoginService
 class LoginService {
+  ..<<readonly>>..
+  - httpClientService: HttpClientService
+  ....
   == constructor ==
 
   + constructor(
-    private <<readonly>> httpClient : HttpClientService,
+    private <<readonly>> httpClientService : HttpClientService,
     private <<readonly>> router: Router
     )
   == methods ==

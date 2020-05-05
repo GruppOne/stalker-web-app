@@ -1,5 +1,8 @@
 @startuml UserService
 class UserService {
+  ..<<readonly>>..
+  - httpClientService: HttpClientService
+  ....
   == constructor ==
 
   + constructor(
