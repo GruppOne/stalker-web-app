@@ -1,24 +1,20 @@
 @startuml MyLatLng Diagram
 !include ../../../style/class.pu
 class MyLatLng {
-  ..<<readonly>>..
-
-  - longitude : double
-  - latitude : double
+  - longitude : Real
+  - latitude : Real
   - leafletLatLng : LatLng
-  ....
-  ==constructor==
 
-  + constructor(
-    latitude : double,
-    longitude : double,
-    leafletLatLng  : LatLng
+  --
+
+  + MyLatLng(
+    latitude : Real,
+    longitude : Real,
+    leafletLatLng : LatLng
     )
-  ==methods==
-
   + getLeafletLatLng() : LatLng
-  + getLongitude() : double
-  + getLatitude() : double
+  + getLongitude() : Real
+  + getLatitude() : Real
 }
 
 /'

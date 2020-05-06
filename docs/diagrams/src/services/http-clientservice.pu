@@ -1,51 +1,49 @@
 @startuml HttpClientService
-interface HttpOptions  {
+!include ../../style/class.pu
+class HttpOptions  {
   + headers : HttpHeaders
-  + observe : string
+  + observe : String
 }
  class HttpClientService {
-   ..<<readonly>>..
-  - httpClient: HttpClient
-  - url : string
+  - httpClient : HttpClient {readonly}
+  - url : String
   - defaultHttpHeaders : HttpHeaders
-  ....
-  == constructor ==
 
-  + constructor(
-    private <<readonly>> httpClient: HttpClient
+  --
+
+  + HttpClientService(
+    private httpClient : HttpClient
     )
-  == methods ==
-
   + get<T>(
-    relativePath : string,
-    additionalHeaders  : HttpHeaders
+    relativePath : String,
+    additionalHeaders : HttpHeaders
     ) : Observable<HttpResponse<T>>
   + post<T>(
-    relativePath : string,
+    relativePath : String,
     body : T,
-    additionalHeaders  : HttpHeaders
-    ): Observable<HttpResponse<T>>
+    additionalHeaders : HttpHeaders
+    ) : Observable<HttpResponse<T>>
   + put<T>(
-    relativePath : string,
+    relativePath : String,
     body : T,
-    additionalHeaders  : HttpHeaders
-    ): Observable<HttpResponse<T>>
+    additionalHeaders : HttpHeaders
+    ) : Observable<HttpResponse<T>>
   + delete<T>(
-    relativePath : string,
-    additionalHeaders  : HttpHeaders
+    relativePath : String,
+    additionalHeaders : HttpHeaders
     ) : Observable<HttpResponse<T>>
   - mergeAdditionalHeaders(
-    additionalHeaders  : HttpHeaders
-    ): HttpOptions
+    additionalHeaders : HttpHeaders
+    ) : HttpOptions
   - handleError()
  }
 
 note right of HttpClientService
-funzionamento simile per i metodi put, post e delete
+similar behavior for the put, post and delete methods
 get<T>(
-    relativePath: string,
+    relativePath : String,
     additionalHeaders : HttpHeaders,
-  ): Observable<HttpResponse<T>> {
+  ) : Observable<HttpResponse<T>> {
     const httpOptions = this.mergeAdditionalHeaders(additionalHeaders);
 
     return this.httpClient

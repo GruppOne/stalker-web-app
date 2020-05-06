@@ -1,21 +1,24 @@
 @startuml UserDataBuilder Diagram
 !include ../../../style/class.pu
 class AbsUserDataBuilder {
-    + build()
+  --
+
+  + build()
 }
 class UserDataBuilder {
-  - firstName  : string
-  - lastName  : string
-  - birthDate  : string
-  - createdDate  : string
-  - lastModifiedDate  : string
-  ==methods==
+  - firstName : String
+  - lastName : String
+  - birthDate : String
+  - createdDate : String
+  - lastModifiedDate : String
 
-  + addFirstName(firstName : string) : UserDataBuilder
-  + addLastName(lastName : string) : UserDataBuilder
-  + addBirthDate(birthDate : string) : UserDataBuilder
-  + addCreatedDate(createdDate : string) : UserDataBuilder
-  + addLastModifiedDate(lastModifiedDate : string) : UserDataBuilder
+  --
+
+  + addFirstName(firstName : String) : UserDataBuilder
+  + addLastName(lastName : String) : UserDataBuilder
+  + addBirthDate(birthDate : String) : UserDataBuilder
+  + addCreatedDate(createdDate : String) : UserDataBuilder
+  + addLastModifiedDate(lastModifiedDate : String) : UserDataBuilder
   + build() : UserData
 }
 

@@ -1,34 +1,36 @@
 @startuml OrganizationBuilder Diagram
 !include ../../../style/class.pu
 class AbsOrganizationBuilder {
-  ==methods==
+  --
 
   + addPlaces(places : Place[])
   + build()
 }
+
 class OrganizationBuilder {
-  - id : integer
-  - description : string
+  - id : Integer
+  - description : String
   - ldapConfiguration : LdapConfiguration
   - places : Place[]
-  - createdDate : string
-  - lastModifiedDate : string
-  == constructor ==
+  - createdDate : String
+  - lastModifiedDate : String
+  - name : String
+  - isPrivate : Boolean
 
-  + constructor(private name : string, private isPrivate : boolean)
-  == methods ==
+  --
 
-  + addId(id : integer) : OrganizationBuilder
-  + addName(name : string) : OrganizationBuilder
-  + addDescription(description : string) : OrganizationBuilder
+  + OrganizationBuilder(private name : String, private isPrivate : Boolean)
+  + addId(id : Integer) : OrganizationBuilder
+  + addName(name : String) : OrganizationBuilder
+  + addDescription(description : String) : OrganizationBuilder
   + addLdapConfiguration(
     ldapConfiguration : LdapConfiguration
     ) : OrganizationBuilder
   + addPlaces(places : Place[]) : OrganizationBuilder
-  + addIsPrivate(isPrivate : boolean) : OrganizationBuilder
-  + addCreatedDate(createdDate : string) : OrganizationBuilder
+  + addIsPrivate(isPrivate : Boolean) : OrganizationBuilder
+  + addCreatedDate(createdDate : String) : OrganizationBuilder
   + addLastModifiedDate(
-    lastModifiedDate : string
+    lastModifiedDate : String
     ) : OrganizationBuilder
   + build() : Organization
 }

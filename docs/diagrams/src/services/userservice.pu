@@ -1,15 +1,13 @@
 @startuml UserService
+!include ../../style/class.pu
 class UserService {
-  ..<<readonly>>..
-  - httpClientService: HttpClientService
-  ....
-  == constructor ==
+  - httpClientService : HttpClientService {readonly}
 
-  + constructor(
-    private <<readonly>> httpClientService : HttpClientService
+  --
+
+  + UserService(
+    private httpClientService : HttpClientService {readonly}
     )
-  == methods ==
-
-  + getUserById(userId: integer): Observable<User>
+  + getUserById(userId : Integer) : Observable<User>
 }
 @enduml

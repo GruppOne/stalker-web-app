@@ -1,18 +1,15 @@
 @startuml ConnectedUserService
-
+!include ../../style/class.pu
 class ConnectedUserService {
-  ..<<readonly>>..
-  - httpClientService: HttpClientService
-  ....
-  == constructor ==
+  - httpClientService : HttpClientService {readonly}
 
-  + constructor(
-    private <<readonly>> httpClientService: HttpClientService
+  --
+
+  + ConnectedUserService(
+    private httpClientService : HttpClientService {readonly}
     )
-  == methods ==
-
   + getUserConnectedToOrg(
-    organizationId: integer
-    ): Observable<User[]>
+    organizationId : Integer
+    ) : Observable<User[]>
 }
 @enduml

@@ -1,12 +1,9 @@
 @startuml Administrator
 !include ../../../style/class.pu
-interface Administrator <<interface>> {
-  ..<<readonly>>..
-
-  + id : integer
-  + email : string
-  + role : AdminType
-  ....
+class Administrator <<interface>> {
+  + id : Integer {readonly}
+  + email : String {readonly}
+  + role : AdminType {readonly}
 }
 
 enum AdminType <<enumeration>> {

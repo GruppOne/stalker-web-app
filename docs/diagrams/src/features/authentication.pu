@@ -18,13 +18,13 @@ AuthGuard --|> CanActivate
 AuthHttpInterceptor --|> Interceptor
 
 note left of LoginService
-gestisce le operazioni di login e logout e il recupero di
-credenziali sensibili necessarie all'autenticazione
+manages the login and logout operations and the recovery of
+sensitive credentials required for authentication
 end note
 
 note right of AuthGuard
-gestisce l'autorizzazione all'accesso dell'utente
-ad una determinata pagina e le conseguenti azioni
-da svolgere
+manages the user's access authorization
+to a specific page and the consequent actions
+to do
 end note
 @enduml

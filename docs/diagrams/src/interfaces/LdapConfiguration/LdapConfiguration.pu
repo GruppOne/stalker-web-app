@@ -1,11 +1,8 @@
 @startuml LdapConfiguration diagram
 !include ../../../style/class.pu
-interface LdapConfiguration <<interface>> {
-  ..<<readonly>>..
-
-  + host : string
-  + username ?: string
-  + password ?: string
-  ....
+class LdapConfiguration <<interface>> {
+  + host : String {readonly}
+  + username : String {readonly}
+  + password : String {readonly}
 }
 @enduml
