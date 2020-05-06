@@ -3,16 +3,17 @@
 class AbsLoginDataBuilder {
   + build()
 }
+
 class LoginDataBuilder {
-  - id : integer
+  - id : Integer
   - userData : UserData
   - loginData : LoginData
-  == constructor ==
 
-  + constructor(id: integer)
-  == methods ==
-  + addEmail(email : string) : LoginDataBuilder
-  + addPassword(password : string) : LoginDataBuilder
+  --
+
+  + LoginDataBuilder(id : Integer)
+  + addEmail(email : String) : LoginDataBuilder
+  + addPassword(password : String) : LoginDataBuilder
   + build() : User
 }
 

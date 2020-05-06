@@ -1,22 +1,23 @@
 @startuml UserBuilder Diagram
 !include ../../../style/class.pu
 class AbsUserBuilder {
+  --
+
   + addUserData()
   + addLoginData()
   + build()
 }
 class UserBuilder {
-  - id : integer
+  - id : Integer
   - userData : UserData
   - loginData : LoginData
-  == constructor ==
 
-  + constructor(id: integer)
-  == methods ==
+  --
 
-  + addId(id : integer) : UserBuilder
+  + UserBuilder(id : Integer)
+  + addId(id : Integer) : UserBuilder
   + addUserData(userData : UserData) : UserBuilder
-  + addLoginData(loginData: Logindata) : UserBuilder
+  + addLoginData(loginData : Logindata) : UserBuilder
   + build() : User
 }
 UserBuilder --|> AbsUserBuilder

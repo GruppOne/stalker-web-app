@@ -1,17 +1,15 @@
 @startuml ProfileComponent diagram
+!include ../../../style/class.pu
 class ProfileComponent {
-  ..<<readonly>>..
-  - userService : UserService
+  - userService : UserService {readonly}
   - userBuilder : AbsUserBuilder
-  ....
-  + fetched : boolean
+  + fetched : Boolean
   + user : User
-  ==constructor==
 
-  + constructor(private <<readonly>> userService : UserService)
-  ==methods==
+  --
 
+  + ProfileComponent(private userService : UserService)
   + ngOnInit() : void
-  + getUser(id: integer) : void
+  + getUser(id : Integer) : void
 }
 @enduml

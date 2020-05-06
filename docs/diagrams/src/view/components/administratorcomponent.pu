@@ -1,29 +1,28 @@
 @startuml AdministratorComponent Diagram
+!include ../../../style/class.pu
 class AdministratorComponent {
-  ..<<readonly>>..
-  - formBuilder: FormBuilder,
-  - administratorService: AdministratorService,
-  - route: ActivatedRoute,
-  - connectedUserService: ConnectedUserService,
-  + adminType: AdminType[]
-  + administrators: Administrator[]
-  + organizationUsers: User[]
-  ....
-  + formGroup: FormGroup
-  == constructor ==
+  - formBuilder : FormBuilder {readonly}
+  - administratorService : AdministratorService {readonly}
+  - connectedUserService : ConnectedUserService {readonly}
+  + adminType : AdminType[]
+  + administrators : Administrator[]
+  + organizationUsers : User[]
+  + route : ActivatedRoute {readonly}
+  + formGroup : FormGroup
 
-  + constructor(
-    private <<readonly>> formBuilder: FormBuilder,
-    private <<readonly>> administratorService: AdministratorService,
-    public <<readonly>> route: ActivatedRoute,
-    private <<readonly>> connectedUserService: ConnectedUserService,
+  --
+
+  + AdministratorComponent(
+    private formBuilder : FormBuilder {readonly},
+    private administratorService : AdministratorService {readonly},
+    public route : ActivatedRoute {readonly},
+    private connectedUserService : ConnectedUserService {readonly},
   )
-  == method ==
-  + ngOnInit(): void
-  + addAdmin(): void
-  + deleteAdmin(): void
-  + getOrgAdministrators(organizationId: integer): void
-  + getOrgUsers(organizationId: integer): void
-  + checIfEmailIsUser(email: string, userList: User[])
+  + ngOnInit() : void
+  + addAdmin() : void
+  + deleteAdmin() : void
+  + getOrgAdministrators(organizationId : Integer) : void
+  + getOrgUsers(organizationId : Integer) : void
+  + checkIfEmailIsUser(email : String, userList : User[]) : Integer
 }
 @enduml

@@ -1,21 +1,20 @@
 @startuml OrganizationService
+!include ../../style/class.pu
 class OrganizationService {
-    ..<<readonly>>..
-  - httpClientService: HttpClientService
-  - loginService: LoginService
-  ....
-  == constructor ==
+  - httpClientService : HttpClientService {readonly}
+  - loginService : LoginService {readonly}
 
- + constructor(
-   private <<readonly>> httpClientService: HttpClientService,
-   private <<readonly>> loginService: LoginService
+  --
+
+ + OrganizationService(
+   private httpClientService : HttpClientService {readonly},
+   private loginService : LoginService {readonly}
    )
- == methods ==
  + addOrganization(
-   organization: Organization
+   organization : Organization
    ) : Observable<Organization>
  + getOrganization(
-   organizationId : integer
+   organizationId : Integer
    ) : Observable<Organization>
     + getAdminOrganizations() : Observable<Organization>
  + editOrganization(

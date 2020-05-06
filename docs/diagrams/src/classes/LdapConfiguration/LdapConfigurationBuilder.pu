@@ -1,21 +1,21 @@
 @startuml LdapConfigurationBuilder diagram
 !include ../../../style/class.pu
 class AbsLdapConfigurationBuilder {
-  ==methods==
+  --
 
   + build()
 }
 class LdapConfigurationBuilder {
-  - username : string
-  - password : string
-  ==constructor==
+  - username : String
+  - password : String
+  - host : String
 
-  + constructor(private host : string)
-  ==methods==
+  --
 
-  + addHost(host : string) : LdapConfigurationBuilder
-  + addUsername(username : string) : LdapConfigurationBuilder
-  + addPassword(password : string) : LdapConfigurationBuilder
+  + LdapConfigurationBuilder(private host : String)
+  + addHost(host : String) : LdapConfigurationBuilder
+  + addUsername(username : String) : LdapConfigurationBuilder
+  + addPassword(password : String) : LdapConfigurationBuilder
   + build() : LdapConfiguration
 }
 

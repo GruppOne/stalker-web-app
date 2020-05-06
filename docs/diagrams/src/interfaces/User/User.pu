@@ -1,12 +1,9 @@
 @startuml User Diagram
 !include ../../../style/class.pu
-interface User <<interface>> {
-  ..<<readonly>>..
-
-  + id ?: integer
-  + userData ?: UserData
-  + loginData ?: LoginData
-  ....
+class User <<interface>> {
+  + id : Integer {readonly}
+  + userData : UserData {readonly}
+  + loginData : LoginData {readonly}
 }
 
 User o-- UserData

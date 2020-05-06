@@ -1,17 +1,14 @@
 @startuml Organization Diagram
 !include ../../../style/class.pu
-interface Organization <<interface>> {
-  ..<<readonly>>..
-
-  + id : integer
-  + name : string
-  + description : string
-  + ldapConfiguration : LdapConfiguration
-  + isPrivate : boolean
-  + createdDate : string
-  + lastModifiedDate : string
-  ....
-  + places  : Place[]
+class Organization <<interface>> {
+  + id : Integer {readonly}
+  + name : String {readonly}
+  + description : String {readonly}
+  + ldapConfiguration : LdapConfiguration {readonly}
+  + isPrivate : Boolean {readonly}
+  + createdDate : String {readonly}
+  + lastModifiedDate : String {readonly}
+  + places : Place[]
 }
 
 Organization --> LdapConfiguration

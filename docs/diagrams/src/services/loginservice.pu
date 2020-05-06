@@ -1,25 +1,23 @@
 @startuml LoginService
+!include ../../style/class.pu
 class LoginService {
-  ..<<readonly>>..
-  - httpClientService: HttpClientService
-  ....
-  == constructor ==
+  - httpClientService : HttpClientService {readonly}
+  - router : Router {readonly}
 
-  + constructor(
-    private <<readonly>> httpClientService : HttpClientService,
-    private <<readonly>> router: Router
+  --
+
+  + LoginService(
+    private httpClientService : HttpClientService {readonly},
+    private router : Router {readonly}
     )
-  == methods ==
-
   + login(user : User) : Observable<User>
   + checkPermissionOnOrg(
     role : AdminType,
-    organizationId : integer
-    ) : boolean
+    organizationId : Integer
+    ) : Boolean
   + logout() : void
-  + isLoggedIn() : boolean
-  + getUserId(): string
-  + getAdminOrganizations():
-  {organizationId: integer, role: AdminType}
+  + isLoggedIn() : Boolean
+  + getUserId() : String
+  + getAdminOrganizations() : {organizationId : Integer, role : AdminType}
 }
 @enduml

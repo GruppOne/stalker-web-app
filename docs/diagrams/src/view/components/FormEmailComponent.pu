@@ -1,17 +1,19 @@
 @startuml FormEmailComponent diagram
+!include ../../../style/class.pu
 class FormEmailComponent {
   + emailForm : FormGroup
-  ==methods==
+
+  --
 
   + ngOnInit() : void
-  + onTouched()
-  + writeValue(val: MailType) : void
-  + registerOnChange(fn: () => void) : void
-  + registerOnTouched(fn: () => void) : void
+  + onTouched() : void
+  + writeValue(val : MailType) : void
+  + registerOnChange(fn : () => void) : void
+  + registerOnTouched(fn : () => void) : void
 }
 
-interface MailType <<interface>> {
-  + email : string
+class MailType <<interface>> {
+  + email : String
 }
 
 FormEmailComponent ..> MailType

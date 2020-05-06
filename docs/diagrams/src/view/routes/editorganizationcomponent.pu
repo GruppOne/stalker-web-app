@@ -1,33 +1,32 @@
 @startuml EditOrganizationComponent diagram
+!include ../../../style/class.pu
 class EditOrganizationComponent {
-  ..<<readonly>>..
-  - formBuilder : FormBuilder,
-  - organizationService : OrganizationService,
-  - administratorService : AdministratorService,
-  - connectedUserService : ConnectedUserService
-  ....
+  - formBuilder : FormBuilder {readonly}
+  - organizationService : OrganizationService {readonly}
+  - administratorService : AdministratorService {readonly}
+  - connectedUserService : ConnectedUserService {readonly}
   - mapDataChild
-  - organization  : Organization
-  - organizationBuilder  : AbsOrganizationBuilder
+  - organization : Organization
+  - organizationBuilder : AbsOrganizationBuilder
   - organizationUsers : User[]
   - formGroup : FormGroup
-  == constructor ==
 
-  + constructor(
-    private <<readonly>> formBuilder : FormBuilder,
-    private <<readonly>> organizationService : OrganizationService,
-    private <<readonly>> administratorService : AdministratorService,
-    private <<readonly>> connectedUserService : ConnectedUserService
+  --
+
+  + EditOrganizationComponent(
+    private formBuilder : FormBuilder,
+    private organizationService : OrganizationService,
+    private administratorService : AdministratorService,
+    private connectedUserService : ConnectedUserService
     )
-  == methods ==
-  + ngOnInit(): void
+  + ngOnInit() : void
   + get formArray() : AbstractControll | null
-  + getOrganizationById(id: integer) : void
+  + getOrganizationById(id : Integer) : void
   + submitOrganizationForm() : void
   + addAdmin() : void
-  + deleteAdmin(administratorId : integer) : void
-  + getOrgAdministrators(organizationId : integer): void
-  + getOrgUsers(organizationId : integer) : void
-  + checkifEmailIsUser(email : string, userList : User[]) : integer
+  + deleteAdmin(administratorId : Integer) : void
+  + getOrgAdministrators(organizationId : Integer) : void
+  + getOrgUsers(organizationId : Integer) : void
+  + checkifEmailIsUser(email : String, userList : User[]) : Integer
 }
 @enduml

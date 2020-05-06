@@ -1,14 +1,12 @@
 @startuml Place Diagram
 !include ../../../style/class.pu
-interface Place <<interface>> {
-  ..<<readonly>>..
+class Place <<interface>> {
+  + id : Integer {readonly}
+  + name : String {readonly}
+  + polyline : MyLatLng[] {readonly}
+  + placeData : PlaceData {readonly}
 
-  + id : integer
-  + name : string
-  + polyline : MyLatLng[]
-  + placeData : PlaceData
-  ....
-  == methods ==
+  --
 
   + getLatLng(polyline : MyLatLng[]) : LatLng[]
 }

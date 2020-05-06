@@ -1,13 +1,10 @@
 @startuml UserData Diagram
 !include ../../../style/class.pu
-interface UserData <<interface>> {
-  ..<<readonly>>..
-
-  - firstName : string
-  - lastName : string
-  - birthDate : string
-  - createdDate : string
-  - lastModifiedDate : string
-  ....
+class UserData <<interface>> {
+  - firstName : String {readonly}
+  - lastName : String {readonly}
+  - birthDate : String {readonly}
+  - createdDate : String {readonly}
+  - lastModifiedDate : String {readonly}
 }
 @enduml
