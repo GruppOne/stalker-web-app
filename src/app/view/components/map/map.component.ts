@@ -214,4 +214,8 @@ export class MapComponent implements OnInit {
     f = twicearea * 3;
     return new LatLng(x / f + off.lat, y / f + off.lng);
   }
+
+  deletePlace(id: number): void {
+    const c = id;
+  }
 }
