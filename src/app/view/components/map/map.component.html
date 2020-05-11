@@ -8,7 +8,7 @@
   [leafletLayers]="polygonLayers"
   [leafletFitBounds]="fitBounds"
 ></div>
-<div class="placeFormContainer">
+<div class="placeFormContainer" *ngIf="this.getRoute().includes('/edit')">
   <p>Places within the organization</p>
   <div *ngFor="let p of this.organization?.places" class="placeDataContainer">
     <mat-form-field>
@@ -29,8 +29,8 @@
       matTooltip="Remove this place from the organization"
       aria-label="Remove this place from the organization"
       type="button"
-      (click)="deletePlace(p.id)"
     >
+      <!-- (click)="deletePlace(p.id)" -->
       <mat-icon>delete</mat-icon>
     </button>
   </div>

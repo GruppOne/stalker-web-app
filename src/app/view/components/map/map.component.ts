@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
@@ -75,7 +75,7 @@ export class MapComponent implements OnInit {
   constructor(
     private readonly placeService: PlaceService,
     private readonly organizationService: OrganizationService,
-
+    public router: Router,
     private readonly route: ActivatedRoute,
   ) {}
 
@@ -215,7 +215,9 @@ export class MapComponent implements OnInit {
     return new LatLng(x / f + off.lat, y / f + off.lng);
   }
 
-  deletePlace(id: number): void {
-    const c = id;
+  // deletePlace(id: number): void {}
+
+  getRoute(): string {
+    return this.router.url;
   }
 }
