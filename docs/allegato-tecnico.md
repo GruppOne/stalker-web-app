@@ -72,7 +72,7 @@ Di seguito riportiamo un diagramma di sequenza che rappresenta la visualizzazion
 
 #### Visualizzazione profilo
 
-![alt text](./diagrams/img/docs/diagrams/sequences/showprofile/profile%20sequence%20diagram.png)
+![alt text](./diagrams/out/sequences/showprofile/profile%20sequence%20diagram.png)
 
 ### Diagramma di package
 
