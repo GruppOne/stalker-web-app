@@ -3,9 +3,9 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 // import * as sha512 from 'js-sha512';
+import {LoginDataBuilder, LoginData} from 'src/app/model/classes/users/login-data';
 
 import {LoginService} from '../../../model/services/login.service';
-import {LoginDataBuilder, LoginData} from 'src/app/model/classes/users/login-data';
 
 @Component({
   selector: 'app-home',

@@ -1,4 +1,3 @@
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
@@ -16,7 +15,7 @@ describe('OrganizationComponent', () => {
     'getOrganizationById',
   ]);
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of({name: 'unipd', isPrivate: false}),
+    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
   );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -49,7 +48,7 @@ describe('OrganizationComponent', () => {
 
   it('should create with organization got from http request', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({name: 'unipd', isPrivate: false}),
+      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
     );
     fixture = TestBed.createComponent(OrganizationComponent);
     component = fixture.componentInstance;
@@ -76,13 +75,7 @@ describe('OrganizationComponent', () => {
   });
   it('should call Organization get and handle not empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of(
-        new HttpResponse({
-          body: {organizations: [{name: 'unipd', isPrivate: false}]},
-          headers: new HttpHeaders(),
-          status: 200,
-        }),
-      ),
+      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');

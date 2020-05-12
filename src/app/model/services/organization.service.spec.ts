@@ -5,7 +5,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
 import {AdminType} from '../classes/administrator';
-import {Organization} from '../classes/organization';
+import {Organization} from '../classes/organizations/organization';
 
 import {HttpClientService} from './http-client.service';
 import {LoginService} from './login.service';
@@ -46,7 +46,13 @@ describe('OrganizationService', () => {
     const HttpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
-          body: {id: 0, name: 'unipd', isPrivate: false},
+          body: {
+            id: 0,
+            organizationData: {
+              name: 'unipd',
+              isPrivate: false,
+            },
+          },
           headers: new HttpHeaders(),
           status: 200,
         }),
@@ -54,14 +60,28 @@ describe('OrganizationService', () => {
     );
     let result: Organization = {
       id: 1,
-      name: '',
-      isPrivate: false,
+      organizationData: {
+        name: '',
+        isPrivate: false,
+      },
     };
     service
-      .addOrganization({id: 0, name: 'unipd', isPrivate: false})
+      .addOrganization({
+        id: 0,
+        organizationData: {
+          name: 'unipd',
+          isPrivate: false,
+        },
+      })
       .subscribe((response) => (result = response));
     expect(HttpPostSpy.calls.any()).toBe(true, 'get called');
-    expect(result).toEqual({id: 0, name: 'unipd', isPrivate: false});
+    expect(result).toEqual({
+      id: 0,
+      organizationData: {
+        name: 'unipd',
+        isPrivate: false,
+      },
+    });
   });
 
   it('should be created', () => {
@@ -71,7 +91,13 @@ describe('OrganizationService', () => {
     httpGetSpy = httpClientService.get.and.returnValue(
       of(
         new HttpResponse({
-          body: {id: 0, name: 'unipd', isPrivate: false},
+          body: {
+            id: 0,
+            organizationData: {
+              name: 'unipd',
+              isPrivate: false,
+            },
+          },
           headers: new HttpHeaders(),
           status: 200,
         }),
@@ -79,12 +105,20 @@ describe('OrganizationService', () => {
     );
     let result: Organization = {
       id: 1,
-      name: '',
-      isPrivate: false,
+      organizationData: {
+        name: '',
+        isPrivate: false,
+      },
     };
     service.getOrganizationById(0).subscribe((response) => (result = response));
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
-    expect(result).toEqual({id: 0, name: 'unipd', isPrivate: false});
+    expect(result).toEqual({
+      id: 0,
+      organizationData: {
+        name: 'unipd',
+        isPrivate: false,
+      },
+    });
   });
 
   it(
@@ -95,8 +129,22 @@ describe('OrganizationService', () => {
           new HttpResponse({
             body: {
               organizations: [
-                {id: 0, name: 'unipd', description: 'siamo unipd', isPrivate: false},
-                {id: 1, name: 'gruppOne', description: 'siamo gruppOne', isPrivate: true},
+                {
+                  id: 0,
+                  organizationData: {
+                    name: 'unipd',
+                    description: 'siamo unipd',
+                    isPrivate: false,
+                  },
+                },
+                {
+                  id: 1,
+                  organizationData: {
+                    name: 'gruppOne',
+                    description: 'siamo gruppOne',
+                    isPrivate: true,
+                  },
+                },
               ],
             },
             headers: new HttpHeaders(),
@@ -147,17 +195,20 @@ describe('OrganizationService', () => {
     const httpPutSpy = httpClientService.put.and.returnValue(
       of(
         new HttpResponse({
-          body: {name: 'unipd', isPrivate: false},
+          body: {id: 1, organizationData: {name: 'unipd', isPrivate: false}},
           headers: new HttpHeaders(),
           status: 200,
         }),
       ),
     );
-    let result: {name: string; isPrivate: boolean} = {name: '', isPrivate: false};
+    let result: {id: number; organizationData: {name: string; isPrivate: boolean}} = {
+      id: 0,
+      organizationData: {name: '', isPrivate: false},
+    };
     service
-      .editOrganization({name: 'unipd', isPrivate: false})
+      .editOrganization({id: 1, organizationData: {name: 'unipd', isPrivate: false}})
       .subscribe((response) => (result = response));
     expect(httpPutSpy.calls.any()).toBe(true, 'put called');
-    expect(result).toEqual({name: 'unipd', isPrivate: false});
+    expect(result).toEqual({id: 1, organizationData: {name: 'unipd', isPrivate: false}});
   });
 });

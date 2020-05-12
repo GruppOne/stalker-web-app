@@ -1,13 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
+import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
-import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
+import {
+  Organization,
+  OrganizationBuilder,
+} from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
@@ -82,32 +86,34 @@ export class MapComponent implements OnInit {
       this.getOrganizationById(organizationId);
     }
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('GruppOne', true)
-        .addPlaces([
-          new PlaceBuilder([
-            new MyLatLng(45.411564, 11.887473),
-            new MyLatLng(45.411225, 11.887325),
-            new MyLatLng(45.41111, 11.887784),
-            new MyLatLng(45.41144, 11.88795),
+      this.organization = new OrganizationBuilder(
+        1,
+        new OrganizationDataBuilder('GruppOne', true)
+          .addPlaces([
+            new PlaceBuilder([
+              new MyLatLng(45.411564, 11.887473),
+              new MyLatLng(45.411225, 11.887325),
+              new MyLatLng(45.41111, 11.887784),
+              new MyLatLng(45.41144, 11.88795),
+            ])
+              .addPlaceData(
+                new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
+              )
+              .addName('Torre Archimede')
+              .build(),
           ])
-            .addPlaceData(
-              new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
-            )
-            .addName('Torre Archimede')
-            .build(),
-        ])
-        .addDescription('lorem ipsum...')
-        .addLdapConfiguration(
-          new LdapConfigurationBuilder('127.0.0.1')
-            .addUsername('mario')
-            .addPassword('pass')
-            .build(),
-        )
-        .addId(2)
-        .build();
+          .addDescription('lorem ipsum...')
+          .addLdapConfiguration(
+            new LdapConfigurationBuilder('127.0.0.1')
+              .addUsername('mario')
+              .addPassword('pass')
+              .build(),
+          )
+          .build(),
+      ).build();
     }
-    if (this.organization.places) {
-      for (const element of this.organization.places) {
+    if (this.organization.organizationData.places) {
+      for (const element of this.organization.organizationData.places) {
         this.polygonLayers.push(
           polygon(element.getLatLng(element.polyline))
             .bindTooltip(

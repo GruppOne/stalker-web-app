@@ -1,4 +1,4 @@
-import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute, convertToParamMap, UrlSegment} from '@angular/router';
@@ -20,7 +20,7 @@ describe('MapComponent', () => {
   ]);
 
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of(new HttpResponse({body: null, headers: new HttpHeaders(), status: 200})),
+    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
   );
 
   let geoCodingSpy;
@@ -78,7 +78,9 @@ describe('MapComponent', () => {
   });
   // TODO check this test
   it('should create and not ask for organization places', () => {
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(of(null));
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(
+      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    );
     urlSegment.toString.and.returnValue('create');
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -87,14 +89,14 @@ describe('MapComponent', () => {
 
   it('should call Organization get and handle empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({organizations: []}),
+      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({organizations: [{name: 'unipd', isPrivate: false}]}),
+      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');

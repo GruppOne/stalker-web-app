@@ -25,7 +25,7 @@ describe('CreateOrganizationComponent', () => {
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   let organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
-    of({name: 'unipd', isPrivate: false}),
+    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
   );
 
   beforeEach(async(() => {
@@ -73,7 +73,7 @@ describe('CreateOrganizationComponent', () => {
     const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
     console.log(num);
     organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
-      of({name: 'unipd', isPrivate: false}),
+      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
     );
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');

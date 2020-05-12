@@ -1,14 +1,13 @@
+import {OrganizationDataBuilder} from './organization-data';
 import {LdapConfigurationBuilder} from './ldapConfiguration';
-import {OrganizationBuilder} from './organization';
-import {PlaceBuilder} from './places/place';
+import {PlaceBuilder} from '../places/place';
 
-describe('Organization', () => {
-  const organizationBuilder = new OrganizationBuilder('imola', true);
+describe('OrganizationData', () => {
+  const organizationDataBuilder = new OrganizationDataBuilder('imola', true);
   it('should create an instance', () => {
-    expect(organizationBuilder.build()).toBeTruthy();
+    expect(organizationDataBuilder.build()).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
-    const newId = -2;
     const newName = 'NewTest';
     const newDescription = 'Test description';
     const newLdapConfiguration = new LdapConfigurationBuilder('127.0.0.1').build();
@@ -16,17 +15,15 @@ describe('Organization', () => {
     const newIsPrivate = false;
     const newCreatedDate = '2020-05-21';
     const newLastModifiedDate = '2020-05-21';
-    organizationBuilder.addId(newId);
-    organizationBuilder.addName(newName);
-    organizationBuilder.addDescription(newDescription);
-    organizationBuilder.addLdapConfiguration(newLdapConfiguration);
-    organizationBuilder.addPlaces(newPlaces);
-    organizationBuilder.addPlaces(newPlaces);
-    organizationBuilder.addIsPrivate(newIsPrivate);
-    organizationBuilder.addCreatedDate(newCreatedDate);
-    organizationBuilder.addLastModifiedDate(newLastModifiedDate);
-    const organization = organizationBuilder.build();
-    expect(organization.id).toEqual(newId);
+    organizationDataBuilder.addName(newName);
+    organizationDataBuilder.addDescription(newDescription);
+    organizationDataBuilder.addLdapConfiguration(newLdapConfiguration);
+    organizationDataBuilder.addPlaces(newPlaces);
+    organizationDataBuilder.addPlaces(newPlaces);
+    organizationDataBuilder.addIsPrivate(newIsPrivate);
+    organizationDataBuilder.addCreatedDate(newCreatedDate);
+    organizationDataBuilder.addLastModifiedDate(newLastModifiedDate);
+    const organization = organizationDataBuilder.build();
     expect(organization.name).toEqual(newName);
     expect(organization.description).toEqual(newDescription);
     expect(organization.ldapConfiguration).toEqual(newLdapConfiguration);

@@ -1,12 +1,14 @@
-<h1 class="title-page-under-toolbar">{{ organization?.name }}</h1>
-<h2 class="subtitle-page-under-toolbar">{{ organization?.description }}</h2>
+<h1 class="title-page-under-toolbar">{{ organization?.organizationData?.name }}</h1>
+<h2 class="subtitle-page-under-toolbar">{{ organization?.organizationData?.description }}</h2>
 <mat-card class="organizationTable">
   <mat-list>
     <app-map></app-map>
     <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
     <mat-list-item class="fieldData">
-      {{ organization?.ldapConfiguration?.username }}@{{ organization?.ldapConfiguration?.host }},
-      {{ organization?.ldapConfiguration?.password }}
+      {{ organization?.organizationData?.ldapConfiguration?.username }}@{{
+        organization?.organizationData?.ldapConfiguration?.host
+      }},
+      {{ organization?.organizationData?.ldapConfiguration?.password }}
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item class="fieldName">Owner:</mat-list-item>
@@ -19,10 +21,10 @@
     <mat-list-item class="fieldData">PippoPluto</mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item class="fieldName">Creation date:</mat-list-item>
-    <mat-list-item class="fieldData">{{ organization?.createdDate }}</mat-list-item>
+    <mat-list-item class="fieldData">{{ organization?.organizationData?.createdDate }}</mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item class="fieldName">Last modified date:</mat-list-item>
-    <mat-list-item class="fieldData">{{ organization?.lastModifiedDate }}</mat-list-item>
+    <mat-list-item class="fieldData">{{ organization?.organizationData?.lastModifiedDate }}</mat-list-item>
   </mat-list>
   <mat-card-actions>
     <button

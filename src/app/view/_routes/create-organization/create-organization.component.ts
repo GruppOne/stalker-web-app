@@ -2,13 +2,17 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {LatLng} from 'leaflet';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
+import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 
 import {AdminType} from '../../../model/classes/administrator';
-import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
+import {
+  Organization,
+  OrganizationBuilder,
+} from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
@@ -74,11 +78,15 @@ export class CreateOrganizationComponent implements OnInit {
       console.log(this.mapDataChild.arrayPostcode);
       console.log(this.mapDataChild.arrayCity);
       console.log(this.mapDataChild.arrayCountry);
-      this.organizationBuilder = new OrganizationBuilder(
+      const organizationDataBuilder = new OrganizationDataBuilder(
         this.formArray.value[0].orgNameCtrl,
         this.toggle,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
+        // .addCreatedDate(this.organization.organizationData.createdDate as string)
+        // .addLastModifiedDate(
+        // this.organization.organizationData.lastModifiedDate as string,
+        // )
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
             .addUsername(this.formArray.value[1].orgUserCtrl)
@@ -90,7 +98,7 @@ export class CreateOrganizationComponent implements OnInit {
         for (const j of this.mapDataChild.arrayCoord[i]) {
           polyline.push(new MyLatLng(200, 200, j));
         }
-        this.organizationBuilder.addPlaces([
+        organizationDataBuilder.addPlaces([
           new PlaceBuilder(polyline)
             .addName(this.mapDataChild.arrayName[i])
             .addPlaceData(
@@ -104,6 +112,10 @@ export class CreateOrganizationComponent implements OnInit {
             .build(),
         ]);
       }
+      this.organizationBuilder = new OrganizationBuilder(
+        1,
+        organizationDataBuilder.build(),
+      );
       console.log(this.organizationBuilder.build());
       this.organizationService
         .addOrganization(this.organizationBuilder.build())

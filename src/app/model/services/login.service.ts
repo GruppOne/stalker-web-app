@@ -7,9 +7,9 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {AdminType} from '../classes/administrator';
+import {LoginData} from '../classes/users/login-data';
 
 import {HttpClientService} from './http-client.service';
-import {LoginData} from '../classes/users/login-data';
 
 export interface StalkerJWT {
   organizations: {organizationId: number; role: string}[];
