@@ -1,4 +1,5 @@
 export interface UserData {
+  readonly email?: string;
   readonly firstName?: string;
   readonly lastName?: string;
   readonly birthDate?: string;
@@ -8,6 +9,7 @@ export interface UserData {
 }
 
 export class UserDataBuilder {
+  private email?: string;
   private firstName?: string;
   private lastName?: string;
   private birthDate?: string;
@@ -15,6 +17,10 @@ export class UserDataBuilder {
   private createdDate?: string;
   private lastModifiedDate?: string;
 
+  addEmail(email: string): UserDataBuilder {
+    this.email = email;
+    return this;
+  }
   addFirstName(firstName: string): UserDataBuilder {
     this.firstName = firstName;
     return this;
@@ -37,6 +43,7 @@ export class UserDataBuilder {
   }
   build(): UserData {
     return {
+      email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
       birthDate: this.birthDate,

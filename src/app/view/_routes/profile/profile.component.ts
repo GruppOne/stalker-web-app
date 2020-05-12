@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   getUser(id: number): void {
     this.userService.getUserById(id).subscribe(
       (response: User) => {
-        this.userBuilder = new UserBuilder(response.email, response.password)
+        this.userBuilder = new UserBuilder()
           .addId(response.id as number)
           .addUserData(response.userData as UserData);
         this.user = this.userBuilder.build();

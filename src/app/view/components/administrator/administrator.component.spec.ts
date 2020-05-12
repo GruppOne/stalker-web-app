@@ -145,8 +145,8 @@ describe('AdministratorComponent', () => {
 
   it('should find an userId given email correctly', () => {
     const result = component.checkIfEmailIsUser('mariorossi@gmail.com', [
-      {id: 1, email: 'mariorossi@gmail.com', password: 'defaultpass'},
-      {id: 2, email: 'giuseppeverdi@gmail.com', password: 'defaultpass2'},
+      {id: 1, userData: {email: 'mariorossi@gmail.com'}},
+      {id: 2, userData: {email: 'giuseppeverdi@gmail.com'}},
     ]);
     expect(result).toBe(1);
   });

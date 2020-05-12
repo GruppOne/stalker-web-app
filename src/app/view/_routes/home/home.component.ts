@@ -4,8 +4,8 @@ import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 // import * as sha512 from 'js-sha512';
 
-import {User, UserBuilder} from '../../../model/classes/users/user';
 import {LoginService} from '../../../model/services/login.service';
+import {LoginDataBuilder, LoginData} from 'src/app/model/classes/users/login-data';
 
 @Component({
   selector: 'app-home',
@@ -35,9 +35,9 @@ export class HomeComponent implements OnInit {
       return;
     }
     // sha512.sha512(password);
-    const userBuilder = new UserBuilder(email, password);
-    this.loginService.login(userBuilder.build()).subscribe(
-      (response: User) => {
+    const loginDataBuilder = new LoginDataBuilder(email, password);
+    this.loginService.login(loginDataBuilder.build()).subscribe(
+      (response: LoginData) => {
         console.log(response);
         this.router.navigate([`/users/${this.loginService.getUserId()}`]);
       },

@@ -8,15 +8,15 @@ import {UserBuilder} from '../../../model/classes/users/user';
 import {UserService} from '../../../model/services/user.service';
 
 import {ProfileComponent} from './profile.component';
+import {UserDataBuilder} from 'src/app/model/classes/users/user-data';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
   const userService = jasmine.createSpyObj('UserService', ['getUserById']);
-  const userBuilder: UserBuilder = new UserBuilder(
-    'notmariorossi@gmail.com',
-    'notPassword1!',
-  );
+  const userBuilder: UserBuilder = new UserBuilder()
+    .addId(1)
+    .addUserData(new UserDataBuilder().addEmail('notmariorossi@gmail.com').build());
   let userSpywithDatas = userService.getUserById.and.returnValue(of(userBuilder.build()));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
