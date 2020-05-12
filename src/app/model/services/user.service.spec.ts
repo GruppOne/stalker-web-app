@@ -17,7 +17,7 @@ describe('UserService', () => {
     // 'delete',
   ]);
 
-  const defaultUser = {email: 'default@mail', password: 'Default1!'};
+  const defaultUser = {id: 1, userData: {email: 'default@mail'}};
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -33,7 +33,7 @@ describe('UserService', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(
       of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
     );
-    let result: User = {email: '', password: ''};
+    let result: User = {id: 1, userData: {email: ''}};
     service.getUserById(1).subscribe((response) => (result = response));
     expect(result).toEqual(defaultUser);
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');

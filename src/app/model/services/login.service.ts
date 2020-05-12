@@ -7,9 +7,9 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {AdminType} from '../classes/administrator';
-import {User} from '../classes/users/user';
 
 import {HttpClientService} from './http-client.service';
+import {LoginData} from '../classes/users/login-data';
 
 export interface StalkerJWT {
   organizations: {organizationId: number; role: string}[];
@@ -34,9 +34,9 @@ export class LoginService {
     this.adminMapping.set('Viewer', 1);
   }
 
-  login(user: User): Observable<User> {
-    return this.httpClientService.post<User>('/user/login', user).pipe(
-      map((response: HttpResponse<User>) => {
+  login(user: LoginData): Observable<LoginData> {
+    return this.httpClientService.post<LoginData>('/user/login', user).pipe(
+      map((response: HttpResponse<LoginData>) => {
         console.log(response);
         // let jwtTokenHeader = response.headers.get('Authorization') as string;
         const jwtTokenHeader =
@@ -54,7 +54,7 @@ export class LoginService {
         localStorage.setItem('organizations', JSON.stringify(payload.organizations));
         localStorage.setItem('expiration_time', payload.exp.toString());
         localStorage.setItem('creation_time', payload.iat.toString());
-        return response.body as User;
+        return response.body as LoginData;
       }),
     );
   }

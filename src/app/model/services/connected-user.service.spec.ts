@@ -14,7 +14,7 @@ describe('ConnectedUserService', () => {
     // 'put',
     // 'delete',
   ]);
-  const defaultUser = {email: 'default@mail', password: 'Default1!'};
+  const defaultUser = {id: 0};
   let httpGetSpy = httpClientService.get.and.returnValue(
     of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
   );
@@ -36,7 +36,7 @@ describe('ConnectedUserService', () => {
         new HttpResponse({body: [defaultUser], headers: new HttpHeaders(), status: 200}),
       ),
     );
-    let result: {email: string; password: string}[] = [{email: '', password: ''}];
+    let result: {id?: number}[] = [{id: 0}];
     service.getUserConnectedToOrg(1).subscribe((response) => (result = response));
     expect(result[0]).toEqual(defaultUser);
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
