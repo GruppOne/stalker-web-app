@@ -3,12 +3,12 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
+import {UserDataBuilder} from 'src/app/model/classes/users/user-data';
 
 import {UserBuilder} from '../../../model/classes/users/user';
 import {UserService} from '../../../model/services/user.service';
 
 import {ProfileComponent} from './profile.component';
-import {UserDataBuilder} from 'src/app/model/classes/users/user-data';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;

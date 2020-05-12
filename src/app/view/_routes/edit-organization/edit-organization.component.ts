@@ -2,12 +2,16 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {LatLng} from 'leaflet';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/ldapConfiguration';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
+import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 
-import {Organization, OrganizationBuilder} from '../../../model/classes/organization';
+import {
+  Organization,
+  OrganizationBuilder,
+} from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
@@ -49,43 +53,52 @@ export class EditOrganizationComponent implements OnInit {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getOrganizationById(organizationId);
     if (!this.organization) {
-      this.organization = new OrganizationBuilder('GruppOne', true)
-        .addPlaces([
-          new PlaceBuilder([
-            new MyLatLng(45.411564, 11.887473),
-            new MyLatLng(45.411225, 11.887325),
-            new MyLatLng(45.41111, 11.887784),
-            new MyLatLng(45.41144, 11.88795),
-          ]).build(),
-        ])
-        .addDescription(
-          'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor...',
-        )
-        .addLdapConfiguration(
-          new LdapConfigurationBuilder('127.0.0.1')
-            .addUsername('admin')
-            .addPassword('root')
-            .build(),
-        )
-        .addId(1)
-        .addCreatedDate('2020-04-07T02:00:00Z')
-        .addLastModifiedDate('2020-04-07T02:00:00Z')
-        .build();
+      this.organization = new OrganizationBuilder(
+        1,
+        new OrganizationDataBuilder('GruppOne', true)
+          .addPlaces([
+            new PlaceBuilder([
+              new MyLatLng(45.411564, 11.887473),
+              new MyLatLng(45.411225, 11.887325),
+              new MyLatLng(45.41111, 11.887784),
+              new MyLatLng(45.41144, 11.88795),
+            ])
+              .addPlaceData(
+                new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
+              )
+              .addName('Torre Archimede')
+              .build(),
+          ])
+          .addDescription('lorem ipsum...')
+          .addLdapConfiguration(
+            new LdapConfigurationBuilder('127.0.0.1')
+              .addUsername('mario')
+              .addPassword('pass')
+              .build(),
+          )
+          .build(),
+      ).build();
     }
     this.formGroup = this.formBuilder.group({
       formArray: this.formBuilder.array([
         this.formBuilder.group({
-          orgNameCtrl: [this.organization.name, Validators.required],
-          orgDescriptionCtrl: [this.organization.description, Validators.required],
+          orgNameCtrl: [this.organization.organizationData.name, Validators.required],
+          orgDescriptionCtrl: [
+            this.organization.organizationData.description,
+            Validators.required,
+          ],
         }),
         this.formBuilder.group({
-          orgHostCtrl: [this.organization.ldapConfiguration?.host, Validators.required],
+          orgHostCtrl: [
+            this.organization.organizationData.ldapConfiguration?.host,
+            Validators.required,
+          ],
           orgUserCtrl: [
-            this.organization.ldapConfiguration?.username,
+            this.organization.organizationData.ldapConfiguration?.username,
             Validators.required,
           ],
           orgPwdCtrl: [
-            this.organization.ldapConfiguration?.password,
+            this.organization.organizationData.ldapConfiguration?.password,
             Validators.required,
           ],
         }),
@@ -118,14 +131,15 @@ export class EditOrganizationComponent implements OnInit {
       console.log(this.mapDataChild.arrayPostcode);
       console.log(this.mapDataChild.arrayCity);
       console.log(this.mapDataChild.arrayCountry);
-      this.organizationBuilder = new OrganizationBuilder(
+      const organizationDataBuilder = new OrganizationDataBuilder(
         this.formArray.value[0].orgNameCtrl,
         true,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        .addId(this.organization.id as number)
-        .addCreatedDate(this.organization.createdDate as string)
-        .addLastModifiedDate(this.organization.lastModifiedDate as string)
+        .addCreatedDate(this.organization.organizationData.createdDate as string)
+        .addLastModifiedDate(
+          this.organization.organizationData.lastModifiedDate as string,
+        )
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
             .addUsername(this.formArray.value[1].orgUserCtrl)
@@ -137,7 +151,7 @@ export class EditOrganizationComponent implements OnInit {
         for (const j of this.mapDataChild.arrayCoord[i]) {
           polyline.push(new MyLatLng(200, 200, j));
         }
-        this.organizationBuilder.addPlaces([
+        organizationDataBuilder.addPlaces([
           new PlaceBuilder(polyline)
             .addName(this.mapDataChild.arrayName[i])
             .addPlaceData(
@@ -151,6 +165,10 @@ export class EditOrganizationComponent implements OnInit {
             .build(),
         ]);
       }
+      this.organizationBuilder = new OrganizationBuilder(
+        this.organization.id,
+        organizationDataBuilder.build(),
+      );
       console.log(this.organizationBuilder.build());
       this.organizationService
         .editOrganization(this.organizationBuilder.build())

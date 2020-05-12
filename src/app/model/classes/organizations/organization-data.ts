@@ -1,19 +1,18 @@
-import {LdapConfiguration} from './ldapConfiguration';
-import {Place} from './places/place';
+import {Place} from '../places/place';
 
-export interface Organization {
-  readonly id?: number;
+import {LdapConfiguration} from './ldapConfiguration';
+
+export interface OrganizationData {
   readonly name: string;
+  readonly isPrivate: boolean;
   readonly description?: string;
   readonly ldapConfiguration?: LdapConfiguration;
   places?: Place[];
-  readonly isPrivate: boolean;
   readonly createdDate?: string;
   readonly lastModifiedDate?: string;
 }
 
-export class OrganizationBuilder {
-  private id?: number;
+export class OrganizationDataBuilder {
   private description?: string;
 
   private ldapConfiguration?: LdapConfiguration;
@@ -26,23 +25,19 @@ export class OrganizationBuilder {
 
   constructor(private name: string, private isPrivate: boolean) {}
 
-  addName(name: string): OrganizationBuilder {
+  addName(name: string): OrganizationDataBuilder {
     this.name = name;
     return this;
   }
-  addId(id: number): OrganizationBuilder {
-    this.id = id;
-    return this;
-  }
-  addDescription(description: string): OrganizationBuilder {
+  addDescription(description: string): OrganizationDataBuilder {
     this.description = description;
     return this;
   }
-  addLdapConfiguration(ldapConfiguration: LdapConfiguration): OrganizationBuilder {
+  addLdapConfiguration(ldapConfiguration: LdapConfiguration): OrganizationDataBuilder {
     this.ldapConfiguration = ldapConfiguration;
     return this;
   }
-  addPlaces(places: Place[]): OrganizationBuilder {
+  addPlaces(places: Place[]): OrganizationDataBuilder {
     if (this.places) {
       this.places = this.places.concat(places);
     } else {
@@ -51,27 +46,26 @@ export class OrganizationBuilder {
     return this;
   }
   // Use this code if you need to remove a Place
-  /*  removePlace(place: Place): OrganizationBuilder {
+  /*  removePlace(place: Place): OrganizationDataBuilder {
     const index: number = this.places?.indexOf(place, 0) as number;
     this.places = this.places?.splice(index, 1);
     return this;
   } */
-  addIsPrivate(isPrivate: boolean): OrganizationBuilder {
+  addIsPrivate(isPrivate: boolean): OrganizationDataBuilder {
     this.isPrivate = isPrivate;
     return this;
   }
-  addCreatedDate(createdDate: string): OrganizationBuilder {
+  addCreatedDate(createdDate: string): OrganizationDataBuilder {
     this.createdDate = createdDate;
     return this;
   }
-  addLastModifiedDate(lastModifiedDate: string): OrganizationBuilder {
+  addLastModifiedDate(lastModifiedDate: string): OrganizationDataBuilder {
     this.lastModifiedDate = lastModifiedDate;
     return this;
   }
 
-  build(): Organization {
+  build(): OrganizationData {
     return {
-      id: this.id,
       name: this.name,
       description: this.description,
       ldapConfiguration: this.ldapConfiguration,

@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {AdminType} from '../classes/administrator';
-import {Organization} from '../classes/organization';
+import {Organization} from '../classes/organizations/organization';
 
 import {HttpClientService} from './http-client.service';
 import {LoginService} from './login.service';
@@ -69,10 +69,10 @@ export class OrganizationService {
               if (element.id === iterator.organizationId) {
                 adminOrganizations.push({
                   id: element.id,
-                  name: element.name,
-                  description: element.description as string,
+                  name: element.organizationData.name,
+                  description: element.organizationData.description as string,
                   role: iterator.role as AdminType,
-                  private: element.isPrivate ? 'private' : 'public',
+                  private: element.organizationData.isPrivate ? 'private' : 'public',
                 });
               }
             }
