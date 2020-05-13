@@ -65,6 +65,7 @@ export class OrganizationComponent implements OnInit {
   getOrganizationById(id: number): void {
     this.organizationService.getOrganizationById(id).subscribe(
       (response: Organization) => {
+        console.log(response);
         this.organization = response;
       },
       (err: Error) => console.error(err),

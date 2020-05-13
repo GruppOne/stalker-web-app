@@ -16,29 +16,28 @@ export class AdministratorService {
   addAdministrator(
     organizationId: number,
     administrator: Administrator,
-  ): Observable<Administrator> {
+  ): Observable<boolean> {
     return this.httpClientService
-      .post<Administrator>(`/organization/${organizationId}/users/role`, administrator)
-      .pipe(
-        map((response: HttpResponse<Administrator>) => response.body as Administrator),
-      );
+      .post<Administrator>(
+        `/organization/${organizationId}/user/${administrator.id}/role`,
+        administrator,
+      )
+      .pipe(map(() => true));
   }
   removeAdministrator(
     organizationId: number,
     administratorId: number,
-  ): Observable<Administrator> {
+  ): Observable<boolean> {
     return this.httpClientService
       .delete<Administrator>(
-        `/organization/${organizationId}/users/role/${administratorId}`,
+        `/organization/${organizationId}/user/${administratorId}/role`,
       )
-      .pipe(
-        map((response: HttpResponse<Administrator>) => response.body as Administrator),
-      );
+      .pipe(map(() => true));
   }
 
   getAdministrators(organizationId: number): Observable<Administrator[]> {
     return this.httpClientService
-      .get<Administrator[]>(`/organization/${organizationId}`)
+      .get<Administrator[]>(`/organization/${organizationId}/users/connection`)
       .pipe(
         map(
           (response: HttpResponse<Administrator[]>) => response.body as Administrator[],

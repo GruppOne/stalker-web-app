@@ -15,7 +15,7 @@ export class ConnectedUserService {
 
   getUserConnectedToOrg(organizationId: number): Observable<User[]> {
     return this.httpClientService
-      .get<User[]>(`/organization/${organizationId}/connected`)
+      .get<User[]>(`/organization/${organizationId}/users/connections`)
       .pipe(map((response: HttpResponse<User[]>) => response.body as User[]));
   }
 }

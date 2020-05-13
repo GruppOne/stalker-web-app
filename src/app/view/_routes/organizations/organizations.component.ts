@@ -36,8 +36,6 @@ export class OrganizationsComponent implements OnInit {
   }[] = [];
 
   constructor(private readonly organizationService: OrganizationService) {
-    // Create 100 users
-
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
   }
@@ -46,27 +44,6 @@ export class OrganizationsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getAdminOrganizations();
-    if (this.organizationsRoles.length === 0) {
-      this.organizationsRoles = [
-        {
-          id: 1,
-          name: 'Unipd',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
-            'tempor incididunt ut labore et dolore magna aliqua.',
-          role: AdminType.viewer,
-          private: 'public',
-        },
-        {
-          id: 2,
-          name: 'GruppOne',
-          description: 'sit amet...',
-          role: AdminType.owner,
-          private: 'private',
-        },
-      ];
-    }
-    this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
   }
 
   applyFilter(event: Event): void {
@@ -88,7 +65,30 @@ export class OrganizationsComponent implements OnInit {
           role: AdminType;
           private: string;
         }[],
-      ) => (this.organizationsRoles = response),
+      ) => {
+        this.organizationsRoles = response;
+        if (this.organizationsRoles.length === 0) {
+          this.organizationsRoles = [
+            {
+              id: 1,
+              name: 'Unipd',
+              description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit ' +
+                'tempor incididunt ut labore et dolore magna aliqua.',
+              role: AdminType.viewer,
+              private: 'public',
+            },
+            {
+              id: 2,
+              name: 'GruppOne',
+              description: 'sit amet...',
+              role: AdminType.owner,
+              private: 'private',
+            },
+          ];
+        }
+        this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
+      },
 
       (err: Error) => console.error(err),
     );

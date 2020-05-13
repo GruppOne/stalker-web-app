@@ -5,7 +5,6 @@ import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {of, throwError} from 'rxjs';
-import {AdminType} from 'src/app/model/classes/administrator';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
@@ -28,9 +27,11 @@ describe('AdministratorComponent', () => {
   let userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
     of([]),
   );
-  let administratorAddSpy = administratorService.addAdministrator.and.returnValue(of({}));
+  let administratorAddSpy = administratorService.addAdministrator.and.returnValue(
+    of(true),
+  );
   let administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
-    of({}),
+    of(true),
   );
   let administratorGetSpy = administratorService.getAdministrators.and.returnValue(
     of([]),
@@ -111,7 +112,7 @@ describe('AdministratorComponent', () => {
 
   it('should remove an admin correctly and handle responses', () => {
     administratorRemoveSpy = administratorService.removeAdministrator.and.returnValue(
-      of({id: 1, email: 'mariorossi@gmail.com', role: AdminType.manager}),
+      of(true),
     );
     component.deleteAdmin(1);
     expect(administratorRemoveSpy.calls.any()).toBe(true, 'sumbit done');
@@ -127,9 +128,7 @@ describe('AdministratorComponent', () => {
   });
 
   it('should add an admin correctly and handle responses', () => {
-    administratorAddSpy = administratorService.addAdministrator.and.returnValue(
-      of({id: 1, email: 'mariorossi@gmail.com', role: AdminType.manager}),
-    );
+    administratorAddSpy = administratorService.addAdministrator.and.returnValue(of(true));
     component.addAdmin();
     expect(administratorAddSpy.calls.any()).toBe(true, 'add call done');
   });

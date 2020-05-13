@@ -13,7 +13,7 @@ import {LoginService} from './login.service';
 describe('LoginService', () => {
   const httpClientService = jasmine.createSpyObj('HttpClientService', [
     'post',
-    // 'get',
+    'get',
     // 'put',
     // 'delete',
   ]);
@@ -86,10 +86,20 @@ describe('LoginService', () => {
     const result: boolean = sut.isLoggedIn();
     expect(result).toBe(true);
   });
-  it('should get Organization the user si admin of and role', () => {
-    localStor.getItem.and.returnValue(
-      '{"organizations":[{"organizationId": 1,"role": "Viewer"}' +
-        ',{"organizationId": 2,"role": "Admin"}]}',
+  it('should get Organizations the user is admin of and role', () => {
+    httpClientService.get.and.returnValue(
+      of(
+        new HttpResponse({
+          body: {
+            rolesInOrganizations: [
+              {organizationId: 1, role: AdminType.viewer},
+              {organizationId: 2, role: AdminType.admin},
+            ],
+          },
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
     const expectedResult = [
       {
@@ -101,22 +111,78 @@ describe('LoginService', () => {
         role: AdminType.admin,
       },
     ];
-    const result: {
+    let result: {
       organizationId: number;
-      role: AdminType;
-    }[] = sut.getAdminOrganizations();
+      role: string;
+    }[] = [];
+    sut.getAdminOrganizations().subscribe(
+      (
+        response: {
+          organizationId: number;
+          role: string;
+        }[],
+      ) => (result = response),
+    );
     expect(result).toEqual(expectedResult);
   });
+
+  it('should get Organizations the user is admin of and role, this time is empty', () => {
+    const httpClientGetSpy = httpClientService.get.and.returnValue(
+      of(
+        new HttpResponse({
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
+    );
+    let result: {
+      organizationId: number;
+      role: string;
+    }[] = [];
+    sut.getAdminOrganizations().subscribe(
+      (
+        response: {
+          organizationId: number;
+          role: string;
+        }[],
+      ) => (result = response),
+    );
+    expect(httpClientGetSpy.calls.any()).toBe(true);
+    expect(result).toEqual(result);
+  });
+
   it('should check if the user has insufficient permissions given a token', () => {
-    localStor.getItem.and.returnValue(
-      '[{"organizationId": 1,"role": "Viewer"},{"organizationId": 2,"role": "Admin"}]',
+    httpClientService.get.and.returnValue(
+      of(
+        new HttpResponse({
+          body: {
+            rolesInOrganizations: [
+              {organizationId: 1, role: AdminType.viewer},
+              {organizationId: 2, role: AdminType.admin},
+            ],
+          },
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
     const result: boolean = sut.checkAuthorization(1, AdminType.viewer);
     expect(result).toBe(true);
   });
   it('should check if the user has sufficient permissions given a token', () => {
-    localStor.getItem.and.returnValue(
-      '[{"organizationId": 1,"role": "Viewer"},{"organizationId": 2,"role": "Admin"}]',
+    httpClientService.get.and.returnValue(
+      of(
+        new HttpResponse({
+          body: {
+            rolesInOrganizations: [
+              {organizationId: 1, role: AdminType.viewer},
+              {organizationId: 2, role: AdminType.admin},
+            ],
+          },
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
     const result: boolean = sut.checkAuthorization(1, AdminType.owner);
     expect(result).toBe(false);

@@ -6,7 +6,6 @@ import * as moment from 'moment';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-import {AdminType} from '../classes/administrator';
 import {LoginData} from '../classes/users/login-data';
 
 import {HttpClientService} from './http-client.service';
@@ -73,8 +72,24 @@ export class LoginService {
     return false;
   }
 
-  getAdminOrganizations(): {organizationId: number; role: AdminType}[] {
-    return JSON.parse(localStorage.getItem('organizations') as string).organizations;
+  getAdminOrganizations(): Observable<{organizationId: number; role: string}[]> {
+    return this.httpClientService
+      .get<{rolesInOrganizations: {organizationId: number; role: string}[]}>(
+        `/user/${localStorage.getItem('user_id')}/organizations/roles`,
+      )
+      .pipe(
+        map(
+          (
+            response: HttpResponse<{
+              rolesInOrganizations: {organizationId: number; role: string}[];
+            }>,
+          ) =>
+            response.body?.rolesInOrganizations as {
+              organizationId: number;
+              role: string;
+            }[],
+        ),
+      );
   }
 
   logout(): void {
@@ -89,16 +104,19 @@ export class LoginService {
 
   checkAuthorization(actualOrgId: number, desiredRole: string): boolean {
     let authroized = false;
-    const connectedOrg = JSON.parse(localStorage.getItem('organizations') as string);
-    console.log(connectedOrg);
-    connectedOrg.forEach((element: {organizationId: number; role: string}) => {
-      if (
-        element.organizationId === actualOrgId &&
-        this.adminMapping.get(element.role) >= this.adminMapping.get(desiredRole)
-      ) {
-        authroized = true;
-      }
-    });
+    this.getAdminOrganizations().subscribe(
+      (response: {organizationId: number; role: string}[]) => {
+        console.log(response);
+        response.forEach((element: {organizationId: number; role: string}) => {
+          if (
+            element.organizationId === actualOrgId &&
+            this.adminMapping.get(element.role) >= this.adminMapping.get(desiredRole)
+          ) {
+            authroized = true;
+          }
+        });
+      },
+    );
     return authroized;
   }
 }
