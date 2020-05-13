@@ -1,3 +1,3 @@
 # Diagramma delle classi
 
-![alt text](../out/docs/class_diagram/class_diagram.png)
+![alt text](./diagrams/out/class_diagram/Class%20Diagram.png)
