@@ -20,7 +20,7 @@ describe('MapComponent', () => {
   ]);
 
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    of({id: 1, data: {name: 'unipd', isPrivate: false}}),
   );
 
   let geoCodingSpy;
@@ -79,7 +79,7 @@ describe('MapComponent', () => {
   // TODO check this test
   it('should create and not ask for organization places', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
     urlSegment.toString.and.returnValue('create');
     component = fixture.componentInstance;
@@ -89,14 +89,14 @@ describe('MapComponent', () => {
 
   it('should call Organization get and handle empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');

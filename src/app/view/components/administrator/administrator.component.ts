@@ -48,7 +48,7 @@ export class AdministratorComponent implements OnInit {
     this.administratorService
       .addAdministrator(Number(this.route.snapshot.paramMap.get('id')), admin)
       .subscribe(
-        (response: Administrator) => this.administrators.push(response),
+        () => {},
         (err: Error) => console.error(err),
       );
   }
@@ -64,9 +64,14 @@ export class AdministratorComponent implements OnInit {
         administratorId,
       )
       .subscribe(
-        (response: Administrator) => {
-          const indexOf = this.administrators.indexOf(response);
-          this.administrators.splice(indexOf, 1);
+        () => {
+          const admin = this.administrators.find(
+            (element: Administrator) => element.id === administratorId,
+          );
+          this.administrators.splice(
+            this.administrators.indexOf(admin as Administrator),
+            1,
+          );
         },
         (err: Error) => console.error(err),
       );

@@ -2,7 +2,7 @@ import {OrganizationData} from './organization-data';
 
 export interface Organization {
   readonly id: number;
-  readonly organizationData: OrganizationData;
+  readonly data: OrganizationData;
 }
 
 export class OrganizationBuilder {
@@ -21,7 +21,7 @@ export class OrganizationBuilder {
   build(): Organization {
     return {
       id: this.id,
-      organizationData: this.organizationData,
+      data: this.organizationData,
     };
   }
 }

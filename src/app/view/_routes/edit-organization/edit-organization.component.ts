@@ -82,23 +82,20 @@ export class EditOrganizationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       formArray: this.formBuilder.array([
         this.formBuilder.group({
-          orgNameCtrl: [this.organization.organizationData.name, Validators.required],
-          orgDescriptionCtrl: [
-            this.organization.organizationData.description,
-            Validators.required,
-          ],
+          orgNameCtrl: [this.organization.data.name, Validators.required],
+          orgDescriptionCtrl: [this.organization.data.description, Validators.required],
         }),
         this.formBuilder.group({
           orgHostCtrl: [
-            this.organization.organizationData.ldapConfiguration?.host,
+            this.organization.data.ldapConfiguration?.host,
             Validators.required,
           ],
           orgUserCtrl: [
-            this.organization.organizationData.ldapConfiguration?.username,
+            this.organization.data.ldapConfiguration?.username,
             Validators.required,
           ],
           orgPwdCtrl: [
-            this.organization.organizationData.ldapConfiguration?.password,
+            this.organization.data.ldapConfiguration?.password,
             Validators.required,
           ],
         }),
@@ -136,10 +133,8 @@ export class EditOrganizationComponent implements OnInit {
         true,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        .addCreatedDate(this.organization.organizationData.createdDate as string)
-        .addLastModifiedDate(
-          this.organization.organizationData.lastModifiedDate as string,
-        )
+        .addCreatedDate(this.organization.data.createdDate as number)
+        .addLastModifiedDate(this.organization.data.lastModifiedDate as number)
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
             .addUsername(this.formArray.value[1].orgUserCtrl)
@@ -173,9 +168,8 @@ export class EditOrganizationComponent implements OnInit {
       this.organizationService
         .editOrganization(this.organizationBuilder.build())
         .subscribe(
-          (response: Organization) => {
+          (response: boolean) => {
             console.log(response);
-            this.organization = response;
           },
           (err: Error) => console.error(err),
         );

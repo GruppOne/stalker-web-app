@@ -33,33 +33,33 @@ describe('AdministratorService', () => {
     const httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
-          body: defaultAdministrator,
+          body: null,
           headers: new HttpHeaders(),
           status: 200,
         }),
       ),
     );
-    let result = {id: 1, email: '', role: AdminType.viewer};
+    let result = false;
     service
       .addAdministrator(1, defaultAdministrator)
       .subscribe((response) => (result = response));
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
-    expect(result).toEqual(defaultAdministrator);
+    expect(result).toEqual(true);
   });
   it('should call the administrators delete for removing', () => {
     const httpDeleteSpy = httpClientService.delete.and.returnValue(
       of(
         new HttpResponse({
-          body: defaultAdministrator,
+          body: null,
           headers: new HttpHeaders(),
           status: 200,
         }),
       ),
     );
-    let result = {id: 1, email: '', role: AdminType.viewer};
+    let result = false;
     service.removeAdministrator(1, 1).subscribe((response) => (result = response));
     expect(httpDeleteSpy.calls.any()).toBe(true, 'post called');
-    expect(result).toEqual(defaultAdministrator);
+    expect(result).toEqual(true);
   });
   it('should call the administrators get', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(

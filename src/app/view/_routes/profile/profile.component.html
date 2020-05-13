@@ -6,11 +6,11 @@
     <img src="../../../../assets/default-profile-pic.jpg" class="profilePic" alt="profile pic" />
   </div>
   <div class="infoContainer">
-    <h1>John Smith</h1>
-    <h2><mat-icon>event</mat-icon> 20/02/1993</h2>
-    <h3><mat-icon>email</mat-icon> address@example.com</h3>
+    <h1>{{ user?.userData?.firstName }} {{ user?.userData?.lastName }}</h1>
+    <h2><mat-icon>event</mat-icon> {{ user?.userData?.birthDate }}</h2>
+    <h3><mat-icon>email</mat-icon> {{ user?.userData?.email }}</h3>
     <h4><mat-icon>schedule</mat-icon> Joined:</h4>
-    <h5><mat-icon>calendar_today</mat-icon> March 20, 2020</h5>
+    <h5><mat-icon>calendar_today</mat-icon> {{ user?.userData?.lastModifiedDate }}</h5>
   </div>
   <div class="dashboard">
     <h1>Organization's role</h1>

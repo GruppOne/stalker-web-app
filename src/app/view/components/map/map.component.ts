@@ -112,8 +112,8 @@ export class MapComponent implements OnInit {
           .build(),
       ).build();
     }
-    if (this.organization.organizationData.places) {
-      for (const element of this.organization.organizationData.places) {
+    if (this.organization.data.places) {
+      for (const element of this.organization.data.places) {
         this.polygonLayers.push(
           polygon(element.getLatLng(element.polyline))
             .bindTooltip(

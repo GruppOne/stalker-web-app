@@ -1,6 +1,7 @@
-import {OrganizationDataBuilder} from './organization-data';
-import {LdapConfigurationBuilder} from './ldapConfiguration';
 import {PlaceBuilder} from '../places/place';
+
+import {LdapConfigurationBuilder} from './ldapConfiguration';
+import {OrganizationDataBuilder} from './organization-data';
 
 describe('OrganizationData', () => {
   const organizationDataBuilder = new OrganizationDataBuilder('imola', true);
@@ -13,8 +14,8 @@ describe('OrganizationData', () => {
     const newLdapConfiguration = new LdapConfigurationBuilder('127.0.0.1').build();
     const newPlaces = [new PlaceBuilder([]).build(), new PlaceBuilder([]).build()];
     const newIsPrivate = false;
-    const newCreatedDate = '2020-05-21';
-    const newLastModifiedDate = '2020-05-21';
+    const newCreatedDate = 1;
+    const newLastModifiedDate = 1;
     organizationDataBuilder.addName(newName);
     organizationDataBuilder.addDescription(newDescription);
     organizationDataBuilder.addLdapConfiguration(newLdapConfiguration);

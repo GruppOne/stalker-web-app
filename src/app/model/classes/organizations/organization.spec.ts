@@ -19,8 +19,8 @@ describe('Organization', () => {
     const newLdapConfiguration = new LdapConfigurationBuilder('127.0.0.1').build();
     const newPlaces = [new PlaceBuilder([]).build(), new PlaceBuilder([]).build()];
     const newIsPrivate = false;
-    const newCreatedDate = '2020-05-21';
-    const newLastModifiedDate = '2020-05-21';
+    const newCreatedDate = 1;
+    const newLastModifiedDate = 1;
     const organizationDataBuilder = new OrganizationDataBuilder(newName, newIsPrivate);
     organizationBuilder.addId(newId);
     organizationDataBuilder.addName(newName);
@@ -32,16 +32,15 @@ describe('Organization', () => {
     organizationDataBuilder.addCreatedDate(newCreatedDate);
     organizationDataBuilder.addLastModifiedDate(newLastModifiedDate);
     organizationBuilder = new OrganizationBuilder(newId, organizationDataBuilder.build());
+    organizationBuilder.addOrganizationData(organizationDataBuilder.build());
     const organization = organizationBuilder.build();
     expect(organization.id).toEqual(newId);
-    expect(organization.organizationData.name).toEqual(newName);
-    expect(organization.organizationData.description).toEqual(newDescription);
-    expect(organization.organizationData.ldapConfiguration).toEqual(newLdapConfiguration);
-    expect(organization.organizationData.places).toEqual(
-      organization.organizationData.places,
-    );
-    expect(organization.organizationData.isPrivate).toEqual(newIsPrivate);
-    expect(organization.organizationData.createdDate).toEqual(newCreatedDate);
-    expect(organization.organizationData.lastModifiedDate).toEqual(newLastModifiedDate);
+    expect(organization.data.name).toEqual(newName);
+    expect(organization.data.description).toEqual(newDescription);
+    expect(organization.data.ldapConfiguration).toEqual(newLdapConfiguration);
+    expect(organization.data.places).toEqual(organization.data.places);
+    expect(organization.data.isPrivate).toEqual(newIsPrivate);
+    expect(organization.data.createdDate).toEqual(newCreatedDate);
+    expect(organization.data.lastModifiedDate).toEqual(newLastModifiedDate);
   });
 });

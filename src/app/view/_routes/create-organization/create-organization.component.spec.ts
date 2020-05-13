@@ -72,9 +72,7 @@ describe('CreateOrganizationComponent', () => {
   it('should submit the form correctly', () => {
     const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
     console.log(num);
-    organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
-    );
+    organizationSubmitSpy = organizationService.addOrganization.and.returnValue(of(true));
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
     expect(mockRouter.navigate).toHaveBeenCalled();

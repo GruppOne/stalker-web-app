@@ -25,11 +25,11 @@ describe('EditOrganizationComponent', () => {
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    of({id: 1, data: {name: 'unipd', isPrivate: false}}),
   );
 
   let organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
-    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    of(true),
   );
 
   beforeEach(async(() => {
@@ -73,7 +73,7 @@ describe('EditOrganizationComponent', () => {
   });
   it('should create with organization got from http request', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -99,7 +99,7 @@ describe('EditOrganizationComponent', () => {
   });
   it('should call Organization get and handle not empty response', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
     component.getOrganizationById(1);
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
@@ -109,7 +109,7 @@ describe('EditOrganizationComponent', () => {
     const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
     console.log(num);
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of(true),
     );
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');

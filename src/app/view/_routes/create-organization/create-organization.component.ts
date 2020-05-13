@@ -9,10 +9,7 @@ import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 
 import {AdminType} from '../../../model/classes/administrator';
-import {
-  Organization,
-  OrganizationBuilder,
-} from '../../../model/classes/organizations/organization';
+import {OrganizationBuilder} from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 @Component({
@@ -120,7 +117,7 @@ export class CreateOrganizationComponent implements OnInit {
       this.organizationService
         .addOrganization(this.organizationBuilder.build())
         .subscribe(
-          (response: Organization) => {
+          (response: boolean) => {
             console.log(response);
             this.router.navigate([`/organizations`]);
           },
