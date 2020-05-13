@@ -272,7 +272,10 @@ export class MapComponent implements OnInit {
         this.layersDrawn.splice(idJustDrawed - this.totAlreadySaved, 1);
       }
     } else {
+      // http delete
+      this.organizationPlaces.splice(idJustDrawed, 1);
       this.polygonLayers.splice(idJustDrawed, 1);
+      this.totAlreadySaved -= 1;
     }
   }
 
