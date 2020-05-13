@@ -13,6 +13,8 @@
 
 !include ../view/routes/ProfileComponent.pu
 
+title Stalker web application show profile class diagram
+
 ProfileComponent o-- AbsUserBuilder
 ProfileComponent o-- AbsUserDataBuilder
 ProfileComponent --> User

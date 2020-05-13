@@ -3,6 +3,9 @@
 !include ../services/auth-http-interceptorservice.pu
 !include ../services/loginservice.pu
 !include ../page-manager/AuthGuard.pu
+
+title Stalker web application authentication class diagram
+
 Package Angular{
   class Router
   class Location

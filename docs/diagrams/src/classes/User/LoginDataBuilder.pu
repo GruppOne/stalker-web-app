@@ -1,6 +1,8 @@
 @startuml Login Builder Diagram
 !include ../../../style/class.pu
 class AbsLoginDataBuilder {
+  --
+
   + build()
 }
 

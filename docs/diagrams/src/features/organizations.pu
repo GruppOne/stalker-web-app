@@ -10,6 +10,8 @@
 ' -------------------------------------------------- Organization
 !include ../interfaces/Organization/Organization.pu
 
+title Stalker web application show organizations list class diagram
+
 OrganizationsComponent --> OrganizationService
 OrganizationsComponent ..> AdminType
 OrganizationService --> HttpClientService

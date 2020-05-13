@@ -84,6 +84,7 @@
 
 '---------------------------------------------------------------------------
 
+title Stalker web application class diagram
 ' START packages
 package "Angular" {
   class AbstractControl

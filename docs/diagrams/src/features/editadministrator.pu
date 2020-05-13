@@ -7,6 +7,8 @@
 !include ../interfaces/User/UserData.pu
 !include ../interfaces/User/LoginData.pu
 
+title Stalker web application manage administrators class diagram
+
 !include ../view/components/administratorcomponent.pu
 !include ../services/connected-userservice.pu
 !include ../services/administratorservice.pu

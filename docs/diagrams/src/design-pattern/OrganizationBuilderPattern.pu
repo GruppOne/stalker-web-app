@@ -14,6 +14,8 @@
 !include ../classes/Place/PlaceBuilder.pu
 !include ../classes/Place/PlaceDataBuilder.pu
 
+title Stalker web application organization builder class diagram
+
 
 CreateOrganizationComponent o-- AbsOrganizationBuilder
 CreateOrganizationComponent ..> AbsPlaceBuilder

@@ -20,6 +20,8 @@
 !include ../interfaces/Place/Place.pu
 !include ../interfaces/Place/PlaceData.pu
 
+title Stalker web application show organization class diagram
+
 OrganizationComponent --> Organization
 OrganizationComponent o-- AbsOrganizationBuilder
 OrganizationComponent ..> AbsPlaceBuilder

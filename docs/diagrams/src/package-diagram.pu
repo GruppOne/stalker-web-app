@@ -2,6 +2,8 @@
 !include ../style/class.pu
 ' START packages
 
+title Stalker web application package diagram
+
 package PageManager{
   class AuthGuard
   class AppComponent

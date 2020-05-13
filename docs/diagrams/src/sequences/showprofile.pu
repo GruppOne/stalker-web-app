@@ -1,6 +1,8 @@
 @startuml profile sequence diagram
 !include ../../style/class.pu
 
+title Stalker web application show profile sequence diagram
+
 [-> AuthGuard : Utente con id 1 desidera\nnavigare alla pagina profilo\ne attiva canActivate()
 activate AuthGuard
 AuthGuard -> ProfileComponent : consente l'accesso\nalla pagina
