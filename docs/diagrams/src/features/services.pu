@@ -13,6 +13,8 @@
 
 !include ../classes/Environment/Environment.pu
 
+title Stalker web application services and http calls class diagram
+
 package Angular{
   class HttpRequest
   class Interceptor

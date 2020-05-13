@@ -29,6 +29,8 @@
 ' -------------------------------------------------- LdapConfiguration
 !include ../classes/LdapConfiguration/LdapConfigurationBuilder.pu
 
+title Stalker web application edit organization class diagram
+
 package LeafLet{
   class Polygon
   class LatLngBounds

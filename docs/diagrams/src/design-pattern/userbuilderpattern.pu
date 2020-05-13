@@ -9,11 +9,14 @@
 !include ../classes/User/UserDataBuilder.pu
 !include ../classes/User/LoginDataBuilder.pu
 
+title Stalker web application user builder class diagram
+
 ProfileComponent o-- AbsUserBuilder
 ProfileComponent o-- AbsUserDataBuilder
 HomeComponent o-- AbsLoginDataBuilder
 ProfileComponent -[hidden]> AbsUserBuilder
 ProfileComponent -[hidden]> AbsUserDataBuilder
 HomeComponent -[hidden]> AbsLoginDataBuilder
+HomeComponent o-- AbsUserBuilder
 
 @enduml

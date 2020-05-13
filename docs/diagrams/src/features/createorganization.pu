@@ -26,6 +26,8 @@
 !include ../view/components/MapComponent.pu
 !include ../view/routes/CreateOrganizationComponent.pu
 
+title Stalker web application create organization class diagram
+
 package Leaflet{
   class Polygon
   class LatLngBounds

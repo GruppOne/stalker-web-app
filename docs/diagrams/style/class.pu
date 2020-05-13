@@ -14,6 +14,10 @@ skinparam {
   SequenceTitleFontColor #000
   ParticipantPadding 10
   ResponseMessageBelowArrow true
+  classAttributeIconSize 0
+  TitleFontSize 20
+  TitleBorderColor #989898
+  TitleBackgroundColor #fff
   ' HeaderBackgroundColor non funziona più se facciamo gli angoli arrotondati
   ' roundCorner 10
 
