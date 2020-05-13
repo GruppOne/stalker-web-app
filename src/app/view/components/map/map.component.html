@@ -7,10 +7,12 @@
   (leafletDrawCreated)="onDrawCreated($event)"
   [leafletLayers]="polygonLayers"
   [leafletFitBounds]="fitBounds"
-></div>
+>
+  <div [leafletLayer]="drawnItems"></div>
+</div>
 <div class="placeFormContainer" *ngIf="this.getRoute().includes('/edit')">
   <p>Places within the organization</p>
-  <div *ngFor="let p of this.organization?.places" class="placeDataContainer">
+  <div *ngFor="let p of this.organizationPlaces; let i = index" class="placeDataContainer">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input #placeName maxlength="50" matInput placeholder="Torre Archimede" value="{{ p.name }}" />
@@ -18,9 +20,10 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Address</mat-label>
-      <input #placeAddress maxlength="50" matInput placeholder="Via Trieste" value="{{ p.placeData.address }}" />
+      <input #placeAddress maxlength="50" matInput placeholder="Via Trieste" value="{{ p.address }}" />
       <mat-hint class="hint-start" align="start">
-        No need to specify city, zipcode or state.<br />It will be found automatically
+        It is not necessary to specify city, postal code or state.
+        <br />They will be found automatically
       </mat-hint>
       <mat-hint class="hint-end" align="end">{{ placeAddress.value.length }} / 50</mat-hint>
     </mat-form-field>
@@ -29,8 +32,8 @@
       matTooltip="Remove this place from the organization"
       aria-label="Remove this place from the organization"
       type="button"
+      (click)="deletePlace(p.placeId, i)"
     >
-      <!-- (click)="deletePlace(p.id)" -->
       <mat-icon>delete</mat-icon>
     </button>
   </div>
