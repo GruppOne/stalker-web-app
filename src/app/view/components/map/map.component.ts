@@ -1,6 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
+import {
+  tileLayer,
+  Polygon,
+  LatLngBounds,
+  LatLng,
+  latLng,
+  polygon,
+  FeatureGroup,
+  featureGroup,
+  DrawEvents,
+  Layer,
+} from 'leaflet';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
@@ -12,6 +23,10 @@ import {
   OrganizationBuilder,
 } from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
+
+class OrganizationPlacesData {
+  constructor(public placeId: number, public name: string, public address: string) {}
+}
 
 @Component({
   selector: 'app-map',
@@ -25,9 +40,13 @@ export class MapComponent implements OnInit {
   arrayPostcode: string[] = [];
   arrayCountry: string[] = [];
   arrayName: string[] = [];
+  organizationPlaces: OrganizationPlacesData[] = [];
+  totAlreadySaved = 0;
+  layersDrawn: Layer[] = [];
 
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
+
   options = {
     layers: [
       tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
@@ -37,24 +56,9 @@ export class MapComponent implements OnInit {
     ],
   };
 
-  drawOptions = {
-    position: 'topright',
-    draw: {
-      polygon: {
-        allowIntersection: false,
-      },
-      marker: false,
-      polyline: false,
-      circle: false,
-      rectangle: false,
-      circlemarker: false,
-    },
-    edit: {
-      poly: {
-        allowIntersection: false,
-      },
-    },
-  };
+  drawOptions: unknown;
+
+  drawnItems: FeatureGroup = featureGroup();
 
   // empty arrays that will be populated with the data of the organizations
   // @polygonLayers used to show the perimeter of buildings
@@ -80,6 +84,30 @@ export class MapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.getRoute().includes('create') || this.getRoute().includes('edit')) {
+      this.drawOptions = {
+        position: 'topright',
+        draw: {
+          polygon: {
+            allowIntersection: false,
+          },
+          marker: false,
+          polyline: false,
+          circle: false,
+          rectangle: false,
+          circlemarker: false,
+        },
+        edit: {
+          featureGroup: this.drawnItems,
+          poly: {
+            allowIntersection: false,
+          },
+          remove: false,
+        },
+      };
+    } else {
+      this.drawOptions = {draw: false, edit: false};
+    }
     if (!this.route.snapshot.url.toString().includes('create')) {
       const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
       this.getOrganizationById(organizationId);
@@ -120,6 +148,14 @@ export class MapComponent implements OnInit {
             }),
         );
         this.bounds.push(polygon(element.getLatLng(element.polyline)).getBounds());
+        this.organizationPlaces.push(
+          new OrganizationPlacesData(
+            element.id as number,
+            element.name as string,
+            element.placeData?.address as string,
+          ),
+        );
+        this.totAlreadySaved += 1;
       }
     }
   }
@@ -128,6 +164,8 @@ export class MapComponent implements OnInit {
    * adds place information to the arrays ready to be submitted
    */
   public onDrawCreated(e: {layer: Polygon}): void {
+    this.drawnItems.addLayer((e as DrawEvents.Created).layer);
+    this.layersDrawn.push((e as DrawEvents.Created).layer);
     const points = e.layer.getLatLngs();
     const center = latLng(this.getCentroid(points[0] as LatLng[]));
 
@@ -162,6 +200,9 @@ export class MapComponent implements OnInit {
         console.log(`city: ${data.address.city}`);
         console.log(`zipcode: ${data.address.postcode}`);
         console.log(`state: ${data.address.country}`);
+        this.organizationPlaces.push(
+          new OrganizationPlacesData(-1, name, data.address.road),
+        );
       });
   }
 
@@ -215,7 +256,25 @@ export class MapComponent implements OnInit {
     return new LatLng(x / f + off.lat, y / f + off.lng);
   }
 
-  // deletePlace(id: number): void {}
+  deletePlace(id: number, idJustDrawed: number): void {
+    if (id === -1) {
+      if (idJustDrawed > -1) {
+        this.organizationPlaces.splice(idJustDrawed, 1);
+        this.arrayCoord.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.arrayRoad.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.arrayCity.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.arrayPostcode.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.arrayCountry.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.arrayName.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.drawnItems.removeLayer(
+          this.layersDrawn[idJustDrawed - this.totAlreadySaved],
+        );
+        this.layersDrawn.splice(idJustDrawed - this.totAlreadySaved, 1);
+      }
+    } else {
+      this.polygonLayers.splice(idJustDrawed, 1);
+    }
+  }
 
   getRoute(): string {
     return this.router.url;
