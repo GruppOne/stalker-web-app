@@ -129,6 +129,18 @@ export class MapComponent implements OnInit {
               .addName('Torre Archimede')
               .build(),
           ])
+          .addPlaces([
+            new PlaceBuilder([
+              new MyLatLng(45.41165, 11.886823),
+              new MyLatLng(45.411528, 11.886592),
+              new MyLatLng(45.411458, 11.886938),
+            ])
+              .addPlaceData(
+                new PlaceDataBuilder('Via Trieste2', 'Padova', '35031', 'Italia').build(),
+              )
+              .addName('test')
+              .build(),
+          ])
           .build(),
       ).build();
     }
