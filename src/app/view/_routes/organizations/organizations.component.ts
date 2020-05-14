@@ -67,26 +67,6 @@ export class OrganizationsComponent implements OnInit {
         }[],
       ) => {
         this.organizationsRoles = response;
-        if (this.organizationsRoles.length === 0) {
-          this.organizationsRoles = [
-            {
-              id: 1,
-              name: 'Unipd',
-              description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit ' +
-                'tempor incididunt ut labore et dolore magna aliqua.',
-              role: AdminType.viewer,
-              private: 'public',
-            },
-            {
-              id: 2,
-              name: 'GruppOne',
-              description: 'sit amet...',
-              role: AdminType.owner,
-              private: 'private',
-            },
-          ];
-        }
         this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
       },
 
