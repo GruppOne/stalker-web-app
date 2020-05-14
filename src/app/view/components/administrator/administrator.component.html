@@ -25,7 +25,15 @@
   </mat-form-field>
   <mat-form-field class="adminEmail">
     <mat-label>New administrator</mat-label>
-    <input formControlName="adminEmail" matInput placeholder="address@example.com" />
+    <input
+      #adminEmail
+      maxlength="100"
+      type="email"
+      formControlName="adminEmail"
+      matInput
+      placeholder="address@example.com"
+    />
+    <mat-hint class="hint-end" align="end">{{ adminEmail.value.length }} / 100</mat-hint>
   </mat-form-field>
   <button
     mat-button

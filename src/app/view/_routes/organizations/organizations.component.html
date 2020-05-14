@@ -3,7 +3,8 @@
 <div class="tableContainer">
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" />
+    <input #filterInput maxlength="100" matInput (keyup)="applyFilter($event)" />
+    <mat-hint class="hint-end" align="end">{{ filterInput.value.length }} / 100</mat-hint>
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort>
     <caption style="display: none;">

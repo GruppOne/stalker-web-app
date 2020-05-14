@@ -1,6 +1,6 @@
 <mat-form-field [formGroup]="emailForm">
   <mat-label>Email</mat-label>
-  <input type="email" matInput formControlName="email" placeholder="address@example.com" />
+  <input maxlength="100" type="email" matInput formControlName="email" placeholder="address@example.com" />
   <mat-icon matSuffix>email</mat-icon>
   <mat-error *ngIf="emailForm.controls['email'].hasError('email') && !emailForm.controls['email'].hasError('required')">
     Please enter a valid email address
