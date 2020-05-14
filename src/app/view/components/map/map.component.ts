@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {tileLayer, Polygon, LatLngBounds, LatLng, latLng, polygon} from 'leaflet';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
@@ -102,13 +101,6 @@ export class MapComponent implements OnInit {
               .addName('Torre Archimede')
               .build(),
           ])
-          .addDescription('lorem ipsum...')
-          .addLdapConfiguration(
-            new LdapConfigurationBuilder('127.0.0.1')
-              .addUsername('mario')
-              .addPassword('pass')
-              .build(),
-          )
           .build(),
       ).build();
     }
