@@ -103,7 +103,7 @@ export class LoginService {
   }
 
   checkAuthorization(actualOrgId: number, desiredRole: string): boolean {
-    let authroized = false;
+    let authorized = false;
     this.getAdminOrganizations().subscribe(
       (response: {organizationId: number; role: string}[]) => {
         console.log(response);
@@ -112,11 +112,11 @@ export class LoginService {
             element.organizationId === actualOrgId &&
             this.adminMapping.get(element.role) >= this.adminMapping.get(desiredRole)
           ) {
-            authroized = true;
+            authorized = true;
           }
         });
       },
     );
-    return authroized;
+    return authorized;
   }
 }
