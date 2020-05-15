@@ -1,8 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {ActivatedRoute, convertToParamMap, UrlSegment} from '@angular/router';
-import {LatLng, Polygon} from 'leaflet';
+import {ActivatedRoute, convertToParamMap, UrlSegment, Router} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
+import {Polygon, LatLng} from 'leaflet';
 import {of} from 'rxjs';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
@@ -42,14 +43,20 @@ describe('MapComponent', () => {
     new LatLng(45.41111, 11.887784),
     new LatLng(45.41144, 11.88795),
   ]);
+  const mockRouter = {
+    url: '/create',
+    navigate: jasmine.createSpy('navigate'),
+  };
   beforeEach(async(() => {
+    mockRouter.url = '/create';
     urlSegment.toString.and.returnValue('organization/1');
     TestBed.configureTestingModule({
       declarations: [MapComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [
         {provide: HttpClient},
         {provide: UrlSegment, useValue: urlSegment},
+        {provide: Router, useValue: mockRouter},
         {
           provide: ActivatedRoute,
           useValue: {
@@ -74,10 +81,12 @@ describe('MapComponent', () => {
   });
 
   it('should create and ask for organization places', () => {
+    mockRouter.url = '/';
     expect(component).toBeTruthy();
   });
   // TODO check this test
   it('should create and not ask for organization places', () => {
+    mockRouter.url = '/';
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
@@ -88,13 +97,13 @@ describe('MapComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
-    );
+    mockRouter.url = '/';
+    organizationSpy = organizationService.getOrganizationById.and.returnValue(of(null));
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
+    mockRouter.url = '/';
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       of({id: 1, data: {name: 'unipd', isPrivate: false}}),
     );
@@ -103,6 +112,7 @@ describe('MapComponent', () => {
   });
 
   it('should get and display place datas', () => {
+    mockRouter.url = '/';
     geocode.display_name = correctName;
     geoCodingSpy = placeService.reverseGeocoding.and.returnValue(of(geocode));
     console.log = jasmine.createSpy('log');
@@ -110,10 +120,11 @@ describe('MapComponent', () => {
       layer: archimedeTower,
     });
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
-    expect(console.log).toHaveBeenCalledTimes(6);
+    expect(console.log).toHaveBeenCalledTimes(7);
     console.log(geocode.display_name);
   });
   it('should get and not display incorrect place name', () => {
+    mockRouter.url = '/';
     geocode.display_name = uncorrectName;
     geoCodingSpy = placeService.reverseGeocoding.and.returnValue(of(geocode));
     console.log = jasmine.createSpy('log');
@@ -121,7 +132,7 @@ describe('MapComponent', () => {
       layer: archimedeTower,
     });
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
-    expect(console.log).toHaveBeenCalledTimes(6);
+    expect(console.log).toHaveBeenCalledTimes(7);
     console.log(geocode.display_name);
   });
 });

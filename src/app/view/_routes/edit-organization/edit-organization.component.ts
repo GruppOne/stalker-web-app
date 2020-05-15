@@ -1,12 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
-import {LatLng} from 'leaflet';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
-import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
-import {PlaceBuilder} from 'src/app/model/classes/places/place';
-import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
+import {Place} from 'src/app/model/classes/places/place';
 
 import {
   Organization,
@@ -21,12 +18,7 @@ import {OrganizationService} from '../../../model/services/organization.service'
 })
 export class EditOrganizationComponent implements OnInit {
   @ViewChild('map') mapDataChild?: {
-    arrayCoord: LatLng[][];
-    arrayName: string[];
-    arrayRoad: string[];
-    arrayPostcode: string[];
-    arrayCity: string[];
-    arrayCountry: string[];
+    organizationPlaces: Place[];
   };
 
   organization?: Organization;
@@ -54,21 +46,8 @@ export class EditOrganizationComponent implements OnInit {
     this.getOrganizationById(organizationId);
     if (!this.organization) {
       this.organization = new OrganizationBuilder(
-        1,
+        +(this.route.snapshot.paramMap.get('id') as string),
         new OrganizationDataBuilder('GruppOne', true)
-          .addPlaces([
-            new PlaceBuilder([
-              new MyLatLng(45.411564, 11.887473),
-              new MyLatLng(45.411225, 11.887325),
-              new MyLatLng(45.41111, 11.887784),
-              new MyLatLng(45.41144, 11.88795),
-            ])
-              .addPlaceData(
-                new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
-              )
-              .addName('Torre Archimede')
-              .build(),
-          ])
           .addDescription('lorem ipsum...')
           .addLdapConfiguration(
             new LdapConfigurationBuilder('127.0.0.1')
@@ -122,12 +101,7 @@ export class EditOrganizationComponent implements OnInit {
   submitOrganizationForm(): void {
     if (this.mapDataChild && this.formArray && this.organization) {
       console.log(this.formArray.value);
-      console.log(this.mapDataChild.arrayCoord);
-      console.log(this.mapDataChild.arrayName);
-      console.log(this.mapDataChild.arrayRoad);
-      console.log(this.mapDataChild.arrayPostcode);
-      console.log(this.mapDataChild.arrayCity);
-      console.log(this.mapDataChild.arrayCountry);
+      console.log(this.mapDataChild.organizationPlaces);
       const organizationDataBuilder = new OrganizationDataBuilder(
         this.formArray.value[0].orgNameCtrl,
         true,
@@ -141,25 +115,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
-      for (let i = 0; i < this.mapDataChild.arrayCoord.length; i++) {
-        const polyline: MyLatLng[] = [];
-        for (const j of this.mapDataChild.arrayCoord[i]) {
-          polyline.push(new MyLatLng(200, 200, j));
-        }
-        organizationDataBuilder.addPlaces([
-          new PlaceBuilder(polyline)
-            .addName(this.mapDataChild.arrayName[i])
-            .addPlaceData(
-              new PlaceDataBuilder(
-                this.mapDataChild.arrayRoad[i],
-                this.mapDataChild.arrayCity[i],
-                this.mapDataChild.arrayPostcode[i],
-                this.mapDataChild.arrayCountry[i],
-              ).build(),
-            )
-            .build(),
-        ]);
-      }
+      organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
       this.organizationBuilder = new OrganizationBuilder(
         this.organization.id,
         organizationDataBuilder.build(),
