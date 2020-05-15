@@ -11,7 +11,7 @@
   <div [leafletLayer]="drawnItems"></div>
 </div>
 <div class="placeFormContainer" *ngIf="this.getRoute().includes('/edit') || this.getRoute().includes('/create')">
-  <p>Places within the organization</p>
+  <p class="titleP" *ngIf="this.organizationPlaces.length > 0">Places within the organization</p>
   <div *ngFor="let p of this.organizationPlaces; let i = index" class="placeDataContainer">
     <mat-form-field>
       <mat-label>Name</mat-label>
@@ -36,7 +36,7 @@
         (change)="updatePlace(i, placeName.value, placeAddress.value)"
       />
       <mat-hint class="hint-start" align="start">
-        It is not necessary to specify city, postal code or state.
+        It is not necessary to specify city, zipcode or state.
         <br />They will be found automatically
       </mat-hint>
       <mat-hint class="hint-end" align="end">{{ placeAddress.value.length }} / 50</mat-hint>

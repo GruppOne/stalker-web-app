@@ -3,7 +3,7 @@
 <form [formGroup]="formGroup" editOrganizationForm="ngForm" (ngSubmit)="submitOrganizationForm()">
   <mat-vertical-stepper #stepper formArrayName="formArray">
     <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
-      <ng-template matStepLabel>Organization details</ng-template>
+      <ng-template matStepLabel>Write your organization name and a brief description</ng-template>
       <mat-form-field>
         <mat-label>Organization name</mat-label>
         <input
@@ -33,7 +33,7 @@
       </div>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Organization places</ng-template>
+      <ng-template matStepLabel>Add some places you want to monitor</ng-template>
       <app-map #map></app-map>
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
@@ -41,7 +41,7 @@
       </div>
     </mat-step>
     <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true">
-      <ng-template matStepLabel>LDAP configuration</ng-template>
+      <ng-template matStepLabel>Require additional authentication for your users</ng-template>
       <mat-slide-toggle (click)="showLdapConfiguration()">Use LDAP</mat-slide-toggle>
       <div class="ldapConfigurationContainer" [ngClass]="toggle ? 'visibleLdap' : ''">
         <mat-form-field>
