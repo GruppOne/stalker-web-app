@@ -109,7 +109,7 @@ export class MapComponent implements OnInit {
         new OrganizationDataBuilder('GruppOne', true)
           .addPlaces([
             new PlaceBuilder(
-              2,
+              1,
               new PlaceDataBuilder(
                 {
                   address: 'Via Trieste',
@@ -294,6 +294,13 @@ export class MapComponent implements OnInit {
       this.organizationPlaces.splice(idJustDrawed, 1);
       this.polygonLayers.splice(idJustDrawed, 1);
       this.totAlreadySaved -= 1;
+    }
+  }
+
+  updatePlace(idJustDrawed: number, name: string, address: string): void {
+    if (idJustDrawed > -1) {
+      this.organizationPlaces[idJustDrawed].data.name = name;
+      this.organizationPlaces[idJustDrawed].data.placeInfo.address = address;
     }
   }
 
