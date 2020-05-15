@@ -15,12 +15,26 @@
   <div *ngFor="let p of this.organizationPlaces; let i = index" class="placeDataContainer">
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input #placeName maxlength="50" matInput placeholder="Torre Archimede" value="{{ p.data.name }}" />
+      <input
+        #placeName
+        maxlength="50"
+        matInput
+        placeholder="Torre Archimede"
+        value="{{ p.data.name }}"
+        (change)="updatePlace(i, placeName.value, placeAddress.value)"
+      />
       <mat-hint class="hint-end" align="end">{{ placeName.value.length }} / 50</mat-hint>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Address</mat-label>
-      <input #placeAddress maxlength="50" matInput placeholder="Via Trieste" value="{{ p.data.placeInfo.address }}" />
+      <input
+        #placeAddress
+        maxlength="50"
+        matInput
+        placeholder="Via Trieste"
+        value="{{ p.data.placeInfo.address }}"
+        (change)="updatePlace(i, placeName.value, placeAddress.value)"
+      />
       <mat-hint class="hint-start" align="start">
         It is not necessary to specify city, postal code or state.
         <br />They will be found automatically

@@ -1,13 +1,13 @@
 import {MyLatLng} from './my-lat-lng';
 
 export interface PlaceData {
-  readonly name?: string;
+  name?: string;
   readonly polygon: MyLatLng[];
   readonly placeInfo: PlaceInfo;
 }
 
 export interface PlaceInfo {
-  readonly address: string;
+  address: string;
   readonly city: string;
   readonly zipcode: string;
   readonly state: string;
