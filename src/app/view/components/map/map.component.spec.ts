@@ -9,6 +9,9 @@ import {OrganizationService} from 'src/app/model/services/organization.service';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
 import {MapComponent} from './map.component';
+import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
+import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -134,5 +137,60 @@ describe('MapComponent', () => {
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
     expect(console.log).toHaveBeenCalledTimes(7);
     console.log(geocode.display_name);
+  });
+
+  it('should delete place data', () => {
+    const p = new PlaceBuilder(
+      1,
+      new PlaceDataBuilder(
+        {
+          address: 'Via Trieste2',
+          city: 'Padova',
+          zipcode: '35031',
+          state: 'Italia',
+        },
+        'test',
+        [
+          new MyLatLng(45.41165, 11.886823),
+          new MyLatLng(45.411528, 11.886592),
+          new MyLatLng(45.411458, 11.886938),
+        ],
+      ).build(),
+    ).build();
+    component.organizationPlaces.push(p);
+    component.deletePlace(1, 0);
+    expect(component.organizationPlaces.length).toEqual(0);
+    component.organizationPlaces.push(p);
+    component.deletePlace(-1, 0);
+    expect(component.organizationPlaces.length).toEqual(0);
+    component.organizationPlaces.push(p);
+    component.deletePlace(-1, -1);
+    expect(component.organizationPlaces.length).toEqual(1);
+  });
+  it('should update place data', () => {
+    const p = new PlaceBuilder(
+      1,
+      new PlaceDataBuilder(
+        {
+          address: 'Via Trieste2',
+          city: 'Padova',
+          zipcode: '35031',
+          state: 'Italia',
+        },
+        'test',
+        [
+          new MyLatLng(45.41165, 11.886823),
+          new MyLatLng(45.411528, 11.886592),
+          new MyLatLng(45.411458, 11.886938),
+        ],
+      ).build(),
+    ).build();
+    component.organizationPlaces.push(p);
+    component.updatePlace(0, 'test2', 'Trieste');
+    expect(component.organizationPlaces[0].data.name).toEqual('test2');
+    expect(component.organizationPlaces[0].data.placeInfo.address).toEqual('Trieste');
+    component.updatePlace(-1, 'test', 'Trieste2');
+    expect(component.organizationPlaces[0].data.name).toEqual('test2');
+    expect(component.organizationPlaces[0].data.placeInfo.address).toEqual('Trieste');
   });
 });
