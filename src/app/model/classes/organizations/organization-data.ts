@@ -19,9 +19,9 @@ export class OrganizationDataBuilder {
 
   private places?: Place[];
 
-  private createdDate?: number;
+  private createdDate?: string;
 
-  private lastModifiedDate?: number;
+  private lastModifiedDate?: string;
 
   constructor(private name: string, private isPrivate: boolean) {}
 
@@ -55,11 +55,11 @@ export class OrganizationDataBuilder {
     this.isPrivate = isPrivate;
     return this;
   }
-  addCreatedDate(createdDate: number): OrganizationDataBuilder {
+  addCreatedDate(createdDate: string): OrganizationDataBuilder {
     this.createdDate = createdDate;
     return this;
   }
-  addLastModifiedDate(lastModifiedDate: number): OrganizationDataBuilder {
+  addLastModifiedDate(lastModifiedDate: string): OrganizationDataBuilder {
     this.lastModifiedDate = lastModifiedDate;
     return this;
   }

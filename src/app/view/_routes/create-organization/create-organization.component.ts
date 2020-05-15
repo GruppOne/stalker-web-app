@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
+import * as moment from 'moment';
 
 import {AdminType} from '../../../model/classes/administrator';
 import {OrganizationBuilder} from '../../../model/classes/organizations/organization';
@@ -75,14 +76,12 @@ export class CreateOrganizationComponent implements OnInit {
             .addUsername(this.formArray.value[1].orgUserCtrl)
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
-        );
+        )
+        .addCreatedDate(moment().format())
+        .addLastModifiedDate(moment().format());
       organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
       this.organizationBuilder = new OrganizationBuilder(
         -1,
-        organizationDataBuilder.build(),
-      );
-      this.organizationBuilder = new OrganizationBuilder(
-        1,
         organizationDataBuilder.build(),
       );
       console.log(this.organizationBuilder.build());

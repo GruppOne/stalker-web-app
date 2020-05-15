@@ -157,13 +157,13 @@ describe('MapComponent', () => {
         ],
       ).build(),
     ).build();
-    component.organizationPlaces.push(p);
+    component.organizationPlaces = [p];
     component.deletePlace(1, 0);
     expect(component.organizationPlaces.length).toEqual(0);
-    component.organizationPlaces.push(p);
+    component.organizationPlaces = [p];
     component.deletePlace(-1, 0);
     expect(component.organizationPlaces.length).toEqual(0);
-    component.organizationPlaces.push(p);
+    component.organizationPlaces = [p];
     component.deletePlace(-1, -1);
     expect(component.organizationPlaces.length).toEqual(1);
   });

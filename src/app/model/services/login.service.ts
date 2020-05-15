@@ -33,16 +33,11 @@ export class LoginService {
     this.adminMapping.set('Viewer', 1);
   }
 
-  login(user: LoginData): Observable<LoginData> {
+  login(user: LoginData): Observable<boolean> {
     return this.httpClientService.post<LoginData>('/user/login', user).pipe(
-      map((response: HttpResponse<LoginData>) => {
+      map((response: HttpResponse<unknown>) => {
         console.log(response);
-        // let jwtTokenHeader = response.headers.get('Authorization') as string;
-        const jwtTokenHeader =
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25zIjpbeyJvcmdhbml6YXRpb25JZCI6' +
-          'MSwicm9sZSI6IlZpZXdlciJ9LHsib3JnYW5pemF0aW9uSWQiOjIsInJvbGUiOiJBZG1pbiJ9XSwi' +
-          'anRpIjoiMiIsInN1YiI6Imdpb3JnaW90ZXN0MDJAaG90bWFpbC5pdCIsImlhdCI6MTU4ODMyODkz' +
-          'MSwiZXhwIjoxNTkxMzI4OTMxfQ.E7IRmte9p6-Yrl2B6iQBvQ9qxzwoCkO1lXgmjvbhlKk';
+        const jwtTokenHeader = response.body as string;
         const jwtToken = jwtTokenHeader.substring(7);
         const payload: StalkerJWT = jwt.decode(jwtToken) as StalkerJWT;
 
@@ -53,7 +48,7 @@ export class LoginService {
         localStorage.setItem('organizations', JSON.stringify(payload.organizations));
         localStorage.setItem('expiration_time', payload.exp.toString());
         localStorage.setItem('creation_time', payload.iat.toString());
-        return response.body as LoginData;
+        return true;
       }),
     );
   }

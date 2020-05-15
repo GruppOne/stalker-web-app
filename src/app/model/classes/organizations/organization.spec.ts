@@ -37,8 +37,8 @@ describe('Organization', () => {
       ).build(),
     ];
     const newIsPrivate = false;
-    const newCreatedDate = 1;
-    const newLastModifiedDate = 1;
+    const newCreatedDate = '1983-11-21';
+    const newLastModifiedDate = '1983-11-21';
     const organizationDataBuilder = new OrganizationDataBuilder(newName, newIsPrivate);
     organizationBuilder.addId(newId);
     organizationDataBuilder.addName(newName);

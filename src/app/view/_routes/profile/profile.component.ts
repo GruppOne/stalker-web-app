@@ -11,7 +11,7 @@ import {UserService} from '../../../model/services/user.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  fetched = false;
+  fetched?: boolean;
   private userBuilder?: UserBuilder;
   user?: User;
   constructor(
@@ -36,7 +36,10 @@ export class ProfileComponent implements OnInit {
         this.user = this.userBuilder.build();
         this.fetched = true;
       },
-      (err: Error) => console.error(err),
+      (err: Error) => {
+        console.error(err);
+        this.fetched = false;
+      },
     );
   }
 }
