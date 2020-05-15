@@ -26,7 +26,7 @@ describe('LoginService', () => {
   ]);
 
   let httpPostSpy = httpClientService.post.and.returnValue(
-    of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
+    of(new HttpResponse({body: 'token', headers: new HttpHeaders(), status: 200})),
   );
 
   let sut: LoginService;
@@ -66,13 +66,24 @@ describe('LoginService', () => {
   });
   it('should call the httpClientService post', () => {
     httpPostSpy = httpClientService.post.and.returnValue(
-      of(new HttpResponse({body: defaultUser, headers: new HttpHeaders(), status: 200})),
+      of(
+        new HttpResponse({
+          body:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25zIjpbeyJvcmdhbml6YXRpb25JZ' +
+            'CI6MSwicm9sZSI6IlZpZXdlciJ9LHsib3JnYW5pemF0aW9uSWQiOjIsInJvbGUiOiJBZG1pbiJ' +
+            '9XSwianRpIjoiMiIsInN1YiI6Imdpb3JnaW90ZXN0MDJAaG90bWFpbC5pdCIsImlhdCI6MTU4' +
+            'ODMyODkzMSwiZXhwIjoxNTkxMzI4OTMxfQ.E7IRmte9p6-Yrl2B6iQBvQ9qxzwoCkO1lXgmjvb' +
+            'hlKk',
+          headers: new HttpHeaders(),
+          status: 200,
+        }),
+      ),
     );
-    let result: {email: string; password: string} = {email: '', password: ''};
+    let result = false;
     sut.login(defaultUser).subscribe((response) => (result = response));
-    expect(result).toEqual(defaultUser);
+    expect(result).toEqual(true);
     sut.login(defaultUser);
-    expect(result).toEqual(defaultUser);
+    expect(result).toEqual(true);
     expect(httpPostSpy.calls.any()).toBe(true, 'post called');
   });
 

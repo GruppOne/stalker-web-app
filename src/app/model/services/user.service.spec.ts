@@ -33,7 +33,7 @@ describe('UserService', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(
       of(
         new HttpResponse({
-          body: {user: defaultUser},
+          body: defaultUser,
           headers: new HttpHeaders(),
           status: 200,
         }),

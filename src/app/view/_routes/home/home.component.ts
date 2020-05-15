@@ -3,7 +3,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import * as sha512 from 'js-sha512';
-import {LoginDataBuilder, LoginData} from 'src/app/model/classes/users/login-data';
+import {LoginDataBuilder} from 'src/app/model/classes/users/login-data';
 
 import {LoginService} from '../../../model/services/login.service';
 
@@ -37,8 +37,7 @@ export class HomeComponent implements OnInit {
 
     const loginDataBuilder = new LoginDataBuilder(email, sha512.sha512(password));
     this.loginService.login(loginDataBuilder.build()).subscribe(
-      (response: LoginData) => {
-        console.log(response);
+      () => {
         this.router.navigate([`/users/${this.loginService.getUserId()}`]);
       },
       (err: Error) => console.error(err),

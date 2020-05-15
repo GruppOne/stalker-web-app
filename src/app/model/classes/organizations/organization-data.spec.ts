@@ -32,8 +32,8 @@ describe('OrganizationData', () => {
       ).build(),
     ];
     const newIsPrivate = false;
-    const newCreatedDate = 1;
-    const newLastModifiedDate = 1;
+    const newCreatedDate = '1983-11-21';
+    const newLastModifiedDate = '1983-11-21';
     organizationDataBuilder.addName(newName);
     organizationDataBuilder.addDescription(newDescription);
     organizationDataBuilder.addLdapConfiguration(newLdapConfiguration);
