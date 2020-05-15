@@ -34,17 +34,24 @@ export class OrganizationComponent implements OnInit {
         1,
         new OrganizationDataBuilder('GruppOne', true)
           .addPlaces([
-            new PlaceBuilder([
-              new MyLatLng(45.411564, 11.887473),
-              new MyLatLng(45.411225, 11.887325),
-              new MyLatLng(45.41111, 11.887784),
-              new MyLatLng(45.41144, 11.88795),
-            ])
-              .addPlaceData(
-                new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
-              )
-              .addName('Torre Archimede')
-              .build(),
+            new PlaceBuilder(
+              2,
+              new PlaceDataBuilder(
+                {
+                  address: 'Via Trieste',
+                  city: 'Padova',
+                  zipcode: '35031',
+                  state: 'Italia',
+                },
+                'Torre Archimede',
+                [
+                  new MyLatLng(45.411564, 11.887473),
+                  new MyLatLng(45.411225, 11.887325),
+                  new MyLatLng(45.41111, 11.887784),
+                  new MyLatLng(45.41144, 11.88795),
+                ],
+              ).build(),
+            ).build(),
           ])
           .addDescription('lorem ipsum...')
           .addLdapConfiguration(

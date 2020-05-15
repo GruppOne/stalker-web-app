@@ -9,12 +9,11 @@ import {
   polygon,
   FeatureGroup,
   featureGroup,
-  DrawEvents,
   Layer,
 } from 'leaflet';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
-import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
@@ -24,23 +23,13 @@ import {
 } from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
-class OrganizationPlacesData {
-  constructor(public placeId: number, public name: string, public address: string) {}
-}
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  arrayCoord: LatLng[] = [];
-  arrayRoad: string[] = [];
-  arrayCity: string[] = [];
-  arrayPostcode: string[] = [];
-  arrayCountry: string[] = [];
-  arrayName: string[] = [];
-  organizationPlaces: OrganizationPlacesData[] = [];
+  organizationPlaces: Place[] = [];
   totAlreadySaved = 0;
   layersDrawn: Layer[] = [];
 
@@ -55,34 +44,21 @@ export class MapComponent implements OnInit {
       }),
     ],
   };
-
   drawOptions: unknown;
-
   drawnItems: FeatureGroup = featureGroup();
-
   // empty arrays that will be populated with the data of the organizations
   // @polygonLayers used to show the perimeter of buildings
   polygonLayers: Polygon[] = [];
-  /* polygonLayers = [
-    polygon([
-      [45.411618491585884, 11.887417316420397],
-      [45.41143396375847, 11.887248337252458],
-      [45.41123625470294, 11.888039588911852],
-      [45.41145279315626, 11.888098597510183],
-    ]),
-  ]; */
 
   // @bounds used to center the map on buildings
   bounds: LatLngBounds[] = [];
   fitBounds = this.bounds;
-
   constructor(
     private readonly placeService: PlaceService,
     private readonly organizationService: OrganizationService,
     public router: Router,
     private readonly route: ActivatedRoute,
   ) {}
-
   ngOnInit(): void {
     if (this.getRoute().includes('create') || this.getRoute().includes('edit')) {
       this.drawOptions = {
@@ -106,7 +82,22 @@ export class MapComponent implements OnInit {
         },
       };
     } else {
-      this.drawOptions = {draw: false, edit: false};
+      this.drawOptions = {
+        draw: {
+          polygon: false,
+          marker: false,
+          polyline: false,
+          circle: false,
+          rectangle: false,
+          circlemarker: false,
+        },
+        edit: {
+          featureGroup: null,
+          edit: false,
+          poly: false,
+          remove: false,
+        },
+      };
     }
     if (!this.route.snapshot.url.toString().includes('create')) {
       const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
@@ -117,29 +108,43 @@ export class MapComponent implements OnInit {
         1,
         new OrganizationDataBuilder('GruppOne', true)
           .addPlaces([
-            new PlaceBuilder([
-              new MyLatLng(45.411564, 11.887473),
-              new MyLatLng(45.411225, 11.887325),
-              new MyLatLng(45.41111, 11.887784),
-              new MyLatLng(45.41144, 11.88795),
-            ])
-              .addPlaceData(
-                new PlaceDataBuilder('Via Trieste', 'Padova', '35031', 'Italia').build(),
-              )
-              .addName('Torre Archimede')
-              .build(),
+            new PlaceBuilder(
+              2,
+              new PlaceDataBuilder(
+                {
+                  address: 'Via Trieste',
+                  city: 'Padova',
+                  zipcode: '35031',
+                  state: 'Italia',
+                },
+                'Torre Archimede',
+                [
+                  new MyLatLng(45.411564, 11.887473),
+                  new MyLatLng(45.411225, 11.887325),
+                  new MyLatLng(45.41111, 11.887784),
+                  new MyLatLng(45.41144, 11.88795),
+                ],
+              ).build(),
+            ).build(),
           ])
           .addPlaces([
-            new PlaceBuilder([
-              new MyLatLng(45.41165, 11.886823),
-              new MyLatLng(45.411528, 11.886592),
-              new MyLatLng(45.411458, 11.886938),
-            ])
-              .addPlaceData(
-                new PlaceDataBuilder('Via Trieste2', 'Padova', '35031', 'Italia').build(),
-              )
-              .addName('test')
-              .build(),
+            new PlaceBuilder(
+              2,
+              new PlaceDataBuilder(
+                {
+                  address: 'Via Trieste2',
+                  city: 'Padova',
+                  zipcode: '35031',
+                  state: 'Italia',
+                },
+                'test',
+                [
+                  new MyLatLng(45.41165, 11.886823),
+                  new MyLatLng(45.411528, 11.886592),
+                  new MyLatLng(45.411458, 11.886938),
+                ],
+              ).build(),
+            ).build(),
           ])
           .build(),
       ).build();
@@ -147,26 +152,20 @@ export class MapComponent implements OnInit {
     if (this.organization.data.places) {
       for (const element of this.organization.data.places) {
         this.polygonLayers.push(
-          polygon(element.getLatLng(element.polyline))
+          polygon(element.getLatLng(element.data.polygon))
             .bindTooltip(
               `<strong>
-          ${element.name?.toString()}</strong>` +
-                `<br>${element.placeData?.address}` +
-                ` - ${element.placeData?.zipcode}
-          ${element.placeData?.city}`,
+          ${element.data.name?.toString()}</strong>` +
+                `<br>${element.data.placeInfo.address}` +
+                ` - ${element.data.placeInfo.zipcode}
+          ${element.data.placeInfo.city}`,
             )
             .setStyle({
               color: this.getRandomColor(),
             }),
         );
-        this.bounds.push(polygon(element.getLatLng(element.polyline)).getBounds());
-        this.organizationPlaces.push(
-          new OrganizationPlacesData(
-            element.id as number,
-            element.name as string,
-            element.placeData?.address as string,
-          ),
-        );
+        this.bounds.push(polygon(element.getLatLng(element.data.polygon)).getBounds());
+        this.organizationPlaces.push(element);
         this.totAlreadySaved += 1;
       }
     }
@@ -176,8 +175,8 @@ export class MapComponent implements OnInit {
    * adds place information to the arrays ready to be submitted
    */
   public onDrawCreated(e: {layer: Polygon}): void {
-    this.drawnItems.addLayer((e as DrawEvents.Created).layer);
-    this.layersDrawn.push((e as DrawEvents.Created).layer);
+    this.drawnItems.addLayer(e.layer);
+    this.layersDrawn.push(e.layer);
     const points = e.layer.getLatLngs();
     const center = latLng(this.getCentroid(points[0] as LatLng[]));
 
@@ -200,21 +199,34 @@ export class MapComponent implements OnInit {
         ) {
           name = '';
         }
-        this.arrayCoord.push(points[0] as LatLng);
-        this.arrayRoad.push(data.address.road);
-        this.arrayCity.push(data.address.city);
-        this.arrayPostcode.push(data.address.postcode);
-        this.arrayCountry.push(data.address.country);
-        this.arrayName.push(name);
         console.log(`coord: ${points}`);
         console.log(`possible name: ${name}`);
         console.log(`address: ${data.address.road}`);
         console.log(`city: ${data.address.city}`);
         console.log(`zipcode: ${data.address.postcode}`);
         console.log(`state: ${data.address.country}`);
+        const mylatlngs: MyLatLng[] = [];
+        (points[0] as LatLng[]).forEach((element) => {
+          mylatlngs.push(new MyLatLng(200, 200, element));
+        });
         this.organizationPlaces.push(
-          new OrganizationPlacesData(-1, name, data.address.road),
+          new PlaceBuilder(
+            -1,
+            new PlaceDataBuilder(
+              {
+                address: data.address.road,
+                city: data.address.city,
+                zipcode: data.address.postcode,
+                state: data.address.country,
+              },
+              name,
+              mylatlngs,
+            ).build(),
+          )
+            .addId(-1)
+            .build(),
         );
+        console.log(this.organizationPlaces);
       });
   }
 
@@ -272,12 +284,6 @@ export class MapComponent implements OnInit {
     if (id === -1) {
       if (idJustDrawed > -1) {
         this.organizationPlaces.splice(idJustDrawed, 1);
-        this.arrayCoord.splice(idJustDrawed - this.totAlreadySaved, 1);
-        this.arrayRoad.splice(idJustDrawed - this.totAlreadySaved, 1);
-        this.arrayCity.splice(idJustDrawed - this.totAlreadySaved, 1);
-        this.arrayPostcode.splice(idJustDrawed - this.totAlreadySaved, 1);
-        this.arrayCountry.splice(idJustDrawed - this.totAlreadySaved, 1);
-        this.arrayName.splice(idJustDrawed - this.totAlreadySaved, 1);
         this.drawnItems.removeLayer(
           this.layersDrawn[idJustDrawed - this.totAlreadySaved],
         );

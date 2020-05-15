@@ -4,8 +4,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap, Router, UrlSegment} from '@angular/router';
-import {LatLng} from 'leaflet';
 import {of, throwError} from 'rxjs';
+import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
+import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
 
@@ -21,7 +23,10 @@ describe('CreateOrganizationComponent', () => {
     'addOrganization',
   ]);
 
-  const mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+  const mockRouter = {
+    url: '/create',
+    navigate: jasmine.createSpy('navigate'),
+  };
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   let organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
@@ -70,8 +75,22 @@ describe('CreateOrganizationComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should submit the form correctly', () => {
-    const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
-    console.log(num);
+    const num = component.mapDataChild?.organizationPlaces.push(
+      new PlaceBuilder(
+        1,
+        new PlaceDataBuilder(
+          {
+            address: 'test',
+            city: 'test',
+            zipcode: 'test',
+            state: 'test',
+          },
+          'test',
+          [new MyLatLng(1, 1)],
+        ).build(),
+      ).build(),
+    );
+    expect(num).toBeTruthy();
     organizationSubmitSpy = organizationService.addOrganization.and.returnValue(of(true));
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');

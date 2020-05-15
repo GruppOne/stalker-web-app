@@ -4,31 +4,17 @@ import {MyLatLng} from './my-lat-lng';
 import {PlaceData} from './place-data';
 
 export interface Place {
-  readonly id?: number;
-  readonly name?: string;
-  readonly polyline: MyLatLng[];
-  readonly placeData?: PlaceData;
+  readonly id: number;
+  readonly data: PlaceData;
 
   getLatLng(polyline: MyLatLng[]): LatLng[];
 }
 
 export class PlaceBuilder {
-  private id?: number;
-  private name?: string;
-  private placeData?: PlaceData;
-
-  constructor(private polyline: MyLatLng[]) {}
+  constructor(private id: number, private placeData: PlaceData) {}
 
   addId(id: number): PlaceBuilder {
     this.id = id;
-    return this;
-  }
-  addName(name: string): PlaceBuilder {
-    this.name = name;
-    return this;
-  }
-  addPolyline(_polyline: MyLatLng[]): PlaceBuilder {
-    this.polyline = _polyline;
     return this;
   }
   addPlaceData(placeData: PlaceData): PlaceBuilder {
@@ -38,9 +24,7 @@ export class PlaceBuilder {
   build(): Place {
     return {
       id: this.id,
-      name: this.name,
-      polyline: this.polyline,
-      placeData: this.placeData,
+      data: this.placeData,
       getLatLng: (newPolyline) => {
         const latLngs: LatLng[] = [];
         for (const i of newPolyline) {

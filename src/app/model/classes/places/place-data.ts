@@ -1,4 +1,12 @@
+import {MyLatLng} from './my-lat-lng';
+
 export interface PlaceData {
+  readonly name?: string;
+  readonly polygon: MyLatLng[];
+  readonly placeInfo: PlaceInfo;
+}
+
+export interface PlaceInfo {
   readonly address: string;
   readonly city: string;
   readonly zipcode: string;
@@ -7,33 +15,27 @@ export interface PlaceData {
 
 export class PlaceDataBuilder {
   constructor(
-    private address: string,
-    private city: string,
-    private zipcode: string,
-    private state: string,
+    private placeInfo: PlaceInfo,
+    private name: string,
+    private polyline: MyLatLng[],
   ) {}
-  addAddress(address: string): PlaceDataBuilder {
-    this.address = address;
+  addPlaceInfo(placeInfo: PlaceInfo): PlaceDataBuilder {
+    this.placeInfo = placeInfo;
     return this;
   }
-  addCity(city: string): PlaceDataBuilder {
-    this.city = city;
+  addName(name: string): PlaceDataBuilder {
+    this.name = name;
     return this;
   }
-  addZipcode(zipcode: string): PlaceDataBuilder {
-    this.zipcode = zipcode;
-    return this;
-  }
-  addState(state: string): PlaceDataBuilder {
-    this.state = state;
+  addPolygon(polygon: MyLatLng[]): PlaceDataBuilder {
+    this.polyline = polygon;
     return this;
   }
   build(): PlaceData {
     return {
-      address: this.address,
-      city: this.city,
-      zipcode: this.zipcode,
-      state: this.state,
+      name: this.name,
+      polygon: this.polyline,
+      placeInfo: this.placeInfo,
     };
   }
 }

@@ -4,8 +4,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import {LatLng} from 'leaflet';
+import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
+import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
+import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
 
@@ -21,7 +24,6 @@ describe('EditOrganizationComponent', () => {
     'getOrganizationById',
     'editOrganization',
   ]);
-
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
@@ -42,6 +44,7 @@ describe('EditOrganizationComponent', () => {
         ReactiveFormsModule,
         CustomMaterialModule,
         BrowserAnimationsModule,
+        RouterTestingModule,
       ],
       providers: [
         {provide: HttpClient},
@@ -106,7 +109,21 @@ describe('EditOrganizationComponent', () => {
   });
 
   it('should submit the form correctly', () => {
-    const num = component.mapDataChild?.arrayCoord.push([new LatLng(0, 0)]);
+    const num = component.mapDataChild?.organizationPlaces.push(
+      new PlaceBuilder(
+        1,
+        new PlaceDataBuilder(
+          {
+            address: 'test',
+            city: 'test',
+            zipcode: 'test',
+            state: 'test',
+          },
+          'test',
+          [new MyLatLng(1, 1)],
+        ).build(),
+      ).build(),
+    );
     console.log(num);
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
       of(true),
