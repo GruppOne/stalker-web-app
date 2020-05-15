@@ -8,8 +8,8 @@ export interface OrganizationData {
   readonly description?: string;
   readonly ldapConfiguration?: LdapConfiguration;
   places?: Place[];
-  readonly createdDate?: number;
-  readonly lastModifiedDate?: number;
+  readonly createdDate?: string;
+  readonly lastModifiedDate?: string;
 }
 
 export class OrganizationDataBuilder {

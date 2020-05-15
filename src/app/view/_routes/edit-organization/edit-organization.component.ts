@@ -107,8 +107,8 @@ export class EditOrganizationComponent implements OnInit {
         true,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        .addCreatedDate(this.organization.data.createdDate as number)
-        .addLastModifiedDate(this.organization.data.lastModifiedDate as number)
+        .addCreatedDate(this.organization.data.createdDate as string)
+        .addLastModifiedDate(this.organization.data.lastModifiedDate as string)
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
             .addUsername(this.formArray.value[1].orgUserCtrl)
