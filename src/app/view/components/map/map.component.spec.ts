@@ -5,13 +5,13 @@ import {ActivatedRoute, convertToParamMap, UrlSegment, Router} from '@angular/ro
 import {RouterTestingModule} from '@angular/router/testing';
 import {Polygon, LatLng} from 'leaflet';
 import {of} from 'rxjs';
+import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
+import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
 import {MapComponent} from './map.component';
-import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
-import {PlaceBuilder} from 'src/app/model/classes/places/place';
-import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 
 describe('MapComponent', () => {
   let component: MapComponent;
