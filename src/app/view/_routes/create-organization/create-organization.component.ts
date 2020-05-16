@@ -60,7 +60,6 @@ export class CreateOrganizationComponent implements OnInit {
    */
   submitOrganizationForm(): void {
     if (this.mapDataChild && this.formArray) {
-      console.log(this.formArray.value);
       const organizationDataBuilder = new OrganizationDataBuilder(
         this.formArray.value[0].orgNameCtrl,
         this.toggle,
@@ -77,10 +76,8 @@ export class CreateOrganizationComponent implements OnInit {
             .build(),
         );
       organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
-      console.log(organizationDataBuilder.build());
       this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
-        (response: boolean) => {
-          console.log(response);
+        () => {
           this.router.navigate([`/organizations`]);
         },
         (err: Error) => console.error(err),
