@@ -21,9 +21,9 @@ export class OrganizationService {
 
   organizations: Organization[] = [];
 
-  addOrganization(organization: Organization): Observable<boolean> {
+  addOrganization(organizationData: OrganizationData): Observable<boolean> {
     return this.httpClientService
-      .post<OrganizationData>(`/organizations`, organization.data)
+      .post<OrganizationData>(`/organizations`, organizationData)
       .pipe(map(() => true));
   }
 
