@@ -25,9 +25,12 @@
     font-weight: 500;
   }
 
-  h2,
-  h4 {
+  h2 {
     width: 30%;
+  }
+
+  h4 {
+    width: 100%;
   }
 
   h2,
@@ -37,26 +40,22 @@
     font-size: 20px;
   }
 
-  h4,
-  h5 {
+  h4 {
     color: rgb(86, 86, 86);
     font-size: 18px;
   }
 
-  h4 > .mat-icon,
-  h5 > .mat-icon {
+  h4 > .mat-icon {
     font-size: 20px;
   }
 
-  h3,
-  h5 {
+  h3 {
     min-width: 60%;
   }
 
   h2,
   h3,
   h4,
-  h5,
   .mat-icon {
     display: inline-block;
     vertical-align: middle;
