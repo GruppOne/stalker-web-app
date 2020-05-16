@@ -216,7 +216,7 @@ describe('MapComponent', () => {
 
   it('should generate a random hex color', () => {
     const color = component.getRandomColor();
-    const regexp = new RegExp('^#[A-F0-9]{6,6}$');
+    const regexp = new RegExp('^#[A-D0-9]{6,6}$');
     expect(regexp.test(color)).toEqual(true);
   });
 });

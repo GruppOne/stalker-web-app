@@ -220,10 +220,10 @@ export class MapComponent implements OnInit {
    * return a random hex color
    */
   getRandomColor(): string {
-    const hexadecimalDigits = '0123456789ABCDEF';
+    const hexadecimalDigits = '0123456789ABCD';
     let color = '#';
     for (let i = 0; i < 6; i++) {
-      color += hexadecimalDigits[Math.floor(Math.random() * 16)];
+      color += hexadecimalDigits[Math.floor(Math.random() * 14)];
     }
     return color;
   }
