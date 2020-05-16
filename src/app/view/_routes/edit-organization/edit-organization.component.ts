@@ -100,8 +100,6 @@ export class EditOrganizationComponent implements OnInit {
    */
   submitOrganizationForm(): void {
     if (this.mapDataChild && this.formArray && this.organization) {
-      console.log(this.formArray.value);
-      console.log(this.mapDataChild.organizationPlaces);
       const organizationDataBuilder = new OrganizationDataBuilder(
         this.formArray.value[0].orgNameCtrl,
         true,
@@ -118,13 +116,10 @@ export class EditOrganizationComponent implements OnInit {
         this.organization.id,
         organizationDataBuilder.build(),
       );
-      console.log(this.organizationBuilder.build());
       this.organizationService
         .editOrganization(this.organizationBuilder.build())
         .subscribe(
-          (response: boolean) => {
-            console.log(response);
-          },
+          () => {},
           (err: Error) => console.error(err),
         );
     }

@@ -36,12 +36,9 @@ export class LoginService {
   login(user: LoginData): Observable<boolean> {
     return this.httpClientService.post<LoginData>('/user/login', user).pipe(
       map((response: HttpResponse<unknown>) => {
-        console.log(response);
         const jwtTokenHeader = response.body as string;
         const jwtToken = jwtTokenHeader.substring(7);
         const payload: StalkerJWT = jwt.decode(jwtToken) as StalkerJWT;
-
-        console.log(payload);
         localStorage.setItem('token', jwtToken);
         localStorage.setItem('user_id', payload.jti);
         localStorage.setItem('user_email', payload.sub);
@@ -101,7 +98,6 @@ export class LoginService {
     let authorized = false;
     this.getAdminOrganizations().subscribe(
       (response: {organizationId: number; role: string}[]) => {
-        console.log(response);
         response.forEach((element: {organizationId: number; role: string}) => {
           if (
             element.organizationId === actualOrgId &&

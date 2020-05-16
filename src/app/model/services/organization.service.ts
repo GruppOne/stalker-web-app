@@ -58,7 +58,6 @@ export class OrganizationService {
         }[],
       ) => (organizationsIds = response),
     );
-    console.log(organizationsIds);
     return this.httpClientService
       .get<{organizations: Organization[]}>('/organizations')
       .pipe(
@@ -87,7 +86,6 @@ export class OrganizationService {
             // }
             // }
           }
-          console.log(adminOrganizations);
           console.log(organizationsIds);
           return adminOrganizations;
         }),

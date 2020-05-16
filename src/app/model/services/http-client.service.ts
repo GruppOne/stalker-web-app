@@ -90,7 +90,7 @@ export class HttpClientService {
   private handleError() {
     return (err: HttpErrorResponse) => {
       // more info about the error
-      console.log(`status: ${err.status}, ${err.statusText}`);
+      console.error(`status: ${err.status}, ${err.statusText}`);
       return throwError(err.message);
     };
   }
