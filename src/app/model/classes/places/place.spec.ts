@@ -1,6 +1,3 @@
-import {latLng} from 'leaflet';
-
-import {MyLatLng} from './my-lat-lng';
 import {PlaceBuilder} from './place';
 import {PlaceDataBuilder} from './place-data';
 
@@ -36,6 +33,5 @@ describe('Place', () => {
     const place = placeBuilder.build();
     expect(place.id).toEqual(newId);
     expect(place.data).toEqual(newPlaceData);
-    expect(place.getLatLng([new MyLatLng(1, 1)])).toEqual([latLng(1, 1)]);
   });
 });
