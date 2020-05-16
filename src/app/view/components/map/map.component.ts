@@ -51,7 +51,6 @@ export class MapComponent implements OnInit {
 
   // @bounds used to center the map on buildings
   bounds: LatLngBounds[] = [];
-  fitBounds = this.bounds;
   constructor(
     private readonly placeService: PlaceService,
     private readonly organizationService: OrganizationService,
@@ -100,26 +99,14 @@ export class MapComponent implements OnInit {
     if (!this.route.snapshot.url.toString().includes('create')) {
       const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
       this.getOrganizationById(organizationId);
-    }
-    if (this.organization?.data.places && this.organization.data.places.length !== 0) {
-      for (const element of this.organization.data.places) {
-        this.polygonLayers.push(
-          polygon(element.getLatLng(element.data.polygon))
-            .bindTooltip(
-              `<strong>
-          ${element.data.name?.toString()}</strong>` +
-                `<br>${element.data.placeInfo.address}` +
-                ` - ${element.data.placeInfo.zipcode}
-          ${element.data.placeInfo.city}`,
-            )
-            .setStyle({
-              color: this.getRandomColor(),
-            }),
-        );
-        this.bounds.push(polygon(element.getLatLng(element.data.polygon)).getBounds());
-        this.organizationPlaces.push(element);
-        this.totAlreadySaved += 1;
-      }
+      this.bounds.push(
+        polygon([
+          [45.493352, 11.99852],
+          [45.488539, 11.734372],
+          [45.342976, 11.731628],
+          [45.35118, 12.000578],
+        ]).getBounds(),
+      );
     } else {
       this.bounds.push(
         polygon([
@@ -160,12 +147,6 @@ export class MapComponent implements OnInit {
         ) {
           name = '';
         }
-        console.log(`coord: ${points}`);
-        console.log(`possible name: ${name}`);
-        console.log(`address: ${data.address.road}`);
-        console.log(`city: ${data.address.city}`);
-        console.log(`zipcode: ${data.address.postcode}`);
-        console.log(`state: ${data.address.country}`);
         const mylatlngs: MyLatLng[] = [];
         (points[0] as LatLng[]).forEach((element) => {
           mylatlngs.push(new MyLatLng(200, 200, element));
@@ -187,7 +168,6 @@ export class MapComponent implements OnInit {
             .addId(-1)
             .build(),
         );
-        console.log(this.organizationPlaces);
       });
   }
 
@@ -198,9 +178,42 @@ export class MapComponent implements OnInit {
     this.organizationService.getOrganizationById(id).subscribe(
       (response: Organization) => {
         this.organization = response;
+        if (
+          this.organization?.data.places &&
+          this.organization.data.places.length !== 0
+        ) {
+          const newbounds: LatLngBounds[] = [];
+          for (const element of this.organization.data.places) {
+            this.polygonLayers.push(
+              polygon(this.getLatLng(element.data.polygon))
+                .bindTooltip(
+                  `<strong>
+          ${element.data.name?.toString()}</strong>` +
+                    `<br>${element.data.placeInfo.address}` +
+                    ` - ${element.data.placeInfo.zipcode}
+          ${element.data.placeInfo.city}`,
+                )
+                .setStyle({
+                  color: this.getRandomColor(),
+                }),
+            );
+            newbounds.push(polygon(this.getLatLng(element.data.polygon)).getBounds());
+            this.organizationPlaces.push(element);
+            this.totAlreadySaved += 1;
+          }
+          this.bounds = newbounds;
+        }
       },
       (err: Error) => console.error(err),
     );
+  }
+
+  getLatLng(newPolyline: {latitude: number; longitude: number}[]): LatLng[] {
+    const latLngs: LatLng[] = [];
+    for (const i of newPolyline) {
+      latLngs.push(new LatLng(i.latitude, i.longitude));
+    }
+    return latLngs;
   }
 
   /**
