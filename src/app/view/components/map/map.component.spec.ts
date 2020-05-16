@@ -83,15 +83,35 @@ describe('MapComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create and ask for organization places', () => {
+  it('should create and receive empty organization', () => {
     mockRouter.url = '/';
     expect(component).toBeTruthy();
   });
-  // TODO check this test
-  it('should create and not ask for organization places', () => {
+  it('should create and ask for organization places with complete response', () => {
     mockRouter.url = '/';
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
+      of({
+        id: 1,
+        data: {
+          name: 'unipd',
+          isPrivate: false,
+          places: [
+            new PlaceBuilder(
+              1,
+              new PlaceDataBuilder(
+                {
+                  address: 'Via Trieste',
+                  city: 'Padova',
+                  zipcode: '35010',
+                  state: 'Italia',
+                },
+                'Torre Archimede',
+                [],
+              ).build(),
+            ).build(),
+          ],
+        },
+      }),
     );
     urlSegment.toString.and.returnValue('create');
     component = fixture.componentInstance;

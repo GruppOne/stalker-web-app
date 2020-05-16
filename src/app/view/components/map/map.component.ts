@@ -11,7 +11,6 @@ import {
   featureGroup,
   Layer,
 } from 'leaflet';
-import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
@@ -74,10 +73,9 @@ export class MapComponent implements OnInit {
           circlemarker: false,
         },
         edit: {
-          featureGroup: this.drawnItems,
-          poly: {
-            allowIntersection: false,
-          },
+          featureGroup: null,
+          edit: false,
+          poly: false,
           remove: false,
         },
       };
@@ -103,53 +101,7 @@ export class MapComponent implements OnInit {
       const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
       this.getOrganizationById(organizationId);
     }
-    if (!this.organization) {
-      this.organization = new OrganizationBuilder(
-        1,
-        new OrganizationDataBuilder('GruppOne', true)
-          .addPlaces([
-            new PlaceBuilder(
-              1,
-              new PlaceDataBuilder(
-                {
-                  address: 'Via Trieste',
-                  city: 'Padova',
-                  zipcode: '35031',
-                  state: 'Italia',
-                },
-                'Torre Archimede',
-                [
-                  new MyLatLng(45.411564, 11.887473),
-                  new MyLatLng(45.411225, 11.887325),
-                  new MyLatLng(45.41111, 11.887784),
-                  new MyLatLng(45.41144, 11.88795),
-                ],
-              ).build(),
-            ).build(),
-          ])
-          .addPlaces([
-            new PlaceBuilder(
-              2,
-              new PlaceDataBuilder(
-                {
-                  address: 'Via Trieste2',
-                  city: 'Padova',
-                  zipcode: '35031',
-                  state: 'Italia',
-                },
-                'test',
-                [
-                  new MyLatLng(45.41165, 11.886823),
-                  new MyLatLng(45.411528, 11.886592),
-                  new MyLatLng(45.411458, 11.886938),
-                ],
-              ).build(),
-            ).build(),
-          ])
-          .build(),
-      ).build();
-    }
-    if (this.organization.data.places) {
+    if (this.organization?.data.places && this.organization.data.places.length !== 0) {
       for (const element of this.organization.data.places) {
         this.polygonLayers.push(
           polygon(element.getLatLng(element.data.polygon))
@@ -168,6 +120,15 @@ export class MapComponent implements OnInit {
         this.organizationPlaces.push(element);
         this.totAlreadySaved += 1;
       }
+    } else {
+      this.bounds.push(
+        polygon([
+          [45.413251, 11.89004],
+          [45.413274, 11.885259],
+          [45.410397, 11.885259],
+          [45.410427, 11.889987],
+        ]).getBounds(),
+      );
     }
   }
 
