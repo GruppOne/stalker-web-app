@@ -1,10 +1,10 @@
 import {LatLng} from 'leaflet';
 
 export class MyLatLng {
-  private readonly latitude: number;
-  private readonly longitude: number;
+  readonly latitude: number;
+  readonly longitude: number;
 
-  private readonly leafletLatLng: LatLng;
+  readonly leafletLatLng?: LatLng;
 
   constructor(latitude: number, longitude: number, leafletLatLng?: LatLng) {
     if (latitude === 200 && longitude === 200) {
@@ -18,7 +18,7 @@ export class MyLatLng {
     }
   }
   get LeafletLatLng(): LatLng {
-    return this.leafletLatLng;
+    return new LatLng(this.latitude, this.longitude);
   }
   get Latitude(): number {
     return this.latitude;
