@@ -193,4 +193,10 @@ describe('MapComponent', () => {
     expect(component.organizationPlaces[0].data.name).toEqual('test2');
     expect(component.organizationPlaces[0].data.placeInfo.address).toEqual('Trieste');
   });
+
+  it('should generate a random hex color', () => {
+    const color = component.getRandomColor();
+    const regexp = new RegExp('^#[A-F0-9]{6,6}$');
+    expect(regexp.test(color)).toEqual(true);
+  });
 });
