@@ -105,6 +105,17 @@ describe('CreateOrganizationComponent', () => {
     component.submitOrganizationForm();
     expect(console.error).toHaveBeenCalledWith('');
   });
+
+  it('should not submit the form if mapDataChild is undefined', () => {
+    // eslint-disable-next-line id-blacklist
+    component.mapDataChild = undefined;
+    organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
+      of(false),
+    );
+    component.submitOrganizationForm();
+    expect(organizationSubmitSpy.calls.any()).toBe(false);
+  });
+
   it('should change toggle value', () => {
     component.showLdapConfiguration();
     expect(component.toggle).toBe(true);

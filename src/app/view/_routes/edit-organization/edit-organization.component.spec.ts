@@ -124,6 +124,7 @@ describe('EditOrganizationComponent', () => {
         ).build(),
       ).build(),
     );
+    // don't remove from here
     console.log(num);
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
       of(true),
