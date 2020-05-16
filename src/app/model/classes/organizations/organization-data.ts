@@ -8,8 +8,8 @@ export interface OrganizationData {
   readonly description?: string;
   readonly ldapConfiguration?: LdapConfiguration;
   places?: Place[];
-  readonly createdDate?: string;
-  readonly lastModifiedDate?: string;
+  readonly creationDateTime?: number;
+  readonly lastChangeDateTime?: number;
 }
 
 export class OrganizationDataBuilder {
@@ -19,9 +19,9 @@ export class OrganizationDataBuilder {
 
   private places?: Place[];
 
-  private createdDate?: string;
+  private creationDateTime?: number;
 
-  private lastModifiedDate?: string;
+  private lastChangeDateTime?: number;
 
   constructor(private name: string, private isPrivate: boolean) {}
 
@@ -55,12 +55,12 @@ export class OrganizationDataBuilder {
     this.isPrivate = isPrivate;
     return this;
   }
-  addCreatedDate(createdDate: string): OrganizationDataBuilder {
-    this.createdDate = createdDate;
+  addCreatedDate(creationDateTime: number): OrganizationDataBuilder {
+    this.creationDateTime = creationDateTime;
     return this;
   }
-  addLastModifiedDate(lastModifiedDate: string): OrganizationDataBuilder {
-    this.lastModifiedDate = lastModifiedDate;
+  addLastModifiedDate(lastChangeDateTime: number): OrganizationDataBuilder {
+    this.lastChangeDateTime = lastChangeDateTime;
     return this;
   }
 
@@ -71,8 +71,8 @@ export class OrganizationDataBuilder {
       ldapConfiguration: this.ldapConfiguration,
       places: this.places,
       isPrivate: this.isPrivate,
-      createdDate: this.createdDate,
-      lastModifiedDate: this.lastModifiedDate,
+      creationDateTime: this.creationDateTime,
+      lastChangeDateTime: this.lastChangeDateTime,
     };
   }
 }

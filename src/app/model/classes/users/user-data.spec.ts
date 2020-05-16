@@ -23,7 +23,7 @@ describe('UserData', () => {
     expect(userData.firstName).toEqual(newFirstName);
     expect(userData.lastName).toEqual(newLastName);
     expect(userData.birthDate).toEqual(newBirthDate);
-    expect(userData.createdDate).toEqual(newCreatedDate);
-    expect(userData.lastModifiedDate).toEqual(newLastModifiedDate);
+    expect(userData.creationDateTime).toEqual(newCreatedDate);
+    expect(userData.lastChangeDateTime).toEqual(newLastModifiedDate);
   });
 });

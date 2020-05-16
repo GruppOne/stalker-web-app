@@ -67,9 +67,9 @@ export class CreateOrganizationComponent implements OnInit {
         this.toggle,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        // .addCreatedDate(this.organization.organizationData.createdDate as string)
+        // .addCreatedDate(this.organization.organizationData.creationDateTime as string)
         // .addLastModifiedDate(
-        // this.organization.organizationData.lastModifiedDate as string,
+        // this.organization.organizationData.lastChangeDateTime as string,
         // )
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
@@ -77,23 +77,17 @@ export class CreateOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         )
-        .addCreatedDate(moment().format())
-        .addLastModifiedDate(moment().format());
+        .addCreatedDate(Number(moment().format('X')))
+        .addLastModifiedDate(Number(moment().format('X')));
       organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
-      this.organizationBuilder = new OrganizationBuilder(
-        -1,
-        organizationDataBuilder.build(),
+      console.log(organizationDataBuilder.build());
+      this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
+        (response: boolean) => {
+          console.log(response);
+          this.router.navigate([`/organizations`]);
+        },
+        (err: Error) => console.error(err),
       );
-      console.log(this.organizationBuilder.build());
-      this.organizationService
-        .addOrganization(this.organizationBuilder.build())
-        .subscribe(
-          (response: boolean) => {
-            console.log(response);
-            this.router.navigate([`/organizations`]);
-          },
-          (err: Error) => console.error(err),
-        );
     }
   }
   public showLdapConfiguration(): void {

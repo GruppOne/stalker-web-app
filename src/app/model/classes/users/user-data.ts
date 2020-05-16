@@ -3,9 +3,9 @@ export interface UserData {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly birthDate?: string;
-  readonly createdDate?: string;
+  readonly creationDateTime?: string;
 
-  readonly lastModifiedDate?: string;
+  readonly lastChangeDateTime?: string;
 }
 
 export class UserDataBuilder {
@@ -14,8 +14,8 @@ export class UserDataBuilder {
   private lastName?: string;
   private birthDate?: string;
   // TODO find a type to interact with DateTime in API
-  private createdDate?: string;
-  private lastModifiedDate?: string;
+  private creationDateTime?: string;
+  private lastChangeDateTime?: string;
 
   addEmail(email: string): UserDataBuilder {
     this.email = email;
@@ -33,12 +33,12 @@ export class UserDataBuilder {
     this.birthDate = birthDate;
     return this;
   }
-  addCreatedDate(createdDate: string): UserDataBuilder {
-    this.createdDate = createdDate;
+  addCreatedDate(creationDateTime: string): UserDataBuilder {
+    this.creationDateTime = creationDateTime;
     return this;
   }
-  addLastModifiedDate(lastModifiedDate: string): UserDataBuilder {
-    this.lastModifiedDate = lastModifiedDate;
+  addLastModifiedDate(lastChangeDateTime: string): UserDataBuilder {
+    this.lastChangeDateTime = lastChangeDateTime;
     return this;
   }
   build(): UserData {
@@ -47,8 +47,8 @@ export class UserDataBuilder {
       firstName: this.firstName,
       lastName: this.lastName,
       birthDate: this.birthDate,
-      createdDate: this.createdDate,
-      lastModifiedDate: this.lastModifiedDate,
+      creationDateTime: this.creationDateTime,
+      lastChangeDateTime: this.lastChangeDateTime,
     };
   }
 }

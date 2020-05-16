@@ -32,8 +32,8 @@ describe('OrganizationData', () => {
       ).build(),
     ];
     const newIsPrivate = false;
-    const newCreatedDate = '1983-11-21';
-    const newLastModifiedDate = '1983-11-21';
+    const newCreatedDate = 1;
+    const newLastModifiedDate = 1;
     organizationDataBuilder.addName(newName);
     organizationDataBuilder.addDescription(newDescription);
     organizationDataBuilder.addLdapConfiguration(newLdapConfiguration);
@@ -48,7 +48,7 @@ describe('OrganizationData', () => {
     expect(organization.ldapConfiguration).toEqual(newLdapConfiguration);
     expect(organization.places).toEqual(organization.places);
     expect(organization.isPrivate).toEqual(newIsPrivate);
-    expect(organization.createdDate).toEqual(newCreatedDate);
-    expect(organization.lastModifiedDate).toEqual(newLastModifiedDate);
+    expect(organization.creationDateTime).toEqual(newCreatedDate);
+    expect(organization.lastChangeDateTime).toEqual(newLastModifiedDate);
   });
 });

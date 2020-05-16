@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
@@ -107,8 +108,8 @@ export class EditOrganizationComponent implements OnInit {
         true,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        .addCreatedDate(this.organization.data.createdDate as string)
-        .addLastModifiedDate(this.organization.data.lastModifiedDate as string)
+        .addCreatedDate(this.organization.data.creationDateTime as number)
+        .addLastModifiedDate(Number(moment().format('X')))
         .addLdapConfiguration(
           new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
             .addUsername(this.formArray.value[1].orgUserCtrl)
