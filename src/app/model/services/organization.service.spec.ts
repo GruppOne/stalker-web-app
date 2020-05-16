@@ -61,11 +61,8 @@ describe('OrganizationService', () => {
     let result = false;
     service
       .addOrganization({
-        id: 0,
-        data: {
-          name: 'unipd',
-          isPrivate: false,
-        },
+        name: 'unipd',
+        isPrivate: false,
       })
       .subscribe((response) => (result = response));
     expect(HttpPostSpy.calls.any()).toBe(true, 'get called');

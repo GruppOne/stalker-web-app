@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
-import * as moment from 'moment';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
@@ -76,9 +75,7 @@ export class CreateOrganizationComponent implements OnInit {
             .addUsername(this.formArray.value[1].orgUserCtrl)
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
-        )
-        .addCreatedDate(Number(moment().format('X')))
-        .addLastModifiedDate(Number(moment().format('X')));
+        );
       organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
       console.log(organizationDataBuilder.build());
       this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
