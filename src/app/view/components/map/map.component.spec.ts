@@ -138,23 +138,19 @@ describe('MapComponent', () => {
     mockRouter.url = '/';
     geocode.display_name = correctName;
     geoCodingSpy = placeService.reverseGeocoding.and.returnValue(of(geocode));
-    console.log = jasmine.createSpy('log');
     component.onDrawCreated({
       layer: archimedeTower,
     });
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
-    console.log(geocode.display_name);
   });
   it('should get and not display incorrect place name', () => {
     mockRouter.url = '/';
     geocode.display_name = uncorrectName;
     geoCodingSpy = placeService.reverseGeocoding.and.returnValue(of(geocode));
-    console.log = jasmine.createSpy('log');
     component.onDrawCreated({
       layer: archimedeTower,
     });
     expect(geoCodingSpy.calls.any()).toBe(true, 'reverseGeocoding called');
-    console.log(geocode.display_name);
   });
 
   it('should delete place data', () => {
@@ -216,5 +212,15 @@ describe('MapComponent', () => {
     const color = component.getRandomColor();
     const regexp = new RegExp('^#[A-D0-9]{6,6}$');
     expect(regexp.test(color)).toEqual(true);
+  });
+
+  it('should generate a random hex color', () => {
+    const p = {
+      latitude: 20,
+      longitude: 20,
+    };
+    const newPolyline: {latitude: number; longitude: number}[] = [p];
+    const latLngs = component.getLatLng(newPolyline);
+    expect(latLngs.length).toEqual(1);
   });
 });
