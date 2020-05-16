@@ -17,9 +17,6 @@ export class MyLatLng {
       this.leafletLatLng = new LatLng(latitude, longitude);
     }
   }
-  get LeafletLatLng(): LatLng {
-    return new LatLng(this.latitude, this.longitude);
-  }
   get Latitude(): number {
     return this.latitude;
   }
