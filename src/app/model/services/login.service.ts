@@ -18,6 +18,10 @@ export interface StalkerJWT {
   exp: number;
 }
 
+export interface JWT {
+  jwt: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,12 +40,10 @@ export class LoginService {
   login(user: LoginData): Observable<boolean> {
     return this.httpClientService.post<LoginData>('/user/login', user).pipe(
       map((response: HttpResponse<unknown>) => {
-        const jwtTokenHeader = response.body as string;
-        const jwtToken = jwtTokenHeader.substring(7);
-        const payload: StalkerJWT = jwt.decode(jwtToken) as StalkerJWT;
-        localStorage.setItem('token', jwtToken);
-        localStorage.setItem('user_id', payload.jti);
-        localStorage.setItem('user_email', payload.sub);
+        const jwtToken = response.body as JWT;
+        const payload: StalkerJWT = jwt.decode(jwtToken.jwt) as StalkerJWT;
+        localStorage.setItem('token', jwtToken.jwt);
+        localStorage.setItem('user_id', payload.sub);
         localStorage.setItem('organizations', JSON.stringify(payload.organizations));
         localStorage.setItem('expiration_time', payload.exp.toString());
         localStorage.setItem('creation_time', payload.iat.toString());
@@ -56,7 +58,7 @@ export class LoginService {
 
   isLoggedIn(): boolean {
     if (
-      !!localStorage.getItem('user_email') &&
+      !!localStorage.getItem('user_id') &&
       moment().isBefore(moment(localStorage.getItem('expiration_time') as string, 'X'))
     ) {
       return true;
