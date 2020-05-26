@@ -72,19 +72,19 @@ export class OrganizationService {
             role: AdminType;
             private: string;
           }[] = [];
-          // for (const iterator of organizationsIds) {
-          for (const i of this.organizations) {
-            const element = i;
-            // if (element.id === iterator.organizationId) {
-            adminOrganizations.push({
-              id: element.id,
-              name: element.data.name,
-              description: element.data.description as string,
-              role: 'Owner' as AdminType,
-              private: element.data.isPrivate ? 'private' : 'public',
-            });
-            // }
-            // }
+          for (const iterator of organizationsIds) {
+            for (const i of this.organizations) {
+              const element = i;
+              if (element.id === iterator.organizationId) {
+                adminOrganizations.push({
+                  id: element.id,
+                  name: element.data.name,
+                  description: element.data.description as string,
+                  role: 'Owner' as AdminType,
+                  private: element.data.isPrivate ? 'private' : 'public',
+                });
+              }
+            }
           }
           console.log(organizationsIds);
           return adminOrganizations;

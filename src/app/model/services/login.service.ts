@@ -11,9 +11,8 @@ import {LoginData} from '../classes/users/login-data';
 import {HttpClientService} from './http-client.service';
 
 export interface StalkerJWT {
-  organizations: {organizationId: number; role: string}[];
   jti: string;
-  sub: string;
+  sub: number;
   iat: number;
   exp: number;
 }
@@ -42,10 +41,11 @@ export class LoginService {
       map((response: HttpResponse<unknown>) => {
         const jwtToken = response.body as JWT;
         const payload: StalkerJWT = jwt.decode(jwtToken.jwt) as StalkerJWT;
-        localStorage.setItem('token', jwtToken.jwt);
-        localStorage.setItem('user_id', payload.sub);
-        localStorage.setItem('organizations', JSON.stringify(payload.organizations));
-        localStorage.setItem('expiration_time', payload.exp.toString());
+        console.log('PayLOAD');
+        console.log(payload);
+        // localStorage.setItem('token', jwtToken.jwt);
+        //  localStorage.setItem('user_id', payload.sub);
+        // localStorage.setItem('expiration_time', payload.exp.toString());
         localStorage.setItem('creation_time', payload.iat.toString());
         return true;
       }),
