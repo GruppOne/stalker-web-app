@@ -1,4 +1,4 @@
-/* import {Location} from '@angular/common'; */
+import {Location} from '@angular/common';
 import {Injectable} from '@angular/core';
 import {CanActivate, Router, ActivatedRouteSnapshot} from '@angular/router';
 
@@ -10,15 +10,15 @@ import {LoginService} from './model/services/login.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly loginService: LoginService,
-    /*    private readonly location: Location, */
+    private readonly location: Location,
     private readonly router: Router,
   ) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.loginService.isLoggedIn()) {
       if (route.url.toString().includes('organization')) {
-        return true;
+        // return true;
         // ---------------- REPLACE THIS WITH THE LINE ABOVE TO TEST ORGANIZATION/ PATHS
-        /*         const actualOrgId = +(route.paramMap.get('id') as string);
+        const actualOrgId = +(route.paramMap.get('id') as string);
         if (actualOrgId) {
           if (this.loginService.checkAuthorization(actualOrgId, route.data.roles)) {
             return true;
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
           }
         } else {
           return true;
-        } */
+        }
         // ----------------------------------------------------------------
       } else {
         if (route.url.toString().includes('user')) {

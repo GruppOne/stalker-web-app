@@ -47,7 +47,7 @@ describe('AuthGuard', () => {
     expect(result).toBe(false);
     expect(loginService.redirectUrl).toBeUndefined();
   });
-  /*   it(
+  it(
     'should return false for canActivate() when isLoggedIn === true and ' +
       'checkAuthorization === false and id returns params and url contains organization',
     () => {
@@ -63,7 +63,8 @@ describe('AuthGuard', () => {
       expect(result).toBe(false);
       expect(loginService.redirectUrl).toBeUndefined();
     },
-  ); */
+  );
+
   it(
     'should return true for canActivate() when isLoggedIn === true and ' +
       ' id does not return a params and url contains organization',

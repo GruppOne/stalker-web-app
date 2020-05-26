@@ -26,7 +26,16 @@ describe('LoginService', () => {
   ]);
 
   let httpPostSpy = httpClientService.post.and.returnValue(
-    of(new HttpResponse({body: 'token', headers: new HttpHeaders(), status: 200})),
+    of(
+      new HttpResponse({
+        body: {
+          jwt:
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTkwNTA0NTA4LCJleHAiOjE2MzA1MDQ1MDgsImp0aSI6ImYyNzFlNjI3LWIzMWItNGNhOS1iMzg1LTk0YmY0MTljN2E5MSJ9.D7Wd1QvymM2tjpeTjum_VjyRv99YBxBaQNBaWDqvIX_LJinLEZjjCNJy2Z7cOblKYp6cF9MLAXdgG3E1f1EgdQ',
+        },
+        headers: new HttpHeaders(),
+        status: 200,
+      }),
+    ),
   );
 
   let sut: LoginService;
@@ -68,12 +77,10 @@ describe('LoginService', () => {
     httpPostSpy = httpClientService.post.and.returnValue(
       of(
         new HttpResponse({
-          body:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25zIjpbeyJvcmdhbml6YXRpb25JZ' +
-            'CI6MSwicm9sZSI6IlZpZXdlciJ9LHsib3JnYW5pemF0aW9uSWQiOjIsInJvbGUiOiJBZG1pbiJ' +
-            '9XSwianRpIjoiMiIsInN1YiI6Imdpb3JnaW90ZXN0MDJAaG90bWFpbC5pdCIsImlhdCI6MTU4' +
-            'ODMyODkzMSwiZXhwIjoxNTkxMzI4OTMxfQ.E7IRmte9p6-Yrl2B6iQBvQ9qxzwoCkO1lXgmjvb' +
-            'hlKk',
+          body: {
+            jwt:
+              'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTkwNTA0NTA4LCJleHAiOjE2MzA1MDQ1MDgsImp0aSI6ImYyNzFlNjI3LWIzMWItNGNhOS1iMzg1LTk0YmY0MTljN2E5MSJ9.D7Wd1QvymM2tjpeTjum_VjyRv99YBxBaQNBaWDqvIX_LJinLEZjjCNJy2Z7cOblKYp6cF9MLAXdgG3E1f1EgdQ',
+          },
           headers: new HttpHeaders(),
           status: 200,
         }),
