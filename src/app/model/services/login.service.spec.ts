@@ -30,7 +30,10 @@ describe('LoginService', () => {
       new HttpResponse({
         body: {
           jwt:
-            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTkwNTA0NTA4LCJleHAiOjE2MzA1MDQ1MDgsImp0aSI6ImYyNzFlNjI3LWIzMWItNGNhOS1iMzg1LTk0YmY0MTljN2E5MSJ9.D7Wd1QvymM2tjpeTjum_VjyRv99YBxBaQNBaWDqvIX_LJinLEZjjCNJy2Z7cOblKYp6cF9MLAXdgG3E1f1EgdQ',
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTkwNTA0NTA4LCJleHAiOjE2MzA1M' +
+            'DQ1MDgsImp0aSI6ImYyNzFlNjI3LWIzMWItNGNhOS1iMzg1LTk0YmY0MTljN2E5MSJ9.D7Wd1Q' +
+            'vymM2tjpeTjum_VjyRv99YBxBaQNBaWDqvIX_LJinLEZjjCNJy2Z7cOblKYp6cF9MLAXdgG3E1' +
+            'f1EgdQ',
         },
         headers: new HttpHeaders(),
         status: 200,
@@ -79,7 +82,10 @@ describe('LoginService', () => {
         new HttpResponse({
           body: {
             jwt:
-              'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTkwNTA0NTA4LCJleHAiOjE2MzA1MDQ1MDgsImp0aSI6ImYyNzFlNjI3LWIzMWItNGNhOS1iMzg1LTk0YmY0MTljN2E5MSJ9.D7Wd1QvymM2tjpeTjum_VjyRv99YBxBaQNBaWDqvIX_LJinLEZjjCNJy2Z7cOblKYp6cF9MLAXdgG3E1f1EgdQ',
+              'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTkwNTA0NTA4LCJleHAiOjE2MzA' +
+              '1MDQ1MDgsImp0aSI6ImYyNzFlNjI3LWIzMWItNGNhOS1iMzg1LTk0YmY0MTljN2E5MSJ9.' +
+              'D7Wd1QvymM2tjpeTjum_VjyRv99YBxBaQNBaWDqvIX_LJinLEZjjCNJy2Z7cOblKYp6cF9ML' +
+              'AXdgG3E1f1EgdQ',
           },
           headers: new HttpHeaders(),
           status: 200,
