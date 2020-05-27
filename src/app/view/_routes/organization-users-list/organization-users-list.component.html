@@ -1,1 +1,31 @@
-<p>organization-users-list works!</p>
+<h1 class="title-page-under-toolbar">Users list</h1>
+<h2 class="subtitle-page-under-toolbar">
+  Choose a user from the list to see detailed informations and optionally delete his account
+</h2>
+<div class="tableContainer">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input #filterInput maxlength="100" matInput (keyup)="applyFilter($event)" />
+    <mat-hint class="hint-end" align="end">{{ filterInput.value.length }} / 100</mat-hint>
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <caption style="display: none;">
+      Users registered in Stalker
+    </caption>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="nameCol">Name</th>
+      <td mat-cell *matCellDef="let row" class="nameCol" routerLink="/user/{{ row.id }}">
+        {{ row.firstName }} {{ row.lastName }}
+      </td>
+    </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="emailCol">Email</th>
+      <td mat-cell *matCellDef="let row" class="emailCol" routerLink="/user/{{ row.id }}">{{ row.email }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
