@@ -30,8 +30,14 @@ export class ReportComponent implements OnInit {
     maintainAspectRatio: false,
     responsive: true,
     scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
       yAxes: [
         {
+          stacked: true,
           ticks: {
             beginAtZero: true,
           },
@@ -39,7 +45,22 @@ export class ReportComponent implements OnInit {
       ],
     },
   };
-  userInPlaceChartData = [{data: [59, 86], label: 'People inside'}];
+  userInPlaceChartData = [
+    {
+      type: 'bar',
+      label: 'People inside',
+      data: [59, 86],
+      backgroundColor: 'rgba(56, 120, 199, 1)',
+    },
+    {
+      type: 'bar',
+      label: 'Places available',
+      data: [51, 34],
+      backgroundColor: 'rgba(56, 120, 199, 0.4)',
+      borderColor: 'rgba(56, 120, 199, 1)',
+      borderWidth: 1,
+    },
+  ];
   userInPlaceChartLabels = ['Aule Luzzati', 'Plesso Paolotti'];
 
   userInOrganizationChartOptions = {
