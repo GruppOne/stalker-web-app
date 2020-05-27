@@ -15,7 +15,7 @@ import {
   MatRippleModule,
 } from '@angular/material/core';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
-// import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 // import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -52,7 +52,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     // MatChipsModule,
     MatStepperModule,
     // MatDatepickerModule,
-    // MatDialogModule,
+    MatDialogModule,
     // MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,
@@ -88,7 +88,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     // MatChipsModule,
     MatStepperModule,
     // MatDatepickerModule,
-    // MatDialogModule,
+    MatDialogModule,
     // MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,

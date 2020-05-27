@@ -33,4 +33,9 @@ export class UserService {
       .get<User[]>(`/users`)
       .pipe(map((response: HttpResponse<User[]>) => response.body as User[]));
   }
+  disconnectUserById(orgId: number, userId: number): Observable<boolean> {
+    return this.httpClientService
+      .delete<boolean>(`/user/${userId}/organization/${orgId}/connection`)
+      .pipe(map(() => true));
+  }
 }
