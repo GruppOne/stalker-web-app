@@ -7,6 +7,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 import {ColorChromeModule} from 'ngx-color/chrome';
+import {ChartsModule} from 'ng2-charts';
 
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
@@ -84,6 +85,7 @@ const routes: Routes = [
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     ColorChromeModule,
+    ChartsModule,
   ],
   providers: [
     Title,
