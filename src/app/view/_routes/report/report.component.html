@@ -1,11 +1,47 @@
-<div style="width: 40%;">
-  <canvas
-    baseChart
-    [chartType]="'line'"
-    [datasets]="chartData"
-    [labels]="chartLabels"
-    [options]="chartOptions"
-    [legend]="true"
-  >
-  </canvas>
+<h1 class="title-page-under-toolbar">Users report</h1>
+<h2 class="subtitle-page-under-toolbar">Here you can see a detailed report of people within the organization</h2>
+<div class="placeDashboard">
+  <div>
+    <mat-card class="placesMap">
+      <app-map></app-map>
+    </mat-card>
+  </div>
+  <div>
+    <mat-card class="usersInsideOrganization">
+      <mat-card-title>Total users</mat-card-title>
+      <mat-card-subtitle>People inside the organization in this moment</mat-card-subtitle>
+      <mat-card-content>145</mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Users in places</mat-card-title>
+      <mat-card-subtitle>People inside every organization's place in this moment</mat-card-subtitle>
+      <mat-card-content class="usersInsidePlaces">
+        <canvas
+          baseChart
+          [chartType]="'bar'"
+          [datasets]="userInPlaceChartData"
+          [labels]="userInPlaceChartLabels"
+          [options]="userInPlaceChartOptions"
+          [legend]="true"
+        >
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
+<mat-card>
+  <mat-card-title>Today's report</mat-card-title>
+  <mat-card-subtitle>How many people inside organization's places every hour</mat-card-subtitle>
+  <mat-card-content class="todayReport">
+    <canvas
+      baseChart
+      [chartType]="'line'"
+      [datasets]="userInOrganizationChartData"
+      [labels]="userInOrganizationChartLabels"
+      [options]="userInOrganizationChartOptions"
+      [legend]="true"
+      id="chart"
+    >
+    </canvas>
+  </mat-card-content>
+</mat-card>

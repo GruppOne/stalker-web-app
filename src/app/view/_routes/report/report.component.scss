@@ -1,0 +1,38 @@
+h1,
+h2 {
+  width: 100% !important;
+}
+
+.mat-card-content {
+  font-size: 28px;
+  text-align: center;
+}
+
+.placeDashboard {
+  display: flex;
+
+  div {
+    width: 50%;
+  }
+
+  .placesMap {
+    height: 420px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  .usersInsideOrganization {
+    height: 78px;
+    margin-bottom: 10px;
+  }
+
+  .usersInsidePlaces {
+    height: 240px;
+    position: relative;
+  }
+}
+
+.todayReport {
+  height: 300px;
+  position: relative;
+}
