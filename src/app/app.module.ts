@@ -21,6 +21,7 @@ import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
 import {OrganizationsComponent} from './view/_routes/organizations/organizations.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
+import {ReportComponent} from './view/_routes/report/report.component';
 import {AdministratorComponent} from './view/components/administrator/administrator.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
 import {ColorPickerComponent} from './view/components/color-picker/color-picker.component';
@@ -53,6 +54,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {roles: AdminType.manager},
   },
+  {
+    path: 'report',
+    component: ReportComponent,
+    // canActivate: [AuthGuard],
+    // data: {roles: AdminType.manager},
+  },
   // route to 404
   {path: '**', component: NotFoundComponent},
 ];
@@ -73,6 +80,7 @@ const routes: Routes = [
     CreateOrganizationComponent,
     AdministratorComponent,
     ColorPickerComponent,
+    ReportComponent,
   ],
   imports: [
     CustomMaterialModule,
