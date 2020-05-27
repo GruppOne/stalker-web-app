@@ -28,7 +28,7 @@
       </div>
       <!-- only when a user is authenticathed -->
       <div *ngIf="userLoggedIn()">
-        <button mat-menu-item [disabled]="this.getRoute().includes('/users/')" [routerLink]="'/users/' + getUserId()">
+        <button mat-menu-item [disabled]="this.getRoute().includes('/user/')" [routerLink]="'/user/' + getUserId()">
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
@@ -51,7 +51,7 @@
   src="../assets/walking-crowd.png"
   alt="Stalker background image"
 />
-<div class="whiteBar" *ngIf="this.getRoute().includes('/users/')"></div>
+<div class="whiteBar" *ngIf="this.getRoute().includes('/user/')"></div>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
