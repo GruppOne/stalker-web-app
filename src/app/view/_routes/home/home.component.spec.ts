@@ -55,7 +55,7 @@ describe('HomeComponent', () => {
     loginSpy = loginService.login.and.returnValue(of({email: 'test', password: 'test'}));
     userIdSpy = loginService.getUserId.and.returnValue('1');
     component.login('mariorossi@gmail.com', 'Casua1pass!');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/users/1']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/user/1']);
     expect(loginSpy.calls.any()).toBe(true, 'login called');
     expect(userIdSpy.calls.any()).toBe(true, 'getUserId called');
   });

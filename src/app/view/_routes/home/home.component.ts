@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     const loginDataBuilder = new LoginDataBuilder(email, sha512.sha512(password));
     this.loginService.login(loginDataBuilder.build()).subscribe(
       () => {
-        this.router.navigate([`/users/${this.loginService.getUserId()}`]);
+        this.router.navigate([`/user/${this.loginService.getUserId()}`]);
       },
       (err: Error) => console.error(err),
     );
