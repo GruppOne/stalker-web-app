@@ -16,13 +16,28 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="nameCol">Name</th>
       <td mat-cell *matCellDef="let row" class="nameCol" routerLink="/user/{{ row.id }}">
-        {{ row.firstName }} {{ row.lastName }}
+        {{ row.userData.firstName }}
+      </td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="nameCol">Name</th>
+      <td mat-cell *matCellDef="let row" class="surnameCol" routerLink="/user/{{ row.id }}">
+        {{ row.userData.lastName }}
       </td>
     </ng-container>
     <!-- Email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="emailCol">Email</th>
-      <td mat-cell *matCellDef="let row" class="emailCol" routerLink="/user/{{ row.id }}">{{ row.email }}</td>
+      <td mat-cell *matCellDef="let row" class="emailCol" routerLink="/user/{{ row.id }}">
+        {{ row.userData.email }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="disconnect">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="emailCol">Email</th>
+      <td mat-cell *matCellDef="let row" class="emailCol" (click)="disconnectUserById(row.id)">
+        <mat-icon>delete</mat-icon>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

@@ -14,11 +14,11 @@ import {AuthGuard} from './auth.guard';
 import {AdminType} from './model/classes/administrator';
 import {AuthHttpInterceptorService} from './model/services/auth-http-interceptor.service';
 import {CustomMaterialModule} from './modules/material.module';
-import {OrganizationUsersListComponent} from './view/_routes/organization-users-list/organization-users-list.component';
 import {CreateOrganizationComponent} from './view/_routes/create-organization/create-organization.component';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './view/_routes/home/home.component';
 import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
+import {OrganizationUsersListComponent} from './view/_routes/organization-users-list/organization-users-list.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
 import {OrganizationsComponent} from './view/_routes/organizations/organizations.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
@@ -29,6 +29,7 @@ import {ColorPickerComponent} from './view/components/color-picker/color-picker.
 import {FormEmailComponent} from './view/components/form-email/form-email.component';
 import {FormPasswordComponent} from './view/components/form-password/form-password.component';
 import {MapComponent} from './view/components/map/map.component';
+import {ConfirmDialogComponent} from './view/components/confirm-dialog/confirm-dialog.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -64,8 +65,6 @@ const routes: Routes = [
   {
     path: 'organization/:id/users',
     component: OrganizationUsersListComponent,
-    canActivate: [AuthGuard],
-    data: {roles: AdminType.viewer},
   },
   // route to 404
   {path: '**', component: NotFoundComponent},
@@ -88,6 +87,8 @@ const routes: Routes = [
     AdministratorComponent,
     ColorPickerComponent,
     ReportComponent,
+    OrganizationUsersListComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CustomMaterialModule,
