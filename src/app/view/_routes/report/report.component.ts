@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
@@ -17,9 +17,13 @@ import {
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements AfterViewInit {
   organization?: Organization;
   private organizationBuilder?: OrganizationBuilder;
+
+  @ViewChild('map') mapDataChild?: {
+    placeColors: string[];
+  };
 
   constructor(
     private readonly organizationService: OrganizationService,
@@ -50,15 +54,17 @@ export class ReportComponent implements OnInit {
       type: 'bar',
       label: 'People inside',
       data: [59, 86],
-      backgroundColor: 'rgba(56, 120, 199, 1)',
+      backgroundColor: [''],
+      hoverBackgroundColor: [''],
     },
     {
       type: 'bar',
       label: 'Places available',
       data: [51, 34],
-      backgroundColor: 'rgba(56, 120, 199, 0.4)',
-      borderColor: 'rgba(56, 120, 199, 1)',
+      backgroundColor: [''],
+      borderColor: [''],
       borderWidth: 1,
+      hoverBackgroundColor: [''],
     },
   ];
   userInPlaceChartLabels = ['Aule Luzzati', 'Plesso Paolotti'];
@@ -98,7 +104,8 @@ export class ReportComponent implements OnInit {
     '19:00',
   ];
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.drawChart();
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getOrganizationById(organizationId);
     if (!this.organization) {
@@ -148,5 +155,40 @@ export class ReportComponent implements OnInit {
       },
       (err: Error) => console.error(err),
     );
+  }
+
+  drawChart(): void {
+    const backgroundTot: string[] = [];
+    const backgroundMax: string[] = [];
+    const backgroundHoverTot: string[] = [];
+    const backgroundHoverMax: string[] = [];
+
+    for (const iterator of this.mapDataChild?.placeColors as string[]) {
+      console.log(iterator);
+      backgroundTot.push(`rgba(${this.hexToRgb(iterator)}, 0.8)`);
+      backgroundMax.push(`rgba(${this.hexToRgb(iterator)}, 0.3)`);
+      backgroundHoverTot.push(`rgba(${this.hexToRgb(iterator)}, 1)`);
+      backgroundHoverMax.push(`rgba(${this.hexToRgb(iterator)}, 0.6)`);
+    }
+
+    this.userInPlaceChartData[0] = Object.assign({}, this.userInPlaceChartData[0], {
+      backgroundColor: backgroundTot,
+      hoverBackgroundColor: backgroundHoverTot,
+    });
+    this.userInPlaceChartData[1] = Object.assign({}, this.userInPlaceChartData[1], {
+      backgroundColor: backgroundMax,
+      borderColor: backgroundTot,
+      hoverBackgroundColor: backgroundHoverMax,
+    });
+    this.userInPlaceChartData = this.userInPlaceChartData.slice();
+  }
+
+  hexToRgb(hex: string): string {
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return `${r}, ${g}, ${b}`;
   }
 }
