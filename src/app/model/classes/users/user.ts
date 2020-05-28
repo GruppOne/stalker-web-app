@@ -15,25 +15,25 @@ import {UserData} from './user-data';
 
 export interface User {
   readonly id?: number;
-  readonly userData?: UserData;
+  readonly data?: UserData;
 }
 
 export class UserBuilder {
   private id?: number;
-  private userData?: UserData;
+  private data?: UserData;
 
   addId(id: number): UserBuilder {
     this.id = id;
     return this;
   }
   addUserData(userData: UserData): UserBuilder {
-    this.userData = userData;
+    this.data = userData;
     return this;
   }
   build(): User {
     return {
       id: this.id,
-      userData: this.userData,
+      data: this.data,
     };
   }
 }

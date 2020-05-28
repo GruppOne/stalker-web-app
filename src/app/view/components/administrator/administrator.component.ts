@@ -105,7 +105,7 @@ export class AdministratorComponent implements OnInit {
   checkIfEmailIsUser(email: string, userList: User[]): number {
     let found = -1;
     userList.forEach((element) => {
-      if (element.userData?.email === email) {
+      if (element.data?.email === email) {
         found = element.id as number;
       }
     });
