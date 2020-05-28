@@ -32,6 +32,7 @@ export class MapComponent implements OnInit {
   organizationPlaces: Place[] = [];
   totAlreadySaved = 0;
   layersDrawn: Layer[] = [];
+  placeColors: string[] = [];
 
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
@@ -188,6 +189,8 @@ export class MapComponent implements OnInit {
         ) {
           const newbounds: LatLngBounds[] = [];
           for (const element of this.organization.data.places) {
+            const placeColor = this.getRandomColor();
+            this.placeColors.push(placeColor);
             this.polygonLayers.push(
               polygon(this.getLatLng(element.data.polygon))
                 .bindTooltip(
