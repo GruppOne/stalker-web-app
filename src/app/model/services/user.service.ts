@@ -38,4 +38,9 @@ export class UserService {
       .delete<boolean>(`/user/${userId}/organization/${orgId}/connection`)
       .pipe(map(() => true));
   }
+  deleteUserById(userId: number): Observable<boolean> {
+    return this.httpClientService
+      .delete<boolean>(`/user/${userId}`)
+      .pipe(map(() => true));
+  }
 }
