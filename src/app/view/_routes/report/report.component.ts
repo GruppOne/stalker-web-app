@@ -1,9 +1,10 @@
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {BaseChartDirective} from 'ng2-charts';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
-import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 
@@ -24,6 +25,7 @@ export class ReportComponent implements AfterViewInit {
   @ViewChild('map') mapDataChild?: {
     placeColors: string[];
   };
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(
     private readonly organizationService: OrganizationService,
@@ -67,7 +69,7 @@ export class ReportComponent implements AfterViewInit {
       hoverBackgroundColor: [''],
     },
   ];
-  userInPlaceChartLabels = ['Aule Luzzati', 'Plesso Paolotti'];
+  userInPlaceChartLabels: string[] = [];
 
   userInOrganizationChartOptions = {
     maintainAspectRatio: false,
@@ -105,7 +107,6 @@ export class ReportComponent implements AfterViewInit {
   ];
 
   ngAfterViewInit(): void {
-    this.drawChart();
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getOrganizationById(organizationId);
     if (!this.organization) {
@@ -143,6 +144,12 @@ export class ReportComponent implements AfterViewInit {
       );
       this.organization = this.organizationBuilder.build();
     }
+    setTimeout(() => {
+      if (this.chart && this.chart.chart && this.chart.chart.config) {
+        this.drawChart();
+        this.chart.chart.update();
+      }
+    });
   }
 
   /**
@@ -164,12 +171,12 @@ export class ReportComponent implements AfterViewInit {
     const backgroundHoverMax: string[] = [];
 
     for (const iterator of this.mapDataChild?.placeColors as string[]) {
-      console.log(iterator);
-      backgroundTot.push(`rgba(${this.hexToRgb(iterator)}, 0.8)`);
-      backgroundMax.push(`rgba(${this.hexToRgb(iterator)}, 0.3)`);
-      backgroundHoverTot.push(`rgba(${this.hexToRgb(iterator)}, 1)`);
-      backgroundHoverMax.push(`rgba(${this.hexToRgb(iterator)}, 0.6)`);
+      backgroundTot.push(`${this.hexToRgb(iterator)}, 0.8)`);
+      backgroundMax.push(`${this.hexToRgb(iterator)}, 0.3)`);
+      backgroundHoverTot.push(`${this.hexToRgb(iterator)}, 1)`);
+      backgroundHoverMax.push(`${this.hexToRgb(iterator)}, 0.6)`);
     }
+    console.log(backgroundTot);
 
     this.userInPlaceChartData[0] = Object.assign({}, this.userInPlaceChartData[0], {
       backgroundColor: backgroundTot,
@@ -180,15 +187,18 @@ export class ReportComponent implements AfterViewInit {
       borderColor: backgroundTot,
       hoverBackgroundColor: backgroundHoverMax,
     });
-    this.userInPlaceChartData = this.userInPlaceChartData.slice();
+    for (const iterator of this.organization?.data.places as Place[]) {
+      this.userInPlaceChartLabels.push(iterator.data.name as string);
+    }
   }
 
   hexToRgb(hex: string): string {
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-
-    return `${r}, ${g}, ${b}`;
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
+      hex,
+    ) as RegExpExecArray;
+    const r = parseInt(result[1], 16);
+    const g = parseInt(result[2], 16);
+    const b = parseInt(result[3], 16);
+    return `rgba(${r}, ${g}, ${b}`;
   }
 }
