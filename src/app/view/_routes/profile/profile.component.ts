@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
       (response: User) => {
         this.userBuilder = new UserBuilder()
           .addId(response.id as number)
-          .addUserData(response.userData as UserData);
+          .addUserData(response.data as UserData);
         this.user = this.userBuilder.build();
         this.fetched = true;
       },

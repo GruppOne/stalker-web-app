@@ -15,6 +15,6 @@ describe('User', () => {
     userBuilder.addUserData(newUserData);
     const user = userBuilder.build();
     expect(user.id).toEqual(user.id);
-    expect(user.userData).toEqual(newUserData);
+    expect(user.data).toEqual(newUserData);
   });
 });
