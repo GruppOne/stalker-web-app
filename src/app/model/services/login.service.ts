@@ -41,8 +41,6 @@ export class LoginService {
       map((response: HttpResponse<unknown>) => {
         const jwtToken = response.body as JWT;
         const payload: StalkerJWT = jwt.decode(jwtToken.jwt) as StalkerJWT;
-        console.log('PayLOAD');
-        console.log(payload);
         localStorage.setItem('token', jwtToken.jwt);
         localStorage.setItem('user_id', payload.sub.toString());
         localStorage.setItem('expiration_time', payload.exp.toString());

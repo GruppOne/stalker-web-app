@@ -1,22 +1,24 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute} from '@angular/router';
 import {User} from 'src/app/model/classes/users/user';
 import {UserService} from 'src/app/model/services/user.service';
-import {MatDialog} from '@angular/material/dialog';
+
 import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
+import {InsertEmailDialogComponent} from '../../components/insert-email-dialog/insert-email-dialog.component';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
 @Component({
-  selector: 'app-organization-users-list',
-  styleUrls: ['organization-users-list.component.scss'],
-  templateUrl: 'organization-users-list.component.html',
+  selector: 'app-users-list',
+  styleUrls: ['users-list.component.scss'],
+  templateUrl: 'users-list.component.html',
 })
-export class OrganizationUsersListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'surname', 'email', 'disconnect'];
+export class UsersListComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'email', 'disconnect'];
   dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator, {static: true})
@@ -52,10 +54,14 @@ export class OrganizationUsersListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getUserConnectedToOrg(organizationId);
+    if (this.route.snapshot.paramMap.get('id')) {
+      const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+      this.getUserConnectedToOrg(organizationId);
+    } else {
+      this.getStalkerUsers();
+    }
   }
 
   applyFilter(event: Event): void {
@@ -79,6 +85,63 @@ export class OrganizationUsersListComponent implements OnInit {
       },
     );
   }
+  getStalkerUsers(): void {
+    this.userService.getStalkerUsers().subscribe(
+      (response: User[]) => {
+        this.connectedUsers = response;
+        this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+      },
+      (err: Error) => {
+        console.log(err);
+        this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+      },
+    );
+  }
+  deleteButtonAction(userId: number, email: string): void {
+    if (this.route.snapshot.paramMap.get('id')) {
+      this.disconnectUserById(userId);
+    } else {
+      this.deleteUserById(userId, email);
+    }
+  }
+
+  deleteUserById(userId: number, email: string): void {
+    const dialogRef = this.dialog.open(InsertEmailDialogComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        message: "Do you really want to delete this user's account from Stalker?",
+        expectedEmail: email,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.deleteUserById(userId).subscribe(
+          () => {
+            const toDeleteUser = this.connectedUsers.find(
+              (element: User) => element.id === userId,
+            );
+            this.connectedUsers.splice(
+              this.connectedUsers.indexOf(toDeleteUser as User),
+              1,
+            );
+            this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+          },
+          (err: Error) => {
+            console.log(err);
+            const toDeleteUser = this.connectedUsers.find(
+              (element: User) => element.id === userId,
+            );
+            this.connectedUsers.splice(
+              this.connectedUsers.indexOf(toDeleteUser as User),
+              1,
+            );
+            this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+          },
+        );
+      }
+    });
+  }
   disconnectUserById(userId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       height: '400px',
@@ -88,7 +151,6 @@ export class OrganizationUsersListComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
       if (result) {
         this.userService
           .disconnectUserById(+(this.route.snapshot.paramMap.get('id') as string), userId)
