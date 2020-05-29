@@ -10,6 +10,7 @@ export class ColorPickerComponent {
   randomColor = this.getRandomColor();
   handleChangeComplete($event: ColorEvent): void {
     console.log($event.color.hex);
+    this.randomColor = $event.color.hex;
   }
 
   getRandomColor(): string {
