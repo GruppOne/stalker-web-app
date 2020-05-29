@@ -36,6 +36,7 @@
     "leaflet": "^1.6.0",
     "leaflet-draw": "^1.0.4",
     "moment": "~2.24.0",
+    "ngx-color": "~5.1.2",
     "rxjs": "~6.5.5",
     "tslib": "~1.11.1",
     "zone.js": "~0.10.2"
