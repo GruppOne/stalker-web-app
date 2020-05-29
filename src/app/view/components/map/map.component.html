@@ -41,7 +41,8 @@
       </mat-hint>
       <mat-hint class="hint-end" align="end">{{ placeAddress.value.length }} / 50</mat-hint>
     </mat-form-field>
-    <mat-form-field>
+    <app-color-picker></app-color-picker>
+    <mat-form-field class="capacity">
       <mat-label>Place capacity</mat-label>
       <input
         #maxConcurrentUsers
@@ -53,11 +54,7 @@
         min="0"
         (change)="updatePlace(i, placeName.value, placeAddress.value)"
       />
-      <mat-hint class="hint-start" align="start">
-        set the maximum capacity that fits the most with your place
-      </mat-hint>
     </mat-form-field>
-    <app-color-picker></app-color-picker>
     <button
       mat-button
       matTooltip="Remove this place from the organization"

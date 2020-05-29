@@ -1,0 +1,15 @@
+color-chrome {
+  margin-top: 5px;
+  position: absolute;
+  z-index: 99;
+}
+
+.colorPicker {
+  border: 2px solid #fff;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  height: 30px;
+  margin: 25% 15px 0 0;
+  width: 30px;
+}
