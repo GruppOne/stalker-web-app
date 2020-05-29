@@ -1,6 +1,13 @@
-<div class="colorPicker" [style.background-color]="randomColor" matTooltip="Choose a color for the place"></div>
+<div
+  class="colorPicker"
+  [style.background-color]="randomColor"
+  matTooltip="Choose a color for the place"
+  (mousedown)="$event.stopPropagation(); showToggle()"
+></div>
 <color-chrome
   [color]="randomColor"
   disableAlpha="true"
   (onChangeComplete)="handleChangeComplete($event)"
+  *ngIf="shown"
+  (mousedown)="$event.stopPropagation()"
 ></color-chrome>

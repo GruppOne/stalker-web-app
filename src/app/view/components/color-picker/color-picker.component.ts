@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {ColorEvent} from 'ngx-color';
 
 @Component({
@@ -8,6 +8,7 @@ import {ColorEvent} from 'ngx-color';
 })
 export class ColorPickerComponent {
   randomColor = this.getRandomColor();
+  shown = false;
   handleChangeComplete($event: ColorEvent): void {
     console.log($event.color.hex);
     this.randomColor = $event.color.hex;
@@ -20,5 +21,14 @@ export class ColorPickerComponent {
       color += hexadecimalDigits[Math.floor(Math.random() * 14)];
     }
     return color;
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  hide(): void {
+    this.shown = false;
+  }
+
+  showToggle(): void {
+    this.shown = !this.shown;
   }
 }
