@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
+import {ColorChromeModule} from 'ngx-color/chrome';
 
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
@@ -21,6 +22,7 @@ import {OrganizationsComponent} from './view/_routes/organizations/organizations
 import {ProfileComponent} from './view/_routes/profile/profile.component';
 import {AdministratorComponent} from './view/components/administrator/administrator.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
+import {ColorPickerComponent} from './view/components/color-picker/color-picker.component';
 import {FormEmailComponent} from './view/components/form-email/form-email.component';
 import {FormPasswordComponent} from './view/components/form-password/form-password.component';
 import {MapComponent} from './view/components/map/map.component';
@@ -69,6 +71,7 @@ const routes: Routes = [
     OrganizationsComponent,
     CreateOrganizationComponent,
     AdministratorComponent,
+    ColorPickerComponent,
   ],
   imports: [
     CustomMaterialModule,
@@ -80,6 +83,7 @@ const routes: Routes = [
     HttpClientModule,
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
+    ColorChromeModule,
   ],
   providers: [
     Title,
