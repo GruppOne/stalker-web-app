@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
   tileLayer,
@@ -163,12 +163,14 @@ export class MapComponent implements OnInit {
               },
               name,
               mylatlngs,
+              0,
             ).build(),
           )
             .addId(-1)
             .build(),
         );
       });
+    console.log(this.organizationPlaces);
   }
 
   /**
@@ -226,6 +228,12 @@ export class MapComponent implements OnInit {
       color += hexadecimalDigits[Math.floor(Math.random() * 14)];
     }
     return color;
+  }
+
+  checkNumberValidity(index: number, value: number): void {
+    if (value > 1000 || value < 0) {
+      this.organizationPlaces[index].data.maxConcurrentUsers = 0;
+    }
   }
 
   /**

@@ -50,6 +50,7 @@ export class OrganizationComponent implements OnInit {
                   new MyLatLng(45.41111, 11.887784),
                   new MyLatLng(45.41144, 11.88795),
                 ],
+                10,
               ).build(),
             ).build(),
           ])
