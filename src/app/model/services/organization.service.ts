@@ -10,10 +10,16 @@ import {OrganizationData} from '../classes/organizations/organization-data';
 import {HttpClientService} from './http-client.service';
 import {LoginService} from './login.service';
 
+export interface UsersInside {
+  usersInside: number;
+  places: {placeId: number; usersInside: number}[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class OrganizationService {
+  usersInsideOrg: UsersInside = {usersInside: 0, places: []};
   constructor(
     private readonly httpClientService: HttpClientService,
     private readonly loginService: LoginService,
@@ -36,6 +42,24 @@ export class OrganizationService {
     return this.httpClientService
       .get<Organization>(`/organization/${organizationId}`)
       .pipe(map((response: HttpResponse<Organization>) => response.body as Organization));
+  }
+  getUsersInsidePlaces(organizationId: number): Observable<UsersInside> {
+    console.log(organizationId);
+    return this.httpClientService.get<UsersInside>(`/version`).pipe(
+      map(() => {
+        this.usersInsideOrg.usersInside = organizationId;
+        this.usersInsideOrg.places = [
+          {placeId: 1, usersInside: organizationId},
+          {placeId: 2, usersInside: organizationId + 1},
+        ];
+        return this.usersInsideOrg;
+      }),
+    );
+    /*     return this.httpClientService.get<UsersInside>(`/organzation/${organizationId}/users/inside`).pipe(
+      map((response: HttpResponse<UsersInside>) => {
+        return response.body as UsersInside;
+      }),
+    ); */
   }
   getAdminOrganizations(): Observable<
     {
