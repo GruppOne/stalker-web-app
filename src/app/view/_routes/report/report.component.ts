@@ -1,17 +1,14 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BaseChartDirective} from 'ng2-charts';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
-import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
-import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
-import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
-import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
-import {OrganizationService} from 'src/app/model/services/organization.service';
-
+import {forkJoin} from 'rxjs';
+import {Place} from 'src/app/model/classes/places/place';
 import {
-  Organization,
-  OrganizationBuilder,
-} from '../../../model/classes/organizations/organization';
+  OrganizationService,
+  UsersInside,
+} from 'src/app/model/services/organization.service';
+
+import {Organization} from '../../../model/classes/organizations/organization';
 
 @Component({
   selector: 'app-report',
@@ -20,7 +17,8 @@ import {
 })
 export class ReportComponent implements AfterViewInit {
   organization?: Organization;
-  private organizationBuilder?: OrganizationBuilder;
+  // private organizationBuilder?: OrganizationBuilder;
+  usersInsideOrg: UsersInside = {usersInside: 0, places: []};
 
   @ViewChild('map') mapDataChild?: {
     placeColors: string[];
@@ -55,14 +53,14 @@ export class ReportComponent implements AfterViewInit {
     {
       type: 'bar',
       label: 'People inside',
-      data: [59, 86],
+      data: [] as number[],
       backgroundColor: [''],
       hoverBackgroundColor: [''],
     },
     {
       type: 'bar',
       label: 'Places available',
-      data: [51, 34],
+      data: [] as number[],
       backgroundColor: [''],
       borderColor: [''],
       borderWidth: 1,
@@ -108,8 +106,8 @@ export class ReportComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
-    this.getOrganizationById(organizationId);
-    if (!this.organization) {
+
+    /* if (!this.organization) {
       this.organizationBuilder = new OrganizationBuilder(
         1,
         new OrganizationDataBuilder('GruppOne', true)
@@ -143,27 +141,80 @@ export class ReportComponent implements AfterViewInit {
           .build(),
       );
       this.organization = this.organizationBuilder.build();
-    }
-    setTimeout(() => {
-      if (this.chart && this.chart.chart && this.chart.chart.config) {
-        this.drawChart();
-        this.chart.chart.update();
-      }
+    } */
+    this.setupGraphs(organizationId);
+  }
+
+  setupGraphs(id: number): void {
+    forkJoin([
+      this.organizationService.getOrganizationById(id),
+      this.organizationService.getUsersInsidePlaces(id),
+    ]).subscribe((result) => {
+      this.organization = result[0];
+      this.usersInsideOrg = result[1];
+      console.log(this.organization);
+      console.log(this.usersInsideOrg);
+      this.drawChart();
+      this.updateUsersInsidePlacesChart();
+      let i = 1;
+      setInterval(() => {
+        i += 10;
+        this.organizationService
+          .getUsersInsidePlaces(i)
+          .subscribe((response: UsersInside) => {
+            this.usersInsideOrg = response;
+          });
+        this.updateUsersInsidePlacesChart();
+      }, 30000);
+      // TODO: REPLACE TO THIS WHEN THE ENDPOINT IS READY
+      /*       setInterval(() => {
+        this.organizationService
+          .getUsersInsidePlaces(id)
+          .subscribe((response: UsersInside) => {
+            this.usersInsideOrg = response;
+          });
+        this.updateUsersInsidePlacesChart();
+      }, 30000); */
     });
   }
 
   /**
    * call OrganizationService to get organization with given Id
    */
-  getOrganizationById(id: number): void {
-    this.organizationService.getOrganizationById(id).subscribe(
-      (response: Organization) => {
-        this.organization = response;
-      },
-      (err: Error) => console.error(err),
-    );
-  }
 
+  /*   getUsersInsidePlaces(orgId: number): void {
+    this.organizationService
+      .getUsersInsidePlaces(orgId)
+      .subscribe((response: UsersInside) => {
+        this.usersInsideOrg = response;
+        this.updateUsersInsidePlacesChart();
+        this.chart?.chart.update();
+        console.log('should happen before');
+      });
+      setInterval(() => {
+      this.updateUsersInsidePlacesChart();
+      this.chart?.chart.update();
+    }, 3000);
+  } */
+
+  updateUsersInsidePlacesChart(): void {
+    const newActualData: number[] = [];
+    const newMaxData: number[] = [];
+    for (const i of this.usersInsideOrg.places) {
+      newActualData.push(i.usersInside);
+      newMaxData.push(100 - i.usersInside);
+      /*           this.userInPlaceChartData[1].data.push(
+          this.organization?.data.places?.find(
+            (element: Place) => element.id === i.placeId,
+          )?.data.maxCurrentUsers - i.usersInside,
+        ); */
+    }
+    this.userInPlaceChartData[0].data = newActualData;
+    this.userInPlaceChartData[1].data = newMaxData;
+    if (this.chart && this.chart.chart && this.chart.chart.config) {
+      this.chart.chart.update();
+    }
+  }
   drawChart(): void {
     const backgroundTot: string[] = [];
     const backgroundMax: string[] = [];
