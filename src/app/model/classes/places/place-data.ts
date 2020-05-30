@@ -3,7 +3,7 @@ import {MyLatLng} from './my-lat-lng';
 export interface PlaceData {
   name?: string;
   maxConcurrentUsers: number;
-  readonly color?: string;
+  color?: string;
   readonly polygon: MyLatLng[];
   readonly placeInfo: PlaceInfo;
 }
