@@ -43,9 +43,9 @@ export class LoginService {
         const payload: StalkerJWT = jwt.decode(jwtToken.jwt) as StalkerJWT;
         console.log('PayLOAD');
         console.log(payload);
-        // localStorage.setItem('token', jwtToken.jwt);
-        //  localStorage.setItem('user_id', payload.sub);
-        // localStorage.setItem('expiration_time', payload.exp.toString());
+        localStorage.setItem('token', jwtToken.jwt);
+        localStorage.setItem('user_id', payload.sub.toString());
+        localStorage.setItem('expiration_time', payload.exp.toString());
         localStorage.setItem('creation_time', payload.iat.toString());
         return true;
       }),

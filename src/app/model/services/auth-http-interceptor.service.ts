@@ -2,28 +2,16 @@ import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/com
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {Organization} from '../classes/organizations/organization';
-import {OrganizationData} from '../classes/organizations/organization-data';
-import {User} from '../classes/users/user';
-
-import {Geocoding} from './place.service';
-
-export type BodyType =
-  | User
-  | {email: string; password: string}
-  | Organization
-  | Geocoding
-  | OrganizationData;
 @Injectable({
   providedIn: 'root',
 })
 export class AuthHttpInterceptorService implements HttpInterceptor {
   intercept(
-    req: HttpRequest<BodyType>,
+    req: HttpRequest<unknown>,
     next: HttpHandler,
-  ): Observable<HttpEvent<BodyType>> {
+  ): Observable<HttpEvent<unknown>> {
     if (
-      localStorage.getItem('user_email') &&
+      localStorage.getItem('user_id') &&
       localStorage.getItem('token') &&
       !req.url.includes('user/login')
     ) {

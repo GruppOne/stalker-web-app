@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
   tileLayer,
@@ -21,6 +21,7 @@ import {
   OrganizationBuilder,
 } from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
+import {ColorPickerComponent} from '../color-picker/color-picker.component';
 
 @Component({
   selector: 'app-map',
@@ -35,6 +36,7 @@ export class MapComponent implements OnInit {
   organization?: Organization;
   organizationBuilder?: OrganizationBuilder;
 
+  @ViewChildren(ColorPickerComponent) colorPickers!: QueryList<ColorPickerComponent>;
   options = {
     layers: [
       tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
@@ -219,7 +221,21 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * return a random hex color
+   * returns all places colors
+   */
+  setColors(): void {
+    const colors: string[] = [];
+    for (const i of this.colorPickers) {
+      colors.push(i.randomColor);
+    }
+    for (let i = 0; i < this.colorPickers.length; i++) {
+      this.organizationPlaces[i].data.color = colors[i];
+    }
+    console.log(colors);
+  }
+
+  /**
+   * returns a random hex color
    */
   getRandomColor(): string {
     const hexadecimalDigits = '0123456789ABCD';

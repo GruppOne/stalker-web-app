@@ -19,8 +19,9 @@ export class CreateOrganizationComponent implements OnInit {
 
   adminType: AdminType[] = [AdminType.manager, AdminType.viewer];
 
-  @ViewChild('map') mapDataChild?: {
+  @ViewChild('map') mapDataChild!: {
     organizationPlaces: Place[];
+    setColors(): void;
   };
   organizationBuilder?: OrganizationBuilder;
   formGroup: FormGroup = new FormGroup({});
@@ -75,7 +76,9 @@ export class CreateOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
+      this.mapDataChild.setColors();
       organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
+      console.log(organizationDataBuilder.build());
       this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
         () => {
           this.router.navigate([`/organizations`]);
