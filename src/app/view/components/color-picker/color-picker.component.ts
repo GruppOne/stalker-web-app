@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, Input} from '@angular/core';
 import {ColorEvent} from 'ngx-color';
 
 @Component({
@@ -7,11 +7,18 @@ import {ColorEvent} from 'ngx-color';
   styleUrls: ['./color-picker.component.scss'],
 })
 export class ColorPickerComponent {
+  @Input() color!: string;
   randomColor = this.getRandomColor();
   shown = false;
   handleChangeComplete($event: ColorEvent): void {
     console.log($event.color.hex);
     this.randomColor = $event.color.hex;
+  }
+
+  constructor() {
+    if (this.color) {
+      this.randomColor = this.color;
+    }
   }
 
   getRandomColor(): string {

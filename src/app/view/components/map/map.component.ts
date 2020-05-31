@@ -198,11 +198,12 @@ export class MapComponent implements OnInit {
           ${element.data.placeInfo.city}`,
                 )
                 .setStyle({
-                  color: this.getRandomColor(),
+                  color: element.data.color ? element.data.color : this.getRandomColor(),
                 }),
             );
             newbounds.push(polygon(this.getLatLng(element.data.polygon)).getBounds());
             this.organizationPlaces.push(element);
+            // this.colorPickers()
             this.totAlreadySaved += 1;
           }
           this.bounds = newbounds;
