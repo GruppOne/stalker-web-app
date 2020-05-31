@@ -19,6 +19,7 @@ import {OrganizationService} from '../../../model/services/organization.service'
 export class EditOrganizationComponent implements OnInit {
   @ViewChild('map') mapDataChild?: {
     organizationPlaces: Place[];
+    setColors(): void;
   };
 
   organization?: Organization;
@@ -111,6 +112,7 @@ export class EditOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
+      this.mapDataChild.setColors();
       organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
       this.organizationBuilder = new OrganizationBuilder(
         this.organization.id,
