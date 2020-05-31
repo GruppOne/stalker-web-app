@@ -118,25 +118,11 @@ export class UsersListComponent implements OnInit {
       if (result) {
         this.userService.deleteUserById(userId).subscribe(
           () => {
-            const toDeleteUser = this.connectedUsers.find(
-              (element: User) => element.id === userId,
-            );
-            this.connectedUsers.splice(
-              this.connectedUsers.indexOf(toDeleteUser as User),
-              1,
-            );
-            this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+            this.removeUserFromList(userId);
           },
           (err: Error) => {
-            console.log(err);
-            const toDeleteUser = this.connectedUsers.find(
-              (element: User) => element.id === userId,
-            );
-            this.connectedUsers.splice(
-              this.connectedUsers.indexOf(toDeleteUser as User),
-              1,
-            );
-            this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+            console.error(err);
+            this.removeUserFromList(userId);
           },
         );
       }
@@ -156,28 +142,21 @@ export class UsersListComponent implements OnInit {
           .disconnectUserById(+(this.route.snapshot.paramMap.get('id') as string), userId)
           .subscribe(
             () => {
-              const toDeleteUser = this.connectedUsers.find(
-                (element: User) => element.id === userId,
-              );
-              this.connectedUsers.splice(
-                this.connectedUsers.indexOf(toDeleteUser as User),
-                1,
-              );
-              this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+              this.removeUserFromList(userId);
             },
             (err: Error) => {
-              console.log(err);
-              const toDeleteUser = this.connectedUsers.find(
-                (element: User) => element.id === userId,
-              );
-              this.connectedUsers.splice(
-                this.connectedUsers.indexOf(toDeleteUser as User),
-                1,
-              );
-              this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+              console.error(err);
+              this.removeUserFromList(userId);
             },
           );
       }
     });
+  }
+  removeUserFromList(userId: number): void {
+    const toDeleteUser = this.connectedUsers.find(
+      (element: User) => element.id === userId,
+    );
+    this.connectedUsers.splice(this.connectedUsers.indexOf(toDeleteUser as User), 1);
+    this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
   }
 }
