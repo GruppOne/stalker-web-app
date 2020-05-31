@@ -107,6 +107,7 @@ describe('MapComponent', () => {
                 },
                 'Torre Archimede',
                 [],
+                10,
               ).build(),
             ).build(),
           ],
@@ -169,6 +170,7 @@ describe('MapComponent', () => {
           new MyLatLng(45.411528, 11.886592),
           new MyLatLng(45.411458, 11.886938),
         ],
+        10,
       ).build(),
     ).build();
     component.organizationPlaces = [p];
@@ -197,6 +199,7 @@ describe('MapComponent', () => {
           new MyLatLng(45.411528, 11.886592),
           new MyLatLng(45.411458, 11.886938),
         ],
+        10,
       ).build(),
     ).build();
     component.organizationPlaces.push(p);

@@ -87,6 +87,7 @@ describe('CreateOrganizationComponent', () => {
           },
           'test',
           [new MyLatLng(1, 1)],
+          10,
         ).build(),
       ).build(),
     );

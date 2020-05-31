@@ -49,8 +49,8 @@ const routes: Routes = [
   {
     path: 'organization/:id/edit',
     component: EditOrganizationComponent,
-    /*     canActivate: [AuthGuard],
-    data: {roles: AdminType.manager}, */
+    canActivate: [AuthGuard],
+    data: {roles: AdminType.manager},
   },
   // route to 404
   {path: '**', component: NotFoundComponent},

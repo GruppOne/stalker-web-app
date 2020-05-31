@@ -11,7 +11,7 @@ const testPlaceInfo = {
 describe('Place', () => {
   const placeBuilder = new PlaceBuilder(
     -1,
-    new PlaceDataBuilder(testPlaceInfo, 'test', []).build(),
+    new PlaceDataBuilder(testPlaceInfo, 'test', [], 10).build(),
   );
   it('should create an instance', () => {
     expect(placeBuilder.build()).toBeTruthy();
@@ -27,6 +27,7 @@ describe('Place', () => {
       },
       'Torre Archimede',
       [],
+      10,
     ).build();
     placeBuilder.addId(newId);
     placeBuilder.addPlaceData(newPlaceData);

@@ -29,11 +29,11 @@ describe('Organization', () => {
     const newPlaces = [
       new PlaceBuilder(
         1,
-        new PlaceDataBuilder(testPlaceInfo, 'test', [new MyLatLng(1, 1)]).build(),
+        new PlaceDataBuilder(testPlaceInfo, 'test', [new MyLatLng(1, 1)], 10).build(),
       ).build(),
       new PlaceBuilder(
         1,
-        new PlaceDataBuilder(testPlaceInfo, 'test', [new MyLatLng(1, 1)]).build(),
+        new PlaceDataBuilder(testPlaceInfo, 'test', [new MyLatLng(1, 1)], 10).build(),
       ).build(),
     ];
     const newIsPrivate = false;
