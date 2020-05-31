@@ -6,8 +6,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
-import {ColorChromeModule} from 'ngx-color/chrome';
 import {ChartsModule} from 'ng2-charts';
+import {ColorChromeModule} from 'ngx-color/chrome';
 
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
