@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
@@ -24,6 +24,7 @@ export class OrganizationComponent implements OnInit {
   constructor(
     private readonly organizationService: OrganizationService,
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -77,5 +78,10 @@ export class OrganizationComponent implements OnInit {
       },
       (err: Error) => console.error(err),
     );
+  }
+  deleteOrganizationById(id: number): void {
+    this.organizationService.deleteOrganizationById(id).subscribe(() => {
+      this.router.navigate(['/organizations']);
+    });
   }
 }

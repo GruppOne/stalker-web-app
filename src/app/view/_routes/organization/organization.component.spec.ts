@@ -6,6 +6,7 @@ import {of, throwError} from 'rxjs';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 import {OrganizationComponent} from './organization.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('OrganizationComponent', () => {
   let component: OrganizationComponent;
@@ -20,7 +21,7 @@ describe('OrganizationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OrganizationComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [
         {
           provide: OrganizationService,

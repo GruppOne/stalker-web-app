@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {LoginService} from 'src/app/model/services/login.service';
 
 import {User, UserBuilder} from '../../../model/classes/users/user';
 import {UserData} from '../../../model/classes/users/user-data';
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
+    private readonly loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -41,5 +43,11 @@ export class ProfileComponent implements OnInit {
         this.fetched = false;
       },
     );
+  }
+
+  deleteUser(id: number): void {
+    this.userService.deleteUserById(id).subscribe(() => {
+      this.loginService.logout();
+    });
   }
 }

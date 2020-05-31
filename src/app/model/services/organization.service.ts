@@ -43,6 +43,11 @@ export class OrganizationService {
       .get<Organization>(`/organization/${organizationId}`)
       .pipe(map((response: HttpResponse<Organization>) => response.body as Organization));
   }
+  deleteOrganizationById(organizationId: number): Observable<boolean> {
+    return this.httpClientService
+      .delete(`/organization/${organizationId}`)
+      .pipe(map(() => true));
+  }
   getUsersInsidePlaces(organizationId: number): Observable<UsersInside> {
     console.log(organizationId);
     return this.httpClientService.get<UsersInside>(`/version`).pipe(
