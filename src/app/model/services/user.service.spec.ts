@@ -39,7 +39,7 @@ describe('UserService', () => {
         }),
       ),
     );
-    let result: User = {id: 1, userData: {email: ''}};
+    let result: User = {id: 1, data: {email: ''}};
     service.getUserById(1).subscribe((response) => (result = response));
     expect(result).toEqual(defaultUser);
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
@@ -49,7 +49,7 @@ describe('UserService', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(
       of(new HttpResponse({headers: new HttpHeaders(), status: 200})),
     );
-    let result: User = {id: 1, userData: {email: ''}};
+    let result: User = {id: 1, data: {email: ''}};
     service.getUserById(1).subscribe((response) => (result = response));
     expect(result).toEqual(result);
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
