@@ -18,4 +18,8 @@ export class UserService {
       .get<User>(`/user/${id}`)
       .pipe(map((response: HttpResponse<User>) => response.body as User));
   }
+
+  deleteUserById(id: number): Observable<boolean> {
+    return this.httpClientService.delete(`/user/${id}`).pipe(map(() => true));
+  }
 }
