@@ -1,7 +1,7 @@
 import {HttpRequest} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
 
-import {AuthHttpInterceptorService, BodyType} from './auth-http-interceptor.service';
+import {AuthHttpInterceptorService} from './auth-http-interceptor.service';
 
 describe('AuthHttpInterceptorService', () => {
   const mockHttpHandler = {handle: jasmine.createSpy('handle')};
@@ -33,7 +33,7 @@ describe('AuthHttpInterceptorService', () => {
     const fakeHttpRequest = {url: 'user/login', clone: jasmine.createSpy('clone')};
     localStor.getItem.and.returnValue('nice');
     service.intercept(
-      (fakeHttpRequest as unknown) as HttpRequest<BodyType>,
+      (fakeHttpRequest as unknown) as HttpRequest<unknown>,
       mockHttpHandler,
     );
     expect(mockHttpHandler.handle).toHaveBeenCalled();
@@ -42,7 +42,7 @@ describe('AuthHttpInterceptorService', () => {
     const fakeHttpRequest = {url: 'organizations', clone: jasmine.createSpy('clone')};
     localStor.getItem.and.returnValue(null);
     service.intercept(
-      (fakeHttpRequest as unknown) as HttpRequest<BodyType>,
+      (fakeHttpRequest as unknown) as HttpRequest<unknown>,
       mockHttpHandler,
     );
     expect(mockHttpHandler.handle).toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe('AuthHttpInterceptorService', () => {
     const fakeHttpRequest = {url: 'organizations', clone: jasmine.createSpy('clone')};
     localStor.getItem.and.returnValue('nicer');
     service.intercept(
-      (fakeHttpRequest as unknown) as HttpRequest<BodyType>,
+      (fakeHttpRequest as unknown) as HttpRequest<unknown>,
       mockHttpHandler,
     );
     expect(fakeHttpRequest.clone).toHaveBeenCalled();

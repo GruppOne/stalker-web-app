@@ -11,6 +11,7 @@ describe('PlaceData', () => {
     },
     'Torre Archimede',
     [],
+    10,
   );
   it('should create an instance', () => {
     expect(placeDataBuilder.build()).toBeTruthy();
