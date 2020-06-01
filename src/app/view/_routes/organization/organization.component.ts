@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Administrator} from 'src/app/model/classes/administrator';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
+import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 
 import {
@@ -20,9 +22,12 @@ import {
 export class OrganizationComponent implements OnInit {
   organization?: Organization;
   private organizationBuilder?: OrganizationBuilder;
+  administrators: Administrator[] = [];
+  date: Date = new Date();
 
   constructor(
     private readonly organizationService: OrganizationService,
+    private readonly administratorService: AdministratorService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
   ) {}
@@ -65,6 +70,7 @@ export class OrganizationComponent implements OnInit {
           .build(),
       );
       this.organization = this.organizationBuilder.build();
+      this.getOrgAdministrators(organizationId);
     }
   }
 
@@ -75,13 +81,29 @@ export class OrganizationComponent implements OnInit {
     this.organizationService.getOrganizationById(id).subscribe(
       (response: Organization) => {
         this.organization = response;
+        this.date = new Date(
+          (this.organization?.data?.creationDateTime as unknown) as Date,
+        );
       },
       (err: Error) => console.error(err),
     );
   }
+
   deleteOrganizationById(id: number): void {
     this.organizationService.deleteOrganizationById(id).subscribe(() => {
       this.router.navigate(['/organizations']);
     });
+  }
+
+  /**
+   * Get administrators of a certain organization
+   */
+  getOrgAdministrators(organizationId: number): void {
+    this.administratorService.getAdministrators(organizationId).subscribe(
+      (response: Administrator[]) => {
+        this.administrators = response;
+      },
+      (err: Error) => console.error(err),
+    );
   }
 }
