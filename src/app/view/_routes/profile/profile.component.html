@@ -44,6 +44,42 @@
       </mat-card>
     </div>
   </div>
+  <div class="userSettings">
+    <h1>User settings</h1>
+    <mat-card class="dangerZone">
+      <mat-card-content>
+        <mat-card-title>Change your password</mat-card-title>
+        <mat-form-field appearance="outline">
+          <mat-label>New password</mat-label>
+          <input maxlength="32" matInput id="input" [type]="hide ? 'password' : 'text'" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon class="pwd-icon">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" type="submit">Confirm</button>
+        </mat-card-actions>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <div class="deleteMessage">
+        <mat-card-content>
+          <mat-card-title>Delete your account</mat-card-title>
+          <mat-card-subtitle
+            >Once you delete your account, there is no going back.<br />Please be certain.</mat-card-subtitle
+          >
+        </mat-card-content>
+      </div>
+      <mat-card-actions class="deleteButton">
+        <button class="buttonDelete" mat-raised-button type="submit" (click)="deleteUser(user?.id)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 <div *ngIf="fetched == false" class="loadFail">
   <mat-icon>warning</mat-icon>

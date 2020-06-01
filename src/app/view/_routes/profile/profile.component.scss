@@ -118,3 +118,76 @@
     text-align: right;
   }
 }
+
+.userSettings {
+  margin: 50px auto;
+  width: 50%;
+
+  h1 {
+    font-weight: 500;
+  }
+}
+
+.dangerZone {
+  border: 1px solid #d73a49;
+  margin-top: -10px;
+  padding-bottom: 16px;
+  padding-top: 0;
+
+  .mat-card-content {
+    margin-bottom: 0;
+    padding: 16px 0;
+  }
+
+  .mat-card-content:first-of-type {
+    padding-bottom: 0;
+  }
+
+  .mat-card-title {
+    font-size: 18px;
+  }
+
+  .mat-card-subtitle {
+    font-size: 14px;
+  }
+
+  .mat-input-element {
+    caret-color: #454545;
+  }
+
+  .mat-icon-button {
+    display: inline;
+  }
+
+  .mat-form-field,
+  .mat-card-actions {
+    display: inline-block;
+  }
+
+  .mat-card-actions {
+    text-align: center;
+  }
+
+  .mat-form-field,
+  .deleteMessage {
+    margin-right: 25px;
+    width: 80%;
+  }
+
+  .deleteMessage,
+  .deleteButton {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .buttonDelete {
+    border: 1px solid #cb2431;
+    margin-left: 3px;
+  }
+
+  .buttonDelete:hover {
+    background-color: #cb2431;
+    color: #fff;
+    cursor: pointer;
+  }
+}
