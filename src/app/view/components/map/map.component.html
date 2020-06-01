@@ -17,19 +17,19 @@
       <mat-label>Name</mat-label>
       <input
         #placeName
-        maxlength="50"
+        maxlength="75"
         matInput
         placeholder="Torre Archimede"
         value="{{ p.data.name }}"
         (change)="updatePlace(i, placeName.value, placeAddress.value)"
       />
-      <mat-hint class="hint-end" align="end">{{ placeName.value.length }} / 50</mat-hint>
+      <mat-hint class="hint-end" align="end">{{ placeName.value.length }} / 75</mat-hint>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Address</mat-label>
       <input
         #placeAddress
-        maxlength="50"
+        maxlength="75"
         matInput
         placeholder="Via Trieste"
         value="{{ p.data.placeInfo.address }}"
@@ -39,7 +39,7 @@
         It is not necessary to specify city, zipcode or state.
         <br />They will be found automatically
       </mat-hint>
-      <mat-hint class="hint-end" align="end">{{ placeAddress.value.length }} / 50</mat-hint>
+      <mat-hint class="hint-end" align="end">{{ placeAddress.value.length }} / 75</mat-hint>
     </mat-form-field>
     <app-color-picker id="colorPicker{{ i.toString() }}" [color]="p.data.color"></app-color-picker>
     <mat-form-field class="capacity">
