@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   fetched?: boolean;
   private userBuilder?: UserBuilder;
   user?: User;
+  hide = true;
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
