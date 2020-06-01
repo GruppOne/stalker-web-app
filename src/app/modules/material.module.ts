@@ -31,7 +31,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // import {MatSliderModule} from '@angular/material/slider';
-// import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
@@ -69,7 +69,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSidenavModule,
     // MatSliderModule,
     MatSlideToggleModule,
-    // MatSnackBarModule,
+    MatSnackBarModule,
     MatSortModule,
     MatTableModule,
     // MatTabsModule,
@@ -105,7 +105,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSidenavModule,
     // MatSliderModule,
     MatSlideToggleModule,
-    // MatSnackBarModule,
+    MatSnackBarModule,
     MatSortModule,
     MatTableModule,
     // MatTabsModule,

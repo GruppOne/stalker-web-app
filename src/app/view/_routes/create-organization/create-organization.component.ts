@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {Observable} from 'rxjs';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
@@ -7,6 +8,8 @@ import {Place} from 'src/app/model/classes/places/place';
 import {AdminType} from '../../../model/classes/administrator';
 import {OrganizationBuilder} from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
+
+import {request} from 'http';
 
 @Component({
   selector: 'app-create-organization',
@@ -35,6 +38,8 @@ export class CreateOrganizationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +81,7 @@ export class CreateOrganizationComponent implements OnInit {
         (response: number) => {
           this.mapDataChild.editOrganizationPlaces(response);
         },
-        (err: Error) => console.error(err),
+        (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
       );
     }
   }
