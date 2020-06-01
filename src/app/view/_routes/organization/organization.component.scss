@@ -1,49 +1,61 @@
-.mat-list-item.fieldName,
-.mat-list-item.fieldData {
-  display: inline-block;
-}
+.organizationData {
+  margin: 25px auto;
+  width: 75%;
 
-.mat-list-item.fieldName {
-  font-weight: 500;
-  width: 35%;
-}
-
-.mat-list-item.fieldData {
-  font-weight: 300;
-  width: 65%;
-}
-
-::ng-deep .mat-list-item.fieldName .mat-list-item-content {
-  justify-content: flex-end;
-}
-
-button {
-  width: auto !important;
-}
-
-@media only screen and (max-width: 896px) {
-  .mat-list-item.fieldName {
-    font-size: 14px;
-    width: 40%;
-  }
-
-  .mat-list-item.fieldData {
-    font-size: 15px;
-    width: 60%;
-  }
-
-  ::ng-deep {
-    .mat-list-item.fieldName .mat-list-item-content {
-      padding-left: 0 !important;
-      padding-right: 8px !important;
-    }
-
-    .mat-list-item.fieldData .mat-list-item-content {
-      padding: 0 !important;
-    }
+  h1 {
+    font-weight: 500;
+    margin-bottom: 3px;
   }
 
   .mat-card {
-    padding-bottom: 16px !important;
+    padding-top: 0;
+  }
+
+  .mat-card-content {
+    padding-top: 16px;
+  }
+
+  .mat-card-title {
+    font-size: 18px;
+  }
+
+  .mat-card-subtitle:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .inlineLeft,
+  .inlineRight {
+    display: inline-block;
+    padding: 0;
+    vertical-align: middle;
+  }
+
+  .inlineLeft {
+    width: 60%;
+  }
+
+  .inlineRight {
+    font-size: 16px;
+    text-align: right;
+    width: 40% !important;
+  }
+
+  .mat-card-actions {
+    text-align: center;
+  }
+
+  button {
+    width: auto !important;
+  }
+
+  .buttonDelete {
+    border: 1px solid #cb2431;
+    margin-left: 3px;
+  }
+
+  .buttonDelete:hover {
+    background-color: #cb2431;
+    color: #fff;
+    cursor: pointer;
   }
 }

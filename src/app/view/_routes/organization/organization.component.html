@@ -1,9 +1,67 @@
 <h1 class="title-page-under-toolbar">{{ organization?.data?.name }}</h1>
 <h2 class="subtitle-page-under-toolbar">{{ organization?.data?.description }}</h2>
 <mat-card class="organizationTable">
-  <mat-list>
-    <app-map></app-map>
-    <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
+  <app-map></app-map>
+</mat-card>
+<div class="organizationData">
+  <h1>Organization data</h1>
+  <mat-card>
+    <div *ngIf="organization?.data?.ldapConfiguration">
+      <mat-card-content>
+        <div class="inlineLeft">
+          <mat-card-title>LDAP Configuration</mat-card-title>
+          <mat-card-subtitle>Access data to the LDAP server</mat-card-subtitle>
+        </div>
+        <p class="inlineRight">
+          {{ organization?.data?.ldapConfiguration?.username }}@{{ organization?.data?.ldapConfiguration?.host }},
+          {{ organization?.data?.ldapConfiguration?.password }}
+        </p>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+    </div>
+    <mat-card-content>
+      <div class="inlineLeft">
+        <mat-card-title>Roles</mat-card-title>
+        <mat-card-subtitle>List of users with a role in this organization</mat-card-subtitle>
+      </div>
+      <div class="inlineRight">
+        <p *ngFor="let a of administrators">{{ a.role }} - {{ a.email }}</p>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="inlineLeft">
+        <mat-card-title>Creation date</mat-card-title>
+        <mat-card-subtitle>This organization was created on this date</mat-card-subtitle>
+      </div>
+      <p class="inlineRight">{{ date.toLocaleString() }}</p>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="accent"
+        matTooltip="Edit this organization's data"
+        matTooltipPosition="left"
+        routerLink="/organization/{{ organization?.id }}/edit"
+      >
+        Edit
+      </button>
+      &nbsp; or
+      <button
+        class="buttonDelete"
+        mat-raised-button
+        matTooltip="Delete this organization"
+        matTooltipPosition="right"
+        (click)="deleteOrganizationById(organization?.id)"
+      >
+        Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
     <mat-list-item class="fieldData">
       {{ organization?.data?.ldapConfiguration?.username }}@{{ organization?.data?.ldapConfiguration?.host }},
       {{ organization?.data?.ldapConfiguration?.password }}
@@ -34,5 +92,4 @@
     >
       Edit
     </button>
-  </mat-card-actions>
-</mat-card>
+  </mat-card-actions> -->
