@@ -150,6 +150,9 @@ export class MapComponent implements OnInit {
         ) {
           name = '';
         }
+        if (name.length > 75) {
+          name = name.substring(0, 75);
+        }
         const mylatlngs: MyLatLng[] = [];
         (points[0] as LatLng[]).forEach((element) => {
           mylatlngs.push(new MyLatLng(200, 200, element));
