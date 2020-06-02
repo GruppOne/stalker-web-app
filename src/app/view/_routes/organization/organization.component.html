@@ -5,6 +5,10 @@
 </mat-card>
 <div class="organizationData">
   <h1>Organization data</h1>
+  <button class="goToReport" mat-button routerLink="/organization/{{ organization?.id }}/report">
+    Go to report&nbsp;
+    <mat-icon>arrow_forward_ios</mat-icon>
+  </button>
   <mat-card>
     <div *ngIf="organization?.data?.ldapConfiguration?.username !== undefined">
       <mat-card-content>
