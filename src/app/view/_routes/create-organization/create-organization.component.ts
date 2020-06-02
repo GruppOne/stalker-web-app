@@ -9,8 +9,6 @@ import {AdminType} from '../../../model/classes/administrator';
 import {OrganizationBuilder} from '../../../model/classes/organizations/organization';
 import {OrganizationService} from '../../../model/services/organization.service';
 
-import {request} from 'http';
-
 @Component({
   selector: 'app-create-organization',
   templateUrl: './create-organization.component.html',
@@ -38,7 +36,6 @@ export class CreateOrganizationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
-    private readonly router: Router,
     private readonly snackBar: MatSnackBar,
   ) {}
 

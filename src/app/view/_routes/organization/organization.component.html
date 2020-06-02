@@ -50,7 +50,7 @@
       <div class="inlineRight">{{ date.toLocaleString() }}</div>
     </mat-card-content>
     <mat-divider></mat-divider>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="checkLevel('owner')">
       <button
         mat-raised-button
         color="accent"
@@ -73,36 +73,3 @@
     </mat-card-actions>
   </mat-card>
 </div>
-
-<!-- <mat-list-item class="fieldName">LDAP Configuration:</mat-list-item>
-    <mat-list-item class="fieldData">
-      {{ organization?.data?.ldapConfiguration?.username }}@{{ organization?.data?.ldapConfiguration?.host }},
-      {{ organization?.data?.ldapConfiguration?.password }}
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="fieldName">Owner:</mat-list-item>
-    <mat-list-item class="fieldData">John Smith</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="fieldName">Manager:</mat-list-item>
-    <mat-list-item class="fieldData">Mario Rossi</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="fieldName">Viewer:</mat-list-item>
-    <mat-list-item class="fieldData">PippoPluto</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="fieldName">Creation date:</mat-list-item>
-    <mat-list-item class="fieldData">{{ organization?.data?.creationDateTime }}</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="fieldName">Last modified date:</mat-list-item>
-    <mat-list-item class="fieldData">{{ organization?.data?.lastChangeDateTime }}</mat-list-item>
-  </mat-list>
-  <mat-card-actions>
-    <button
-      mat-raised-button
-      color="accent"
-      matTooltip="Edit this organization's data"
-      matTooltipPosition="right"
-      routerLink="/organization/{{ organization?.id }}/edit"
-    >
-      Edit
-    </button>
-  </mat-card-actions> -->
