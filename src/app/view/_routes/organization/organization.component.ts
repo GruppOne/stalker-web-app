@@ -2,7 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Administrator} from 'src/app/model/classes/administrator';
+import {AdminType} from 'src/app/model/classes/administrator';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
+import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
+import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
+import {PlaceBuilder} from 'src/app/model/classes/places/place';
+import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
+import {LoginService} from 'src/app/model/services/login.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 
 import {
@@ -28,6 +35,7 @@ export class OrganizationComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     public readonly dialog: MatDialog,
+    private readonly loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +87,13 @@ export class OrganizationComponent implements OnInit {
         console.log(this.administrators);
       },
       (err: Error) => console.error(err),
+    );
+  }
+
+  checkLevel(level: string): boolean {
+    return this.loginService.checkAuthorization(
+      Number(this.route.snapshot.paramMap.get('id')),
+      level as AdminType,
     );
   }
 }
