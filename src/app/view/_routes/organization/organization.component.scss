@@ -36,6 +36,7 @@
 
   .inlineRight {
     font-size: 16px;
+    line-height: 46px;
     text-align: right;
     width: 40% !important;
   }
@@ -57,5 +58,20 @@
     background-color: #cb2431;
     color: #fff;
     cursor: pointer;
+  }
+
+  .linearLayoutP,
+  .linearLayoutIcon {
+    display: inline-block;
+  }
+
+  .linearLayoutIcon {
+    cursor: pointer;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  p {
+    margin: 0;
   }
 }

@@ -6,26 +6,35 @@
 <div class="organizationData">
   <h1>Organization data</h1>
   <mat-card>
-    <div *ngIf="organization?.data?.ldapConfiguration">
+    <div *ngIf="organization?.data?.ldapConfiguration?.username !== undefined">
       <mat-card-content>
         <div class="inlineLeft">
           <mat-card-title>LDAP Configuration</mat-card-title>
           <mat-card-subtitle>Access data to the LDAP server</mat-card-subtitle>
         </div>
-        <p class="inlineRight">
+        <div class="inlineRight">
           {{ organization?.data?.ldapConfiguration?.username }}@{{ organization?.data?.ldapConfiguration?.host }},
           {{ organization?.data?.ldapConfiguration?.password }}
-        </p>
+        </div>
       </mat-card-content>
       <mat-divider></mat-divider>
     </div>
     <mat-card-content>
-      <div class="inlineLeft">
+      <div class="inlineLeft" [style.vertical-align]="administrators.length > 1 ? 'top' : 'middle'">
         <mat-card-title>Roles</mat-card-title>
         <mat-card-subtitle>List of users with a role in this organization</mat-card-subtitle>
       </div>
       <div class="inlineRight">
-        <p *ngFor="let a of administrators">{{ a.role }} - {{ a.email }}</p>
+        <div *ngFor="let a of administrators">
+          <p class="linearLayoutP">{{ a.email }}</p>
+          <mat-icon
+            class="linearLayoutIcon"
+            [matTooltip]="a.role != 'Viewer' ? (a.role != 'Manager' ? 'Owner' : 'Manager') : 'Viewer'"
+            matTooltipPosition="right"
+          >
+            {{ a.role != 'Viewer' ? (a.role != 'Manager' ? 'event_seat' : 'build') : 'visibility' }}
+          </mat-icon>
+        </div>
       </div>
     </mat-card-content>
     <mat-divider></mat-divider>
@@ -34,7 +43,7 @@
         <mat-card-title>Creation date</mat-card-title>
         <mat-card-subtitle>This organization was created on this date</mat-card-subtitle>
       </div>
-      <p class="inlineRight">{{ date.toLocaleString() }}</p>
+      <div class="inlineRight">{{ date.toLocaleString() }}</div>
     </mat-card-content>
     <mat-divider></mat-divider>
     <mat-card-actions>
