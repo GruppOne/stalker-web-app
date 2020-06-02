@@ -93,8 +93,8 @@ export class HttpClientService {
       console.error(`status: ${err.status}, ${err.statusText}`);
       if (err.status.toString() === '0') {
         return throwError(
-          'there seems to have been problems connecting to our' +
-            ' servers, please try again later!',
+          'There seems to have been problems connecting to our' +
+            ' servers, please try again later',
         );
       } else if (
         err.status.toString() === '500' ||
@@ -103,23 +103,20 @@ export class HttpClientService {
         err.status.toString() === '503'
       ) {
         return throwError(
-          'our server has experienced some internal errors' + ', please try again!',
+          'Our server has experienced some internal errors, please try again',
         );
       } else if (err.status.toString() === '401') {
-        return throwError(
-          'You are not logged in yet' + ', please login and then try again!',
-        );
+        return throwError('You are not logged in, please login and then try again');
       } else if (err.status.toString() === '403') {
         return throwError(
-          'Sorry, but you are not a big enough member ' +
-            'of stalker to complete this operation',
+          "Sorry, but you don't have enough permissions to complete this operation",
         );
       } else if (err.status.toString() === '404') {
-        return throwError('Sorry, we could not find the resource you were looking for ');
+        return throwError('Sorry, we could not find the resource you were looking for');
       } else {
         return throwError(
-          'Oops! seems there was an unexpected problem processing' +
-            ' your request, please try again!',
+          'Ops! Seems there was an unexpected problem processing' +
+            ' your request, please try again',
         );
       }
     };
