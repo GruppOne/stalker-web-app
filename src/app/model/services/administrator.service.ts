@@ -37,7 +37,7 @@ export class AdministratorService {
 
   getAdministrators(organizationId: number): Observable<Administrator[]> {
     return this.httpClientService
-      .get<Administrator[]>(`/organization/${organizationId}/users/connection`)
+      .get<Administrator[]>(`/organization/${organizationId}/users/roles`)
       .pipe(
         map(
           (response: HttpResponse<Administrator[]>) => response.body as Administrator[],
