@@ -23,6 +23,7 @@ import {OrganizationComponent} from './view/_routes/organization/organization.co
 import {OrganizationsComponent} from './view/_routes/organizations/organizations.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
 import {ReportComponent} from './view/_routes/report/report.component';
+import {UserReportComponent} from './view/_routes/user-report/user-report.component';
 import {AdministratorComponent} from './view/components/administrator/administrator.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
 import {ColorPickerComponent} from './view/components/color-picker/color-picker.component';
@@ -96,6 +97,7 @@ const routes: Routes = [
     ConfirmDialogComponent,
     InsertEmailDialogComponent,
     ListComponent,
+    UserReportComponent,
   ],
   imports: [
     CustomMaterialModule,
