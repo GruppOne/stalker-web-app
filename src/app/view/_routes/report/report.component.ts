@@ -69,40 +69,40 @@ export class ReportComponent implements AfterViewInit {
   ];
   userInPlaceChartLabels: string[] = [];
 
-  userInOrganizationChartOptions = {
-    maintainAspectRatio: false,
-    responsive: true,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-    },
-  };
-  userInOrganizationChartData = [
-    {
-      data: [4, 35, 142, 146, 148, 54, 88, 107, 145],
-      label: 'People inside',
-    },
-  ];
-  userInOrganizationChartLabels = [
-    '07:00',
-    '08:00',
-    '09:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-  ];
+  // userInOrganizationChartOptions = {
+  //   maintainAspectRatio: false,
+  //   responsive: true,
+  //   scales: {
+  //     yAxes: [
+  //       {
+  //         ticks: {
+  //           beginAtZero: true,
+  //         },
+  //       },
+  //     ],
+  //   },
+  // };
+  // userInOrganizationChartData = [
+  //   {
+  //     data: [4, 35, 142, 146, 148, 54, 88, 107, 145],
+  //     label: 'People inside',
+  //   },
+  // ];
+  // userInOrganizationChartLabels = [
+  //   '07:00',
+  //   '08:00',
+  //   '09:00',
+  //   '10:00',
+  //   '11:00',
+  //   '12:00',
+  //   '13:00',
+  //   '14:00',
+  //   '15:00',
+  //   '16:00',
+  //   '17:00',
+  //   '18:00',
+  //   '19:00',
+  // ];
 
   ngAfterViewInit(): void {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
