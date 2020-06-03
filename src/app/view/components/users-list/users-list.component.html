@@ -1,4 +1,4 @@
-<div class="tableContainer">
+<div class="tableContainer" [style.width]="router.url !== '/users' ? '100%' : ''" *ngIf="connectedUsers.length > 0">
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input #filterInput maxlength="100" matInput (keyup)="applyFilter($event)" />
@@ -34,4 +34,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<div class="noUsers" *ngIf="connectedUsers.length === 0">
+  <h1>No users connected to this organization yet</h1>
 </div>
