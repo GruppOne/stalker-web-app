@@ -2,36 +2,38 @@
 <h2 class="subtitle-page-under-toolbar">Fill out this form to edit the details of your organization</h2>
 <form [formGroup]="formGroup" editOrganizationForm="ngForm" (ngSubmit)="submitOrganizationForm()">
   <mat-vertical-stepper #stepper formArrayName="formArray">
-    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
-      <ng-template matStepLabel>Basic details</ng-template>
-      <mat-form-field>
-        <mat-label>Organization name</mat-label>
-        <input
-          #orgNameCtrl
-          maxlength="50"
-          matInput
-          placeholder="Organization Name Example"
-          formControlName="orgNameCtrl"
-          required
-        />
-        <mat-hint class="hint-end" align="end">{{ orgNameCtrl.value.length }} / 50</mat-hint>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Organization description</mat-label>
-        <textarea
-          #orgDescriptionCtrl
-          maxlength="150"
-          matInput
-          placeholder="Lorem ipsum dolor sit amet..."
-          formControlName="orgDescriptionCtrl"
-          required
-        ></textarea>
-        <mat-hint class="hint-end" align="end">{{ orgDescriptionCtrl.value.length }} / 150</mat-hint>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-    </mat-step>
+    <div>
+      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])" *ngIf="userLevel >= 3">
+        <ng-template matStepLabel>Basic details</ng-template>
+        <mat-form-field>
+          <mat-label>Organization name</mat-label>
+          <input
+            #orgNameCtrl
+            maxlength="50"
+            matInput
+            placeholder="Organization Name Example"
+            formControlName="orgNameCtrl"
+            required
+          />
+          <mat-hint class="hint-end" align="end">{{ orgNameCtrl.value.length }} / 50</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Organization description</mat-label>
+          <textarea
+            #orgDescriptionCtrl
+            maxlength="150"
+            matInput
+            placeholder="Lorem ipsum dolor sit amet..."
+            formControlName="orgDescriptionCtrl"
+            required
+          ></textarea>
+          <mat-hint class="hint-end" align="end">{{ orgDescriptionCtrl.value.length }} / 150</mat-hint>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+    </div>
     <mat-step>
       <ng-template matStepLabel>Monitored places</ng-template>
       <app-map #map></app-map>
@@ -40,7 +42,7 @@
         <button mat-button matStepperNext type="button">Next</button>
       </div>
     </mat-step>
-    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true">
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true" *ngIf="userLevel >= 3">
       <ng-template matStepLabel>Additional user authentication</ng-template>
       <mat-form-field>
         <mat-label>Url</mat-label>
@@ -67,7 +69,7 @@
         <button mat-button matStepperNext type="button">Next</button>
       </div>
     </mat-step>
-    <mat-step [optional]="true">
+    <mat-step [optional]="true" *ngIf="userLevel >= 3">
       <ng-template matStepLabel>Manage administrators</ng-template>
       <app-administrator></app-administrator>
       <div>

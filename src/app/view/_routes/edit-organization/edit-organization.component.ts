@@ -27,6 +27,8 @@ export class EditOrganizationComponent implements OnInit {
   organizationBuilder?: OrganizationBuilder;
   formGroup: FormGroup = new FormGroup({});
 
+  userLevel = 0;
+
   /**
    *  Returns a FormArray with the name 'formArray'.
    */
@@ -61,6 +63,7 @@ export class EditOrganizationComponent implements OnInit {
         }),
       ]),
     });
+    this.getLevel();
   }
 
   /**
@@ -143,5 +146,10 @@ export class EditOrganizationComponent implements OnInit {
           (err: Error) => console.error(err),
         );
     }
+  }
+  getLevel(): void {
+    this.userLevel = this.loginService.getUserRole(
+      +(this.route.snapshot.paramMap.get('id') as string),
+    );
   }
 }

@@ -50,7 +50,7 @@
       <div class="inlineRight">{{ date.toLocaleString() }}</div>
     </mat-card-content>
     <mat-divider></mat-divider>
-    <mat-card-actions *ngIf="checkLevel('owner')">
+    <mat-card-actions *ngIf="userLevel >= 2">
       <button
         mat-raised-button
         color="accent"
