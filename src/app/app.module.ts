@@ -17,12 +17,12 @@ import {CustomMaterialModule} from './modules/material.module';
 import {CreateOrganizationComponent} from './view/_routes/create-organization/create-organization.component';
 import {EditOrganizationComponent} from './view/_routes/edit-organization/edit-organization.component';
 import {HomeComponent} from './view/_routes/home/home.component';
+import {ListComponent} from './view/_routes/list/list.component';
 import {NotFoundComponent} from './view/_routes/not-found/not-found.component';
 import {OrganizationComponent} from './view/_routes/organization/organization.component';
 import {OrganizationsComponent} from './view/_routes/organizations/organizations.component';
 import {ProfileComponent} from './view/_routes/profile/profile.component';
 import {ReportComponent} from './view/_routes/report/report.component';
-import {UsersListComponent} from './view/_routes/users-list/users-list.component';
 import {AdministratorComponent} from './view/components/administrator/administrator.component';
 import {ButtonConfirmComponent} from './view/components/button-confirm/button-confirm.component';
 import {ColorPickerComponent} from './view/components/color-picker/color-picker.component';
@@ -31,6 +31,7 @@ import {FormEmailComponent} from './view/components/form-email/form-email.compon
 import {FormPasswordComponent} from './view/components/form-password/form-password.component';
 import {InsertEmailDialogComponent} from './view/components/insert-email-dialog/insert-email-dialog.component';
 import {MapComponent} from './view/components/map/map.component';
+import {UsersListComponent} from './view/components/users-list/users-list.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -69,7 +70,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UsersListComponent,
+    component: ListComponent,
   },
   // route to 404
   {path: '**', component: NotFoundComponent},
@@ -95,6 +96,7 @@ const routes: Routes = [
     UsersListComponent,
     ConfirmDialogComponent,
     InsertEmailDialogComponent,
+    ListComponent,
   ],
   imports: [
     CustomMaterialModule,

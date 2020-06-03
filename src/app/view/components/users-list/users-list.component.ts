@@ -3,12 +3,12 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from 'src/app/model/classes/users/user';
 import {UserService} from 'src/app/model/services/user.service';
 
-import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
-import {InsertEmailDialogComponent} from '../../components/insert-email-dialog/insert-email-dialog.component';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {InsertEmailDialogComponent} from '../insert-email-dialog/insert-email-dialog.component';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
   connectedUsers: User[] = [
     {
       id: 1,
-      userData: {
+      data: {
         email: 'alex.rizzo1998@gmail.com',
         firstName: 'Alessandro',
         lastName: 'Rizzo',
@@ -37,8 +37,8 @@ export class UsersListComponent implements OnInit {
     },
     {
       id: 2,
-      userData: {
-        email: 'alex.rizzo1998@gmail.com',
+      data: {
+        email: 'fabioscettro@gmail.com',
         firstName: 'Fabio',
         lastName: 'Scettro',
       },
@@ -47,6 +47,7 @@ export class UsersListComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
+    public router: Router,
     public dialog: MatDialog,
   ) {
     // Assign the data to the data source for the table to render
@@ -158,5 +159,15 @@ export class UsersListComponent implements OnInit {
     );
     this.connectedUsers.splice(this.connectedUsers.indexOf(toDeleteUser as User), 1);
     this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
+  }
+
+  getLink(userId: number): string {
+    if (this.router.url === '/users') {
+      return `/user/${userId}`;
+    } else {
+      return `/organization/${
+        this.route.snapshot.paramMap.get('id') as string
+      }/user-report/${userId}`;
+    }
   }
 }
