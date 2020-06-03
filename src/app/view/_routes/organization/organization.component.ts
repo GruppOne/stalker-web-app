@@ -28,7 +28,8 @@ export class OrganizationComponent implements OnInit {
   private readonly organizationBuilder?: OrganizationBuilder;
   administrators: Administrator[] = [];
   date: Date = new Date();
-  /* eslint-disable max-params */
+
+  userLevel = 0;
   constructor(
     private readonly organizationService: OrganizationService,
     private readonly administratorService: AdministratorService,
@@ -90,10 +91,9 @@ export class OrganizationComponent implements OnInit {
     );
   }
 
-  checkLevel(level: string): boolean {
-    return this.loginService.checkAuthorization(
-      Number(this.route.snapshot.paramMap.get('id')),
-      level as AdminType,
+  getLevel(): void {
+    this.userLevel = this.loginService.getUserRole(
+      +(this.route.snapshot.paramMap.get('id') as string),
     );
   }
 }
