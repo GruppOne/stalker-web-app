@@ -12,7 +12,7 @@
       </mat-select>
     </mat-form-field>
     <ul class="timeline">
-      <li *ngFor="let u of userMovementInfo" [class]="u.enter ? 'enter' : 'exit'">
+      <li *ngFor="let u of this.userMovementInfo; let i = index" [class]="u.enter ? 'enter' : 'exit'">
         <div class="timelineNote">
           <div class="triangle"></div>
           <mat-icon [class]="u.enter ? 'enterIcon' : 'exitIcon'">{{
@@ -20,21 +20,28 @@
           }}</mat-icon>
           <span class="dateMessage">{{ u.time.toLocaleString() }}</span>
           <p class="timelineMessage">
-            {{ userName }} {{ u.enter ? 'entered' : 'exited' }}
+            {{ user?.data?.firstName }} {{ u.enter ? 'entered' : 'exited' }}
             {{ getPlaceName(u.placeId) }}
           </p>
+        </div>
+        <div class="timeInsideMessage" *ngIf="u.enter">
+          Inside for:<br />{{ calcolateTime(i) }}
+          <div class="triangleTimeInside"></div>
         </div>
       </li>
     </ul>
   </mat-card>
-  <div class="userInfoContainer">
+  <div class="infoContainer">
     <mat-card>
       <mat-card-title>User data</mat-card-title>
       <mat-card-subtitle>Information about the user</mat-card-subtitle>
+      <mat-card-content class="userInfo">
+        {{ user?.data?.firstName }} {{ user?.data?.lastName }}, {{ user?.data?.birthDate }}
+      </mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>User data</mat-card-title>
-      <mat-card-subtitle>Information about the user</mat-card-subtitle>
+      <mat-card-title>Place data</mat-card-title>
+      <mat-card-subtitle>How much time this user passed inside every place of the organization</mat-card-subtitle>
     </mat-card>
     <mat-card>
       <mat-card-title>User data</mat-card-title>
