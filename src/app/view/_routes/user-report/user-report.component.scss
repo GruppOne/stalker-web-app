@@ -7,7 +7,7 @@ h2 {
   display: flex;
 
   .timeline-container,
-  .userInfoContainer {
+  .infoContainer {
     flex-grow: 1;
     margin: 0 5px;
   }
@@ -16,19 +16,23 @@ h2 {
     margin-left: 0;
   }
 
-  .userInfoContainer {
+  .infoContainer {
     margin-right: 0;
   }
 }
 
-.userInfoContainer {
+.infoContainer {
   display: flex;
   flex-direction: column;
-  max-height: 700px;
 
   .mat-card {
     flex-grow: 1;
     margin-bottom: 10px;
+  }
+
+  .mat-card:first-of-type {
+    max-height: 90px;
+    min-height: 90px;
   }
 
   .mat-card:last-of-type {
@@ -38,11 +42,11 @@ h2 {
 
 .timeline-container {
   max-height: 700px;
-  max-width: 350px;
+  max-width: 450px;
+  min-width: 450px;
   overflow-y: auto;
   padding-top: 0;
   position: relative;
-  width: 350px;
 
   .mat-card-title {
     background-color: #fff;
@@ -53,7 +57,7 @@ h2 {
     position: sticky;
     text-align: center;
     top: 0;
-    width: 350px;
+    width: 450px;
     z-index: 402;
   }
 
@@ -64,13 +68,14 @@ h2 {
     padding-top: 5px;
     position: sticky;
     top: 45px;
-    width: 350px;
+    width: 450px;
     z-index: 402;
   }
 }
 
 .timeline {
   list-style-type: none;
+  margin-left: 100px;
   padding-bottom: 20px;
   position: relative;
 
@@ -149,6 +154,27 @@ h2 {
   padding-top: 30px;
 }
 
+.timeInsideMessage {
+  background-color: rgb(235, 235, 235);
+  border-radius: 4px;
+  left: -100px;
+  margin-top: -25px;
+  padding: 3px 8px;
+  position: absolute;
+  width: 87px;
+}
+
+.triangleTimeInside {
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgb(235, 235, 235);
+  border-top: 10px solid transparent;
+  height: 0;
+  margin-top: -30px;
+  position: absolute;
+  right: -10px;
+  width: 0;
+}
+
 .timeline-container::-webkit-scrollbar-thumb {
   border: 3px solid #fff;
 }
@@ -167,4 +193,10 @@ h2 {
   left: 51px;
   position: absolute;
   width: 0;
+}
+
+.userInfo {
+  font-size: 22px;
+  text-align: center;
+  width: 100%;
 }
