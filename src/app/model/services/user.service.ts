@@ -61,14 +61,14 @@ export class UserService {
     const input: UserHistoryAPI = {
       id: 1,
       history: [
-        {timestamp: 1590677758, placeId: 1, inside: false},
-        {timestamp: 1590678883, placeId: 1, inside: false},
-        {timestamp: 1590679603, placeId: 1, inside: true},
-        {timestamp: 1590680277, placeId: 1, inside: true},
-        {timestamp: 1590682482, placeId: 1, inside: true},
-        {timestamp: 1590682989, placeId: 1, inside: false},
-        {timestamp: 1590683530, placeId: 1, inside: true},
-        {timestamp: 1590683600, placeId: 1, inside: false},
+        {timestamp: 1590677758, placeId: 2, inside: false},
+        {timestamp: 1590678883, placeId: 2, inside: false},
+        {timestamp: 1590679603, placeId: 2, inside: true},
+        {timestamp: 1590680277, placeId: 2, inside: true},
+        {timestamp: 1590682482, placeId: 2, inside: true},
+        {timestamp: 1590682989, placeId: 2, inside: false},
+        {timestamp: 1590683530, placeId: 2, inside: true},
+        {timestamp: 1590683600, placeId: 2, inside: false},
       ],
     };
     /*     return this.httpClientService
