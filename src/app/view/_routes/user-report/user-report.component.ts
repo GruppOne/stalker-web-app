@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
+import {User} from 'src/app/model/classes/users/user';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user-report',
@@ -7,19 +9,43 @@ import {UserService, UserMovement} from 'src/app/model/services/user.service';
   styleUrls: ['./user-report.component.scss'],
 })
 export class UserReportComponent implements OnInit {
-  userMovementInfo: UserMovement[] = [
-    {time: new Date(1608595200), placeId: 1, enter: true},
-    {time: new Date(1608620400), placeId: 1, enter: false},
-    {time: new Date(1608894000), placeId: 2, enter: true},
-    {time: new Date(1608897600), placeId: 2, enter: false},
+  user?: User;
+  places = [
+    {
+      placeId: 1,
+      placeName: 'Torre Archimede',
+    },
+    {
+      placeId: 2,
+      placeName: 'Complesso Paolotti',
+    },
   ];
-  constructor(private readonly userService: UserService) {}
-  ngOnInit(): void {}
+
+  userMovementInfo: UserMovement[] = [];
+  constructor(
+    private readonly userService: UserService,
+    private readonly route: ActivatedRoute,
+  ) {}
+
+  ngOnInit(): void {
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    const userId = +(this.route.snapshot.paramMap.get('userId') as string);
+    this.getUserHistory(userId, organizationId);
+    this.getUserById(userId);
+    // this.getOrgPlaces(organizationId);
+  }
 
   getPlaceName(placeId: number): string {
     return this.places.find((element) => element.placeId === placeId)
       ?.placeName as string;
   }
+
+  getUserById(userId: number): void {
+    this.userService
+      .getUserById(userId)
+      .subscribe((response: User) => (this.user = response));
+  }
+
   /*
   getOrgPlaces(orgId: number): void {
     this.placeService

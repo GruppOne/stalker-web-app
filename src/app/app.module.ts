@@ -40,7 +40,12 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
-  {path: 'user/:id', component: ProfileComponent, canActivate: [AuthGuard]},
+  {
+    path: 'user/:id',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    pathMatch: 'full',
+  },
   {path: 'organizations', component: OrganizationsComponent, canActivate: [AuthGuard]},
   {
     path: 'organization/create',
@@ -66,11 +71,14 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     // data: {roles: AdminType.manager},
   },
+  // we used id as organizationId beacause that's the parameter the authguard checks
+  // for permission on organizations
   {
-    path: 'organization/:id/user/:id/history',
+    path: 'organization/:id/user/:userId/history',
     component: UserReportComponent,
     // canActivate: [AuthGuard],
     // data: {roles: AdminType.manager},
+    pathMatch: 'full',
   },
   {
     path: 'organization/:id/users',
