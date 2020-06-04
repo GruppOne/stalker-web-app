@@ -1,0 +1,88 @@
+h1,
+h2 {
+  width: 100% !important;
+}
+
+.timeline-container {
+  max-height: 800px;
+  overflow-y: auto;
+  width: 500px;
+}
+
+.timeline {
+  list-style-type: none;
+  position: relative;
+
+  li {
+    margin: 30px 0;
+    padding-left: 20px;
+  }
+
+  li:first-of-type {
+    margin-top: 10px;
+  }
+
+  li:last-of-type {
+    margin-bottom: 0;
+  }
+
+  li::before {
+    box-sizing: border-box;
+    content: '';
+    display: inline-block;
+    height: 30px;
+    left: 15px;
+    position: absolute;
+    width: 30px;
+    z-index: 400;
+  }
+
+  .mat-icon {
+    font-size: 16px;
+    left: 22px;
+    margin-top: 8px;
+    position: absolute;
+    z-index: 401;
+  }
+}
+
+.timeline::before {
+  background: #d4d9df;
+  box-sizing: border-box;
+  content: ' ';
+  display: inline-block;
+  height: 100%;
+  left: 29px;
+  position: absolute;
+  width: 2px;
+  z-index: 400;
+}
+
+.enter::before {
+  background: #fff;
+  border: 3px solid rgb(27, 142, 5);
+  border-radius: 50%;
+}
+
+.enterIcon {
+  color: rgb(27, 142, 5);
+}
+
+.exit::before {
+  background: #fff;
+  border: 3px solid rgb(175, 6, 6);
+  border-radius: 50%;
+}
+
+.exitIcon {
+  color: rgb(175, 6, 6);
+}
+
+.timelineMessage {
+  color: #7b7b7b;
+  margin-top: 10px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+  border: 3px solid #fff;
+}
