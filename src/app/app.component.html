@@ -51,7 +51,7 @@
   src="../assets/walking-crowd.png"
   alt="Stalker background image"
 />
-<div class="whiteBar" *ngIf="this.getRoute().includes('/user/')"></div>
+<div class="whiteBar" *ngIf="this.getRoute().includes('/user/') && !this.getRoute().includes('/history')"></div>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
