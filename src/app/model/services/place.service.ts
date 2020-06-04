@@ -1,10 +1,12 @@
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClientService} from './http-client.service';
+import {map} from 'rxjs/operators';
+
 import {Place} from '../classes/places/place';
 import {PlaceData} from '../classes/places/place-data';
-import {map} from 'rxjs/operators';
+
+import {HttpClientService} from './http-client.service';
 
 export interface Geocoding {
   display_name: string;
