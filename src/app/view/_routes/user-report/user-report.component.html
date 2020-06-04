@@ -1,1 +1,15 @@
-<p>user-report works!</p>
+<h1 class="title-page-under-toolbar">User report</h1>
+<h2 class="subtitle-page-under-toolbar">Here you can see a detailed report of this user's movement</h2>
+<mat-card class="timeline-container">
+  <ul class="timeline">
+    <li *ngFor="let u of userMovementInfo" [class]="u.enter ? 'enter' : 'exit'">
+      <mat-icon [class]="u.enter ? 'enterIcon' : 'exitIcon'">{{ u.enter ? 'business' : 'domain_disabled' }}</mat-icon>
+      <span>{{ u.enter ? 'Enter' : 'Exit' }}</span>
+      <span style="float: right;">{{ u.time.toLocaleString() }}</span>
+      <p class="timelineMessage">
+        {{ userName }} {{ u.enter ? 'entered' : 'exited' }}
+        {{ getPlaceName(u.placeId) }}
+      </p>
+    </li>
+  </ul>
+</mat-card>
