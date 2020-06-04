@@ -67,7 +67,7 @@ const routes: Routes = [
     // data: {roles: AdminType.manager},
   },
   {
-    path: 'organization/:id/user-report/:userid',
+    path: 'organization/:id/user/:id/history',
     component: UserReportComponent,
     // canActivate: [AuthGuard],
     // data: {roles: AdminType.manager},
