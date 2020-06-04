@@ -1,11 +1,22 @@
 import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {User} from '../classes/users/user';
 
 import {HttpClientService} from './http-client.service';
+
+export interface UserMovement {
+  time: Date;
+  placeId: number;
+  enter: boolean;
+}
+
+export interface UserHistoryAPI {
+  id: number;
+  history: {timestamp: number; placeId: number; inside: boolean}[];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +56,78 @@ export class UserService {
     return this.httpClientService
       .delete<boolean>(`/user/${userId}`)
       .pipe(map(() => true));
+  }
+  getUserHistory(organizationId: number, userId: number): Observable<UserMovement[]> {
+    const input: UserHistoryAPI = {
+      id: 1,
+      history: [
+        {timestamp: 1590677758, placeId: 1, inside: false},
+        {timestamp: 1590678883, placeId: 1, inside: false},
+        {timestamp: 1590679603, placeId: 1, inside: true},
+        {timestamp: 1590680277, placeId: 1, inside: true},
+        {timestamp: 1590682482, placeId: 1, inside: true},
+        {timestamp: 1590682989, placeId: 1, inside: false},
+        {timestamp: 1590683530, placeId: 1, inside: true},
+        {timestamp: 1590683600, placeId: 1, inside: false},
+      ],
+    };
+    /*     return this.httpClientService
+      .get<UserHistoryAPI>(`/organization/${organizationId}/user/${userId}/history`)
+      .pipe(
+        map((response: HttpResponse<UserHistoryAPI>) => {
+          const userHistory: UserMovement[] = [];
+          if (response.body) {
+            for (const iterator of response.body.history) {
+              if (iterator.inside) {
+                if (
+                  !userHistory[userHistory.length - 1].enter ||
+                  userHistory.length === 0
+                ) {
+                  userHistory.push({
+                    time: new Date(iterator.timestamp),
+                    placeId: iterator.placeId,
+                    enter: true,
+                  });
+                }
+              } else {
+                if (userHistory[userHistory.length - 1].enter) {
+                  userHistory.push({
+                    time: new Date(iterator.timestamp),
+                    placeId: iterator.placeId,
+                    enter: false,
+                  });
+                }
+              }
+            }
+          }
+          return userHistory;
+        }),
+    ); */
+    const userHistory: UserMovement[] = [];
+    if (input) {
+      for (const iterator of input.history) {
+        if (iterator.inside) {
+          if (userHistory.length === 0 || !userHistory[userHistory.length - 1].enter) {
+            userHistory.push({
+              time: new Date(iterator.timestamp * 1000),
+              placeId: iterator.placeId,
+              enter: true,
+            });
+          }
+        } else {
+          if (
+            userHistory[userHistory.length - 1] &&
+            userHistory[userHistory.length - 1].enter
+          ) {
+            userHistory.push({
+              time: new Date(iterator.timestamp * 1000),
+              placeId: iterator.placeId,
+              enter: false,
+            });
+          }
+        }
+      }
+    }
+    return of(userHistory);
   }
 }
