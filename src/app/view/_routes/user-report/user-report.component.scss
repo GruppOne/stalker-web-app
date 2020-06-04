@@ -3,14 +3,75 @@ h2 {
   width: 100% !important;
 }
 
+.reportContainer {
+  display: flex;
+
+  .timeline-container,
+  .userInfoContainer {
+    flex-grow: 1;
+    margin: 0 5px;
+  }
+
+  .timeline-container {
+    margin-left: 0;
+  }
+
+  .userInfoContainer {
+    margin-right: 0;
+  }
+}
+
+.userInfoContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 700px;
+
+  .mat-card {
+    flex-grow: 1;
+    margin-bottom: 10px;
+  }
+
+  .mat-card:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
 .timeline-container {
-  max-height: 800px;
+  max-height: 700px;
+  max-width: 350px;
   overflow-y: auto;
-  width: 500px;
+  padding-top: 0;
+  position: relative;
+  width: 350px;
+
+  .mat-card-title {
+    background-color: #fff;
+    box-sizing: border-box;
+    left: 0;
+    margin: 0;
+    padding: 25px 0 0;
+    position: sticky;
+    text-align: center;
+    top: 0;
+    width: 350px;
+    z-index: 402;
+  }
+
+  .mat-form-field {
+    background-color: #fff;
+    left: 0;
+    margin: 0;
+    padding-top: 5px;
+    position: sticky;
+    top: 45px;
+    width: 350px;
+    z-index: 402;
+  }
 }
 
 .timeline {
   list-style-type: none;
+  padding-bottom: 20px;
   position: relative;
 
   li {
@@ -40,7 +101,7 @@ h2 {
   .mat-icon {
     font-size: 16px;
     left: 22px;
-    margin-top: 8px;
+    margin-top: 5px;
     position: absolute;
     z-index: 401;
   }
@@ -78,11 +139,32 @@ h2 {
   color: rgb(175, 6, 6);
 }
 
-.timelineMessage {
+.dateMessage {
   color: #7b7b7b;
-  margin-top: 10px;
+  float: right;
+}
+
+.timelineMessage {
+  margin: 0;
+  padding-top: 30px;
 }
 
 .timeline-container::-webkit-scrollbar-thumb {
   border: 3px solid #fff;
+}
+
+.timelineNote {
+  background-color: rgb(235, 235, 235);
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+.triangle {
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid rgb(235, 235, 235);
+  border-top: 10px solid transparent;
+  height: 0;
+  left: 51px;
+  position: absolute;
+  width: 0;
 }
