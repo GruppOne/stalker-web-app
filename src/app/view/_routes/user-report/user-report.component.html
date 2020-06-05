@@ -25,8 +25,13 @@
           </p>
         </div>
         <div class="timeInsideMessage" *ngIf="u.enter">
-          Inside for:<br />{{ calcolateTime(i) }}
-          <div class="triangleTimeInside"></div>
+          <div *ngIf="{t: calcolateTime(i)}; let time">
+            Inside for:<br />{{ time.t }}
+            <div
+              class="triangleTimeInside"
+              [style.margin-top]="time.t.length > 11 ? (time.t.length > 24 ? '-70px' : '-50px') : '-30px'"
+            ></div>
+          </div>
         </div>
       </li>
     </ul>
