@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Administrator} from 'src/app/model/classes/administrator';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
@@ -13,6 +14,7 @@ import {
   Organization,
   OrganizationBuilder,
 } from '../../../model/classes/organizations/organization';
+import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-organization',
@@ -30,6 +32,7 @@ export class OrganizationComponent implements OnInit {
     private readonly administratorService: AdministratorService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    public readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -91,8 +94,19 @@ export class OrganizationComponent implements OnInit {
   }
 
   deleteOrganizationById(id: number): void {
-    this.organizationService.deleteOrganizationById(id).subscribe(() => {
-      this.router.navigate(['/organizations']);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        message: "Are you sure? Deleting an organization can't be undone.",
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.organizationService.deleteOrganizationById(id).subscribe(() => {
+          this.router.navigate(['/organizations']);
+        });
+      }
     });
   }
 

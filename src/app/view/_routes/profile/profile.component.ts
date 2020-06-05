@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {LoginService} from 'src/app/model/services/login.service';
 
 import {User, UserBuilder} from '../../../model/classes/users/user';
 import {UserData} from '../../../model/classes/users/user-data';
 import {UserService} from '../../../model/services/user.service';
+import {InsertEmailDialogComponent} from '../../components/insert-email-dialog/insert-email-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +22,7 @@ export class ProfileComponent implements OnInit {
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
     private readonly loginService: LoginService,
+    private readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -47,8 +50,20 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteUser(id: number): void {
-    this.userService.deleteUserById(id).subscribe(() => {
-      this.loginService.logout();
+    const dialogRef = this.dialog.open(InsertEmailDialogComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        message: "Are you sure? Deleting this account can't be undone.",
+        expectedEmail: this.user?.data?.email,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.deleteUserById(id).subscribe(() => {
+          this.loginService.logout();
+        });
+      }
     });
   }
 }

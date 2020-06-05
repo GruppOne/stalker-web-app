@@ -47,8 +47,8 @@ export class UsersListComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
-    public router: Router,
-    public dialog: MatDialog,
+    public readonly router: Router,
+    public readonly dialog: MatDialog,
   ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
