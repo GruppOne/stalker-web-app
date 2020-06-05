@@ -47,13 +47,23 @@
     <mat-card>
       <mat-card-title>Place data</mat-card-title>
       <mat-card-subtitle>How much time this user passed inside every place of the organization</mat-card-subtitle>
-      <ul>
-        <li *ngFor="let p of userPlacesTime">{{ secondsToTime(p.totSeconds) }}</li>
+      <ul class="placesLeaderboard">
+        <li>
+          <p></p>
+          <p class="placeName">Place name</p>
+          <p class="placeTime">Time inside</p>
+        </li>
+        <li *ngFor="let p of userPlacesTime; let i = index">
+          <p>{{ i + 1 }}.</p>
+          <p class="placeName">{{ getPlaceName(p.placeId) }}:</p>
+          <p class="placeTime">{{ secondsToTime(p.totSeconds) }}</p>
+        </li>
       </ul>
     </mat-card>
     <mat-card>
-      <mat-card-title>User data</mat-card-title>
-      <mat-card-subtitle>Information about the user</mat-card-subtitle>
+      <mat-card-title>Now</mat-card-title>
+      <mat-card-subtitle>Where is this user now</mat-card-subtitle>
+      <p>{{ userMovementInfo }}</p>
     </mat-card>
   </div>
 </div>

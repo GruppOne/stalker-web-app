@@ -199,3 +199,36 @@ h2 {
   text-align: center;
   width: 100%;
 }
+
+.placesLeaderboard {
+  list-style: none;
+  padding: 0;
+
+  p {
+    margin: 0;
+    padding: 5px;
+    width: 15%;
+  }
+
+  p:first-of-type {
+    text-align: center;
+  }
+
+  li {
+    border-bottom: 1px solid rgb(235, 235, 235);
+    display: flex;
+  }
+
+  li:first-of-type {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  li:last-of-type {
+    border: 0;
+  }
+
+  .placeName,
+  .placeTime {
+    width: 50%;
+  }
+}
