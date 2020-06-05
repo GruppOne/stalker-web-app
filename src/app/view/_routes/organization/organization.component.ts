@@ -84,6 +84,7 @@ export class OrganizationComponent implements OnInit {
         this.date = new Date(
           (this.organization?.data?.creationDateTime as unknown) as Date,
         );
+        console.log(this.organization);
       },
       (err: Error) => console.error(err),
     );
@@ -102,6 +103,7 @@ export class OrganizationComponent implements OnInit {
     this.administratorService.getAdministrators(organizationId).subscribe(
       (response: Administrator[]) => {
         this.administrators = response;
+        console.log(this.administrators);
       },
       (err: Error) => console.error(err),
     );

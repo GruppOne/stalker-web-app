@@ -1,17 +1,20 @@
-import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, forkJoin} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {Administrator} from '../classes/administrator';
 
 import {HttpClientService} from './http-client.service';
+import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdministratorService {
-  constructor(private readonly httpClientService: HttpClientService) {}
+  constructor(
+    private readonly httpClientService: HttpClientService,
+    private readonly userService: UserService,
+  ) {}
 
   addAdministrator(
     organizationId: number,
@@ -19,7 +22,7 @@ export class AdministratorService {
   ): Observable<boolean> {
     return this.httpClientService
       .post<Administrator>(
-        `/organization/${organizationId}/user/${administrator.id}/role`,
+        `/organization/${organizationId}/user/${administrator.userId}/role`,
         administrator,
       )
       .pipe(map(() => true));
@@ -36,12 +39,27 @@ export class AdministratorService {
   }
 
   getAdministrators(organizationId: number): Observable<Administrator[]> {
-    return this.httpClientService
-      .get<Administrator[]>(`/organization/${organizationId}/users/roles`)
-      .pipe(
-        map(
-          (response: HttpResponse<Administrator[]>) => response.body as Administrator[],
-        ),
-      );
+    return forkJoin(
+      this.httpClientService.get<{usersWithRoles: Administrator[]}>(
+        `/organization/${organizationId}/users/roles`,
+      ),
+      this.userService.getUsersConnectedToOrg(organizationId),
+    ).pipe(
+      map((response) => {
+        console.log(response[0].body?.usersWithRoles);
+        console.log(response[1]);
+        const administrators = response[0].body?.usersWithRoles as Administrator[];
+        for (const i of administrators) {
+          for (const j of response[1]) {
+            console.log(i.userId);
+            if (i.userId === j.id) {
+              console.log(i.userId);
+              i.email = j.data?.email as string;
+            }
+          }
+        }
+        return administrators;
+      }),
+    );
   }
 }

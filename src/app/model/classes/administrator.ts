@@ -1,5 +1,5 @@
 export interface Administrator {
-  id: number;
+  userId: number;
   email: string;
   role: AdminType;
 }

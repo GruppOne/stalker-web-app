@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+import {AdminType} from '../classes/administrator';
 import {LoginData} from '../classes/users/login-data';
 
 import {HttpClientService} from './http-client.service';
@@ -94,20 +95,22 @@ export class LoginService {
     this.router.navigate(['/home']);
   }
 
-  checkAuthorization(actualOrgId: number, desiredRole: string): boolean {
-    let authorized = false;
-    this.getAdminOrganizations().subscribe(
-      (response: {organizationId: number; role: string}[]) => {
-        response.forEach((element: {organizationId: number; role: string}) => {
+  checkAuthorization(actualOrgId: number, desiredRole: string): Observable<boolean> {
+    return this.getAdminOrganizations().pipe(
+      map((response: {organizationId: number; role: string}[]) => {
+        for (const element of response) {
           if (
-            element.organizationId === actualOrgId &&
-            this.adminMapping.get(element.role) >= this.adminMapping.get(desiredRole)
+            (element.organizationId === actualOrgId &&
+              this.adminMapping.get(element.role) >=
+                this.adminMapping.get(desiredRole)) ||
+            (desiredRole === AdminType.admin &&
+              this.adminMapping.get(element.role) >= this.adminMapping.get(desiredRole))
           ) {
-            authorized = true;
+            return true;
           }
-        });
-      },
+        }
+        return false;
+      }),
     );
-    return authorized;
   }
 }

@@ -61,8 +61,8 @@ const routes: Routes = [
   {
     path: 'organization/:id/report',
     component: ReportComponent,
-    // canActivate: [AuthGuard],
-    // data: {roles: AdminType.manager},
+    canActivate: [AuthGuard],
+    data: {roles: AdminType.manager},
   },
   {
     path: 'organization/:id/users',
