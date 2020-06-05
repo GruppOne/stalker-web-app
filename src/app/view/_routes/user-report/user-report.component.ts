@@ -32,7 +32,7 @@ export class UserReportComponent implements OnInit {
     },
   ];
 
-  userPlacesTime: {placeId: number; totHours: number}[] = [];
+  userPlacesTime: {placeId: number; totSeconds: number}[] = [];
 
   userMovementInfo: UserMovement[] = [];
   constructor(
@@ -49,9 +49,9 @@ export class UserReportComponent implements OnInit {
     // this.getOrgPlaces(organizationId);
   }
   /* HOW TO USE USERINPLACE TO EXTRACT INTEGER VALUES
-  moment(userPlacesTime[0].totHours,'h').toMinutes().toFixed(0);
-  moment(userPlacesTime[0].totHours,'h').toHours().toFixed(0);
-  moment(userPlacesTime[0].totHours,'h').toSeconds().toFixed(0);
+  moment(userPlacesTime[0].totSeconds,'h').toMinutes().toFixed(0);
+  moment(userPlacesTime[0].totSeconds,'h').toHours().toFixed(0);
+  moment(userPlacesTime[0].totSeconds,'h').toSeconds().toFixed(0);
 */
   getPlaceName(placeId: number): string {
     return this.places.find((element) => element.placeId === placeId)
@@ -83,9 +83,9 @@ export class UserReportComponent implements OnInit {
   }
 
   getPlaceStats(): void {
-    const placesData: {placeId: number; totHours: number}[] = [];
+    const placesData: {placeId: number; totSeconds: number}[] = [];
     for (let i = 0; i < this.places.length; i++) {
-      placesData.push({placeId: this.places[i].placeId, totHours: 0});
+      placesData.push({placeId: this.places[i].placeId, totSeconds: 0});
       let j = 0;
       if (this.userMovementInfo[0].enter) {
         j = 1;
@@ -119,7 +119,7 @@ export class UserReportComponent implements OnInit {
               .unix(this.userMovementInfo[j].time.getTime() / 1000)
               .format('HH:mm:ss'),
           );
-          placesData[i].totHours += moment
+          placesData[i].totSeconds += moment
             .duration(
               moment
                 .unix(this.userMovementInfo[j].time.getTime() / 1000)
@@ -127,13 +127,14 @@ export class UserReportComponent implements OnInit {
                 1000,
               'seconds',
             )
-            .asHours();
+            .asSeconds();
         }
       }
     }
-    placesData.sort((a, b) => (a.totHours >= b.totHours ? -1 : 1));
+    placesData.sort((a, b) => (a.totSeconds >= b.totSeconds ? -1 : 1));
     this.userPlacesTime = placesData;
     console.log(this.userPlacesTime);
+    console.log(this.secondsToTime(this.userPlacesTime[0].totSeconds));
   }
 
   calcolateTime(index: number): string {
@@ -141,12 +142,22 @@ export class UserReportComponent implements OnInit {
       const end = ((this.userMovementInfo[index + 1].time as unknown) as number) / 1000;
       const start = ((this.userMovementInfo[index].time as unknown) as number) / 1000;
       const seconds = end - start;
-      if (seconds < 3600) {
-        return `~ ${Math.round(seconds / 60)} minutes`;
-      } else {
-        return `~ ${Math.round(seconds / 3600)} hours`;
-      }
+      return this.secondsToTime(seconds);
+    } else {
+      return '';
     }
-    return '';
+  }
+
+  secondsToTime(seconds: number): string {
+    const days = Math.trunc(+moment.duration(seconds, 'seconds').asDays());
+    const restAfterDays = seconds - days * 24 * 3600;
+    const hours = Math.trunc(+moment.duration(restAfterDays, 'seconds').asHours());
+    const restAfterHours = restAfterDays - hours * 3600;
+    const minutes = Math.trunc(+moment.duration(restAfterHours, 'seconds').asMinutes());
+    return (
+      (days !== 0 ? `${days} days` : '') +
+      (hours !== 0 ? `${hours} hours` : '') +
+      (minutes !== 0 || hours === 0 ? `${minutes} minutes` : '')
+    );
   }
 }
