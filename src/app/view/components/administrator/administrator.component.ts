@@ -37,7 +37,7 @@ export class AdministratorComponent implements OnInit {
 
   addAdmin(): void {
     const admin: Administrator = {
-      id: this.checkIfEmailIsUser(
+      userId: this.checkIfEmailIsUser(
         this.formGroup.value.adminEmail,
         this.organizationUsers,
       ),
@@ -66,7 +66,7 @@ export class AdministratorComponent implements OnInit {
       .subscribe(
         () => {
           const admin = this.administrators.find(
-            (element: Administrator) => element.id === administratorId,
+            (element: Administrator) => element.userId === administratorId,
           );
           this.administrators.splice(
             this.administrators.indexOf(admin as Administrator),

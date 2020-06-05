@@ -10,7 +10,7 @@
     <mat-icon>arrow_forward_ios</mat-icon>
   </button>
   <mat-card>
-    <div *ngIf="organization?.data?.ldapConfiguration?.username !== undefined">
+    <div *ngIf="organization?.data?.ldapConfiguration?.username">
       <mat-card-content>
         <div class="inlineLeft">
           <mat-card-title>LDAP Configuration</mat-card-title>

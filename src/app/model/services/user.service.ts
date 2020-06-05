@@ -20,8 +20,13 @@ export class UserService {
   }
   getUsersConnectedToOrg(orgId: number): Observable<User[]> {
     return this.httpClientService
-      .get<User[]>(`/organization/${orgId}/users/connection`)
-      .pipe(map((response: HttpResponse<User[]>) => response.body as User[]));
+      .get<{connectedUsers: User[]}>(`/organization/${orgId}/users/connections`)
+      .pipe(
+        map(
+          (response: HttpResponse<{connectedUsers: User[]}>) =>
+            response.body?.connectedUsers as User[],
+        ),
+      );
   }
 
   getStalkerUsers(): Observable<User[]> {
