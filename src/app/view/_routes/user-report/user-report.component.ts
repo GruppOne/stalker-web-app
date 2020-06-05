@@ -144,7 +144,10 @@ export class UserReportComponent implements OnInit {
       const seconds = end - start;
       return this.secondsToTime(seconds);
     } else {
-      return '';
+      const end = Date.now() / 1000;
+      const start = ((this.userMovementInfo[index].time as unknown) as number) / 1000;
+      const seconds = end - start;
+      return this.secondsToTime(seconds);
     }
   }
 
@@ -155,9 +158,13 @@ export class UserReportComponent implements OnInit {
     const restAfterHours = restAfterDays - hours * 3600;
     const minutes = Math.trunc(+moment.duration(restAfterHours, 'seconds').asMinutes());
     return (
-      (days !== 0 ? `${days} days` : '') +
-      (hours !== 0 ? `${hours} hours` : '') +
-      (minutes !== 0 || hours === 0 ? `${minutes} minutes` : '')
+      (days !== 0 ? (days === 1 ? `${days} day ` : `${days} days `) : '') +
+      (hours !== 0 ? (hours === 1 ? `${hours} hour ` : `${hours} hours `) : '') +
+      (minutes !== 0 || hours === 0
+        ? minutes === 1
+          ? `${minutes} minute`
+          : `${minutes} minutes`
+        : '')
     );
   }
 }
