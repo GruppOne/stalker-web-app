@@ -42,6 +42,9 @@
     <mat-card>
       <mat-card-title>Place data</mat-card-title>
       <mat-card-subtitle>How much time this user passed inside every place of the organization</mat-card-subtitle>
+      <ul>
+        <li *ngFor="let p of userPlacesTime">{{ secondsToTime(p.totSeconds) }}</li>
+      </ul>
     </mat-card>
     <mat-card>
       <mat-card-title>User data</mat-card-title>
