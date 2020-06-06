@@ -109,7 +109,7 @@ export class OrganizationService {
                   id: element.id,
                   name: element.data.name,
                   description: element.data.description as string,
-                  role: 'Owner' as AdminType,
+                  role: iterator.role as AdminType,
                   private: element.data.isPrivate ? 'private' : 'public',
                 });
               }

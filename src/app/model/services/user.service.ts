@@ -31,8 +31,10 @@ export class UserService {
 
   getStalkerUsers(): Observable<User[]> {
     return this.httpClientService
-      .get<User[]>(`/users`)
-      .pipe(map((response: HttpResponse<User[]>) => response.body as User[]));
+      .get<{users: User[]}>(`/users`)
+      .pipe(
+        map((response: HttpResponse<{users: User[]}>) => response.body?.users as User[]),
+      );
   }
   disconnectUserById(orgId: number, userId: number): Observable<boolean> {
     return this.httpClientService
