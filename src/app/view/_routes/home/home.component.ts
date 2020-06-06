@@ -20,6 +20,10 @@ export class HomeComponent implements OnInit {
     passwordForm: new FormControl(''),
   });
 
+  public recoverPasswordForm: FormGroup = new FormGroup({
+    recoverForm: new FormControl(''),
+  });
+
   constructor(
     private readonly loginService: LoginService,
     private readonly router: Router,
@@ -34,7 +38,6 @@ export class HomeComponent implements OnInit {
     if (!this.validateInput(email, password)) {
       return;
     }
-
     const loginDataBuilder = new LoginDataBuilder(email, sha512.sha512(password));
     this.loginService.login(loginDataBuilder.build()).subscribe(
       () => {
@@ -65,5 +68,9 @@ export class HomeComponent implements OnInit {
 
   public userLoggedIn(): boolean {
     return this.loginService.isLoggedIn();
+  }
+
+  recoverPassword(email: string): void {
+    this.loginService.recoverPassword(email).subscribe(() => console.log('YOS'));
   }
 }
