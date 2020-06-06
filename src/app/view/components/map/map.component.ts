@@ -204,7 +204,7 @@ export class MapComponent implements OnInit {
           ${element.data.placeInfo.city}`,
                 )
                 .setStyle({
-                  color: element.data.color ? element.data.color : this.getRandomColor(),
+                  color: element.data.color ? element.data.color : placeColor,
                 }),
             );
             newbounds.push(polygon(this.getLatLng(element.data.polygon)).getBounds());

@@ -167,7 +167,7 @@ export class UsersListComponent implements OnInit {
     } else {
       return `/organization/${
         this.route.snapshot.paramMap.get('id') as string
-      }/user-report/${userId}`;
+      }/user/${userId}/history`;
     }
   }
 }

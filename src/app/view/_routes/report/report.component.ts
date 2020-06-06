@@ -163,8 +163,8 @@ export class ReportComponent implements AfterViewInit {
           .getUsersInsidePlaces(i)
           .subscribe((response: UsersInside) => {
             this.usersInsideOrg = response;
+            this.updateUsersInsidePlacesChart();
           });
-        this.updateUsersInsidePlacesChart();
       }, 30000);
       // TODO: REPLACE TO THIS WHEN THE ENDPOINT IS READY
       /*       setInterval(() => {
@@ -220,6 +220,7 @@ export class ReportComponent implements AfterViewInit {
     const backgroundMax: string[] = [];
     const backgroundHoverTot: string[] = [];
     const backgroundHoverMax: string[] = [];
+    console.log(this.mapDataChild?.placeColors);
 
     for (const iterator of this.mapDataChild?.placeColors as string[]) {
       backgroundTot.push(`${this.hexToRgb(iterator)}, 0.8)`);
