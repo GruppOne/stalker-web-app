@@ -97,7 +97,7 @@ export class UserReportComponent implements OnInit {
           this.userMovementInfo[j].placeId === this.places[i].placeId &&
           !this.userMovementInfo[j].enter
         ) {
-          console.log(this.userMovementInfo[j].time.toLocaleString());
+          /* console.log(this.userMovementInfo[j].time.toLocaleString());
           console.log(
             moment
               .duration(
@@ -118,7 +118,7 @@ export class UserReportComponent implements OnInit {
             moment
               .unix(this.userMovementInfo[j].time.getTime() / 1000)
               .format('HH:mm:ss'),
-          );
+          ); */
           placesData[i].totSeconds += moment
             .duration(
               moment
@@ -130,11 +130,28 @@ export class UserReportComponent implements OnInit {
             .asSeconds();
         }
       }
+      if (
+        this.userMovementInfo[this.userMovementInfo.length - 1].enter &&
+        this.userMovementInfo[this.userMovementInfo.length - 1].placeId ===
+          placesData[i].placeId
+      ) {
+        placesData[i].totSeconds += moment
+          .duration(
+            moment
+              .unix(moment.now() / 1000)
+              .diff(
+                moment.unix(
+                  this.userMovementInfo[this.userMovementInfo.length - 1].time.getTime() /
+                    1000,
+                ),
+              ) / 1000,
+            'seconds',
+          )
+          .asSeconds();
+      }
     }
     placesData.sort((a, b) => (a.totSeconds >= b.totSeconds ? -1 : 1));
     this.userPlacesTime = placesData;
-    console.log(this.userPlacesTime);
-    console.log(this.secondsToTime(this.userPlacesTime[0].totSeconds));
   }
 
   calcolateTime(index: number): string {
