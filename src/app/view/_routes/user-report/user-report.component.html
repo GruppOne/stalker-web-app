@@ -63,7 +63,13 @@
     <mat-card>
       <mat-card-title>Now</mat-card-title>
       <mat-card-subtitle>Where is this user now</mat-card-subtitle>
-      <p>{{ userMovementInfo }}</p>
+      <p>
+        {{
+          userMovementInfo[userMovementInfo.length - 1].enter
+            ? getPlaceName(userMovementInfo[userMovementInfo.length - 1].placeId)
+            : 'This user is not inside the organization right now'
+        }}
+      </p>
     </mat-card>
   </div>
 </div>
