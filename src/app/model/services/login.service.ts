@@ -113,4 +113,12 @@ export class LoginService {
       }),
     );
   }
+
+  recoverPassword(eMail: string): Observable<boolean> {
+    return this.httpClientService
+      .post<{email: string}>(`/user/password/recovery`, {
+        email: eMail,
+      })
+      .pipe(map(() => true));
+  }
 }

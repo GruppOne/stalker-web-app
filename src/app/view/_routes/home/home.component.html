@@ -48,13 +48,18 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
       <form
-        (ngSubmit)="
-          userLoggedIn() ? '' : login(this.nestedForm.value.emailForm.email, this.nestedForm.value.passwordForm.pwd)
-        "
+        [formGroup]="recoverPasswordForm"
+        (ngSubmit)="userLoggedIn() ? '' : recoverPassword(this.recoverPasswordForm.value.recoverForm)"
       >
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input maxlength="100" type="email" matInput placeholder="address@example.com" />
+          <input
+            formControlName="recoverForm"
+            maxlength="100"
+            type="email"
+            matInput
+            placeholder="address@example.com"
+          />
           <mat-icon matSuffix>email</mat-icon>
           <mat-hint>Email used to sign up</mat-hint>
           <mat-error>
