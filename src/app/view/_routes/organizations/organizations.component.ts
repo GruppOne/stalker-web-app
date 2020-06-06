@@ -67,6 +67,7 @@ export class OrganizationsComponent implements OnInit {
         }[],
       ) => {
         this.organizationsRoles = response;
+        console.log(this.organizationsRoles);
         this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
       },
 
