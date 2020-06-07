@@ -34,7 +34,6 @@ import {FormPasswordComponent} from './view/components/form-password/form-passwo
 import {InsertEmailDialogComponent} from './view/components/insert-email-dialog/insert-email-dialog.component';
 import {MapComponent} from './view/components/map/map.component';
 import {UsersListComponent} from './view/components/users-list/users-list.component';
-import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
