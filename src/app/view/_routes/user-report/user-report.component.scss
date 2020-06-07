@@ -4,7 +4,9 @@ h2 {
 }
 
 .reportContainer {
+  align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
 
   .timeline-container,
   .infoContainer {
@@ -41,7 +43,7 @@ h2 {
 }
 
 .timeline-container {
-  max-height: 700px;
+  max-height: 650px;
   max-width: 450px;
   min-width: 450px;
   overflow-y: auto;
@@ -76,7 +78,7 @@ h2 {
 .timeline {
   list-style-type: none;
   margin-left: 100px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   position: relative;
 
   li {
@@ -132,6 +134,12 @@ h2 {
 
 .enterIcon {
   color: rgb(27, 142, 5);
+}
+
+.stillInside::before {
+  background-image: url('../../../../assets/inside.gif');
+  background-size: 30px 30px;
+  border: 0;
 }
 
 .exit::before {
@@ -231,4 +239,14 @@ h2 {
   .placeTime {
     width: 50%;
   }
+}
+
+.errorUserMovement {
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 30px;
+}
+
+.whereIsNow {
+  text-align: center;
 }

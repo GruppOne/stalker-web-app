@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {forkJoin} from 'rxjs';
 import {User} from 'src/app/model/classes/users/user';
-import {PlaceService} from 'src/app/model/services/place.service';
+// import {PlaceService} from 'src/app/model/services/place.service';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
 
 @Component({
@@ -37,14 +37,14 @@ export class UserReportComponent implements OnInit {
   userMovementInfo: UserMovement[] = [];
   constructor(
     private readonly userService: UserService,
-    private readonly route: ActivatedRoute,
-    private readonly placeService: PlaceService,
+    private readonly route: ActivatedRoute, // private readonly placeService: PlaceService,
   ) {}
 
   ngOnInit(): void {
-    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    // const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     const userId = +(this.route.snapshot.paramMap.get('userId') as string);
-    this.setupUserHistory(userId, organizationId);
+    // this.setupUserHistory(userId, organizationId);
+    this.setupUserHistory();
     this.getUserById(userId);
     // this.getOrgPlaces(organizationId);
   }
@@ -71,9 +71,11 @@ export class UserReportComponent implements OnInit {
       .subscribe((response: Place[]) => (this.places = response));
   } */
 
-  setupUserHistory(userId: number, orgId: number): void {
+  // setupUserHistory(userId: number, orgId: number): void {
+  setupUserHistory(): void {
     forkJoin([
-      this.userService.getUserHistory(userId, orgId),
+      // this.userService.getUserHistory(userId, orgId),
+      this.userService.getUserHistory(),
       // this.placeService.getOrgPlaces(orgId),
     ]).subscribe((result) => {
       this.userMovementInfo = result[0];
@@ -83,21 +85,28 @@ export class UserReportComponent implements OnInit {
   }
 
   getPlaceStats(): void {
-    const placesData: {placeId: number; totSeconds: number}[] = [];
-    for (let i = 0; i < this.places.length; i++) {
-      placesData.push({placeId: this.places[i].placeId, totSeconds: 0});
-      let j = 0;
-      if (this.userMovementInfo[0].enter) {
-        j = 1;
-      } else {
-        j = 2;
-      }
-      for (j; j <= this.userMovementInfo.length - 1; j++) {
-        if (
-          this.userMovementInfo[j].placeId === this.places[i].placeId &&
-          !this.userMovementInfo[j].enter
-        ) {
-          /* console.log(this.userMovementInfo[j].time.toLocaleString());
+    if (this.userMovementInfo.length) {
+      const placesData: {
+        placeId: number;
+        totSeconds: number;
+      }[] = [];
+      for (let i = 0; i < this.places.length; i++) {
+        placesData.push({
+          placeId: this.places[i].placeId,
+          totSeconds: 0,
+        });
+        let j = 0;
+        if (this.userMovementInfo[0].enter) {
+          j = 1;
+        } else {
+          j = 2;
+        }
+        for (j; j <= this.userMovementInfo.length - 1; j++) {
+          if (
+            this.userMovementInfo[j].placeId === this.places[i].placeId &&
+            !this.userMovementInfo[j].enter
+          ) {
+            /* console.log(this.userMovementInfo[j].time.toLocaleString());
           console.log(
             moment
               .duration(
@@ -119,39 +128,41 @@ export class UserReportComponent implements OnInit {
               .unix(this.userMovementInfo[j].time.getTime() / 1000)
               .format('HH:mm:ss'),
           ); */
+            placesData[i].totSeconds += moment
+              .duration(
+                moment
+                  .unix(this.userMovementInfo[j].time.getTime() / 1000)
+                  .diff(moment.unix(this.userMovementInfo[j - 1].time.getTime() / 1000)) /
+                  1000,
+                'seconds',
+              )
+              .asSeconds();
+          }
+        }
+        if (
+          this.userMovementInfo[this.userMovementInfo.length - 1].enter &&
+          this.userMovementInfo[this.userMovementInfo.length - 1].placeId ===
+            placesData[i].placeId
+        ) {
           placesData[i].totSeconds += moment
             .duration(
               moment
-                .unix(this.userMovementInfo[j].time.getTime() / 1000)
-                .diff(moment.unix(this.userMovementInfo[j - 1].time.getTime() / 1000)) /
-                1000,
+                .unix(moment.now() / 1000)
+                .diff(
+                  moment.unix(
+                    this.userMovementInfo[
+                      this.userMovementInfo.length - 1
+                    ].time.getTime() / 1000,
+                  ),
+                ) / 1000,
               'seconds',
             )
             .asSeconds();
         }
       }
-      if (
-        this.userMovementInfo[this.userMovementInfo.length - 1].enter &&
-        this.userMovementInfo[this.userMovementInfo.length - 1].placeId ===
-          placesData[i].placeId
-      ) {
-        placesData[i].totSeconds += moment
-          .duration(
-            moment
-              .unix(moment.now() / 1000)
-              .diff(
-                moment.unix(
-                  this.userMovementInfo[this.userMovementInfo.length - 1].time.getTime() /
-                    1000,
-                ),
-              ) / 1000,
-            'seconds',
-          )
-          .asSeconds();
-      }
+      placesData.sort((a, b) => (a.totSeconds >= b.totSeconds ? -1 : 1));
+      this.userPlacesTime = placesData;
     }
-    placesData.sort((a, b) => (a.totSeconds >= b.totSeconds ? -1 : 1));
-    this.userPlacesTime = placesData;
   }
 
   calcolateTime(index: number): string {
