@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {forkJoin} from 'rxjs';
 import {User} from 'src/app/model/classes/users/user';
-// import {PlaceService} from 'src/app/model/services/place.service';
+import {PlaceService} from 'src/app/model/services/place.service';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
 
 @Component({
@@ -37,14 +37,14 @@ export class UserReportComponent implements OnInit {
   userMovementInfo: UserMovement[] = [];
   constructor(
     private readonly userService: UserService,
-    private readonly route: ActivatedRoute, // private readonly placeService: PlaceService,
+    private readonly route: ActivatedRoute,
+    private readonly placeService: PlaceService,
   ) {}
 
   ngOnInit(): void {
-    // const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     const userId = +(this.route.snapshot.paramMap.get('userId') as string);
-    // this.setupUserHistory(userId, organizationId);
-    this.setupUserHistory();
+    this.setupUserHistory(userId, organizationId);
     this.getUserById(userId);
     // this.getOrgPlaces(organizationId);
   }
@@ -71,11 +71,9 @@ export class UserReportComponent implements OnInit {
       .subscribe((response: Place[]) => (this.places = response));
   } */
 
-  // setupUserHistory(userId: number, orgId: number): void {
-  setupUserHistory(): void {
+  setupUserHistory(userId: number, orgId: number): void {
     forkJoin([
-      // this.userService.getUserHistory(userId, orgId),
-      this.userService.getUserHistory(),
+      this.userService.getUserHistory(userId, orgId),
       // this.placeService.getOrgPlaces(orgId),
     ]).subscribe((result) => {
       this.userMovementInfo = result[0];
@@ -85,6 +83,7 @@ export class UserReportComponent implements OnInit {
   }
 
   getPlaceStats(): void {
+    // Prevent segmentation fault
     if (this.userMovementInfo.length) {
       const placesData: {
         placeId: number;
