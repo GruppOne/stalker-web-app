@@ -3,38 +3,44 @@
 <div class="reportContainer">
   <mat-card class="timeline-container">
     <mat-card-title>Timeline</mat-card-title>
-    <mat-form-field>
-      <mat-label>Period of time</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let t of timelineOptions" [value]="t">
-          {{ t }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <ul class="timeline">
-      <li *ngFor="let u of this.userMovementInfo; let i = index" [class]="u.enter ? 'enter' : 'exit'">
-        <div class="timelineNote">
-          <div class="triangle"></div>
-          <mat-icon [class]="u.enter ? 'enterIcon' : 'exitIcon'">{{
-            u.enter ? 'business' : 'domain_disabled'
-          }}</mat-icon>
-          <span class="dateMessage">{{ u.time.toLocaleString() }}</span>
-          <p class="timelineMessage">
-            {{ user?.data?.firstName }} {{ u.enter ? 'entered' : 'exited' }}
-            {{ getPlaceName(u.placeId) }}
-          </p>
-        </div>
-        <div class="timeInsideMessage" *ngIf="u.enter">
-          <div *ngIf="{t: calcolateTime(i)}; let time">
-            Inside for:<br />{{ time.t }}
-            <div
-              class="triangleTimeInside"
-              [style.margin-top]="time.t.length > 11 ? (time.t.length > 24 ? '-70px' : '-50px') : '-30px'"
-            ></div>
+    <div *ngIf="this.userMovementInfo.length">
+      <mat-form-field>
+        <mat-label>Period of time</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let t of timelineOptions" [value]="t">
+            {{ t }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ul class="timeline">
+        <li
+          *ngFor="let u of this.userMovementInfo; let i = index"
+          [class]="u.enter ? (i === 0 ? 'enter stillInside' : 'enter') : 'exit'"
+        >
+          <div class="timelineNote">
+            <div class="triangle"></div>
+            <mat-icon [class]="u.enter ? 'enterIcon' : 'exitIcon'">{{
+              u.enter ? 'business' : 'domain_disabled'
+            }}</mat-icon>
+            <span class="dateMessage">{{ u.time.toLocaleString() }}</span>
+            <p class="timelineMessage">
+              {{ user?.data?.firstName }} {{ u.enter ? 'entered' : 'exited' }}
+              {{ getPlaceName(u.placeId) }}
+            </p>
           </div>
-        </div>
-      </li>
-    </ul>
+          <div class="timeInsideMessage" *ngIf="u.enter">
+            <div *ngIf="{t: calcolateTime(i)}; let time">
+              Inside for:<br />{{ time.t }}
+              <div
+                class="triangleTimeInside"
+                [style.margin-top]="time.t.length > 11 ? (time.t.length > 24 ? '-70px' : '-50px') : '-30px'"
+              ></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="errorUserMovement" *ngIf="!this.userMovementInfo.length">Still nothing to show</div>
   </mat-card>
   <div class="infoContainer">
     <mat-card>
@@ -47,7 +53,7 @@
     <mat-card>
       <mat-card-title>Place data</mat-card-title>
       <mat-card-subtitle>How much time this user passed inside every place of the organization</mat-card-subtitle>
-      <ul class="placesLeaderboard">
+      <ul class="placesLeaderboard" *ngIf="this.userMovementInfo.length">
         <li>
           <p></p>
           <p class="placeName">Place name</p>
@@ -55,20 +61,23 @@
         </li>
         <li *ngFor="let p of userPlacesTime; let i = index">
           <p>{{ i + 1 }}.</p>
-          <p class="placeName">{{ getPlaceName(p.placeId) }}:</p>
+          <p class="placeName">{{ getPlaceName(p.placeId) }}</p>
           <p class="placeTime">{{ secondsToTime(p.totSeconds) }}</p>
         </li>
       </ul>
+      <div class="errorUserMovement" *ngIf="!this.userMovementInfo.length">Still nothing to show</div>
     </mat-card>
     <mat-card>
       <mat-card-title>Now</mat-card-title>
       <mat-card-subtitle>Where is this user now</mat-card-subtitle>
-      <p>
-        {{
-          userMovementInfo[userMovementInfo.length - 1].enter
-            ? getPlaceName(userMovementInfo[userMovementInfo.length - 1].placeId)
-            : 'This user is not inside the organization right now'
-        }}
+      <p class="userInfo" *ngIf="userMovementInfo.length > 0 && userMovementInfo[userMovementInfo.length - 1].enter">
+        {{ getPlaceName(userMovementInfo[userMovementInfo.length - 1].placeId) }}
+      </p>
+      <p
+        class="errorUserMovement"
+        *ngIf="!userMovementInfo.length || !userMovementInfo[userMovementInfo.length - 1].enter"
+      >
+        This user is not inside the organization right now
       </p>
     </mat-card>
   </div>
