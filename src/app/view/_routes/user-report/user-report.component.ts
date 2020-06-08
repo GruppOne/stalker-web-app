@@ -21,6 +21,7 @@ export class UserReportComponent implements OnInit {
       birthDate: '1993/02/20',
     },
   };
+  timeLineLimit = 0;
   places = [
     {
       placeId: 1,
@@ -83,35 +84,37 @@ export class UserReportComponent implements OnInit {
   }
 
   getPlaceStats(): void {
+    const limitedUserMovements = this.getLimitedMovements();
+    limitedUserMovements.sort((a, b) => (a.time >= b.time ? 1 : -1));
+    const placesData: {
+      placeId: number;
+      totSeconds: number;
+    }[] = [];
     // Prevent segmentation fault
-    if (this.userMovementInfo.length) {
-      const placesData: {
-        placeId: number;
-        totSeconds: number;
-      }[] = [];
-      for (let i = 0; i < this.places.length; i++) {
-        placesData.push({
-          placeId: this.places[i].placeId,
-          totSeconds: 0,
-        });
+    for (let i = 0; i < this.places.length; i++) {
+      placesData.push({
+        placeId: this.places[i].placeId,
+        totSeconds: 0,
+      });
+      if (limitedUserMovements.length) {
         let j = 0;
-        if (this.userMovementInfo[0].enter) {
+        if (limitedUserMovements[0].enter) {
           j = 1;
         } else {
           j = 2;
         }
-        for (j; j <= this.userMovementInfo.length - 1; j++) {
+        for (j; j <= limitedUserMovements.length - 1; j++) {
           if (
-            this.userMovementInfo[j].placeId === this.places[i].placeId &&
-            !this.userMovementInfo[j].enter
+            limitedUserMovements[j].placeId === this.places[i].placeId &&
+            !limitedUserMovements[j].enter
           ) {
-            /* console.log(this.userMovementInfo[j].time.toLocaleString());
+            /* console.log(limitedUserMovements[j].time.toLocaleString());
           console.log(
             moment
               .duration(
                 moment
-                  .unix(this.userMovementInfo[j].time.getTime() / 1000)
-                  .diff(moment.unix(this.userMovementInfo[j - 1].time.getTime() / 1000)) /
+                  .unix(limitedUserMovements[j].time.getTime() / 1000)
+                  .diff(moment.unix(limitedUserMovements[j - 1].time.getTime() / 1000)) /
                   1000,
                 'seconds',
               )
@@ -119,19 +122,19 @@ export class UserReportComponent implements OnInit {
           );
           console.log(
             moment
-              .unix(this.userMovementInfo[j - 1].time.getTime() / 1000)
+              .unix(limitedUserMovements[j - 1].time.getTime() / 1000)
               .format('HH:mm:ss'),
           );
           console.log(
             moment
-              .unix(this.userMovementInfo[j].time.getTime() / 1000)
+              .unix(limitedUserMovements[j].time.getTime() / 1000)
               .format('HH:mm:ss'),
           ); */
             placesData[i].totSeconds += moment
               .duration(
                 moment
-                  .unix(this.userMovementInfo[j].time.getTime() / 1000)
-                  .diff(moment.unix(this.userMovementInfo[j - 1].time.getTime() / 1000)) /
+                  .unix(limitedUserMovements[j].time.getTime() / 1000)
+                  .diff(moment.unix(limitedUserMovements[j - 1].time.getTime() / 1000)) /
                   1000,
                 'seconds',
               )
@@ -139,8 +142,8 @@ export class UserReportComponent implements OnInit {
           }
         }
         if (
-          this.userMovementInfo[this.userMovementInfo.length - 1].enter &&
-          this.userMovementInfo[this.userMovementInfo.length - 1].placeId ===
+          limitedUserMovements[limitedUserMovements.length - 1].enter &&
+          limitedUserMovements[limitedUserMovements.length - 1].placeId ===
             placesData[i].placeId
         ) {
           placesData[i].totSeconds += moment
@@ -149,9 +152,8 @@ export class UserReportComponent implements OnInit {
                 .unix(moment.now() / 1000)
                 .diff(
                   moment.unix(
-                    this.userMovementInfo[
-                      this.userMovementInfo.length - 1
-                    ].time.getTime() / 1000,
+                    limitedUserMovements[limitedUserMovements.length - 1].time.getTime() /
+                      1000,
                   ),
                 ) / 1000,
               'seconds',
@@ -160,13 +162,13 @@ export class UserReportComponent implements OnInit {
         }
       }
       placesData.sort((a, b) => (a.totSeconds >= b.totSeconds ? -1 : 1));
-      this.userPlacesTime = placesData;
     }
+    this.userPlacesTime = placesData;
   }
 
   calcolateTime(index: number): string {
-    if (index + 1 < this.userMovementInfo.length) {
-      const end = ((this.userMovementInfo[index + 1].time as unknown) as number) / 1000;
+    if (index - 1 >= 0) {
+      const end = ((this.userMovementInfo[index - 1].time as unknown) as number) / 1000;
       const start = ((this.userMovementInfo[index].time as unknown) as number) / 1000;
       const seconds = end - start;
       return this.secondsToTime(seconds);
@@ -193,5 +195,31 @@ export class UserReportComponent implements OnInit {
           : `${minutes} minutes`
         : '')
     );
+  }
+
+  getLimitedMovements(): UserMovement[] {
+    const limitedMovements: UserMovement[] = [];
+    for (const iterator of this.userMovementInfo) {
+      if (iterator.time.getTime() / 1000 >= this.timeLineLimit) {
+        limitedMovements.push(iterator);
+      }
+    }
+    return limitedMovements;
+  }
+
+  updateLimit(time: string): void {
+    if (time === 'Today') {
+      this.timeLineLimit = +moment().startOf('day').format('X');
+    }
+    if (time === 'Yesterday') {
+      this.timeLineLimit = +moment().startOf('day').format('X') - 3600 * 24;
+    }
+    if (time === 'Week') {
+      this.timeLineLimit = +moment().startOf('week').format('X');
+    }
+    if (time === 'Ever') {
+      this.timeLineLimit = 0;
+    }
+    this.getPlaceStats();
   }
 }

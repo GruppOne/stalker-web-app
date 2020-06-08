@@ -69,7 +69,7 @@ export class UserService {
         {timestamp: 1590682989, placeId: 2, inside: false},
         {timestamp: 1590683530, placeId: 2, inside: true},
         {timestamp: 1590683600, placeId: 2, inside: false},
-        {timestamp: 1590693600, placeId: 1, inside: true},
+        {timestamp: 1591560000, placeId: 1, inside: true},
       ],
     };
     /*     return this.httpClientService
@@ -129,6 +129,7 @@ export class UserService {
         }
       }
     }
-    return of(userHistory);
+    console.log(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
+    return of(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
   }
 }
