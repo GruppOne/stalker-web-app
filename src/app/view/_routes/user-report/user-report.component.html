@@ -6,7 +6,7 @@
     <div *ngIf="this.userMovementInfo.length">
       <mat-form-field>
         <mat-label>Period of time</mat-label>
-        <mat-select>
+        <mat-select #timeLimit (selectionChange)="updateLimit(timeLimit.value)">
           <mat-option *ngFor="let t of timelineOptions" [value]="t">
             {{ t }}
           </mat-option>
@@ -14,9 +14,18 @@
       </mat-form-field>
       <ul class="timeline">
         <li
-          *ngFor="let u of this.userMovementInfo; let i = index"
+          *ngFor="let u of this.getLimitedMovements(); let i = index"
           [class]="u.enter ? (i === 0 ? 'enter stillInside' : 'enter') : 'exit'"
         >
+          <div class="timeInsideMessage" *ngIf="u.enter">
+            <div *ngIf="{t: calcolateTime(i)}; let time">
+              Inside for:<br />{{ time.t }}
+              <div
+                class="triangleTimeInside"
+                [style.margin-top]="time.t.length > 11 ? (time.t.length > 24 ? '-70px' : '-50px') : '-30px'"
+              ></div>
+            </div>
+          </div>
           <div class="timelineNote">
             <div class="triangle"></div>
             <mat-icon [class]="u.enter ? 'enterIcon' : 'exitIcon'">{{
@@ -27,15 +36,6 @@
               {{ user?.data?.firstName }} {{ u.enter ? 'entered' : 'exited' }}
               {{ getPlaceName(u.placeId) }}
             </p>
-          </div>
-          <div class="timeInsideMessage" *ngIf="u.enter">
-            <div *ngIf="{t: calcolateTime(i)}; let time">
-              Inside for:<br />{{ time.t }}
-              <div
-                class="triangleTimeInside"
-                [style.margin-top]="time.t.length > 11 ? (time.t.length > 24 ? '-70px' : '-50px') : '-30px'"
-              ></div>
-            </div>
           </div>
         </li>
       </ul>
@@ -70,13 +70,10 @@
     <mat-card>
       <mat-card-title>Now</mat-card-title>
       <mat-card-subtitle>Where is this user now</mat-card-subtitle>
-      <p class="userInfo" *ngIf="userMovementInfo.length > 0 && userMovementInfo[userMovementInfo.length - 1].enter">
-        {{ getPlaceName(userMovementInfo[userMovementInfo.length - 1].placeId) }}
+      <p class="userInfo" *ngIf="userMovementInfo.length > 0 && userMovementInfo[0].enter">
+        {{ getPlaceName(userMovementInfo[0].placeId) }}
       </p>
-      <p
-        class="errorUserMovement"
-        *ngIf="!userMovementInfo.length || !userMovementInfo[userMovementInfo.length - 1].enter"
-      >
+      <p class="errorUserMovement" *ngIf="!userMovementInfo.length || !userMovementInfo[0].enter">
         This user is not inside the organization right now
       </p>
     </mat-card>
