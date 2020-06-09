@@ -8,17 +8,10 @@ import {ColorEvent} from 'ngx-color';
 })
 export class ColorPickerComponent {
   @Input() color!: string;
-  randomColor = this.getRandomColor();
   shown = false;
   handleChangeComplete($event: ColorEvent): void {
     console.log($event.color.hex);
-    this.randomColor = $event.color.hex;
-  }
-
-  constructor() {
-    if (this.color) {
-      this.randomColor = this.color;
-    }
+    this.color = $event.color.hex;
   }
 
   getRandomColor(): string {

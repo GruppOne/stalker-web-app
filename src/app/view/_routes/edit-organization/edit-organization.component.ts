@@ -2,12 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
-import {
-  LdapConfigurationBuilder,
-  LdapConfiguration,
-} from 'src/app/model/classes/organizations/ldapConfiguration';
+import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
+import {LoginService} from 'src/app/model/services/login.service';
 
 import {
   Organization,
@@ -23,7 +21,7 @@ import {OrganizationService} from '../../../model/services/organization.service'
 export class EditOrganizationComponent implements OnInit {
   @ViewChild('map') mapDataChild!: {
     organizationPlaces: Place[];
-    editOrganizationPlaces(): Observable<boolean>;
+    editOrganizationPlaces(orgId: number): Observable<boolean>;
   };
 
   organization?: Organization;
@@ -41,6 +39,7 @@ export class EditOrganizationComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
     public readonly route: ActivatedRoute,
+    public readonly loginService: LoginService,
   ) {}
 
   /**
@@ -110,33 +109,35 @@ export class EditOrganizationComponent implements OnInit {
    * the service for updating the organization in the server
    */
   submitOrganizationForm(): void {
-    this.mapDataChild.editOrganizationPlaces().subscribe(() => {
-      if (this.formArray && this.organization) {
-        const organizationDataBuilder = new OrganizationDataBuilder(
-          this.formArray.value[0].orgNameCtrl,
-          this.organization.data.organizationType,
+    if (this.formArray && this.organization) {
+      const organizationDataBuilder = new OrganizationDataBuilder(
+        this.formArray.value[0].orgNameCtrl,
+        this.organization.data.organizationType,
+      )
+        .addDescription(this.formArray.value[0].orgDescriptionCtrl)
+        .addLdapConfiguration(
+          new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
+            .addUsername(this.formArray.value[1].orgUserCtrl)
+            .addPassword(this.formArray.value[1].orgPwdCtrl)
+            .build(),
         )
-          .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-          .addLdapConfiguration(
-            new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
-              .addUsername(this.formArray.value[1].orgUserCtrl)
-              .addPassword(this.formArray.value[1].orgPwdCtrl)
-              .build(),
-          )
-          .addCreatedDate(this.organization.data.creationDateTime as string)
-          .addLastModifiedDate(this.organization.data.lastChangeDateTime as string);
-        this.organizationBuilder = new OrganizationBuilder(
-          this.organization.id,
-          organizationDataBuilder.build(),
+        .addCreatedDate(this.organization.data.creationDateTime as string)
+        .addLastModifiedDate(this.organization.data.lastChangeDateTime as string);
+      this.organizationBuilder = new OrganizationBuilder(
+        this.organization.id,
+        organizationDataBuilder.build(),
+      );
+      console.log(this.organizationBuilder.build());
+      this.organizationService
+        .editOrganization(this.organizationBuilder.build())
+        .subscribe(
+          () => {
+            this.mapDataChild.editOrganizationPlaces(
+              Number(this.route.snapshot.paramMap.get('id')),
+            );
+          },
+          (err: Error) => console.error(err),
         );
-        console.log(this.organizationBuilder.build());
-        this.organizationService
-          .editOrganization(this.organizationBuilder.build())
-          .subscribe(
-            () => {},
-            (err: Error) => console.error(err),
-          );
-      }
-    });
+    }
   }
 }

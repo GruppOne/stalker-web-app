@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
@@ -21,7 +22,7 @@ export class CreateOrganizationComponent implements OnInit {
 
   @ViewChild('map') mapDataChild!: {
     organizationPlaces: Place[];
-    setColors(): void;
+    editOrganizationPlaces(orgId: number): Observable<boolean>;
   };
   organizationBuilder?: OrganizationBuilder;
   formGroup: FormGroup = new FormGroup({});
@@ -36,7 +37,6 @@ export class CreateOrganizationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
-    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -76,11 +76,10 @@ export class CreateOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
-
       console.log(organizationDataBuilder.build());
       this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
-        () => {
-          this.router.navigate([`/organizations`]);
+        (response: number) => {
+          this.mapDataChild.editOrganizationPlaces(response);
         },
         (err: Error) => console.error(err),
       );
