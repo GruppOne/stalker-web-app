@@ -224,7 +224,7 @@ export class MapComponent implements OnInit {
   setColors(): void {
     const colors: string[] = [];
     for (const i of this.colorPickers) {
-      colors.push(i.randomColor);
+      colors.push(i.color);
     }
     for (let i = 0; i < this.colorPickers.length; i++) {
       this.organizationPlaces[i].data.color = colors[i];
@@ -305,26 +305,39 @@ export class MapComponent implements OnInit {
   getRoute(): string {
     return this.router.url;
   }
-  editOrganizationPlaces(): Observable<boolean> {
+  editOrganizationPlaces(orgId: number): Observable<boolean> {
     this.setColors();
     let success = true;
-    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
-    for (const iterator of this.organizationPlaces) {
+    for (let iterator = 0; iterator < this.organizationPlaces.length; iterator++) {
       console.log(iterator);
-      if (iterator.id === -1) {
+      if (this.organizationPlaces[iterator].id === -1) {
         this.placeService
-          .addPlaceToOrg(organizationId, iterator.data)
+          .addPlaceToOrg(orgId, this.organizationPlaces[iterator].data)
           .subscribe((response: boolean) => {
             if (!response) {
               success = response;
             }
+            if (iterator === this.organizationPlaces.length - 1) {
+              if (response && success) {
+                this.router.navigate([`organization/${orgId}`]);
+              } else {
+                console.error('error in sending places');
+              }
+            }
           });
       } else {
         this.placeService
-          .updatePlaceInOrg(organizationId, iterator)
+          .updatePlaceInOrg(orgId, this.organizationPlaces[iterator])
           .subscribe((response: boolean) => {
             if (!response) {
               success = response;
+            }
+            if (iterator === this.organizationPlaces.length - 1) {
+              if (response && success) {
+                this.router.navigate([`organization/${orgId}`]);
+              } else {
+                console.error('error in sending places');
+              }
             }
           });
       }

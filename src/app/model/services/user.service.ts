@@ -170,4 +170,9 @@ export class UserService {
     console.log(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
     return of(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
   }
+  connectUserToOrg(orgId: number, userId: number): Observable<boolean> {
+    return this.httpClientService
+      .post<null>(`/user/${userId}/organization/${orgId}/connection`, null)
+      .pipe(map(() => true));
+  }
 }

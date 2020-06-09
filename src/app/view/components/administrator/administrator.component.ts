@@ -4,7 +4,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Administrator, AdminType} from 'src/app/model/classes/administrator';
 import {User} from 'src/app/model/classes/users/user';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
-import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
 import {UserService} from 'src/app/model/services/user.service';
 
 @Component({
