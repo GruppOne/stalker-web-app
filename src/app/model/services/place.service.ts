@@ -40,27 +40,37 @@ export class PlaceService {
     );
   }
 
-  getOrgPlaces(orgId: number): Observable<Place[]> {
+  getOrgPlaces(organizationId: number): Observable<Place[]> {
     return this.httpClientService
-      .get<Place[]>(`/organization/${orgId}/places`)
-      .pipe(map((response: HttpResponse<Place[]>) => response.body as Place[]));
+      .get<{places: Place[]}>(`/organization/${organizationId}/places`)
+      .pipe(
+        map(
+          (response: HttpResponse<{places: Place[]}>) => response.body?.places as Place[],
+        ),
+      );
   }
 
-  addOrgPlace(orgId: number, newPlace: PlaceData): Observable<boolean> {
+  addPlaceToOrg(organizationId: number, newPlace: PlaceData): Observable<boolean> {
     return this.httpClientService
-      .post<PlaceData>(`/organization/${orgId}/places`, newPlace)
+      .post<PlaceData>(`/organization/${organizationId}/places`, newPlace)
       .pipe(map(() => true));
   }
 
-  updateOrgPlace(orgId: number, updatedPlace: Place): Observable<boolean> {
+  updatePlaceInOrg(organizationId: number, newPlace: Place): Observable<boolean> {
     return this.httpClientService
-      .put<Place>(`/organization/${orgId}/place/${updatedPlace.id}`, updatedPlace)
+      .put<Place>(`/organization/${organizationId}/place/${newPlace.id}`, newPlace)
       .pipe(map(() => true));
   }
 
-  deleteOrgPlace(orgId: number, placeId: number): Observable<boolean> {
+  deletePlaceInOrg(organizationId: number, placeId: number): Observable<boolean> {
     return this.httpClientService
-      .delete<Place>(`/organization/${orgId}/place/${placeId}`)
+      .delete<Place>(`/organization/${organizationId}/place/${placeId}`)
       .pipe(map(() => true));
+  }
+
+  getOrgPlaceById(organizationId: number, placeId: number): Observable<Place> {
+    return this.httpClientService
+      .get<Place>(`/organization/${organizationId}/place/${placeId}`)
+      .pipe(map((response: HttpResponse<Place>) => response.body as Place));
   }
 }
