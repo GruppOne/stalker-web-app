@@ -5,6 +5,7 @@ import {Administrator, AdminType} from 'src/app/model/classes/administrator';
 import {User} from 'src/app/model/classes/users/user';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
+import {UserService} from 'src/app/model/services/user.service';
 
 @Component({
   selector: 'app-administrator',
@@ -21,14 +22,17 @@ export class AdministratorComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly administratorService: AdministratorService,
     public readonly route: ActivatedRoute,
-    private readonly connectedUserService: ConnectedUserService,
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.formGroup = this.formBuilder.group({
       adminRole: [],
       adminEmail: [],
     });
+    this.getOrgAdministrators(organizationId);
+    this.getOrgUsers(organizationId);
   }
 
   /**
@@ -48,7 +52,9 @@ export class AdministratorComponent implements OnInit {
     this.administratorService
       .addAdministrator(Number(this.route.snapshot.paramMap.get('id')), admin)
       .subscribe(
-        () => {},
+        () => {
+          this.getOrgAdministrators(Number(this.route.snapshot.paramMap.get('id')));
+        },
         (err: Error) => console.error(err),
       );
   }
@@ -93,7 +99,7 @@ export class AdministratorComponent implements OnInit {
    * Get users connected to a certain organization
    */
   getOrgUsers(organizationId: number): void {
-    this.connectedUserService.getUserConnectedToOrg(organizationId).subscribe(
+    this.userService.getUsersConnectedToOrg(organizationId).subscribe(
       (response: User[]) => (this.organizationUsers = response),
       (err: Error) => console.error(err),
     );
@@ -103,6 +109,8 @@ export class AdministratorComponent implements OnInit {
    * Check if the given email is registered in Stalker anc if it's connected with this organization
    */
   checkIfEmailIsUser(email: string, userList: User[]): number {
+    console.log(userList);
+    console.log(email);
     let found = -1;
     userList.forEach((element) => {
       if (element.data?.email === email) {

@@ -11,16 +11,12 @@ import {
   featureGroup,
   Layer,
 } from 'leaflet';
+import {Observable, of} from 'rxjs';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
-import {
-  Organization,
-  OrganizationBuilder,
-} from '../../../model/classes/organizations/organization';
-import {OrganizationService} from '../../../model/services/organization.service';
 import {ColorPickerComponent} from '../color-picker/color-picker.component';
 
 @Component({
@@ -33,9 +29,6 @@ export class MapComponent implements OnInit {
   totAlreadySaved = 0;
   layersDrawn: Layer[] = [];
   placeColors: string[] = [];
-
-  organization?: Organization;
-  organizationBuilder?: OrganizationBuilder;
 
   @ViewChildren(ColorPickerComponent) colorPickers!: QueryList<ColorPickerComponent>;
   options = {
@@ -56,7 +49,6 @@ export class MapComponent implements OnInit {
   bounds: LatLngBounds[] = [];
   constructor(
     private readonly placeService: PlaceService,
-    private readonly organizationService: OrganizationService,
     public router: Router,
     private readonly route: ActivatedRoute,
   ) {}
@@ -101,7 +93,7 @@ export class MapComponent implements OnInit {
     }
     if (!this.route.snapshot.url.toString().includes('create')) {
       const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
-      this.getOrganizationById(organizationId);
+      this.getOrgPlaces(organizationId);
       this.bounds.push(
         polygon([
           [45.493352, 11.99852],
@@ -182,16 +174,14 @@ export class MapComponent implements OnInit {
   /**
    * call OrganizationService to get organization with given Id
    */
-  getOrganizationById(id: number): void {
-    this.organizationService.getOrganizationById(id).subscribe(
-      (response: Organization) => {
-        this.organization = response;
-        if (
-          this.organization?.data.places &&
-          this.organization.data.places.length !== 0
-        ) {
+  getOrgPlaces(id: number): void {
+    this.placeService.getOrgPlaces(id).subscribe(
+      (response: Place[]) => {
+        console.log(response);
+        const tempOrganizationPlaces = response;
+        if (tempOrganizationPlaces.length !== 0) {
           const newbounds: LatLngBounds[] = [];
-          for (const element of this.organization.data.places) {
+          for (const element of tempOrganizationPlaces) {
             const placeColor = this.getRandomColor();
             this.placeColors.push(placeColor);
             this.polygonLayers.push(
@@ -211,6 +201,7 @@ export class MapComponent implements OnInit {
             this.organizationPlaces.push(element);
             // this.colorPickers()
             this.totAlreadySaved += 1;
+            console.log(this.organizationPlaces);
           }
           this.bounds = newbounds;
         }
@@ -295,7 +286,9 @@ export class MapComponent implements OnInit {
         this.layersDrawn.splice(idJustDrawed - this.totAlreadySaved, 1);
       }
     } else {
-      // http delete
+      this.placeService
+        .deletePlaceInOrg(+(this.route.snapshot.paramMap.get('id') as string), id)
+        .subscribe();
       this.organizationPlaces.splice(idJustDrawed, 1);
       this.polygonLayers.splice(idJustDrawed, 1);
       this.totAlreadySaved -= 1;
@@ -311,5 +304,33 @@ export class MapComponent implements OnInit {
 
   getRoute(): string {
     return this.router.url;
+  }
+  editOrganizationPlaces(): Observable<boolean> {
+    this.setColors();
+    let success = true;
+    const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
+    for (const iterator of this.organizationPlaces) {
+      console.log(iterator);
+      if (iterator.id === -1) {
+        this.placeService
+          .addPlaceToOrg(organizationId, iterator.data)
+          .subscribe((response: boolean) => {
+            if (!response) {
+              success = response;
+            }
+          });
+      } else {
+        this.placeService
+          .updatePlaceInOrg(organizationId, iterator)
+          .subscribe((response: boolean) => {
+            if (!response) {
+              success = response;
+            }
+          });
+      }
+      console.log('cycle');
+    }
+    console.log('response');
+    return of(success);
   }
 }

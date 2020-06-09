@@ -1,34 +1,42 @@
 export interface LdapConfiguration {
-  readonly host: string;
-  readonly username?: string;
-  readonly password?: string;
+  readonly url: string;
+  readonly searchQuery?: string;
+  readonly bindDn?: string;
+  readonly bindPassword?: string;
 }
 
 export class LdapConfigurationBuilder {
-  private username?: string;
+  private searchQuery?: string;
 
-  private password?: string;
+  private bindDn?: string;
 
-  constructor(private host: string) {}
+  private bindPassword?: string;
 
-  addHost(host: string): LdapConfigurationBuilder {
-    this.host = host;
+  constructor(private url: string) {}
+
+  addHost(url: string): LdapConfigurationBuilder {
+    this.url = url;
     return this;
   }
-  addUsername(username: string): LdapConfigurationBuilder {
-    this.username = username;
+  addUsername(searchQuery: string): LdapConfigurationBuilder {
+    this.searchQuery = searchQuery;
     return this;
   }
 
-  addPassword(password: string): LdapConfigurationBuilder {
-    this.password = password;
+  addPassword(bindPassowrd: string): LdapConfigurationBuilder {
+    this.bindPassword = bindPassowrd;
+    return this;
+  }
+  addDn(bindDn: string): LdapConfigurationBuilder {
+    this.bindDn = bindDn;
     return this;
   }
   build(): LdapConfiguration {
     return {
-      host: this.host,
-      username: this.username,
-      password: this.password,
+      url: this.url,
+      searchQuery: this.searchQuery,
+      bindDn: this.bindDn,
+      bindPassword: this.bindPassword,
     };
   }
 }

@@ -21,9 +21,11 @@ export class AdministratorService {
     administrator: Administrator,
   ): Observable<boolean> {
     return this.httpClientService
-      .post<Administrator>(
+      .post<{newRole: string}>(
         `/organization/${organizationId}/user/${administrator.userId}/role`,
-        administrator,
+        {
+          newRole: administrator.role.toString(),
+        },
       )
       .pipe(map(() => true));
   }

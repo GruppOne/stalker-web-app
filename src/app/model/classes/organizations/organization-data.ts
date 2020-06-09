@@ -1,15 +1,12 @@
-import {Place} from '../places/place';
-
 import {LdapConfiguration} from './ldapConfiguration';
 
 export interface OrganizationData {
   readonly name: string;
-  readonly isPrivate: boolean;
+  readonly organizationType: string;
   readonly description?: string;
   readonly ldapConfiguration?: LdapConfiguration;
-  places?: Place[];
-  readonly creationDateTime?: number;
-  readonly lastChangeDateTime?: number;
+  readonly creationDateTime?: string;
+  readonly lastChangeDateTime?: string;
 }
 
 export class OrganizationDataBuilder {
@@ -17,13 +14,11 @@ export class OrganizationDataBuilder {
 
   private ldapConfiguration?: LdapConfiguration;
 
-  private places?: Place[];
+  private creationDateTime?: string;
 
-  private creationDateTime?: number;
+  private lastChangeDateTime?: string;
 
-  private lastChangeDateTime?: number;
-
-  constructor(private name: string, private isPrivate: boolean) {}
+  constructor(private name: string, private organizationType: string) {}
 
   addName(name: string): OrganizationDataBuilder {
     this.name = name;
@@ -37,29 +32,21 @@ export class OrganizationDataBuilder {
     this.ldapConfiguration = ldapConfiguration;
     return this;
   }
-  addPlaces(places: Place[]): OrganizationDataBuilder {
-    if (this.places) {
-      this.places = this.places.concat(places);
-    } else {
-      this.places = places;
-    }
-    return this;
-  }
   // Use this code if you need to remove a Place
   /*  removePlace(place: Place): OrganizationDataBuilder {
     const index: number = this.places?.indexOf(place, 0) as number;
     this.places = this.places?.splice(index, 1);
     return this;
   } */
-  addIsPrivate(isPrivate: boolean): OrganizationDataBuilder {
-    this.isPrivate = isPrivate;
+  addOrganizationType(organizationType: string): OrganizationDataBuilder {
+    this.organizationType = organizationType;
     return this;
   }
-  addCreatedDate(creationDateTime: number): OrganizationDataBuilder {
+  addCreatedDate(creationDateTime: string): OrganizationDataBuilder {
     this.creationDateTime = creationDateTime;
     return this;
   }
-  addLastModifiedDate(lastChangeDateTime: number): OrganizationDataBuilder {
+  addLastModifiedDate(lastChangeDateTime: string): OrganizationDataBuilder {
     this.lastChangeDateTime = lastChangeDateTime;
     return this;
   }
@@ -69,8 +56,7 @@ export class OrganizationDataBuilder {
       name: this.name,
       description: this.description,
       ldapConfiguration: this.ldapConfiguration,
-      places: this.places,
-      isPrivate: this.isPrivate,
+      organizationType: this.organizationType,
       creationDateTime: this.creationDateTime,
       lastChangeDateTime: this.lastChangeDateTime,
     };

@@ -63,7 +63,7 @@ export class CreateOrganizationComponent implements OnInit {
     if (this.mapDataChild && this.formArray) {
       const organizationDataBuilder = new OrganizationDataBuilder(
         this.formArray.value[0].orgNameCtrl,
-        this.toggle,
+        this.toggle ? 'private' : 'public',
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
         // .addCreatedDate(this.organization.organizationData.creationDateTime as string)
@@ -76,8 +76,7 @@ export class CreateOrganizationComponent implements OnInit {
             .addPassword(this.formArray.value[1].orgPwdCtrl)
             .build(),
         );
-      this.mapDataChild.setColors();
-      organizationDataBuilder.addPlaces(this.mapDataChild.organizationPlaces);
+
       console.log(organizationDataBuilder.build());
       this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
         () => {

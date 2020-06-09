@@ -2,11 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Administrator} from 'src/app/model/classes/administrator';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
-import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
-import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
-import {PlaceBuilder} from 'src/app/model/classes/places/place';
-import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 
@@ -23,7 +18,7 @@ import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-di
 })
 export class OrganizationComponent implements OnInit {
   organization?: Organization;
-  private organizationBuilder?: OrganizationBuilder;
+  private readonly organizationBuilder?: OrganizationBuilder;
   administrators: Administrator[] = [];
   date: Date = new Date();
   /* eslint-disable max-params */
@@ -38,43 +33,8 @@ export class OrganizationComponent implements OnInit {
   ngOnInit(): void {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getOrganizationById(organizationId);
-    if (!this.organization) {
-      this.organizationBuilder = new OrganizationBuilder(
-        1,
-        new OrganizationDataBuilder('GruppOne', true)
-          .addPlaces([
-            new PlaceBuilder(
-              2,
-              new PlaceDataBuilder(
-                {
-                  address: 'Via Trieste',
-                  city: 'Padova',
-                  zipcode: '35031',
-                  state: 'Italia',
-                },
-                'Torre Archimede',
-                [
-                  new MyLatLng(45.411564, 11.887473),
-                  new MyLatLng(45.411225, 11.887325),
-                  new MyLatLng(45.41111, 11.887784),
-                  new MyLatLng(45.41144, 11.88795),
-                ],
-                10,
-              ).build(),
-            ).build(),
-          ])
-          .addDescription('lorem ipsum...')
-          .addLdapConfiguration(
-            new LdapConfigurationBuilder('127.0.0.1')
-              .addUsername('mario')
-              .addPassword('pass')
-              .build(),
-          )
-          .build(),
-      );
-      this.organization = this.organizationBuilder.build();
-      this.getOrgAdministrators(organizationId);
-    }
+    this.organization = this.organizationBuilder?.build();
+    this.getOrgAdministrators(organizationId);
   }
 
   /**

@@ -7,6 +7,7 @@ import {
   OrganizationService,
   UsersInside,
 } from 'src/app/model/services/organization.service';
+import {PlaceService} from 'src/app/model/services/place.service';
 
 import {Organization} from '../../../model/classes/organizations/organization';
 
@@ -17,6 +18,7 @@ import {Organization} from '../../../model/classes/organizations/organization';
 })
 export class ReportComponent implements AfterViewInit {
   organization?: Organization;
+  organizationPlaces: Place[] = [];
   // private organizationBuilder?: OrganizationBuilder;
   usersInsideOrg: UsersInside = {usersInside: 0, places: []};
 
@@ -28,6 +30,7 @@ export class ReportComponent implements AfterViewInit {
   constructor(
     private readonly organizationService: OrganizationService,
     private readonly route: ActivatedRoute,
+    private readonly placeService: PlaceService,
   ) {}
 
   userInPlaceChartOptions = {
@@ -148,10 +151,12 @@ export class ReportComponent implements AfterViewInit {
   setupGraphs(id: number): void {
     forkJoin([
       this.organizationService.getOrganizationById(id),
+      this.placeService.getOrgPlaces(id),
       this.organizationService.getUsersInsidePlaces(id),
     ]).subscribe((result) => {
       this.organization = result[0];
-      this.usersInsideOrg = result[1];
+      this.organizationPlaces = result[1];
+      this.usersInsideOrg = result[2];
       console.log(this.organization);
       console.log(this.usersInsideOrg);
       this.drawChart();
@@ -239,7 +244,7 @@ export class ReportComponent implements AfterViewInit {
       borderColor: backgroundTot,
       hoverBackgroundColor: backgroundHoverMax,
     });
-    for (const iterator of this.organization?.data.places as Place[]) {
+    for (const iterator of this.organizationPlaces) {
       this.userInPlaceChartLabels.push(iterator.data.name as string);
     }
   }
