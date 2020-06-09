@@ -27,10 +27,8 @@ import {ColorPickerComponent} from '../color-picker/color-picker.component';
 export class MapComponent implements OnInit {
   organizationPlaces: Place[] = [];
   totAlreadySaved = 0;
-  layersDrawn: Layer[] = [];
   placeColors: string[] = [];
 
-  @ViewChildren(ColorPickerComponent) colorPickers!: QueryList<ColorPickerComponent>;
   options = {
     layers: [
       tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
@@ -119,18 +117,11 @@ export class MapComponent implements OnInit {
    */
   public onDrawCreated(e: {layer: Polygon}): void {
     this.drawnItems.addLayer(e.layer);
-    this.layersDrawn.push(e.layer);
     const points = e.layer.getLatLngs();
     const center = latLng(this.getCentroid(points[0] as LatLng[]));
-
     /*
      * get area information, not safe to use because of errors in leaflet library
      */
-    // const area = GeometryUtil.geodesicArea(a[0] as LatLng[]);
-    // let seeArea = '';
-    // seeArea = GeometryUtil.readableArea(area, true);
-    // console.log(`area: ${seeArea}`);
-
     this.placeService
       .reverseGeocoding(center.lat, center.lng)
       .subscribe((data: Geocoding) => {
@@ -162,12 +153,22 @@ export class MapComponent implements OnInit {
               name,
               mylatlngs,
               0,
-            ).build(),
+            )
+              .addColor(this.getRandomColor())
+              .build(),
           )
             .addId(-1)
             .build(),
         );
+        this.polygonLayers.push(
+          e.layer.setStyle({
+            color: this.organizationPlaces[this.organizationPlaces.length - 1].data.color
+              ? this.organizationPlaces[this.organizationPlaces.length - 1].data.color
+              : this.getRandomColor(),
+          }),
+        );
       });
+
     console.log(this.organizationPlaces);
   }
 
@@ -221,15 +222,11 @@ export class MapComponent implements OnInit {
   /**
    * returns all places colors
    */
-  setColors(): void {
-    const colors: string[] = [];
-    for (const i of this.colorPickers) {
-      colors.push(i.color);
-    }
-    for (let i = 0; i < this.colorPickers.length; i++) {
-      this.organizationPlaces[i].data.color = colors[i];
-    }
-    console.log(colors);
+  setColors(newColor: string, id: number): void {
+    this.organizationPlaces[id].data.color = newColor;
+    this.polygonLayers[id].setStyle({
+      color: newColor,
+    });
   }
 
   /**
@@ -281,9 +278,9 @@ export class MapComponent implements OnInit {
       if (idJustDrawed > -1) {
         this.organizationPlaces.splice(idJustDrawed, 1);
         this.drawnItems.removeLayer(
-          this.layersDrawn[idJustDrawed - this.totAlreadySaved],
+          this.polygonLayers[idJustDrawed - this.totAlreadySaved],
         );
-        this.layersDrawn.splice(idJustDrawed - this.totAlreadySaved, 1);
+        this.polygonLayers.splice(idJustDrawed - this.totAlreadySaved, 1);
       }
     } else {
       this.placeService
@@ -306,7 +303,6 @@ export class MapComponent implements OnInit {
     return this.router.url;
   }
   editOrganizationPlaces(orgId: number): Observable<boolean> {
-    this.setColors();
     let success = true;
     for (let iterator = 0; iterator < this.organizationPlaces.length; iterator++) {
       console.log(iterator);
@@ -342,6 +338,7 @@ export class MapComponent implements OnInit {
           });
       }
       console.log('cycle');
+      console.log(this.organizationPlaces);
     }
     console.log('response');
     return of(success);

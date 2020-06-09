@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
-import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {LdapConfigurationBuilder} from 'src/app/model/classes/organizations/ldapConfiguration';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
 
@@ -47,8 +45,9 @@ export class CreateOrganizationComponent implements OnInit {
           orgDescriptionCtrl: ['', Validators.required],
         }),
         this.formBuilder.group({
-          orgHostCtrl: ['', Validators.required],
-          orgUserCtrl: ['', Validators.required],
+          orgUrlCtrl: ['', Validators.required],
+          orgSearchCtrl: ['', Validators.required],
+          orgDnCtrl: ['', Validators.required],
           orgPwdCtrl: ['', Validators.required],
         }),
       ]),
@@ -66,16 +65,12 @@ export class CreateOrganizationComponent implements OnInit {
         this.toggle ? 'private' : 'public',
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        // .addCreatedDate(this.organization.organizationData.creationDateTime as string)
-        // .addLastModifiedDate(
-        // this.organization.organizationData.lastChangeDateTime as string,
-        // )
-        .addLdapConfiguration(
-          new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
-            .addUsername(this.formArray.value[1].orgUserCtrl)
-            .addPassword(this.formArray.value[1].orgPwdCtrl)
-            .build(),
-        );
+        .addLdapConfiguration({
+          url: this.formArray.value[1].orgUrlCtrl,
+          searchQuery: this.formArray.value[1].orgUrlCtrl,
+          bindDn: this.formArray.value[1].orgDnCtrl,
+          bindPassword: this.formArray.value[1].orgPwdCtrl,
+        });
       console.log(organizationDataBuilder.build());
       this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
         (response: number) => {
