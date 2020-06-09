@@ -1,5 +1,6 @@
-import {Component, HostListener, Input} from '@angular/core';
+import {Component, HostListener, Input, Inject} from '@angular/core';
 import {ColorEvent} from 'ngx-color';
+import {MapComponent} from '../map/map.component';
 
 @Component({
   selector: 'app-color-picker',
@@ -8,10 +9,15 @@ import {ColorEvent} from 'ngx-color';
 })
 export class ColorPickerComponent {
   @Input() color!: string;
+  @Input() id!: number;
   shown = false;
+
+  constructor(@Inject(MapComponent) private readonly parent: MapComponent) {}
+
   handleChangeComplete($event: ColorEvent): void {
     console.log($event.color.hex);
     this.color = $event.color.hex;
+    this.parent.setColors(this.color, this.id);
   }
 
   getRandomColor(): string {

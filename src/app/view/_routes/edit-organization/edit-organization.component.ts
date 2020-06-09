@@ -55,8 +55,9 @@ export class EditOrganizationComponent implements OnInit {
           orgDescriptionCtrl: [],
         }),
         this.formBuilder.group({
-          orgHostCtrl: [],
-          orgUserCtrl: [],
+          orgUrlCtrl: [],
+          orgSearchCtrl: [],
+          orgDnCtrl: [],
           orgPwdCtrl: [],
         }),
       ]),
@@ -82,11 +83,15 @@ export class EditOrganizationComponent implements OnInit {
               ],
             }),
             this.formBuilder.group({
-              orgHostCtrl: [
+              orgUrlCtrl: [
                 this.organization.data.ldapConfiguration?.url,
                 Validators.required,
               ],
-              orgUserCtrl: [
+              orgSearchCtrl: [
+                this.organization.data.ldapConfiguration?.searchQuery,
+                Validators.required,
+              ],
+              orgDnCtrl: [
                 this.organization.data.ldapConfiguration?.bindDn,
                 Validators.required,
               ],
@@ -115,12 +120,12 @@ export class EditOrganizationComponent implements OnInit {
         this.organization.data.organizationType,
       )
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
-        .addLdapConfiguration(
-          new LdapConfigurationBuilder(this.formArray.value[1].orgHostCtrl)
-            .addUsername(this.formArray.value[1].orgUserCtrl)
-            .addPassword(this.formArray.value[1].orgPwdCtrl)
-            .build(),
-        )
+        .addLdapConfiguration({
+          url: this.formArray.value[1].orgUrlCtrl,
+          searchQuery: this.formArray.value[1].orgSearchCtrl,
+          bindDn: this.formArray.value[1].orgDnCtrl,
+          bindPassword: this.formArray.value[1].orgPwdCtrl,
+        })
         .addCreatedDate(this.organization.data.creationDateTime as string)
         .addLastModifiedDate(this.organization.data.lastChangeDateTime as string);
       this.organizationBuilder = new OrganizationBuilder(

@@ -43,14 +43,19 @@
     <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true">
       <ng-template matStepLabel>Additional user authentication</ng-template>
       <mat-form-field>
-        <mat-label>Host</mat-label>
-        <input #orgHostCtrl maxlength="50" matInput formControlName="orgHostCtrl" placeholder="192.168.0.1" />
-        <mat-hint class="hint-end" align="end">{{ orgHostCtrl.value.length }} / 50</mat-hint>
+        <mat-label>Url</mat-label>
+        <input #orgUrlCtrl maxlength="50" matInput formControlName="orgUrlCtrl" placeholder="192.168.0.1" />
+        <mat-hint class="hint-end" align="end">{{ orgUrlCtrl.value.length }} / 50</mat-hint>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Username</mat-label>
-        <input #orgUserCtrl maxlength="50" matInput formControlName="orgUserCtrl" placeholder="johnsmith" />
-        <mat-hint class="hint-end" align="end">{{ orgUserCtrl.value.length }} / 50</mat-hint>
+        <mat-label>Search Query</mat-label>
+        <input #orgSearchCtrl maxlength="50" matInput formControlName="orgSearchCtrl" placeholder="johnsmith" />
+        <mat-hint class="hint-end" align="end">{{ orgSearchCtrl.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Dn</mat-label>
+        <input #orgDnCtrl maxlength="32" matInput formControlName="orgDnCtrl" />
+        <mat-hint class="hint-end" align="end">{{ orgDnCtrl.value.length }} / 32</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
