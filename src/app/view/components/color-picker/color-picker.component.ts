@@ -1,5 +1,6 @@
 import {Component, HostListener, Input, Inject} from '@angular/core';
 import {ColorEvent} from 'ngx-color';
+
 import {MapComponent} from '../map/map.component';
 
 @Component({
