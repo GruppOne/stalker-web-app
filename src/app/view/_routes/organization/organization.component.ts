@@ -29,6 +29,7 @@ export class OrganizationComponent implements OnInit {
   date: Date = new Date();
 
   userLevel = 0;
+  // eslint-disable-next-line max-params
   constructor(
     private readonly organizationService: OrganizationService,
     private readonly administratorService: AdministratorService,
