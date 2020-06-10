@@ -26,7 +26,7 @@ export class OrganizationComponent implements OnInit {
   private organizationBuilder?: OrganizationBuilder;
   administrators: Administrator[] = [];
   date: Date = new Date();
-
+  /* eslint-disable max-params */
   constructor(
     private readonly organizationService: OrganizationService,
     private readonly administratorService: AdministratorService,
