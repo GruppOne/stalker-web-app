@@ -9,6 +9,7 @@ import {UserBuilder} from '../../../model/classes/users/user';
 import {UserService} from '../../../model/services/user.service';
 
 import {ProfileComponent} from './profile.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -21,7 +22,7 @@ describe('ProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ProfileComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
       providers: [
         {provide: UserService, useValue: userService},
         {
