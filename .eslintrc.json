@@ -203,7 +203,7 @@
           }
         ],
         "max-params": ["error", {"max": 4}],
-        "max-lines": ["error", {"skipBlankLines": true}],
+        "max-lines": ["warn", {"skipBlankLines": true}],
         "max-nested-callbacks": ["error", {"max": 3}],
         "new-parens": "error",
         "no-bitwise": "error",
