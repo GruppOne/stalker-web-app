@@ -121,4 +121,13 @@ export class LoginService {
       })
       .pipe(map(() => true));
   }
+
+  changePassword(oldHashedPassword: string, hashedPassword: string): Observable<boolean> {
+    return this.httpClientService
+      .put<{oldPassword: string; newPassword: string}>(
+        `/user/${this.getUserId()}/password`,
+        {oldPassword: oldHashedPassword, newPassword: hashedPassword},
+      )
+      .pipe(map(() => true));
+  }
 }

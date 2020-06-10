@@ -72,7 +72,7 @@ export class OrganizationService {
     console.log(organizationId);
     return this.httpClientService.get<UsersInside>(`/version`).pipe(
       map(() => {
-        this.usersInsideOrg.usersInside = organizationId;
+        this.usersInsideOrg.usersInside = organizationId * 2 + 1;
         this.usersInsideOrg.places = [
           {placeId: 1, usersInside: organizationId},
           {placeId: 2, usersInside: organizationId + 1},
