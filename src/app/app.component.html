@@ -28,7 +28,11 @@
       </div>
       <!-- only when a user is authenticathed -->
       <div *ngIf="userLoggedIn()">
-        <button mat-menu-item [disabled]="this.getRoute().includes('/user/')" [routerLink]="'/user/' + getUserId()">
+        <button
+          mat-menu-item
+          [disabled]="this.getRoute().includes('/user/') && !this.getRoute().includes('/history')"
+          [routerLink]="'/user/' + getUserId()"
+        >
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
