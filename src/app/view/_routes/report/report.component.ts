@@ -21,10 +21,6 @@ export class ReportComponent implements AfterViewInit {
   organizationPlaces: Place[] = [];
   // private organizationBuilder?: OrganizationBuilder;
   usersInsideOrg: UsersInside = {usersInside: 0, places: []};
-
-  @ViewChild('map') mapDataChild?: {
-    placeColors: string[];
-  };
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(
@@ -225,13 +221,12 @@ export class ReportComponent implements AfterViewInit {
     const backgroundMax: string[] = [];
     const backgroundHoverTot: string[] = [];
     const backgroundHoverMax: string[] = [];
-    console.log(this.mapDataChild?.placeColors);
 
-    for (const iterator of this.mapDataChild?.placeColors as string[]) {
-      backgroundTot.push(`${this.hexToRgb(iterator)}, 0.8)`);
-      backgroundMax.push(`${this.hexToRgb(iterator)}, 0.3)`);
-      backgroundHoverTot.push(`${this.hexToRgb(iterator)}, 1)`);
-      backgroundHoverMax.push(`${this.hexToRgb(iterator)}, 0.6)`);
+    for (const iterator of this.organizationPlaces) {
+      backgroundTot.push(`${this.hexToRgb(iterator.data.color as string)}, 0.8)`);
+      backgroundMax.push(`${this.hexToRgb(iterator.data.color as string)}, 0.3)`);
+      backgroundHoverTot.push(`${this.hexToRgb(iterator.data.color as string)}, 1)`);
+      backgroundHoverMax.push(`${this.hexToRgb(iterator.data.color as string)}, 0.6)`);
     }
     console.log(backgroundTot);
 

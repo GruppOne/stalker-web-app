@@ -7,6 +7,8 @@ import {User, UserBuilder} from '../../../model/classes/users/user';
 import {UserData} from '../../../model/classes/users/user-data';
 import {UserService} from '../../../model/services/user.service';
 import {InsertEmailDialogComponent} from '../../components/insert-email-dialog/insert-email-dialog.component';
+import {FormBuilder} from '@angular/forms';
+import * as sha512 from 'js-sha512';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +20,14 @@ export class ProfileComponent implements OnInit {
   private userBuilder?: UserBuilder;
   user?: User;
   hide = true;
+  totAdmin: number[] = [0, 0, 0];
+  changePasswordGroup = this.formBuilder.group({
+    oldPwdCtrl: [],
+    pwdCtrl: [],
+  });
+  // eslint-disable-next-line max-params
   constructor(
+    private readonly formBuilder: FormBuilder,
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
     private readonly loginService: LoginService,
@@ -28,6 +37,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     const userId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getUser(userId);
+    this.getAdminOrganizations();
   }
 
   /**
@@ -65,5 +75,38 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
+  }
+
+  getAdminOrganizations(): void {
+    this.loginService
+      .getAdminOrganizations()
+      .subscribe((response: {organizationId: number; role: string}[]) => {
+        for (const iterator of response) {
+          if (iterator.role === 'Owner') {
+            this.totAdmin[0] += 1;
+          }
+          if (iterator.role === 'Manager') {
+            this.totAdmin[1] += 1;
+          }
+          if (iterator.role === 'Viewer') {
+            this.totAdmin[2] += 1;
+          }
+        }
+      });
+  }
+  changePassword(oldPassword: string, newPassword: string): void {
+    if (this.validateInput(newPassword) && this.validateInput(oldPassword)) {
+      this.loginService
+        .changePassword(sha512.sha512(oldPassword), sha512.sha512(newPassword))
+        .subscribe(() => console.log('YOS'));
+    }
+  }
+  public validateInput(password: string): boolean {
+    const regexPwd = new RegExp(
+      // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$',
+    );
+
+    return regexPwd.test(password);
   }
 }
