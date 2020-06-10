@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {forkJoin} from 'rxjs';
 import {User} from 'src/app/model/classes/users/user';
-import {PlaceService} from 'src/app/model/services/place.service';
+// import {PlaceService} from 'src/app/model/services/place.service';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
 
 @Component({
@@ -39,8 +39,8 @@ export class UserReportComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
-    private readonly placeService: PlaceService,
   ) {}
+  // private readonly placeService: PlaceService,
 
   ngOnInit(): void {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
@@ -214,7 +214,7 @@ export class UserReportComponent implements OnInit {
     if (time === 'Yesterday') {
       this.timeLineLimit = +moment().startOf('day').format('X') - 3600 * 24;
     }
-    if (time === 'Week') {
+    if (time === 'This week') {
       this.timeLineLimit = +moment().startOf('week').format('X');
     }
     if (time === 'Ever') {
