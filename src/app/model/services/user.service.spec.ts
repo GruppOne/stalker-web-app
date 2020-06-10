@@ -17,7 +17,7 @@ describe('UserService', () => {
     // 'delete',
   ]);
 
-  const defaultUser = {id: 1, userData: {email: 'default@mail'}};
+  const defaultUser = {id: 1, data: {email: 'default@mail'}};
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

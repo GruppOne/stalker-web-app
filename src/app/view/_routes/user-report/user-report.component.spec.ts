@@ -1,8 +1,8 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 
 import {UserReportComponent} from './user-report.component';
-import {ActivatedRoute, convertToParamMap} from '@angular/router';
 
 describe('UserReportComponent', () => {
   let component: UserReportComponent;
