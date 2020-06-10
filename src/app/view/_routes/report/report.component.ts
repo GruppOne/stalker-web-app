@@ -66,7 +66,7 @@ export class ReportComponent implements AfterViewInit {
       hoverBackgroundColor: [''],
     },
   ];
-  userInPlaceChartLabels: string[] = [];
+  userInPlaceChartLabels: string[][] = [];
 
   // userInOrganizationChartOptions = {
   //   maintainAspectRatio: false,
@@ -240,7 +240,12 @@ export class ReportComponent implements AfterViewInit {
       hoverBackgroundColor: backgroundHoverMax,
     });
     for (const iterator of this.organizationPlaces) {
-      this.userInPlaceChartLabels.push(iterator.data.name as string);
+      const placeName = iterator.data.name as string;
+      if (this.organizationPlaces.length > 1 && placeName.length > 20) {
+        this.userInPlaceChartLabels.push(this.formatLabel(placeName, 15));
+      } else {
+        this.userInPlaceChartLabels.push((placeName as unknown) as string[]);
+      }
     }
   }
 
@@ -252,5 +257,43 @@ export class ReportComponent implements AfterViewInit {
     const g = parseInt(result[2], 16);
     const b = parseInt(result[3], 16);
     return `rgba(${r}, ${g}, ${b}`;
+  }
+
+  /**
+   * takes a string phrase and breaks it into separate phrases
+   * no bigger than 'maxwidth', breaks are made at complete words
+   */
+  formatLabel(str: string, maxwidth: number): string[] {
+    const sections: string[] = [];
+    const words = str.split(' ');
+    let temp = '';
+
+    words.forEach((item, index) => {
+      if (temp.length > 0) {
+        const concat = temp + ' ' + item;
+        if (concat.length > maxwidth) {
+          sections.push(temp);
+          temp = '';
+        } else {
+          if (index === words.length - 1) {
+            sections.push(concat);
+            return;
+          } else {
+            temp = concat;
+            return;
+          }
+        }
+      }
+      if (index === words.length - 1) {
+        sections.push(item);
+        return;
+      }
+      if (item.length < maxwidth) {
+        temp = item;
+      } else {
+        sections.push(item);
+      }
+    });
+    return sections;
   }
 }

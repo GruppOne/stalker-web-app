@@ -82,11 +82,12 @@
   }
 
   .mat-raised-button.mat-accent {
+    margin-right: 8px;
     width: auto;
   }
 
-  .mat-raised-button.mat-accent:first-of-type {
-    margin-right: 8px;
+  .mat-raised-button.mat-accent:last-of-type {
+    margin-right: 0;
   }
 }
 
@@ -168,7 +169,15 @@
     text-align: center;
   }
 
-  .mat-form-field,
+  .mat-form-field {
+    margin-right: 11px;
+    width: 39%;
+  }
+
+  .mat-form-field:last-of-type {
+    margin-right: 25px;
+  }
+
   .deleteMessage {
     margin-right: 25px;
     width: 80%;
