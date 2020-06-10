@@ -190,7 +190,10 @@ describe('LoginService', () => {
         }),
       ),
     );
-    const result: boolean = sut.checkAuthorization(1, AdminType.viewer);
+    let result = false;
+    sut
+      .checkAuthorization(1, AdminType.viewer)
+      .subscribe((response: boolean) => (result = response));
     expect(result).toBe(true);
   });
   it('should check if the user has sufficient permissions given a token', () => {
@@ -208,7 +211,10 @@ describe('LoginService', () => {
         }),
       ),
     );
-    const result: boolean = sut.checkAuthorization(1, AdminType.owner);
+    let result = false;
+    sut
+      .checkAuthorization(1, AdminType.owner)
+      .subscribe((response: boolean) => (result = response));
     expect(result).toBe(false);
   });
 });

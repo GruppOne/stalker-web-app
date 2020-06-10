@@ -7,20 +7,27 @@ import {AdminType} from '../classes/administrator';
 
 import {AdministratorService} from './administrator.service';
 import {HttpClientService} from './http-client.service';
+import {UserService} from './user.service';
 
 describe('AdministratorService', () => {
+  const defaultUser = {id: 1, data: {email: 'testadmin'}};
+
   const httpClientService = jasmine.createSpyObj('HttpClientService', [
     'post',
     'get',
     // 'put',
     'delete',
   ]);
-  const defaultAdministrator = {id: 1, email: 'testadmin', role: AdminType.manager};
+  const userService = jasmine.createSpyObj('UserService', ['getUsersConnectedToOrg']);
+  const defaultAdministrator = {userId: 1, email: 'testadmin', role: AdminType.manager};
   let service: AdministratorService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{provide: HttpClientService, useValue: httpClientService}],
+      providers: [
+        {provide: HttpClientService, useValue: httpClientService},
+        {provide: UserService, useValue: userService},
+      ],
     });
     service = TestBed.inject(AdministratorService);
   });
@@ -65,15 +72,19 @@ describe('AdministratorService', () => {
     const httpGetSpy = httpClientService.get.and.returnValue(
       of(
         new HttpResponse({
-          body: [defaultAdministrator],
+          body: {usersWithRoles: [defaultAdministrator]},
           headers: new HttpHeaders(),
           status: 200,
         }),
       ),
     );
-    let result = [{id: 1, email: '', role: AdminType.viewer}];
+    const userServiceSpy = userService.getUsersConnectedToOrg.and.returnValue(
+      of([defaultUser]),
+    );
+    let result = [{userId: 1, email: '', role: AdminType.viewer}];
     service.getAdministrators(1).subscribe((response) => (result = response));
     expect(httpGetSpy.calls.any()).toBe(true, 'get called');
+    expect(userServiceSpy.calls.any()).toBe(true, 'users connected get called');
     expect(result[0]).toEqual(defaultAdministrator);
   });
 });

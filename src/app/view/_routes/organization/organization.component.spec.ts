@@ -1,5 +1,6 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
@@ -7,7 +8,6 @@ import {of, throwError} from 'rxjs';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 import {OrganizationComponent} from './organization.component';
-import {MatDialogModule} from '@angular/material/dialog';
 
 describe('OrganizationComponent', () => {
   let component: OrganizationComponent;
