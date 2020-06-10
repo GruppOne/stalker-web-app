@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
   tileLayer,
@@ -9,15 +9,12 @@ import {
   polygon,
   FeatureGroup,
   featureGroup,
-  Layer,
 } from 'leaflet';
 import {Observable, of} from 'rxjs';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
-
-import {ColorPickerComponent} from '../color-picker/color-picker.component';
 
 @Component({
   selector: 'app-map',
@@ -168,8 +165,6 @@ export class MapComponent implements OnInit {
           }),
         );
       });
-
-    console.log(this.organizationPlaces);
   }
 
   /**
@@ -178,7 +173,6 @@ export class MapComponent implements OnInit {
   getOrgPlaces(id: number): void {
     this.placeService.getOrgPlaces(id).subscribe(
       (response: Place[]) => {
-        console.log(response);
         const tempOrganizationPlaces = response;
         if (tempOrganizationPlaces.length !== 0) {
           const newbounds: LatLngBounds[] = [];
@@ -200,9 +194,7 @@ export class MapComponent implements OnInit {
             );
             newbounds.push(polygon(this.getLatLng(element.data.polygon)).getBounds());
             this.organizationPlaces.push(element);
-            // this.colorPickers()
             this.totAlreadySaved += 1;
-            console.log(this.organizationPlaces);
           }
           this.bounds = newbounds;
         }
@@ -273,6 +265,9 @@ export class MapComponent implements OnInit {
     return new LatLng(x / f + off.lat, y / f + off.lng);
   }
 
+  /**
+   * delete place with the given id
+   */
   deletePlace(id: number, idJustDrawed: number): void {
     if (id === -1) {
       if (idJustDrawed > -1) {
@@ -292,6 +287,9 @@ export class MapComponent implements OnInit {
     }
   }
 
+  /**
+   * update name and address of the place with the given id
+   */
   updatePlace(idJustDrawed: number, name: string, address: string): void {
     if (idJustDrawed > -1) {
       this.organizationPlaces[idJustDrawed].data.name = name;
@@ -299,13 +297,12 @@ export class MapComponent implements OnInit {
     }
   }
 
-  getRoute(): string {
-    return this.router.url;
-  }
+  /**
+   * add places and/or update places data
+   */
   editOrganizationPlaces(orgId: number): Observable<boolean> {
     let success = true;
     for (let iterator = 0; iterator < this.organizationPlaces.length; iterator++) {
-      console.log(iterator);
       if (this.organizationPlaces[iterator].id === -1) {
         this.placeService
           .addPlaceToOrg(orgId, this.organizationPlaces[iterator].data)
@@ -337,10 +334,11 @@ export class MapComponent implements OnInit {
             }
           });
       }
-      console.log('cycle');
-      console.log(this.organizationPlaces);
     }
-    console.log('response');
     return of(success);
+  }
+
+  getRoute(): string {
+    return this.router.url;
   }
 }
