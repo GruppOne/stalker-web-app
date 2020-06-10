@@ -58,18 +58,56 @@ export class UserService {
       .pipe(map(() => true));
   }
   getUserHistory(organizationId: number, userId: number): Observable<UserMovement[]> {
+    console.log(organizationId);
+    console.log(userId);
     const input: UserHistoryAPI = {
       id: 1,
       history: [
-        {timestamp: 1590677758, placeId: 2, inside: false},
-        {timestamp: 1590678883, placeId: 2, inside: false},
-        {timestamp: 1590679603, placeId: 2, inside: true},
-        {timestamp: 1590680277, placeId: 2, inside: true},
-        {timestamp: 1590682482, placeId: 2, inside: true},
-        {timestamp: 1590682989, placeId: 2, inside: false},
-        {timestamp: 1590683530, placeId: 2, inside: true},
-        {timestamp: 1590683600, placeId: 2, inside: false},
-        {timestamp: 1591560000, placeId: 1, inside: true},
+        {
+          timestamp: 1590677758,
+          placeId: 2,
+          inside: false,
+        },
+        {
+          timestamp: 1590678883,
+          placeId: 2,
+          inside: false,
+        },
+        {
+          timestamp: 1590679603,
+          placeId: 2,
+          inside: true,
+        },
+        {
+          timestamp: 1590680277,
+          placeId: 2,
+          inside: true,
+        },
+        {
+          timestamp: 1590682482,
+          placeId: 2,
+          inside: true,
+        },
+        {
+          timestamp: 1590682989,
+          placeId: 2,
+          inside: false,
+        },
+        {
+          timestamp: 1590683530,
+          placeId: 2,
+          inside: true,
+        },
+        {
+          timestamp: 1590683600,
+          placeId: 2,
+          inside: false,
+        },
+        {
+          timestamp: 1591560000,
+          placeId: 1,
+          inside: true,
+        },
       ],
     };
     /*     return this.httpClientService
@@ -80,25 +118,25 @@ export class UserService {
           if (response.body) {
             for (const iterator of response.body.history) {
               if (iterator.inside) {
-                if (
-                  !userHistory[userHistory.length - 1].enter ||
-                  userHistory.length === 0
-                ) {
-                  userHistory.push({
-                    time: new Date(iterator.timestamp),
-                    placeId: iterator.placeId,
-                    enter: true,
-                  });
-                }
-              } else {
-                if (userHistory[userHistory.length - 1].enter) {
-                  userHistory.push({
-                    time: new Date(iterator.timestamp),
-                    placeId: iterator.placeId,
-                    enter: false,
-                  });
-                }
-              }
+                if (userHistory.length === 0 || !userHistory[userHistory.length - 1
+                ].enter) {
+            userHistory.push({
+              time: new Date(iterator.timestamp * 1000),
+              placeId: iterator.placeId,
+              enter: true,
+            });
+          }
+        } else {
+          if (
+            userHistory[userHistory.length - 1] &&
+            userHistory[userHistory.length - 1].enter
+          ) {
+            userHistory.push({
+              time: new Date(iterator.timestamp * 1000),
+              placeId: iterator.placeId,
+              enter: false,
+            });
+          }
             }
           }
           return userHistory;

@@ -3,15 +3,15 @@
 <div class="reportContainer">
   <mat-card class="timeline-container">
     <mat-card-title>Timeline</mat-card-title>
-    <div *ngIf="this.userMovementInfo.length">
-      <mat-form-field>
-        <mat-label>Period of time</mat-label>
-        <mat-select #timeLimit (selectionChange)="updateLimit(timeLimit.value)">
-          <mat-option *ngFor="let t of timelineOptions" [value]="t">
-            {{ t }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Period of time</mat-label>
+      <mat-select #timeLimit (selectionChange)="updateLimit(timeLimit.value)">
+        <mat-option *ngFor="let t of timelineOptions" [value]="t">
+          {{ t }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="this.getLimitedMovements().length">
       <ul class="timeline">
         <li
           *ngFor="let u of this.getLimitedMovements(); let i = index"
@@ -41,7 +41,7 @@
         </li>
       </ul>
     </div>
-    <div class="errorUserMovement" *ngIf="!this.userMovementInfo.length">Still nothing to show</div>
+    <div class="errorUserMovement" *ngIf="!this.getLimitedMovements().length">Still nothing to show</div>
   </mat-card>
   <div class="infoContainer">
     <mat-card>
