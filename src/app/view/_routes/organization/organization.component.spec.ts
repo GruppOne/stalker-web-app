@@ -7,6 +7,7 @@ import {of, throwError} from 'rxjs';
 import {OrganizationService} from '../../../model/services/organization.service';
 
 import {OrganizationComponent} from './organization.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 describe('OrganizationComponent', () => {
   let component: OrganizationComponent;
@@ -21,7 +22,7 @@ describe('OrganizationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OrganizationComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
       providers: [
         {
           provide: OrganizationService,
