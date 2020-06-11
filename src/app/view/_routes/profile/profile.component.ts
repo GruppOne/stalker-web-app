@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit {
         message: textMessage,
         expectedEmail: this.user?.data?.email,
       },
+      panelClass: 'custom-modalbox',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

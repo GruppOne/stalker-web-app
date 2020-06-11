@@ -58,6 +58,7 @@ export class OrganizationComponent implements OnInit {
       data: {
         message: "Are you sure? Deleting an organization can't be undone.",
       },
+      panelClass: 'custom-modalbox',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
