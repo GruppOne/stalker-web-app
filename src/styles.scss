@@ -288,8 +288,7 @@ body {
   }
 }
 
-.cdk-overlay-pane {
-  height: auto !important;
+.custom-modalbox > .mat-dialog-container {
   margin-top: -250px;
   max-height: 300px !important;
   width: 480px !important;

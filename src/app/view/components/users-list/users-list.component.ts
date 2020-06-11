@@ -114,6 +114,7 @@ export class UsersListComponent implements OnInit {
         message: textMessage,
         expectedEmail: email,
       },
+      panelClass: 'custom-modalbox',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -134,6 +135,7 @@ export class UsersListComponent implements OnInit {
       data: {
         message: 'Do you really want to disconnect this user from your organization?',
       },
+      panelClass: 'custom-modalbox',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
