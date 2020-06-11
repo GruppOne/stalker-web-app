@@ -27,7 +27,7 @@ describe('EditOrganizationComponent', () => {
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   let organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-    of({id: 1, data: {name: 'unipd', isPrivate: false}}),
+    of({id: 1, data: {name: 'unipd', organizationType: 'private'}}),
   );
 
   let organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
@@ -76,7 +76,7 @@ describe('EditOrganizationComponent', () => {
   });
   it('should create with organization got from http request', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', organizationType: 'private'}}),
     );
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -102,13 +102,17 @@ describe('EditOrganizationComponent', () => {
   });
   it('should call Organization get and handle not empty response', () => {
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', organizationType: 'private'}}),
     );
     component.getOrganizationById(1);
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
 
   it('should submit the form correctly', () => {
+    organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
+      of({id: 1, data: {name: 'unipd', organizationType: 'private'}}),
+    );
+    component.getOrganizationById(1);
     const num = component.mapDataChild?.organizationPlaces.push(
       new PlaceBuilder(
         1,
@@ -145,9 +149,9 @@ describe('EditOrganizationComponent', () => {
   /*   it('should not submit the form in case of empty organization', () => {
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue({
       name: 'unipd',
-      isPrivate: false,
+      organizationType:'private',
     });
-    component.organization = {name: '', isPrivate: false};
+    component.organization = {name: '', organizationType:'private'};
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(false, 'submit not done');
   }); */

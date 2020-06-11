@@ -6,18 +6,21 @@ describe('LdapConfiguration', () => {
     expect(ldapConfigurationBuilder.build()).toBeTruthy();
   });
   it('should set and get fields correctly', () => {
-    const newHost = '192.168.1.1';
-    const newUsername = 'GruppOne';
+    const newUrl = '192.168.1.1';
+    const newSearchQuery = 'GruppOne';
+    const newDn = 'com';
     const newPassword = 'notApassword1!';
 
-    ldapConfigurationBuilder.addHost(newHost);
-    ldapConfigurationBuilder.addUsername(newUsername);
+    ldapConfigurationBuilder.addUrl(newUrl);
+    ldapConfigurationBuilder.addSearchQuery(newSearchQuery);
+    ldapConfigurationBuilder.addDn(newDn);
     ldapConfigurationBuilder.addPassword(newPassword);
 
     const ldapConfiguration = ldapConfigurationBuilder.build();
 
-    expect(ldapConfiguration.host).toEqual(newHost);
-    expect(ldapConfiguration.username).toEqual(newUsername);
-    expect(ldapConfiguration.password).toEqual(newPassword);
+    expect(ldapConfiguration.url).toEqual(newUrl);
+    expect(ldapConfiguration.searchQuery).toEqual(newSearchQuery);
+    expect(ldapConfiguration.bindDn).toEqual(newDn);
+    expect(ldapConfiguration.bindPassword).toEqual(newPassword);
   });
 });

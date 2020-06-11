@@ -14,11 +14,11 @@ export class LdapConfigurationBuilder {
 
   constructor(private url: string) {}
 
-  addHost(url: string): LdapConfigurationBuilder {
+  addUrl(url: string): LdapConfigurationBuilder {
     this.url = url;
     return this;
   }
-  addUsername(searchQuery: string): LdapConfigurationBuilder {
+  addSearchQuery(searchQuery: string): LdapConfigurationBuilder {
     this.searchQuery = searchQuery;
     return this;
   }
