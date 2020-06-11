@@ -3,10 +3,11 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 
-import {PlaceService} from './place.service';
-import {HttpClientService} from './http-client.service';
-import {PlaceDataBuilder} from '../classes/places/place-data';
 import {MyLatLng} from '../classes/places/my-lat-lng';
+import {PlaceDataBuilder} from '../classes/places/place-data';
+
+import {HttpClientService} from './http-client.service';
+import {PlaceService} from './place.service';
 
 describe('PlaceService', () => {
   let service: PlaceService;

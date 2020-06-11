@@ -6,10 +6,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {of, throwError} from 'rxjs';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
+import {UserService} from 'src/app/model/services/user.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
 
 import {AdministratorComponent} from './administrator.component';
-import {UserService} from 'src/app/model/services/user.service';
 
 describe('AdministratorComponent', () => {
   let component: AdministratorComponent;

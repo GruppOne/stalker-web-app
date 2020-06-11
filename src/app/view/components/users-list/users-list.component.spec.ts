@@ -1,13 +1,13 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatDialogModule} from '@angular/material/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {of} from 'rxjs';
+import {UserService} from 'src/app/model/services/user.service';
 
 import {UsersListComponent} from './users-list.component';
-import {UserService} from 'src/app/model/services/user.service';
-import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import {of} from 'rxjs';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('UsersListComponent', () => {
   let component: UsersListComponent;
