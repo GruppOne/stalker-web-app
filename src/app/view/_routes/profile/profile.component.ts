@@ -61,11 +61,11 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteUser(id: number): void {
+    let textMessage = 'Are you sure? Deleting this account cannot be undone.';
+    textMessage += `<br>Please type <span>${this.user?.data?.email}</span> to confirm.`;
     const dialogRef = this.dialog.open(InsertEmailDialogComponent, {
-      height: '400px',
-      width: '600px',
       data: {
-        message: "Are you sure? Deleting this account can't be undone.",
+        message: textMessage,
         expectedEmail: this.user?.data?.email,
       },
     });

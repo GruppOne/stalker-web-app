@@ -55,8 +55,6 @@ export class OrganizationComponent implements OnInit {
 
   deleteOrganizationById(id: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      height: '400px',
-      width: '600px',
       data: {
         message: "Are you sure? Deleting an organization can't be undone.",
       },

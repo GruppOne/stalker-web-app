@@ -287,3 +287,58 @@ body {
     padding: 8px !important;
   }
 }
+
+.cdk-overlay-pane {
+  height: auto !important;
+  margin-top: -250px;
+  max-height: 300px !important;
+  width: 480px !important;
+}
+
+.mat-dialog-title {
+  color: rgb(224, 22, 22);
+  text-align: center;
+}
+
+.mat-dialog-content {
+  p {
+    line-height: 40px;
+  }
+
+  span {
+    font-weight: 500;
+  }
+}
+
+.mat-dialog-actions {
+  margin: 0 auto -24px;
+  width: 45%;
+
+  button {
+    margin: auto;
+  }
+
+  .confirmElimination {
+    background-color: rgba(255, 137, 137, 0.68) !important;
+  }
+
+  .confirmElimination:hover {
+    background-color: rgb(224, 22, 22) !important;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .confirmElimination[disabled]:hover {
+    background-color: rgba(255, 137, 137, 0.68) !important;
+    color: #bf8388;
+  }
+
+  .dismissElimination {
+    background-color: #f5f5f5 !important;
+  }
+
+  .dismissElimination:hover {
+    background-color: #adadad !important;
+    cursor: pointer;
+  }
+}

@@ -1,11 +1,12 @@
 <h1 mat-dialog-title>Attention</h1>
 <div mat-dialog-content>
-  <p>{{ data.message }}</p>
+  <p [innerHTML]="data.message"></p>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.email" (keyup)="checkEmail()" />
+    <mat-label>Type to confirm</mat-label>
+    <input matInput [(ngModel)]="data.email" (keyup)="checkEmail()" placeholder="Requested mail" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Dismiss</button>
-  <button mat-button [mat-dialog-close]="true" [disabled]="!valid">Confirm</button>
+  <button mat-button [mat-dialog-close]="false" class="dismissElimination">Dismiss</button>
+  <button mat-button [mat-dialog-close]="true" [disabled]="!valid" class="confirmElimination">Confirm</button>
 </div>
