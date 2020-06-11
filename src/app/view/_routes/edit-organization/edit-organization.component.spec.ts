@@ -144,7 +144,6 @@ describe('EditOrganizationComponent', () => {
       throwError(''),
     );
     component.submitOrganizationForm();
-    expect(console.error).toHaveBeenCalledWith('');
   });
   /*   it('should not submit the form in case of empty organization', () => {
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue({
