@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   private userBuilder?: UserBuilder;
   user?: User;
   hide = true;
+  creationDate = '';
   oldhide = true;
   totAdmin: number[] = [0, 0, 0];
   changePasswordGroup = this.formBuilder.group({
@@ -52,6 +53,9 @@ export class ProfileComponent implements OnInit {
           .addUserData(response.data as UserData);
         this.user = this.userBuilder.build();
         this.fetched = true;
+        this.creationDate = new Date(
+          this.user?.data?.creationDateTime as string,
+        ).toLocaleString();
       },
       (err: Error) => {
         console.error(err);
