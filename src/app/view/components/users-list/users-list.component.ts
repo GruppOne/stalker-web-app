@@ -107,11 +107,11 @@ export class UsersListComponent implements OnInit {
   }
 
   deleteUserById(userId: number, email: string): void {
+    let textMessage = "Do you really want to delete this user's account from Stalker?";
+    textMessage += `<br>Please type <span>${email}</span> to confirm.`;
     const dialogRef = this.dialog.open(InsertEmailDialogComponent, {
-      height: '400px',
-      width: '600px',
       data: {
-        message: "Do you really want to delete this user's account from Stalker?",
+        message: textMessage,
         expectedEmail: email,
       },
     });
@@ -131,8 +131,6 @@ export class UsersListComponent implements OnInit {
   }
   disconnectUserById(userId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      height: '400px',
-      width: '600px',
       data: {
         message: 'Do you really want to disconnect this user from your organization?',
       },
