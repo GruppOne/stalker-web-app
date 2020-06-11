@@ -49,6 +49,13 @@ th {
   z-index: 2;
 }
 
+.stillNoOrg {
+  font-size: 25px;
+  font-weight: 500;
+  padding: 40px 0;
+  text-align: center;
+}
+
 @media only screen and (max-width: 767px) {
   .material-icons {
     font-size: 18px !important;
@@ -68,15 +75,15 @@ th {
     width: 60%;
   }
 
-  th.mat-header-cell:first-of-type,
-  td.mat-cell:first-of-type,
-  td.mat-footer-cell:first-of-type {
+  .mat-header-cell:first-of-type,
+  .mat-cell:first-of-type,
+  .mat-footer-cell:first-of-type {
     padding-left: 8px;
   }
 
-  th.mat-header-cell:last-of-type,
-  td.mat-cell:last-of-type,
-  td.mat-footer-cell:last-of-type {
+  .mat-header-cell:last-of-type,
+  .mat-cell:last-of-type,
+  .mat-footer-cell:last-of-type {
     padding-right: 8px;
   }
 }
