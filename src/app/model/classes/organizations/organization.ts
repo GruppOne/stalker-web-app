@@ -3,7 +3,7 @@ import {OrganizationData} from './organization-data';
 export interface Organization {
   readonly id: number;
   readonly data: OrganizationData;
-  readonly placeIds: number[];
+  readonly placeIds?: number[];
 }
 
 export class OrganizationBuilder {

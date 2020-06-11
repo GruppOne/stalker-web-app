@@ -6,10 +6,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {of, throwError} from 'rxjs';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
-import {ConnectedUserService} from 'src/app/model/services/connected-user.service';
 import {CustomMaterialModule} from 'src/app/modules/material.module';
 
 import {AdministratorComponent} from './administrator.component';
+import {UserService} from 'src/app/model/services/user.service';
 
 describe('AdministratorComponent', () => {
   let component: AdministratorComponent;
@@ -20,13 +20,9 @@ describe('AdministratorComponent', () => {
     'getAdministrators',
   ]);
 
-  const connectedUserService = jasmine.createSpyObj('ConnectedUserService', [
-    'getUserConnectedToOrg',
-  ]);
+  const userService = jasmine.createSpyObj('UserService', ['getUsersConnectedToOrg']);
 
-  let userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
-    of([]),
-  );
+  let userOrganizationGetSpy = userService.getUsersConnectedToOrg.and.returnValue(of([]));
   let administratorAddSpy = administratorService.addAdministrator.and.returnValue(
     of(true),
   );
@@ -50,7 +46,7 @@ describe('AdministratorComponent', () => {
       providers: [
         {provide: HttpClient},
         {provide: AdministratorService, useValue: administratorService},
-        {provide: ConnectedUserService, useValue: connectedUserService},
+        {provide: UserService, useValue: userService},
         {provide: FormBuilder},
         {
           provide: ActivatedRoute,
@@ -93,9 +89,7 @@ describe('AdministratorComponent', () => {
   });
 
   it('should call user connected to organization get and handle responses', () => {
-    userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
-      of([]),
-    );
+    userOrganizationGetSpy = userService.getUsersConnectedToOrg.and.returnValue(of([]));
     component.getOrgUsers(1);
     expect(userOrganizationGetSpy.calls.any()).toBe(true, 'get called');
     expect(component.organizationUsers.length).toEqual(0);
@@ -103,7 +97,7 @@ describe('AdministratorComponent', () => {
 
   it('should not get user connected to organization in case of http errors', () => {
     spyOn(console, 'error').and.callThrough();
-    userOrganizationGetSpy = connectedUserService.getUserConnectedToOrg.and.returnValue(
+    userOrganizationGetSpy = userService.getUsersConnectedToOrg.and.returnValue(
       throwError(''),
     );
     component.getOrgUsers(1);

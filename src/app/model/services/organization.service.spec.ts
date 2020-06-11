@@ -19,13 +19,16 @@ describe('OrganizationService', () => {
     'put',
     // 'delete',
   ]);
-  const loginService = jasmine.createSpyObj('LoginService', ['getAdminOrganizations']);
+  const loginService = jasmine.createSpyObj('LoginService', [
+    'getAdminOrganizations',
+    'getUserId',
+  ]);
   let httpGetSpy = httpClientService.get.and.returnValue(
     of(
       new HttpResponse({
         body: [
-          {id: 0, name: 'unipd', isPrivate: false},
-          {id: 1, name: 'unipd', isPrivate: false},
+          {id: 0, name: 'unipd', organizationType: 'public'},
+          {id: 1, name: 'unipd', organizationType: 'public'},
         ],
         headers: new HttpHeaders(),
         status: 200,
@@ -47,10 +50,10 @@ describe('OrganizationService', () => {
       of(
         new HttpResponse({
           body: {
-            id: 0,
+            id: 1,
             organizationData: {
               name: 'unipd',
-              isPrivate: false,
+              organizationType: 'public',
             },
           },
           headers: new HttpHeaders(),
@@ -58,15 +61,15 @@ describe('OrganizationService', () => {
         }),
       ),
     );
-    let result = false;
+    let result = 1;
     service
       .addOrganization({
         name: 'unipd',
-        isPrivate: false,
+        organizationType: 'private',
       })
       .subscribe((response) => (result = response));
     expect(HttpPostSpy.calls.any()).toBe(true, 'get called');
-    expect(result).toEqual(true);
+    expect(result).toEqual(1);
   });
 
   it('should be created', () => {
@@ -80,7 +83,7 @@ describe('OrganizationService', () => {
             id: 0,
             data: {
               name: 'unipd',
-              isPrivate: false,
+              organizationType: 'public',
             },
           },
           headers: new HttpHeaders(),
@@ -92,7 +95,7 @@ describe('OrganizationService', () => {
       id: 1,
       data: {
         name: '',
-        isPrivate: false,
+        organizationType: 'public',
       },
     };
     service.getOrganizationById(0).subscribe((response) => (result = response));
@@ -101,7 +104,7 @@ describe('OrganizationService', () => {
       id: 0,
       data: {
         name: 'unipd',
-        isPrivate: false,
+        organizationType: 'public',
       },
     });
   });
@@ -119,7 +122,7 @@ describe('OrganizationService', () => {
                   data: {
                     name: 'unipd',
                     description: 'siamo unipd',
-                    isPrivate: false,
+                    organizationType: 'public',
                   },
                 },
                 {
@@ -127,7 +130,7 @@ describe('OrganizationService', () => {
                   data: {
                     name: 'gruppOne',
                     description: 'siamo gruppOne',
-                    isPrivate: true,
+                    organizationType: 'private',
                   },
                 },
               ],
@@ -182,7 +185,7 @@ describe('OrganizationService', () => {
     const httpPutSpy = httpClientService.put.and.returnValue(
       of(
         new HttpResponse({
-          body: {id: 1, data: {name: 'unipd', isPrivate: false}},
+          body: {id: 1, data: {name: 'unipd', organizationType: 'public'}},
           headers: new HttpHeaders(),
           status: 200,
         }),
@@ -192,7 +195,7 @@ describe('OrganizationService', () => {
     service
       .editOrganization({
         id: 1,
-        data: {name: 'unipd', isPrivate: false},
+        data: {name: 'unipd', organizationType: 'public'},
       })
       .subscribe((response) => (result = response));
     expect(httpPutSpy.calls.any()).toBe(true, 'put called');

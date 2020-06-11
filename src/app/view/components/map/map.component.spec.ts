@@ -8,7 +8,6 @@ import {of} from 'rxjs';
 import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
-import {OrganizationService} from 'src/app/model/services/organization.service';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
 
 import {MapComponent} from './map.component';
@@ -19,18 +18,38 @@ describe('MapComponent', () => {
 
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
-  const organizationService = jasmine.createSpyObj('OrganizationService', [
-    'getOrganizationById',
-  ]);
-
-  let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of({id: 1, data: {name: 'unipd', isPrivate: false}}),
-  );
+  const testPlaceInfo = {
+    address: 'test',
+    city: 'test',
+    zipcode: 'test',
+    state: 'test',
+  };
 
   let geoCodingSpy;
-  const placeService = jasmine.createSpyObj('PlaceService', ['reverseGeocoding']);
+  const placeService = jasmine.createSpyObj('PlaceService', [
+    'reverseGeocoding',
+    'getOrgPlaces',
+    'deletePlaceInOrg',
+    'updatePlaceInOrg',
+    'addPlaceToOrg',
+  ]);
   const uncorrectName = 'Via Trieste, Padova';
   const correctName = 'INAIL,Via Triest, Padova';
+  let organizationSpy = placeService.getOrgPlaces.and.returnValue(
+    of([
+      new PlaceBuilder(
+        1,
+        new PlaceDataBuilder(testPlaceInfo, 'test', [new MyLatLng(1, 1)], 10).build(),
+      ).build(),
+      new PlaceBuilder(
+        1,
+        new PlaceDataBuilder(testPlaceInfo, 'test', [new MyLatLng(1, 1)], 10).build(),
+      ).build(),
+    ]),
+  );
+  placeService.deletePlaceInOrg.and.returnValue(of(true));
+  placeService.updatePlaceInOrg.and.returnValue(of(true));
+  placeService.addPlaceToOrg.and.returnValue(of(true));
   const geocode: Geocoding = {
     display_name: uncorrectName,
     address: {
@@ -71,7 +90,6 @@ describe('MapComponent', () => {
             },
           },
         },
-        {provide: OrganizationService, useValue: organizationService},
         {provide: PlaceService, useValue: placeService},
       ],
     }).compileComponents();
@@ -89,30 +107,23 @@ describe('MapComponent', () => {
   });
   it('should create and ask for organization places with complete response', () => {
     mockRouter.url = '/';
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({
-        id: 1,
-        data: {
-          name: 'unipd',
-          isPrivate: false,
-          places: [
-            new PlaceBuilder(
-              1,
-              new PlaceDataBuilder(
-                {
-                  address: 'Via Trieste',
-                  city: 'Padova',
-                  zipcode: '35010',
-                  state: 'Italia',
-                },
-                'Torre Archimede',
-                [],
-                10,
-              ).build(),
-            ).build(),
-          ],
-        },
-      }),
+    organizationSpy = placeService.getOrgPlaces.and.returnValue(
+      of([
+        new PlaceBuilder(
+          1,
+          new PlaceDataBuilder(
+            {
+              address: 'Via Trieste',
+              city: 'Padova',
+              zipcode: '35010',
+              state: 'Italia',
+            },
+            'Torre Archimede',
+            [],
+            10,
+          ).build(),
+        ).build(),
+      ]),
     );
     urlSegment.toString.and.returnValue('create');
     component = fixture.componentInstance;
@@ -122,16 +133,31 @@ describe('MapComponent', () => {
 
   it('should call Organization get and handle empty response', () => {
     mockRouter.url = '/';
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(of(null));
-    component.getOrganizationById(1);
+    organizationSpy = placeService.getOrgPlaces.and.returnValue(of([]));
+    component.getOrgPlaces(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     mockRouter.url = '/';
-    organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, data: {name: 'unipd', isPrivate: false}}),
+    organizationSpy = placeService.getOrgPlaces.and.returnValue(
+      of([
+        new PlaceBuilder(
+          1,
+          new PlaceDataBuilder(
+            {
+              address: 'Via Trieste',
+              city: 'Padova',
+              zipcode: '35010',
+              state: 'Italia',
+            },
+            'Torre Archimede',
+            [],
+            10,
+          ).build(),
+        ).build(),
+      ]),
     );
-    component.getOrganizationById(1);
+    component.getOrgPlaces(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
 
@@ -203,12 +229,32 @@ describe('MapComponent', () => {
       ).build(),
     ).build();
     component.organizationPlaces.push(p);
+    const p2 = new PlaceBuilder(
+      -1,
+      new PlaceDataBuilder(
+        {
+          address: 'Via Trieste2',
+          city: 'Padova',
+          zipcode: '35031',
+          state: 'Italia',
+        },
+        'test',
+        [
+          new MyLatLng(45.41165, 11.886823),
+          new MyLatLng(45.411528, 11.886592),
+          new MyLatLng(45.411458, 11.886938),
+        ],
+        10,
+      ).build(),
+    ).build();
+    component.organizationPlaces.push(p2);
     component.updatePlace(0, 'test2', 'Trieste');
     expect(component.organizationPlaces[0].data.name).toEqual('test2');
     expect(component.organizationPlaces[0].data.placeInfo.address).toEqual('Trieste');
     component.updatePlace(-1, 'test', 'Trieste2');
     expect(component.organizationPlaces[0].data.name).toEqual('test2');
     expect(component.organizationPlaces[0].data.placeInfo.address).toEqual('Trieste');
+    component.editOrganizationPlaces(1);
   });
 
   it('should generate a random hex color', () => {

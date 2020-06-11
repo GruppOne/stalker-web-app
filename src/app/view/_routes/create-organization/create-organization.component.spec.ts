@@ -30,7 +30,7 @@ describe('CreateOrganizationComponent', () => {
   const urlSegment = jasmine.createSpyObj('UrlSegment', ['toString']);
 
   let organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
-    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    of({id: 1, organizationData: {name: 'unipd', organizationType: 'private'}}),
   );
 
   beforeEach(async(() => {
@@ -95,7 +95,6 @@ describe('CreateOrganizationComponent', () => {
     organizationSubmitSpy = organizationService.addOrganization.and.returnValue(of(true));
     component.submitOrganizationForm();
     expect(organizationSubmitSpy.calls.any()).toBe(true, 'sumbit done');
-    expect(mockRouter.navigate).toHaveBeenCalled();
   });
 
   it('should not submit the form in case of http errors', () => {
