@@ -78,7 +78,10 @@ export class CreateOrganizationComponent implements OnInit {
         (response: number) => {
           this.mapDataChild.editOrganizationPlaces(response);
         },
-        (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        (err: Error) => {
+          this.snackBar.open(err.toString(), 'Ok');
+          console.error(err);
+        },
       );
     }
   }
