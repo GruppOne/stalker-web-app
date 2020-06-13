@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {Administrator, AdminType} from 'src/app/model/classes/administrator';
 import {User} from 'src/app/model/classes/users/user';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
 import {UserService} from 'src/app/model/services/user.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-administrator',

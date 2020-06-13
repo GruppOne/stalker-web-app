@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,7 +10,6 @@ import {UserService} from 'src/app/model/services/user.service';
 
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {InsertEmailDialogComponent} from '../insert-email-dialog/insert-email-dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import * as sha512 from 'js-sha512';
 import {LoginService} from 'src/app/model/services/login.service';
@@ -9,7 +10,6 @@ import {User, UserBuilder} from '../../../model/classes/users/user';
 import {UserData} from '../../../model/classes/users/user-data';
 import {UserService} from '../../../model/services/user.service';
 import {InsertEmailDialogComponent} from '../../components/insert-email-dialog/insert-email-dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
