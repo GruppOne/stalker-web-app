@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {BaseChartDirective} from 'ng2-charts';
 import {forkJoin} from 'rxjs';
@@ -10,7 +11,6 @@ import {
 import {PlaceService} from 'src/app/model/services/place.service';
 
 import {Organization} from '../../../model/classes/organizations/organization';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-report',

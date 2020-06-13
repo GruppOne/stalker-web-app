@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import * as sha512 from 'js-sha512';
 import {LoginDataBuilder} from 'src/app/model/classes/users/login-data';
 
 import {LoginService} from '../../../model/services/login.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {forkJoin} from 'rxjs';
 import {User} from 'src/app/model/classes/users/user';
 // import {PlaceService} from 'src/app/model/services/place.service';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-report',

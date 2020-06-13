@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
   tileLayer,
@@ -15,7 +16,6 @@ import {MyLatLng} from 'src/app/model/classes/places/my-lat-lng';
 import {PlaceBuilder, Place} from 'src/app/model/classes/places/place';
 import {PlaceDataBuilder} from 'src/app/model/classes/places/place-data';
 import {PlaceService, Geocoding} from 'src/app/model/services/place.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-map',

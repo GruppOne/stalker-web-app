@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {AdminType} from 'src/app/model/classes/administrator';
 import {OrganizationService} from 'src/app/model/services/organization.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */

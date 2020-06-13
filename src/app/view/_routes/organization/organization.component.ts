@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Administrator} from 'src/app/model/classes/administrator';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
@@ -11,7 +12,6 @@ import {
   OrganizationBuilder,
 } from '../../../model/classes/organizations/organization';
 import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-organization',
