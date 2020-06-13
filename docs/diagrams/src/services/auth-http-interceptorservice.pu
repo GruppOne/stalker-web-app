@@ -6,9 +6,9 @@ class AuthHttpInterceptor {
   --
 
   + intercept(
-    req : HttpRequest<BodyType>,
+    req : HttpRequest<unknown>,
     next : HttpHandler
-    ) : Observable<HttpEvent<BodyType>>
+    ) : Observable<HttpEvent<unknown>>
 }
 
 note left of AuthHttpInterceptor
