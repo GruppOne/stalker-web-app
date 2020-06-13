@@ -5,6 +5,7 @@ import {forkJoin} from 'rxjs';
 import {User} from 'src/app/model/classes/users/user';
 // import {PlaceService} from 'src/app/model/services/place.service';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-report',
@@ -39,6 +40,7 @@ export class UserReportComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
+    private readonly snackBar: MatSnackBar,
   ) {}
   // private readonly placeService: PlaceService,
 
@@ -76,11 +78,14 @@ export class UserReportComponent implements OnInit {
     forkJoin([
       this.userService.getUserHistory(userId, orgId),
       // this.placeService.getOrgPlaces(orgId),
-    ]).subscribe((result) => {
-      this.userMovementInfo = result[0];
-      // this.places = result[1];
-      this.getPlaceStats();
-    });
+    ]).subscribe(
+      (result) => {
+        this.userMovementInfo = result[0];
+        // this.places = result[1];
+        this.getPlaceStats();
+      },
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+    );
   }
 
   getPlaceStats(): void {

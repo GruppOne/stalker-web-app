@@ -9,6 +9,7 @@ import {User, UserBuilder} from '../../../model/classes/users/user';
 import {UserData} from '../../../model/classes/users/user-data';
 import {UserService} from '../../../model/services/user.service';
 import {InsertEmailDialogComponent} from '../../components/insert-email-dialog/insert-email-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly loginService: LoginService,
     private readonly dialog: MatDialog,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -76,9 +78,12 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.userService.deleteUserById(id).subscribe(() => {
-          this.loginService.logout();
-        });
+        this.userService.deleteUserById(id).subscribe(
+          () => {
+            this.loginService.logout();
+          },
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
       }
     });
   }
@@ -104,7 +109,10 @@ export class ProfileComponent implements OnInit {
     if (this.validateInput(newPassword) && this.validateInput(oldPassword)) {
       this.loginService
         .changePassword(sha512.sha512(oldPassword), sha512.sha512(newPassword))
-        .subscribe(() => console.log('YOS'));
+        .subscribe(
+          () => console.log('YOS'),
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
     }
   }
   public validateInput(password: string): boolean {

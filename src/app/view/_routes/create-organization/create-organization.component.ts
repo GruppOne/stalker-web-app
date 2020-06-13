@@ -80,7 +80,6 @@ export class CreateOrganizationComponent implements OnInit {
         },
         (err: Error) => {
           this.snackBar.open(err.toString(), 'Ok');
-          console.error(err);
         },
       );
     }

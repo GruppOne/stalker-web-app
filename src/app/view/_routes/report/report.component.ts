@@ -10,6 +10,7 @@ import {
 import {PlaceService} from 'src/app/model/services/place.service';
 
 import {Organization} from '../../../model/classes/organizations/organization';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-report',
@@ -27,6 +28,7 @@ export class ReportComponent implements AfterViewInit {
     private readonly organizationService: OrganizationService,
     private readonly route: ActivatedRoute,
     private readonly placeService: PlaceService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   userInPlaceChartOptions = {
@@ -149,26 +151,27 @@ export class ReportComponent implements AfterViewInit {
       this.organizationService.getOrganizationById(id),
       this.placeService.getOrgPlaces(id),
       this.organizationService.getUsersInsidePlaces(id),
-    ]).subscribe((result) => {
-      this.organization = result[0];
-      this.organizationPlaces = result[1];
-      this.usersInsideOrg = result[2];
-      console.log(this.organization);
-      console.log(this.usersInsideOrg);
-      this.drawChart();
-      this.updateUsersInsidePlacesChart();
-      let i = 1;
-      setInterval(() => {
-        i += 10;
-        this.organizationService
-          .getUsersInsidePlaces(i)
-          .subscribe((response: UsersInside) => {
-            this.usersInsideOrg = response;
-            this.updateUsersInsidePlacesChart();
-          });
-      }, 30000);
-      // TODO: REPLACE TO THIS WHEN THE ENDPOINT IS READY
-      /*       setInterval(() => {
+    ]).subscribe(
+      (result) => {
+        this.organization = result[0];
+        this.organizationPlaces = result[1];
+        this.usersInsideOrg = result[2];
+        console.log(this.organization);
+        console.log(this.usersInsideOrg);
+        this.drawChart();
+        this.updateUsersInsidePlacesChart();
+        let i = 1;
+        setInterval(() => {
+          i += 10;
+          this.organizationService
+            .getUsersInsidePlaces(i)
+            .subscribe((response: UsersInside) => {
+              this.usersInsideOrg = response;
+              this.updateUsersInsidePlacesChart();
+            });
+        }, 30000);
+        // TODO: REPLACE TO THIS WHEN THE ENDPOINT IS READY
+        /*       setInterval(() => {
         this.organizationService
           .getUsersInsidePlaces(id)
           .subscribe((response: UsersInside) => {
@@ -176,7 +179,9 @@ export class ReportComponent implements AfterViewInit {
           });
         this.updateUsersInsidePlacesChart();
       }, 30000); */
-    });
+      },
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+    );
   }
 
   /**

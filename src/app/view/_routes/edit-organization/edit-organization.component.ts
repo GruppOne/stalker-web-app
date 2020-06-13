@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
@@ -41,6 +42,7 @@ export class EditOrganizationComponent implements OnInit {
     private readonly organizationService: OrganizationService,
     public readonly route: ActivatedRoute,
     public readonly loginService: LoginService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   /**
@@ -105,7 +107,7 @@ export class EditOrganizationComponent implements OnInit {
           ]),
         });
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 
@@ -143,7 +145,7 @@ export class EditOrganizationComponent implements OnInit {
               Number(this.route.snapshot.paramMap.get('id')),
             );
           },
-          (err: Error) => console.error(err),
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
         );
     }
   }
