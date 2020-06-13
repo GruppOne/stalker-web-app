@@ -1,0 +1,14 @@
+@startuml Organization builder design pattern diagram
+!include ../../style/class.pu
+
+!include ../classes/Place/MyLatLng.pu
+!include ../classes/Place/PlaceBuilder.pu
+!include ../classes/Place/PlaceDataBuilder.pu
+
+!include ../interfaces/Place/Place.pu
+!include ../interfaces/Place/PlaceData.pu
+
+MapComponent ..> AbsPlaceBuilder
+MapComponent ..> AbsPlaceDataBuilder
+
+@enduml

@@ -19,11 +19,16 @@ class PlaceService {
 
   + PlaceService(
     private httpClient : HttpClient {readonly}
+    private httpClientService : HttpClientService {readonly}
     )
   + reverseGeocoding(
     lat : Real,
     lng : Real
     ) : Observable<Geocoding>
+  + getOrgPlaces(organizationId: Integer) : Observable<Place[]>
+  + addPlaceToOrg(organizationId: Integer, newPlace: PlaceData) : Observable<boolean>
+  + updatePlaceInOrg(organizationId: Integer, newPlace: Place) : Observable<boolean>
+  + deletePlaceInOrg(organizationId: Integer, placeId: Integer) : Observable<boolean>
 }
 
 Geocoding *--> AddressType

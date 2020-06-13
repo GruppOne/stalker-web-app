@@ -1,0 +1,30 @@
+@startuml ReportComponent diagram
+!include ../../../style/class.pu
+
+class UserReportComponent {
+  - route : ActivatedRoute {readonly}
+  - userService : UserService {readonly}
+  - user: User
+  - places : Place[]
+  - usersInsideOrg: UsersInside[]
+  - userPlacesTime : UserPlaceTime[]
+  - userMovementInfo : UserMovement[]
+
+  --
+
+  + UserReportComponent(
+    private userService : UserService,
+    private placeService : PlaceService,
+    private route: ActivatedRoute,
+    )
+  + ngOnInit() : void
+  + getPlaceName(placeId: Integer) : string
+  + getUserById(userId: Integer) : void
+  + setupUserHistory(userId: Integer, orgId: Integer) : void
+  + getPlaceStats(): void
+  + calcolateTime(index: Integer): string
+  + secondsToTime(seconds: Integer): string
+  + getLimitedMovements(): void
+  + updateLimit(time: string): void
+}
+@enduml

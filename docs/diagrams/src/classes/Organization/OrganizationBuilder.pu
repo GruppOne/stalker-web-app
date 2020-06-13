@@ -11,23 +11,21 @@ class OrganizationBuilder {
   - id : Integer
   - description : String
   - ldapConfiguration : LdapConfiguration
-  - places : Place[]
   - createdDate : String
   - lastModifiedDate : String
   - name : String
-  - isPrivate : Boolean
+  - organizationType : string
 
   --
 
-  + OrganizationBuilder(private name : String, private isPrivate : Boolean)
+  + OrganizationBuilder(private name : String, private organizationType : string)
   + addId(id : Integer) : OrganizationBuilder
   + addName(name : String) : OrganizationBuilder
   + addDescription(description : String) : OrganizationBuilder
   + addLdapConfiguration(
     ldapConfiguration : LdapConfiguration
     ) : OrganizationBuilder
-  + addPlaces(places : Place[]) : OrganizationBuilder
-  + addIsPrivate(isPrivate : Boolean) : OrganizationBuilder
+  + addIsPrivate(organizationType : String) : OrganizationBuilder
   + addCreatedDate(createdDate : String) : OrganizationBuilder
   + addLastModifiedDate(
     lastModifiedDate : String
@@ -36,7 +34,6 @@ class OrganizationBuilder {
 }
 
 OrganizationBuilder -->  LdapConfiguration
-OrganizationBuilder --> Place
 OrganizationBuilder ..> "<<create>>" Organization
 OrganizationBuilder --|> AbsOrganizationBuilder
 @enduml

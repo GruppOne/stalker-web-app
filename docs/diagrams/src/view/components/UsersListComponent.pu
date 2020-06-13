@@ -1,0 +1,27 @@
+@startuml ReportComponent diagram
+!include ../../../style/class.pu
+
+class UsersListComponent {
+  - private route: ActivatedRoute
+  - private router: Router
+  - userService : UserService {readonly}
+  - connectedUsers : User[]
+
+  --
+
+  + UsersListComponent(
+    private router : Router,
+    private userService : UserService,
+    private route: ActivatedRoute,
+    )
+  + ngOnInit() : void
+  + getUserConnectedToOrg(id: Integer) : void
+  + getStalkerUsers() : void
+  + deleteButtonAction(userId: Integer, email: Dtring) : void
+  + deleteUserById(userId: Integer, email: String) : string
+  + disconnectUserById(userId: Integer) : void
+  + removeUserFromList(userId: Integer) : void
+  + applyFilter(event: Event) : void
+  + getLink(userId: Integer) : String
+}
+@enduml

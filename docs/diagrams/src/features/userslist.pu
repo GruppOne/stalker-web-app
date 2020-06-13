@@ -1,0 +1,16 @@
+@startuml UsersListComponent diagram
+!include ../../style/class.pu
+!include ../view/routes/ListComponent.pu
+!include ../view/components/UsersListComponent.pu
+!include ../services/UserService.pu
+!include ../interfaces/User/User.pu
+
+title Stalker web application show list of users class diagram
+
+ListComponent -> UsersListComponent
+ReportComponent -> UsersListComponent
+UsersListComponent -> User
+UsersListComponent --> UserService
+UsersListComponent -> Router
+
+@enduml

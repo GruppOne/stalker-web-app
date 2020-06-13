@@ -3,7 +3,7 @@
 class LoginService {
   - httpClientService : HttpClientService {readonly}
   - router : Router {readonly}
-
+  - private adminMapping
   --
 
   + LoginService(
@@ -19,5 +19,7 @@ class LoginService {
   + isLoggedIn() : Boolean
   + getUserId() : String
   + getAdminOrganizations() : {organizationId : Integer, role : AdminType}
+  + recoverPassword(eMail: string): Observable<boolean>
+  + changePassword(oldHashesPassword: string, hashedPassword: string): Observable<boolean>
 }
 @enduml

@@ -1,0 +1,19 @@
+@startuml UserReportComponent diagram
+!include ../../style/class.pu
+!include ../view/routes/UserReportComponent.pu
+!include ../services/UserService.pu
+!include ../services/PlaceService.pu
+!include ../interfaces/User/User.pu
+!include ../interfaces/Place/Place.pu
+
+title Stalker web application show user report class diagram
+
+UserReportComponent -> UsersInside
+UserReportComponent -> User
+UserReportComponent --> UserService
+UserReportComponent ---> PlaceService
+PlaceService .> Place
+UserReportComponent -> Router
+
+
+@enduml

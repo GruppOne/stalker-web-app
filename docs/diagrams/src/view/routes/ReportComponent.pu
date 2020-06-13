@@ -1,0 +1,30 @@
+@startuml ReportComponent diagram
+!include ../../../style/class.pu
+
+class ReportComponent {
+  - private route: ActivatedRoute
+  - organizationService : OrganizationService {readonly}
+  - administratorService : AdministratorService {readonly}
+  - placeService : PlaceService {readonly}
+  - mapDataChild
+  - chart
+  - organizationPlaces : Place[]
+  - usersInsideOrg: UsersInside[]
+  - organizationUsers : User[]
+  - userInPlaceChartOptions
+  - userInPlaceChartData
+
+  --
+
+  + ReportComponent(
+    private organizationService : OrganizationService,
+    private placeService : PlaceService,
+    private route: ActivatedRoute,
+    )
+  + ngAfterViewInit() : void
+  + get setupGraphs(id: Integer) : void
+  + updateUsersInsidePlacesChart() : void
+  + drawChart() : void
+  + hexToRgb(hex: string) : string
+}
+@enduml

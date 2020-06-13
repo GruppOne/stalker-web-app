@@ -5,12 +5,10 @@ class Organization <<interface>> {
   + name : String {readonly}
   + description : String {readonly}
   + ldapConfiguration : LdapConfiguration {readonly}
-  + isPrivate : Boolean {readonly}
+  + organizationType : String {readonly}
   + createdDate : String {readonly}
   + lastModifiedDate : String {readonly}
-  + places : Place[]
 }
 
 Organization --> LdapConfiguration
-Organization --> Place
 @enduml
