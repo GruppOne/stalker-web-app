@@ -11,6 +11,7 @@ import {
   OrganizationBuilder,
 } from '../../../model/classes/organizations/organization';
 import {ConfirmDialogComponent} from '../../components/confirm-dialog/confirm-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-organization',
@@ -32,6 +33,7 @@ export class OrganizationComponent implements OnInit {
     private readonly router: Router,
     public readonly dialog: MatDialog,
     private readonly loginService: LoginService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class OrganizationComponent implements OnInit {
         );
         console.log(this.organization);
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 
@@ -66,9 +68,12 @@ export class OrganizationComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.organizationService.deleteOrganizationById(id).subscribe(() => {
-          this.router.navigate(['/organizations']);
-        });
+        this.organizationService.deleteOrganizationById(id).subscribe(
+          () => {
+            this.router.navigate(['/organizations']);
+          },
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
       }
     });
   }
@@ -82,7 +87,7 @@ export class OrganizationComponent implements OnInit {
         this.administrators = response;
         console.log(this.administrators);
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 

@@ -6,6 +6,7 @@ import * as sha512 from 'js-sha512';
 import {LoginDataBuilder} from 'src/app/model/classes/users/login-data';
 
 import {LoginService} from '../../../model/services/login.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
     private readonly loginService: LoginService,
     private readonly router: Router,
     private readonly titleService: Title,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class HomeComponent implements OnInit {
       () => {
         this.router.navigate([`/user/${this.loginService.getUserId()}`]);
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
   public validateInput(email: string, password: string): boolean {
@@ -71,6 +73,9 @@ export class HomeComponent implements OnInit {
   }
 
   recoverPassword(email: string): void {
-    this.loginService.recoverPassword(email).subscribe(() => console.log('YOS'));
+    this.loginService.recoverPassword(email).subscribe(
+      () => console.log('YOS'),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+    );
   }
 }

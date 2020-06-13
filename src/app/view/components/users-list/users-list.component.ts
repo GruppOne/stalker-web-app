@@ -9,6 +9,7 @@ import {UserService} from 'src/app/model/services/user.service';
 
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {InsertEmailDialogComponent} from '../insert-email-dialog/insert-email-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
@@ -26,29 +27,13 @@ export class UsersListComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   sort: MatSort = new MatSort();
 
-  connectedUsers: User[] = [
-    {
-      id: 1,
-      data: {
-        email: 'alex.rizzo1998@gmail.com',
-        firstName: 'Alessandro',
-        lastName: 'Rizzo',
-      },
-    },
-    {
-      id: 2,
-      data: {
-        email: 'fabioscettro@gmail.com',
-        firstName: 'Fabio',
-        lastName: 'Scettro',
-      },
-    },
-  ];
+  connectedUsers: User[] = [];
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
     public readonly router: Router,
     public readonly dialog: MatDialog,
+    private readonly snackBar: MatSnackBar,
   ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
@@ -81,7 +66,7 @@ export class UsersListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
       },
       (err: Error) => {
-        console.log(err);
+        this.snackBar.open(err.toString(), 'Ok');
         this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
       },
     );
@@ -93,7 +78,7 @@ export class UsersListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
       },
       (err: Error) => {
-        console.log(err);
+        this.snackBar.open(err.toString(), 'Ok');
         this.dataSource = new MatTableDataSource(Array.from(this.connectedUsers));
       },
     );
@@ -123,8 +108,7 @@ export class UsersListComponent implements OnInit {
             this.removeUserFromList(userId);
           },
           (err: Error) => {
-            console.error(err);
-            this.removeUserFromList(userId);
+            this.snackBar.open(err.toString(), 'Ok');
           },
         );
       }
@@ -146,8 +130,7 @@ export class UsersListComponent implements OnInit {
               this.removeUserFromList(userId);
             },
             (err: Error) => {
-              console.error(err);
-              this.removeUserFromList(userId);
+              this.snackBar.open(err.toString(), 'Ok');
             },
           );
       }
