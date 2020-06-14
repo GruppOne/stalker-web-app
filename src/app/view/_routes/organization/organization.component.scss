@@ -38,14 +38,19 @@
   }
 
   .inlineLeft {
-    width: 60%;
+    width: 40%;
   }
 
   .inlineRight {
     font-size: 16px;
     line-height: 46px;
     text-align: right;
-    width: 40% !important;
+    width: 60% !important;
+  }
+
+  span {
+    color: rgba(0, 0, 0, 0.54);
+    font-style: italic;
   }
 
   .mat-card-actions {
