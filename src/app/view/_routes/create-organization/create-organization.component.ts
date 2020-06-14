@@ -48,8 +48,8 @@ export class CreateOrganizationComponent implements OnInit {
         }),
         this.formBuilder.group({
           orgUrlCtrl: ['', Validators.required],
-          orgSearchCtrl: ['', Validators.required],
           orgDnCtrl: ['', Validators.required],
+          orgCnCtrl: ['', Validators.required],
           orgPwdCtrl: ['', Validators.required],
         }),
       ]),
@@ -69,8 +69,8 @@ export class CreateOrganizationComponent implements OnInit {
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
         .addLdapConfiguration({
           url: this.formArray.value[1].orgUrlCtrl,
-          searchQuery: this.formArray.value[1].orgUrlCtrl,
-          bindDn: this.formArray.value[1].orgDnCtrl,
+          baseDn: this.formArray.value[1].orgDnCtrl,
+          bindRdn: `cn=${this.formArray.value[1].orgCnCtrl}`,
           bindPassword: this.formArray.value[1].orgPwdCtrl,
         });
       console.log(organizationDataBuilder.build());

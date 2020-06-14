@@ -10,15 +10,19 @@
     <mat-icon>arrow_forward_ios</mat-icon>
   </button>
   <mat-card>
-    <div *ngIf="organization?.data?.ldapConfiguration?.username">
+    <div *ngIf="organization?.data?.ldapConfiguration?.url">
       <mat-card-content>
         <div class="inlineLeft">
           <mat-card-title>LDAP Configuration</mat-card-title>
           <mat-card-subtitle>Access data to the LDAP server</mat-card-subtitle>
         </div>
         <div class="inlineRight">
-          {{ organization?.data?.ldapConfiguration?.username }}@{{ organization?.data?.ldapConfiguration?.host }},
-          {{ organization?.data?.ldapConfiguration?.password }}
+          <span>url: </span>{{ organization?.data?.ldapConfiguration?.url }} &bull; <span>password: </span
+          >{{ organization?.data?.ldapConfiguration?.bindPassword }}
+          <br />
+          <span>bindDn: </span>{{ organization?.data?.ldapConfiguration?.bindRdn }},{{
+            organization?.data?.ldapConfiguration?.baseDn
+          }}
         </div>
       </mat-card-content>
       <mat-divider></mat-divider>

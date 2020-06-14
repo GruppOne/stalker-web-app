@@ -59,8 +59,8 @@ export class EditOrganizationComponent implements OnInit {
         }),
         this.formBuilder.group({
           orgUrlCtrl: [],
-          orgSearchCtrl: [],
           orgDnCtrl: [],
+          orgCnCtrl: [],
           orgPwdCtrl: [],
         }),
       ]),
@@ -91,12 +91,12 @@ export class EditOrganizationComponent implements OnInit {
                 this.organization.data.ldapConfiguration?.url,
                 Validators.required,
               ],
-              orgSearchCtrl: [
-                this.organization.data.ldapConfiguration?.searchQuery,
+              orgDnCtrl: [
+                this.organization.data.ldapConfiguration?.baseDn,
                 Validators.required,
               ],
-              orgDnCtrl: [
-                this.organization.data.ldapConfiguration?.bindDn,
+              orgCnCtrl: [
+                this.organization.data.ldapConfiguration?.bindRdn,
                 Validators.required,
               ],
               orgPwdCtrl: [
@@ -126,8 +126,8 @@ export class EditOrganizationComponent implements OnInit {
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
         .addLdapConfiguration({
           url: this.formArray.value[1].orgUrlCtrl,
-          searchQuery: this.formArray.value[1].orgSearchCtrl,
-          bindDn: this.formArray.value[1].orgDnCtrl,
+          baseDn: this.formArray.value[1].orgDnCtrl,
+          bindRdn: `cn=${this.formArray.value[1].orgCnCtrl}`,
           bindPassword: this.formArray.value[1].orgPwdCtrl,
         })
         .addCreatedDate(this.organization.data.creationDateTime as string)
