@@ -10,6 +10,7 @@ import {UserService} from 'src/app/model/services/user.service';
 
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {InsertEmailDialogComponent} from '../insert-email-dialog/insert-email-dialog.component';
+import {LoginService} from 'src/app/model/services/login.service';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
@@ -28,12 +29,14 @@ export class UsersListComponent implements OnInit {
   sort: MatSort = new MatSort();
 
   connectedUsers: User[] = [];
+  userLevel = 0;
   constructor(
     private readonly userService: UserService,
-    private readonly route: ActivatedRoute,
+    public readonly route: ActivatedRoute,
     public readonly router: Router,
     public readonly dialog: MatDialog,
     private readonly snackBar: MatSnackBar,
+    private readonly loginService: LoginService,
   ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
@@ -152,5 +155,14 @@ export class UsersListComponent implements OnInit {
         this.route.snapshot.paramMap.get('id') as string
       }/user/${userId}/history`;
     }
+  }
+  getLevel(): void {
+    this.loginService
+      .getUserRole(
+        this.route.snapshot.paramMap.get('id')
+          ? +(this.route.snapshot.paramMap.get('id') as string)
+          : 0,
+      )
+      .subscribe((response: number) => (this.userLevel = response));
   }
 }

@@ -64,13 +64,14 @@
       >
         Edit
       </button>
-      &nbsp; or
+      {{ userLevel >= 3 ? '&nbsp; or' : '' }}
       <button
         class="buttonDelete"
         mat-raised-button
         matTooltip="Delete this organization"
         matTooltipPosition="right"
         (click)="deleteOrganizationById(organization?.id)"
+        *ngIf="userLevel >= 3"
       >
         Delete
       </button>

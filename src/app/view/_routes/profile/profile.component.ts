@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
     oldPwdCtrl: [],
     pwdCtrl: [],
   });
+  userLevel = 0;
   // eslint-disable-next-line max-params
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -42,6 +43,7 @@ export class ProfileComponent implements OnInit {
     const userId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getUser(userId);
     this.getAdminOrganizations();
+    this.getLevel();
   }
 
   /**
@@ -122,5 +124,10 @@ export class ProfileComponent implements OnInit {
     );
 
     return regexPwd.test(password);
+  }
+  getLevel(): void {
+    this.loginService
+      .getUserRole(+(this.route.snapshot.paramMap.get('id') as string))
+      .subscribe((response: number) => (this.userLevel = response));
   }
 }
