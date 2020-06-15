@@ -70,7 +70,7 @@ export class OrganizationService {
   }
   getUsersInsidePlaces(organizationId: number): Observable<UsersInside> {
     return this.httpClientService
-      .get<UsersInside>(`/organzation/${organizationId}/users/inside`)
+      .get<UsersInside>(`/organization/${organizationId}/users/inside`)
       .pipe(
         map((response: HttpResponse<UsersInside>) => {
           console.log(response.body);

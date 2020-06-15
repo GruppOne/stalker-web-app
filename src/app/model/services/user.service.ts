@@ -15,7 +15,7 @@ export interface UserMovement {
 
 export interface UserHistoryAPI {
   id: number;
-  history: {timestamp: number; placeId: number; inside: boolean}[];
+  history: {timestamp: string; placeId: number; inside: boolean}[];
 }
 
 @Injectable({
@@ -57,7 +57,7 @@ export class UserService {
       .delete<boolean>(`/user/${userId}`)
       .pipe(map(() => true));
   }
-  getUserHistory(organizationId: number, userId: number): Observable<UserMovement[]> {
+  getUserHistory(userId: number, organizationId: number): Observable<UserMovement[]> {
     /*     const input: UserHistoryAPI = {
       id: 1,
       history: [
@@ -122,18 +122,19 @@ export class UserService {
                   !userHistory[userHistory.length - 1].enter
                 ) {
                   userHistory.push({
-                    time: new Date(iterator.timestamp * 1000),
+                    time: new Date(iterator.timestamp),
                     placeId: iterator.placeId,
                     enter: true,
                   });
                 }
               } else {
                 if (
-                  userHistory[userHistory.length - 1] &&
-                  userHistory[userHistory.length - 1].enter
+                  !userHistory.length ||
+                  (userHistory[userHistory.length - 1] &&
+                    userHistory[userHistory.length - 1].enter)
                 ) {
                   userHistory.push({
-                    time: new Date(iterator.timestamp * 1000),
+                    time: new Date(iterator.timestamp),
                     placeId: iterator.placeId,
                     enter: false,
                   });

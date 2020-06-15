@@ -6,11 +6,11 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from 'src/app/model/classes/users/user';
+import {LoginService} from 'src/app/model/services/login.service';
 import {UserService} from 'src/app/model/services/user.service';
 
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {InsertEmailDialogComponent} from '../insert-email-dialog/insert-email-dialog.component';
-import {LoginService} from 'src/app/model/services/login.service';
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
@@ -30,6 +30,7 @@ export class UsersListComponent implements OnInit {
 
   connectedUsers: User[] = [];
   userLevel = 0;
+  // eslint-disable-next-line max-params
   constructor(
     private readonly userService: UserService,
     public readonly route: ActivatedRoute,
@@ -51,6 +52,7 @@ export class UsersListComponent implements OnInit {
     } else {
       this.getStalkerUsers();
     }
+    this.getLevel();
   }
 
   applyFilter(event: Event): void {
