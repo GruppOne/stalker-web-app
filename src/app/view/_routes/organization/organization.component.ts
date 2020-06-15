@@ -41,6 +41,7 @@ export class OrganizationComponent implements OnInit {
     this.getOrganizationById(organizationId);
     this.organization = this.organizationBuilder?.build();
     this.getOrgAdministrators(organizationId);
+    this.getLevel();
   }
 
   /**
@@ -85,15 +86,14 @@ export class OrganizationComponent implements OnInit {
     this.administratorService.getAdministrators(organizationId).subscribe(
       (response: Administrator[]) => {
         this.administrators = response;
-        console.log(this.administrators);
       },
       (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 
   getLevel(): void {
-    this.userLevel = this.loginService.getUserRole(
-      +(this.route.snapshot.paramMap.get('id') as string),
-    );
+    this.loginService
+      .getUserRole(+(this.route.snapshot.paramMap.get('id') as string))
+      .subscribe((response: number) => (this.userLevel = response));
   }
 }
