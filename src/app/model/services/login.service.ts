@@ -86,18 +86,19 @@ export class LoginService {
       );
   }
 
-  getUserRole(organizationId: number): number {
-    let role = 1;
-    this.getAdminOrganizations().subscribe(
-      (response: {organizationId: number; role: string}[]) => {
+  getUserRole(organizationId: number): Observable<number> {
+    return this.getAdminOrganizations().pipe(
+      map((response: {organizationId: number; role: string}[]) => {
+        console.log(response);
+        let role = 1;
         response.forEach((element: {organizationId: number; role: string}) => {
           if (element.organizationId === organizationId) {
             role = this.adminMapping.get(element.role);
           }
         });
-      },
+        return role;
+      }),
     );
-    return role;
   }
 
   logout(): void {

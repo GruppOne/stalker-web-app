@@ -150,8 +150,9 @@ export class EditOrganizationComponent implements OnInit {
     }
   }
   getLevel(): void {
-    this.userLevel = this.loginService.getUserRole(
-      +(this.route.snapshot.paramMap.get('id') as string),
-    );
+    this.loginService
+      .getUserRole(+(this.route.snapshot.paramMap.get('id') as string))
+      .subscribe((response: number) => (this.userLevel = response));
+    console.log(this.userLevel);
   }
 }
