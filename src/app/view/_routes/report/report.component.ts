@@ -195,16 +195,19 @@ export class ReportComponent implements AfterViewInit {
   updateUsersInsidePlacesChart(): void {
     const newActualData: number[] = [];
     const newMaxData: number[] = [];
-    for (const i of this.usersInsideOrg.places) {
-      newActualData.push(i.usersInside);
-      newMaxData.push(100 >= i.usersInside ? 100 - i.usersInside : 0);
-      /*           this.userInPlaceChartData[1].data.push(
-          (this.organization?.data.places?.find(
-            (element: Place) => element.id === i.placeId,
-          )?.data.maxCurrentUsers >= i.usersInside ? (this.organization?.data.places?.find
-            ((element: Place) => element.id === i.placeId,
-          )?.data.maxCurrentUsers - i.usersInside) : 0,
-        ); */
+    for (const i of this.organizationPlaces) {
+      const actualUsersInside = this.usersInsideOrg.places.find(
+        (element: {placeId: number; usersInside: number}) => element.placeId === i.id,
+      );
+      newActualData.push(actualUsersInside ? actualUsersInside.usersInside : 0);
+      newMaxData.push(
+        actualUsersInside?.usersInside &&
+          i.data.maxConcurrentUsers >= actualUsersInside.usersInside
+          ? i.data.maxConcurrentUsers - actualUsersInside.usersInside
+          : !actualUsersInside?.usersInside
+          ? i.data.maxConcurrentUsers
+          : 0,
+      );
     }
     this.userInPlaceChartData[0].data = newActualData;
     this.userInPlaceChartData[1].data = newMaxData;

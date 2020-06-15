@@ -144,10 +144,10 @@ export class MapComponent implements OnInit {
             -1,
             new PlaceDataBuilder(
               {
-                address: data.address.road,
-                city: 'chioggia',
-                zipcode: data.address.postcode,
-                state: data.address.country,
+                address: data.address.road ? data.address.road : 'unknown',
+                city: data.address.city ? data.address.city : 'unknown',
+                zipcode: data.address.postcode ? data.address.postcode : 'unknown',
+                state: data.address.country ? data.address.country : 'unknown',
               },
               name,
               mylatlngs,

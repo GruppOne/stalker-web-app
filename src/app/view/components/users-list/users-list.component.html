@@ -28,7 +28,7 @@
         <button
           mat-button
           (click)="deleteButtonAction(row.id, row.data.email)"
-          [disabled]="route.snapshot.paramMap.get('id') || (route.snapshot.paramMap.get('id') && userLevel < 3)"
+          [disabled]="route.snapshot.paramMap.get('id') && userLevel < 3"
         >
           <mat-icon>delete</mat-icon>
         </button>
