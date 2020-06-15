@@ -160,25 +160,14 @@ export class ReportComponent implements AfterViewInit {
         console.log(this.usersInsideOrg);
         this.drawChart();
         this.updateUsersInsidePlacesChart();
-        let i = 1;
         setInterval(() => {
-          i += 10;
           this.organizationService
-            .getUsersInsidePlaces(i)
+            .getUsersInsidePlaces(id)
             .subscribe((response: UsersInside) => {
               this.usersInsideOrg = response;
               this.updateUsersInsidePlacesChart();
             });
         }, 30000);
-        // TODO: REPLACE TO THIS WHEN THE ENDPOINT IS READY
-        /*       setInterval(() => {
-        this.organizationService
-          .getUsersInsidePlaces(id)
-          .subscribe((response: UsersInside) => {
-            this.usersInsideOrg = response;
-          });
-        this.updateUsersInsidePlacesChart();
-      }, 30000); */
       },
       (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );

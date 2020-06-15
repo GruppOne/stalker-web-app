@@ -69,22 +69,14 @@ export class OrganizationService {
       .pipe(map(() => true));
   }
   getUsersInsidePlaces(organizationId: number): Observable<UsersInside> {
-    console.log(organizationId);
-    return this.httpClientService.get<UsersInside>(`/version`).pipe(
-      map(() => {
-        this.usersInsideOrg.usersInside = organizationId * 2 + 1;
-        this.usersInsideOrg.places = [
-          {placeId: 1, usersInside: organizationId},
-          {placeId: 2, usersInside: organizationId + 1},
-        ];
-        return this.usersInsideOrg;
-      }),
-    );
-    /*     return this.httpClientService.get<UsersInside>(`/organzation/${organizationId}/users/inside`).pipe(
-      map((response: HttpResponse<UsersInside>) => {
-        return response.body as UsersInside;
-      }),
-    ); */
+    return this.httpClientService
+      .get<UsersInside>(`/organzation/${organizationId}/users/inside`)
+      .pipe(
+        map((response: HttpResponse<UsersInside>) => {
+          console.log(response.body);
+          return response.body as UsersInside;
+        }),
+      );
   }
   getAdminOrganizations(): Observable<
     {

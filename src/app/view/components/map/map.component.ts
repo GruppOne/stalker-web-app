@@ -145,7 +145,7 @@ export class MapComponent implements OnInit {
             new PlaceDataBuilder(
               {
                 address: data.address.road,
-                city: data.address.city,
+                city: 'chioggia',
                 zipcode: data.address.postcode,
                 state: data.address.country,
               },

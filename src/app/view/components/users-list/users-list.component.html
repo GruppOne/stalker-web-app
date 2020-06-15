@@ -25,7 +25,11 @@
     <ng-container matColumnDef="disconnect">
       <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col" class="emailCol">Disconnect</th>
       <td mat-cell *matCellDef="let row" class="deleteCol">
-        <button mat-button (click)="deleteButtonAction(row.id, row.data.email)" [disabled]="false">
+        <button
+          mat-button
+          (click)="deleteButtonAction(row.id, row.data.email)"
+          [disabled]="route.snapshot.paramMap.get('id') || (route.snapshot.paramMap.get('id') && userLevel < 3)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </td>

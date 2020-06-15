@@ -11,7 +11,13 @@
   <div class="dashboard">
     <h1>Organization's role</h1>
     <div class="buttonContainer">
-      <button color="accent" mat-raised-button matTooltip="See all Stalker users list" routerLink="/users">
+      <button
+        color="accent"
+        mat-raised-button
+        matTooltip="See all Stalker users list"
+        routerLink="/users"
+        *ngIf="userLevel >= 4"
+      >
         <mat-icon>list</mat-icon> Users list
       </button>
       <button
