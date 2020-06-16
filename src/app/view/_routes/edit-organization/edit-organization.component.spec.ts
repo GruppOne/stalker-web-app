@@ -92,12 +92,10 @@ describe('EditOrganizationComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
-    spyOn(console, 'error').and.callThrough();
     organizationGetSpy = organizationService.getOrganizationById.and.returnValue(
       throwError(''),
     );
     component.getOrganizationById(1);
-    expect(console.error).toHaveBeenCalledWith('');
     expect(organizationGetSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
@@ -139,7 +137,6 @@ describe('EditOrganizationComponent', () => {
   });
 
   it('should not submit the form in case of http errors', () => {
-    spyOn(console, 'error').and.callThrough();
     organizationSubmitSpy = organizationService.editOrganization.and.returnValue(
       throwError(''),
     );

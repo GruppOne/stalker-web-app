@@ -1,6 +1,8 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
@@ -22,7 +24,13 @@ describe('OrganizationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OrganizationComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
+      ],
       providers: [
         {
           provide: OrganizationService,
@@ -67,12 +75,10 @@ describe('OrganizationComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
-    spyOn(console, 'error').and.callThrough();
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       throwError(''),
     );
     component.getOrganizationById(1);
-    expect(console.error).toHaveBeenCalledWith('');
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
