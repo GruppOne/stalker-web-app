@@ -23,6 +23,12 @@ export class OrganizationComponent implements OnInit {
   private readonly organizationBuilder?: OrganizationBuilder;
   administrators: Administrator[] = [];
   date: Date = new Date();
+  ldapConfiguration = {
+    url: '',
+    baseDn: '',
+    bindRdn: '',
+    bindPassword: '',
+  };
 
   userLevel = 0;
   // eslint-disable-next-line max-params
@@ -54,6 +60,14 @@ export class OrganizationComponent implements OnInit {
         this.date = new Date(
           (this.organization?.data?.creationDateTime as unknown) as Date,
         );
+        if (this.organization.data.organizationType === 'private') {
+          this.ldapConfiguration = {
+            url: 'localhost',
+            baseDn: 'dc=stalker,dc=com',
+            bindRdn: 'cn=admin',
+            bindPassword: 'adminPassword',
+          };
+        }
         console.log(this.organization);
       },
       (err: Error) => this.snackBar.open(err.toString(), 'Ok'),

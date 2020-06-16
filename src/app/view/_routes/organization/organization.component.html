@@ -17,12 +17,10 @@
           <mat-card-subtitle>Access data to the LDAP server</mat-card-subtitle>
         </div>
         <div class="inlineRight">
-          <span>url: </span>{{ organization?.data?.ldapConfiguration?.url }} &bull; <span>password: </span
-          >{{ organization?.data?.ldapConfiguration?.bindPassword }}
+          <span>url: </span>{{ ldapConfiguration.url }} &bull; <span>password: </span
+          >{{ ldapConfiguration.bindPassword }}
           <br />
-          <span>bindDn: </span>{{ organization?.data?.ldapConfiguration?.bindRdn }},{{
-            organization?.data?.ldapConfiguration?.baseDn
-          }}
+          <span>bindDn: </span>{{ ldapConfiguration.bindRdn }},{{ ldapConfiguration.baseDn }}
         </div>
       </mat-card-content>
       <mat-divider></mat-divider>
