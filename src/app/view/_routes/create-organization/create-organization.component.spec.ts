@@ -98,12 +98,10 @@ describe('CreateOrganizationComponent', () => {
   });
 
   it('should not submit the form in case of http errors', () => {
-    spyOn(console, 'error').and.callThrough();
     organizationSubmitSpy = organizationService.addOrganization.and.returnValue(
       throwError(''),
     );
     component.submitOrganizationForm();
-    expect(console.error).toHaveBeenCalledWith('');
   });
 
   /*   it('should not submit the form if mapDataChild is undefined', () => {

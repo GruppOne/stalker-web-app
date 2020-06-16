@@ -1,5 +1,7 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 
 import {UserReportComponent} from './user-report.component';
@@ -11,7 +13,7 @@ describe('UserReportComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserReportComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, BrowserAnimationsModule, MatSnackBarModule],
       providers: [
         {
           provide: ActivatedRoute,

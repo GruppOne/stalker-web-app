@@ -2,6 +2,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
@@ -20,7 +22,9 @@ describe('ProfileComponent', () => {
   const loginService = jasmine.createSpyObj('LoginService', [
     'getAdminOrganizations',
     'changePassword',
+    'getUserRole',
   ]);
+  loginService.getUserRole.and.returnValue(of(4));
   const userBuilder: UserBuilder = new UserBuilder()
     .addId(1)
     .addUserData(new UserDataBuilder().addEmail('notmariorossi@gmail.com').build());
@@ -42,6 +46,8 @@ describe('ProfileComponent', () => {
         MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
       ],
       providers: [
         {provide: UserService, useValue: userService},
