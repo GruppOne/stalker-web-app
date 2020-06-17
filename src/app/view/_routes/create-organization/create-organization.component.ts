@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Observable} from 'rxjs';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
 import {Place} from 'src/app/model/classes/places/place';
+import {LoginService} from 'src/app/model/services/login.service';
 
 import {AdminType} from '../../../model/classes/administrator';
 import {OrganizationBuilder} from '../../../model/classes/organizations/organization';
@@ -37,6 +38,7 @@ export class CreateOrganizationComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly organizationService: OrganizationService,
     private readonly snackBar: MatSnackBar,
+    private readonly loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -74,14 +76,19 @@ export class CreateOrganizationComponent implements OnInit {
           bindPassword: this.formArray.value[1].orgPwdCtrl,
         });
       console.log(organizationDataBuilder.build());
-      this.organizationService.addOrganization(organizationDataBuilder.build()).subscribe(
-        (response: number) => {
-          this.mapDataChild.editOrganizationPlaces(response);
-        },
-        (err: Error) => {
-          this.snackBar.open(err.toString(), 'Ok');
-        },
-      );
+      this.organizationService
+        .addOrganization(
+          organizationDataBuilder.build(),
+          Number(this.loginService.getUserId()),
+        )
+        .subscribe(
+          (response: number) => {
+            this.mapDataChild.editOrganizationPlaces(response);
+          },
+          (err: Error) => {
+            this.snackBar.open(err.toString(), 'Ok');
+          },
+        );
     }
   }
   public showLdapConfiguration(): void {
