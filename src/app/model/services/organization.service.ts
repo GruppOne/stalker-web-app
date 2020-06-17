@@ -7,10 +7,8 @@ import {AdminType} from '../classes/administrator';
 import {Organization} from '../classes/organizations/organization';
 import {OrganizationData} from '../classes/organizations/organization-data';
 
-import {AdministratorService} from './administrator.service';
 import {HttpClientService} from './http-client.service';
 import {LoginService} from './login.service';
-import {UserService} from './user.service';
 
 export interface UsersInside {
   usersInside: number;
@@ -25,31 +23,25 @@ export class OrganizationService {
   constructor(
     private readonly httpClientService: HttpClientService,
     private readonly loginService: LoginService,
-    private readonly administratorService: AdministratorService,
-    private readonly userService: UserService,
   ) {}
 
   organizations: Organization[] = [];
 
-  addOrganization(organizationData: OrganizationData): Observable<number> {
+  addOrganization(orgData: OrganizationData, userId: number): Observable<number> {
     return this.httpClientService
-      .post<OrganizationData>(`/organizations`, organizationData)
+      .post<{ownerId: number; organizationData: OrganizationData}>(`/organizations`, {
+        ownerId: userId,
+        organizationData: orgData,
+      })
       .pipe(
-        map((response: HttpResponse<OrganizationData>) => {
-          const orgId = ((response.body as unknown) as {id: number}).id;
-          this.userService
-            .connectUserToOrg(orgId, Number(this.loginService.getUserId()))
-            .subscribe(() => {
-              this.administratorService
-                .addAdministrator(orgId, {
-                  email: '',
-                  userId: Number(this.loginService.getUserId()),
-                  role: AdminType.owner,
-                })
-                .subscribe(() => console.log('success'));
-            });
-          return orgId;
-        }),
+        map(
+          (
+            response: HttpResponse<{ownerId: number; organizationData: OrganizationData}>,
+          ) => {
+            const orgId = ((response.body as unknown) as {id: number}).id;
+            return orgId;
+          },
+        ),
       );
   }
 
