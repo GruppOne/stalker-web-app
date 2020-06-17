@@ -63,7 +63,7 @@ export class OrganizationComponent implements OnInit {
         if (this.organization.data.organizationType === 'private') {
           this.ldapConfiguration = {
             url: 'localhost',
-            baseDn: 'dc=stalker,dc=com',
+            baseDn: 'dc=stalker,dc=intern',
             bindRdn: 'cn=admin',
             bindPassword: 'adminPassword',
           };
