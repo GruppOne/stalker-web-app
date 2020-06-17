@@ -88,19 +88,27 @@ export class EditOrganizationComponent implements OnInit {
             }),
             this.formBuilder.group({
               orgUrlCtrl: [
-                this.organization.data.ldapConfiguration?.url,
+                this.organization.data.ldapConfiguration?.url
+                  ? this.organization.data.ldapConfiguration?.url
+                  : 'localhost',
                 Validators.required,
               ],
               orgDnCtrl: [
-                this.organization.data.ldapConfiguration?.baseDn,
+                this.organization.data.ldapConfiguration?.baseDn
+                  ? this.organization.data.ldapConfiguration?.baseDn
+                  : 'dc=stalker,dc=intern',
                 Validators.required,
               ],
               orgCnCtrl: [
-                this.organization.data.ldapConfiguration?.bindRdn,
+                this.organization.data.ldapConfiguration?.bindRdn
+                  ? this.organization.data.ldapConfiguration?.bindRdn
+                  : 'admin',
                 Validators.required,
               ],
               orgPwdCtrl: [
-                this.organization.data.ldapConfiguration?.bindPassword,
+                this.organization.data.ldapConfiguration?.bindRdn
+                  ? this.organization.data.ldapConfiguration?.bindRdn
+                  : 'adminPassword',
                 Validators.required,
               ],
             }),

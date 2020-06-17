@@ -181,14 +181,17 @@ export class UserReportComponent implements OnInit {
     const hours = Math.trunc(+moment.duration(restAfterDays, 'seconds').asHours());
     const restAfterHours = restAfterDays - hours * 3600;
     const minutes = Math.trunc(+moment.duration(restAfterHours, 'seconds').asMinutes());
+    const restAfterMinutes = restAfterHours - minutes * 60;
+    const sec = Math.trunc(+moment.duration(restAfterMinutes, 'seconds').asSeconds());
     return (
       (days !== 0 ? (days === 1 ? `${days} day ` : `${days} days `) : '') +
       (hours !== 0 ? (hours === 1 ? `${hours} hour ` : `${hours} hours `) : '') +
-      (minutes !== 0 || hours === 0
+      (minutes !== 0
         ? minutes === 1
-          ? `${minutes} minute`
-          : `${minutes} minutes`
-        : '')
+          ? `${minutes} minute `
+          : `${minutes} minutes `
+        : '') +
+      (sec === 1 ? `${sec} second` : `${sec} seconds`)
     );
   }
 
