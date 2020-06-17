@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import * as sha512 from 'js-sha512';
 import {LoginService} from 'src/app/model/services/login.service';
@@ -20,12 +21,14 @@ export class ProfileComponent implements OnInit {
   private userBuilder?: UserBuilder;
   user?: User;
   hide = true;
+  creationDate = '';
   oldhide = true;
   totAdmin: number[] = [0, 0, 0];
   changePasswordGroup = this.formBuilder.group({
     oldPwdCtrl: [],
     pwdCtrl: [],
   });
+  userLevel = 0;
   // eslint-disable-next-line max-params
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -33,12 +36,14 @@ export class ProfileComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly loginService: LoginService,
     private readonly dialog: MatDialog,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
     const userId = +(this.route.snapshot.paramMap.get('id') as string);
     this.getUser(userId);
     this.getAdminOrganizations();
+    this.getLevel();
   }
 
   /**
@@ -52,6 +57,9 @@ export class ProfileComponent implements OnInit {
           .addUserData(response.data as UserData);
         this.user = this.userBuilder.build();
         this.fetched = true;
+        this.creationDate = new Date(
+          this.user?.data?.creationDateTime as string,
+        ).toLocaleString();
       },
       (err: Error) => {
         console.error(err);
@@ -72,9 +80,12 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.userService.deleteUserById(id).subscribe(() => {
-          this.loginService.logout();
-        });
+        this.userService.deleteUserById(id).subscribe(
+          () => {
+            this.loginService.logout();
+          },
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
       }
     });
   }
@@ -100,7 +111,10 @@ export class ProfileComponent implements OnInit {
     if (this.validateInput(newPassword) && this.validateInput(oldPassword)) {
       this.loginService
         .changePassword(sha512.sha512(oldPassword), sha512.sha512(newPassword))
-        .subscribe(() => console.log('YOS'));
+        .subscribe(
+          () => console.log('YOS'),
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
     }
   }
   public validateInput(password: string): boolean {
@@ -110,5 +124,10 @@ export class ProfileComponent implements OnInit {
     );
 
     return regexPwd.test(password);
+  }
+  getLevel(): void {
+    this.loginService
+      .getUserRole(+(this.route.snapshot.paramMap.get('id') as string))
+      .subscribe((response: number) => (this.userLevel = response));
   }
 }

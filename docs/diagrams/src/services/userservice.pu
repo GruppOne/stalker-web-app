@@ -1,0 +1,19 @@
+@startuml UserService
+!include ../../style/class.pu
+class UserService {
+  - httpClientService : HttpClientService {readonly}
+
+  --
+
+  + UserService(
+    private httpClientService : HttpClientService {readonly}
+    )
+  + getUserById(userId : Integer) : Observable<User>
+  + getUsersConnectedToOrg(orgId: Integer) : Observable<User[]>
+  + getStalkerUsers(): Observable<User[]>
+  + disconnectUserById(orgId: Integer, userId: Integer): Observable<boolean>
+  + deleteUserById(userId: number): Observable<boolean>
+  + getUserHistory(organizationId: Integer, userId: number): Observable<UserMovement[]>
+  + connectUserToOrg(orgId: number, userId: number): Observable<boolean>
+}
+@enduml

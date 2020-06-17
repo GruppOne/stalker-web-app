@@ -1,6 +1,8 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
@@ -17,12 +19,18 @@ describe('OrganizationComponent', () => {
     'getOrganizationById',
   ]);
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    of({id: 1, data: {name: 'unipd', organizationType: 'public'}}),
   );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OrganizationComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
+      ],
       providers: [
         {
           provide: OrganizationService,
@@ -50,7 +58,7 @@ describe('OrganizationComponent', () => {
 
   it('should create with organization got from http request', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', organizationType: 'public'}}),
     );
     fixture = TestBed.createComponent(OrganizationComponent);
     component = fixture.componentInstance;
@@ -67,17 +75,17 @@ describe('OrganizationComponent', () => {
   });
 
   it('should call Organization get and handle empty response', () => {
-    spyOn(console, 'error').and.callThrough();
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       throwError(''),
     );
-    component.getOrganizationById(1);
-    expect(console.error).toHaveBeenCalledWith('');
+    fixture = TestBed.createComponent(OrganizationComponent);
+    component = fixture.componentInstance;
+    expect(component).toBeTruthy();
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', organizationType: 'public'}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');

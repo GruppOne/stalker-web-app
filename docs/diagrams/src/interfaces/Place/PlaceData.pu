@@ -1,0 +1,11 @@
+@startuml PlaceData Diagram
+!include ../../../style/class.pu
+class PlaceData <<interface>> {
+  + name : String {readonly}
+  + polyline : MyLatLng[] {readonly}
+  + address : String {readonly}
+  + city : String {readonly}
+  + zipcode : String {readonly}
+  + state : String {readonly}
+}
+@enduml

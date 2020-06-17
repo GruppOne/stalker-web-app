@@ -1,6 +1,6 @@
 import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {User} from '../classes/users/user';
@@ -15,7 +15,7 @@ export interface UserMovement {
 
 export interface UserHistoryAPI {
   id: number;
-  history: {timestamp: number; placeId: number; inside: boolean}[];
+  history: {timestamp: string; placeId: number; inside: boolean}[];
 }
 
 @Injectable({
@@ -57,10 +57,8 @@ export class UserService {
       .delete<boolean>(`/user/${userId}`)
       .pipe(map(() => true));
   }
-  getUserHistory(organizationId: number, userId: number): Observable<UserMovement[]> {
-    console.log(organizationId);
-    console.log(userId);
-    const input: UserHistoryAPI = {
+  getUserHistory(userId: number, organizationId: number): Observable<UserMovement[]> {
+    /*     const input: UserHistoryAPI = {
       id: 1,
       history: [
         {
@@ -109,40 +107,46 @@ export class UserService {
           inside: true,
         },
       ],
-    };
-    /*     return this.httpClientService
+    }; */
+    return this.httpClientService
       .get<UserHistoryAPI>(`/organization/${organizationId}/user/${userId}/history`)
       .pipe(
         map((response: HttpResponse<UserHistoryAPI>) => {
+          console.log(response.body);
           const userHistory: UserMovement[] = [];
           if (response.body) {
             for (const iterator of response.body.history) {
               if (iterator.inside) {
-                if (userHistory.length === 0 || !userHistory[userHistory.length - 1
-                ].enter) {
-            userHistory.push({
-              time: new Date(iterator.timestamp * 1000),
-              placeId: iterator.placeId,
-              enter: true,
-            });
-          }
-        } else {
-          if (
-            userHistory[userHistory.length - 1] &&
-            userHistory[userHistory.length - 1].enter
-          ) {
-            userHistory.push({
-              time: new Date(iterator.timestamp * 1000),
-              placeId: iterator.placeId,
-              enter: false,
-            });
-          }
+                if (
+                  userHistory.length === 0 ||
+                  !userHistory[userHistory.length - 1].enter
+                ) {
+                  userHistory.push({
+                    time: new Date(iterator.timestamp),
+                    placeId: iterator.placeId,
+                    enter: true,
+                  });
+                }
+              } else {
+                if (
+                  !userHistory.length ||
+                  (userHistory[userHistory.length - 1] &&
+                    userHistory[userHistory.length - 1].enter)
+                ) {
+                  userHistory.push({
+                    time: new Date(iterator.timestamp),
+                    placeId: iterator.placeId,
+                    enter: false,
+                  });
+                }
+              }
             }
           }
-          return userHistory;
+          console.log(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
+          return userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1));
         }),
-    ); */
-    const userHistory: UserMovement[] = [];
+      );
+    /*     const userHistory: UserMovement[] = [];
     if (input) {
       for (const iterator of input.history) {
         if (iterator.inside) {
@@ -166,9 +170,7 @@ export class UserService {
           }
         }
       }
-    }
-    console.log(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
-    return of(userHistory.sort((a, b) => (a.time >= b.time ? -1 : 1)));
+    }*/
   }
   connectUserToOrg(orgId: number, userId: number): Observable<boolean> {
     return this.httpClientService

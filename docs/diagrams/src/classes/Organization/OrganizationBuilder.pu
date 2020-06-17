@@ -1,0 +1,39 @@
+@startuml OrganizationBuilder Diagram
+!include ../../../style/class.pu
+class AbsOrganizationBuilder {
+  --
+
+  + addPlaces(places : Place[])
+  + build()
+}
+
+class OrganizationBuilder {
+  - id : Integer
+  - description : String
+  - ldapConfiguration : LdapConfiguration
+  - createdDate : String
+  - lastModifiedDate : String
+  - name : String
+  - organizationType : string
+
+  --
+
+  + OrganizationBuilder(private name : String, private organizationType : string)
+  + addId(id : Integer) : OrganizationBuilder
+  + addName(name : String) : OrganizationBuilder
+  + addDescription(description : String) : OrganizationBuilder
+  + addLdapConfiguration(
+    ldapConfiguration : LdapConfiguration
+    ) : OrganizationBuilder
+  + addIsPrivate(organizationType : String) : OrganizationBuilder
+  + addCreatedDate(createdDate : String) : OrganizationBuilder
+  + addLastModifiedDate(
+    lastModifiedDate : String
+    ) : OrganizationBuilder
+  + build() : Organization
+}
+
+OrganizationBuilder -->  LdapConfiguration
+OrganizationBuilder ..> "<<create>>" Organization
+OrganizationBuilder --|> AbsOrganizationBuilder
+@enduml

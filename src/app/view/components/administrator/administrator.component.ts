@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {Administrator, AdminType} from 'src/app/model/classes/administrator';
 import {User} from 'src/app/model/classes/users/user';
@@ -22,6 +23,7 @@ export class AdministratorComponent implements OnInit {
     private readonly administratorService: AdministratorService,
     public readonly route: ActivatedRoute,
     private readonly userService: UserService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class AdministratorComponent implements OnInit {
         () => {
           this.getOrgAdministrators(Number(this.route.snapshot.paramMap.get('id')));
         },
-        (err: Error) => console.error(err),
+        (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
       );
   }
 
@@ -78,7 +80,7 @@ export class AdministratorComponent implements OnInit {
             1,
           );
         },
-        (err: Error) => console.error(err),
+        (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
       );
   }
 
@@ -90,7 +92,7 @@ export class AdministratorComponent implements OnInit {
       (response: Administrator[]) => {
         this.administrators = response;
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 

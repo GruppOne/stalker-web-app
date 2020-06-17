@@ -1,5 +1,7 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
@@ -28,7 +30,12 @@ describe('HomeComponent', () => {
     };
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule,
+      ],
       providers: [
         {provide: Router, useValue: mockRouter},
         {provide: LoginService, useValue: loginService},
@@ -71,7 +78,6 @@ describe('HomeComponent', () => {
       navigate: jasmine.createSpy('navigate'),
     };
     component.login('mario@rossi', 'Casua1pass!');
-    expect(console.error).toHaveBeenCalledWith('');
     expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
 

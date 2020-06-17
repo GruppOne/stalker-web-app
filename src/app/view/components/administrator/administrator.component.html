@@ -9,6 +9,7 @@
         aria-label="Remove this user from administrators"
         class="adminDelete"
         type="button"
+        [disabled]="admin.role === 'Owner'"
         (click)="deleteAdmin(admin.userId)"
       >
         <mat-icon>delete</mat-icon>

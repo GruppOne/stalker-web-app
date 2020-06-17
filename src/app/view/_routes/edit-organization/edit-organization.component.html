@@ -2,7 +2,7 @@
 <h2 class="subtitle-page-under-toolbar">Fill out this form to edit the details of your organization</h2>
 <form [formGroup]="formGroup" editOrganizationForm="ngForm" (ngSubmit)="submitOrganizationForm()">
   <mat-vertical-stepper #stepper formArrayName="formArray">
-    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])" *ngIf="userLevel >= 3">
       <ng-template matStepLabel>Basic details</ng-template>
       <mat-form-field>
         <mat-label>Organization name</mat-label>
@@ -40,22 +40,27 @@
         <button mat-button matStepperNext type="button">Next</button>
       </div>
     </mat-step>
-    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" [optional]="true">
+    <mat-step
+      formGroupName="1"
+      [stepControl]="formArray?.get([1])"
+      [optional]="true"
+      *ngIf="userLevel >= 3 && organization?.data?.organizationType === 'private'"
+    >
       <ng-template matStepLabel>Additional user authentication</ng-template>
       <mat-form-field>
         <mat-label>Url</mat-label>
-        <input #orgUrlCtrl maxlength="50" matInput formControlName="orgUrlCtrl" placeholder="192.168.0.1" />
+        <input #orgUrlCtrl maxlength="50" matInput formControlName="orgUrlCtrl" placeholder="example.com" />
         <mat-hint class="hint-end" align="end">{{ orgUrlCtrl.value.length }} / 50</mat-hint>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Search Query</mat-label>
-        <input #orgSearchCtrl maxlength="50" matInput formControlName="orgSearchCtrl" placeholder="johnsmith" />
-        <mat-hint class="hint-end" align="end">{{ orgSearchCtrl.value.length }} / 50</mat-hint>
+        <mat-label>Domain component</mat-label>
+        <input #orgDnCtrl maxlength="50" matInput formControlName="orgDnCtrl" placeholder="dc=example,dc=com" />
+        <mat-hint class="hint-end" align="end">{{ orgDnCtrl.value.length }} / 50</mat-hint>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Dn</mat-label>
-        <input #orgDnCtrl maxlength="32" matInput formControlName="orgDnCtrl" />
-        <mat-hint class="hint-end" align="end">{{ orgDnCtrl.value.length }} / 32</mat-hint>
+        <mat-label>Common name</mat-label>
+        <input #orgCnCtrl maxlength="50" matInput formControlName="orgCnCtrl" placeholder="admin" />
+        <mat-hint class="hint-end" align="end">{{ orgCnCtrl.value.length }} / 50</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
@@ -67,7 +72,7 @@
         <button mat-button matStepperNext type="button">Next</button>
       </div>
     </mat-step>
-    <mat-step [optional]="true">
+    <mat-step [optional]="true" *ngIf="userLevel >= 3">
       <ng-template matStepLabel>Manage administrators</ng-template>
       <app-administrator></app-administrator>
       <div>

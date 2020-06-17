@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {OrganizationDataBuilder} from 'src/app/model/classes/organizations/organization-data';
@@ -27,6 +28,8 @@ export class EditOrganizationComponent implements OnInit {
   organizationBuilder?: OrganizationBuilder;
   formGroup: FormGroup = new FormGroup({});
 
+  userLevel = 0;
+
   /**
    *  Returns a FormArray with the name 'formArray'.
    */
@@ -39,6 +42,7 @@ export class EditOrganizationComponent implements OnInit {
     private readonly organizationService: OrganizationService,
     public readonly route: ActivatedRoute,
     public readonly loginService: LoginService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   /**
@@ -55,12 +59,13 @@ export class EditOrganizationComponent implements OnInit {
         }),
         this.formBuilder.group({
           orgUrlCtrl: [],
-          orgSearchCtrl: [],
           orgDnCtrl: [],
+          orgCnCtrl: [],
           orgPwdCtrl: [],
         }),
       ]),
     });
+    this.getLevel();
   }
 
   /**
@@ -83,26 +88,34 @@ export class EditOrganizationComponent implements OnInit {
             }),
             this.formBuilder.group({
               orgUrlCtrl: [
-                this.organization.data.ldapConfiguration?.url,
-                Validators.required,
-              ],
-              orgSearchCtrl: [
-                this.organization.data.ldapConfiguration?.searchQuery,
+                this.organization.data.ldapConfiguration?.url
+                  ? this.organization.data.ldapConfiguration?.url
+                  : 'localhost',
                 Validators.required,
               ],
               orgDnCtrl: [
-                this.organization.data.ldapConfiguration?.bindDn,
+                this.organization.data.ldapConfiguration?.baseDn
+                  ? this.organization.data.ldapConfiguration?.baseDn
+                  : 'dc=stalker,dc=intern',
+                Validators.required,
+              ],
+              orgCnCtrl: [
+                this.organization.data.ldapConfiguration?.bindRdn
+                  ? this.organization.data.ldapConfiguration?.bindRdn
+                  : 'admin',
                 Validators.required,
               ],
               orgPwdCtrl: [
-                this.organization.data.ldapConfiguration?.bindPassword,
+                this.organization.data.ldapConfiguration?.bindRdn
+                  ? this.organization.data.ldapConfiguration?.bindRdn
+                  : 'adminPassword',
                 Validators.required,
               ],
             }),
           ]),
         });
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 
@@ -121,8 +134,8 @@ export class EditOrganizationComponent implements OnInit {
         .addDescription(this.formArray.value[0].orgDescriptionCtrl)
         .addLdapConfiguration({
           url: this.formArray.value[1].orgUrlCtrl,
-          searchQuery: this.formArray.value[1].orgSearchCtrl,
-          bindDn: this.formArray.value[1].orgDnCtrl,
+          baseDn: this.formArray.value[1].orgDnCtrl,
+          bindRdn: `cn=${this.formArray.value[1].orgCnCtrl}`,
           bindPassword: this.formArray.value[1].orgPwdCtrl,
         })
         .addCreatedDate(this.organization.data.creationDateTime as string)
@@ -140,8 +153,14 @@ export class EditOrganizationComponent implements OnInit {
               Number(this.route.snapshot.paramMap.get('id')),
             );
           },
-          (err: Error) => console.error(err),
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
         );
     }
+  }
+  getLevel(): void {
+    this.loginService
+      .getUserRole(+(this.route.snapshot.paramMap.get('id') as string))
+      .subscribe((response: number) => (this.userLevel = response));
+    console.log(this.userLevel);
   }
 }

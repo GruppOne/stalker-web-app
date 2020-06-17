@@ -1,5 +1,0 @@
-@startuml Environment Diagram
-class Environment {
-  + apiUrl : string
-}
-@enduml

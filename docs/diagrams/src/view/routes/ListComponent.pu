@@ -1,0 +1,10 @@
+@startuml HomeComponent diagram
+!include ../../../style/class.pu
+class ListComponent {
+  + usersListComponent : UsersListComponent
+  --
+  + ListComponent(private readonly usersListComponent: UsersListComponent)
+  + ngOnInit() : void
+
+}
+@enduml

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
   tileLayer,
@@ -46,6 +47,7 @@ export class MapComponent implements OnInit {
     private readonly placeService: PlaceService,
     public router: Router,
     private readonly route: ActivatedRoute,
+    private readonly snackBar: MatSnackBar,
   ) {}
   ngOnInit(): void {
     if (this.getRoute().includes('create') || this.getRoute().includes('edit')) {
@@ -142,10 +144,10 @@ export class MapComponent implements OnInit {
             -1,
             new PlaceDataBuilder(
               {
-                address: data.address.road,
-                city: data.address.city,
-                zipcode: data.address.postcode,
-                state: data.address.country,
+                address: data.address.road ? data.address.road : 'unknown',
+                city: data.address.city ? data.address.city : 'unknown',
+                zipcode: data.address.postcode ? data.address.postcode : 'unknown',
+                state: data.address.country ? data.address.country : 'unknown',
               },
               name,
               mylatlngs,
@@ -199,7 +201,7 @@ export class MapComponent implements OnInit {
           this.bounds = newbounds;
         }
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 
@@ -280,7 +282,10 @@ export class MapComponent implements OnInit {
     } else {
       this.placeService
         .deletePlaceInOrg(+(this.route.snapshot.paramMap.get('id') as string), id)
-        .subscribe();
+        .subscribe(
+          () => {},
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
       this.organizationPlaces.splice(idJustDrawed, 1);
       this.polygonLayers.splice(idJustDrawed, 1);
       this.totAlreadySaved -= 1;
@@ -314,7 +319,11 @@ export class MapComponent implements OnInit {
               if (response && success) {
                 this.router.navigate([`organization/${orgId}`]);
               } else {
-                console.error('error in sending places');
+                this.snackBar.open(
+                  'There was an internal error' +
+                    'while updating your places, please try again!',
+                  'Ok',
+                );
               }
             }
           });
@@ -329,7 +338,11 @@ export class MapComponent implements OnInit {
               if (response && success) {
                 this.router.navigate([`organization/${orgId}`]);
               } else {
-                console.error('error in sending places');
+                this.snackBar.open(
+                  'There was an internal error' +
+                    'while updating your places, please try again!',
+                  'Ok',
+                );
               }
             }
           });

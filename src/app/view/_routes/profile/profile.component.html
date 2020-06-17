@@ -1,20 +1,23 @@
-<!--user.id, user.userData?.firstName, user.email, user.userData?.lastName, user.userData?.birthDate -->
 <div *ngIf="user && fetched">
   <div class="profileImage">
-    <!-- if profile pic exists
-      <img src="{{ user.id }}.png" class="profilePic"/>-->
     <img src="../../../../assets/default-profile-pic.jpg" class="profilePic" alt="profile pic" />
   </div>
   <div class="infoContainer">
     <h1>{{ user?.data?.firstName }} {{ user?.data?.lastName }}</h1>
     <h2><mat-icon>event</mat-icon> {{ user?.data?.birthDate }}</h2>
     <h3><mat-icon>email</mat-icon> {{ user?.data?.email }}</h3>
-    <h4><mat-icon>schedule</mat-icon> Joined: {{ user?.data?.creationDateTime }}</h4>
+    <h4><mat-icon>schedule</mat-icon> Joined: {{ creationDate }}</h4>
   </div>
   <div class="dashboard">
     <h1>Organization's role</h1>
     <div class="buttonContainer">
-      <button color="accent" mat-raised-button matTooltip="See all Stalker users list" routerLink="/users">
+      <button
+        color="accent"
+        mat-raised-button
+        matTooltip="See all Stalker users list"
+        routerLink="/users"
+        *ngIf="userLevel >= 4"
+      >
         <mat-icon>list</mat-icon> Users list
       </button>
       <button

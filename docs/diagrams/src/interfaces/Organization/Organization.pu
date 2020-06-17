@@ -1,0 +1,14 @@
+@startuml Organization Diagram
+!include ../../../style/class.pu
+class Organization <<interface>> {
+  + id : Integer {readonly}
+  + name : String {readonly}
+  + description : String {readonly}
+  + ldapConfiguration : LdapConfiguration {readonly}
+  + organizationType : String {readonly}
+  + createdDate : String {readonly}
+  + lastModifiedDate : String {readonly}
+}
+
+Organization --> LdapConfiguration
+@enduml

@@ -1,6 +1,7 @@
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
@@ -68,16 +69,16 @@ const routes: Routes = [
   {
     path: 'organization/:id/report',
     component: ReportComponent,
-    // canActivate: [AuthGuard],
-    // data: {roles: AdminType.manager},
+    canActivate: [AuthGuard],
+    data: {roles: AdminType.manager},
   },
   // we used id as organizationId beacause that's the parameter the authguard checks
   // for permission on organizations
   {
     path: 'organization/:id/user/:userId/history',
     component: UserReportComponent,
-    // canActivate: [AuthGuard],
-    // data: {roles: AdminType.manager},
+    canActivate: [AuthGuard],
+    data: {roles: AdminType.manager},
     pathMatch: 'full',
   },
   {
@@ -138,6 +139,15 @@ const routes: Routes = [
       multi: true,
     },
     AuthGuard,
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 8000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: 'custom-snackbar',
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,7 +1,0 @@
-@startuml NotFoundComponent diagram
-class NotFoundComponent {
-  ==methods==
-
-  + ngOnInit() : void
-}
-@enduml

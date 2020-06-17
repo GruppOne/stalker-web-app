@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import {BaseChartDirective} from 'ng2-charts';
 import {forkJoin} from 'rxjs';
@@ -27,6 +28,7 @@ export class ReportComponent implements AfterViewInit {
     private readonly organizationService: OrganizationService,
     private readonly route: ActivatedRoute,
     private readonly placeService: PlaceService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   userInPlaceChartOptions = {
@@ -149,34 +151,26 @@ export class ReportComponent implements AfterViewInit {
       this.organizationService.getOrganizationById(id),
       this.placeService.getOrgPlaces(id),
       this.organizationService.getUsersInsidePlaces(id),
-    ]).subscribe((result) => {
-      this.organization = result[0];
-      this.organizationPlaces = result[1];
-      this.usersInsideOrg = result[2];
-      console.log(this.organization);
-      console.log(this.usersInsideOrg);
-      this.drawChart();
-      this.updateUsersInsidePlacesChart();
-      let i = 1;
-      setInterval(() => {
-        i += 10;
-        this.organizationService
-          .getUsersInsidePlaces(i)
-          .subscribe((response: UsersInside) => {
-            this.usersInsideOrg = response;
-            this.updateUsersInsidePlacesChart();
-          });
-      }, 30000);
-      // TODO: REPLACE TO THIS WHEN THE ENDPOINT IS READY
-      /*       setInterval(() => {
-        this.organizationService
-          .getUsersInsidePlaces(id)
-          .subscribe((response: UsersInside) => {
-            this.usersInsideOrg = response;
-          });
+    ]).subscribe(
+      (result) => {
+        this.organization = result[0];
+        this.organizationPlaces = result[1];
+        this.usersInsideOrg = result[2];
+        console.log(this.organization);
+        console.log(this.usersInsideOrg);
+        this.drawChart();
         this.updateUsersInsidePlacesChart();
-      }, 30000); */
-    });
+        setInterval(() => {
+          this.organizationService
+            .getUsersInsidePlaces(id)
+            .subscribe((response: UsersInside) => {
+              this.usersInsideOrg = response;
+              this.updateUsersInsidePlacesChart();
+            });
+        }, 4000);
+      },
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+    );
   }
 
   /**
@@ -201,16 +195,19 @@ export class ReportComponent implements AfterViewInit {
   updateUsersInsidePlacesChart(): void {
     const newActualData: number[] = [];
     const newMaxData: number[] = [];
-    for (const i of this.usersInsideOrg.places) {
-      newActualData.push(i.usersInside);
-      newMaxData.push(100 >= i.usersInside ? 100 - i.usersInside : 0);
-      /*           this.userInPlaceChartData[1].data.push(
-          (this.organization?.data.places?.find(
-            (element: Place) => element.id === i.placeId,
-          )?.data.maxCurrentUsers >= i.usersInside ? (this.organization?.data.places?.find
-            ((element: Place) => element.id === i.placeId,
-          )?.data.maxCurrentUsers - i.usersInside) : 0,
-        ); */
+    for (const i of this.organizationPlaces) {
+      const actualUsersInside = this.usersInsideOrg.places.find(
+        (element: {placeId: number; usersInside: number}) => element.placeId === i.id,
+      );
+      newActualData.push(actualUsersInside ? actualUsersInside.usersInside : 0);
+      newMaxData.push(
+        actualUsersInside?.usersInside &&
+          i.data.maxConcurrentUsers >= actualUsersInside.usersInside
+          ? i.data.maxConcurrentUsers - actualUsersInside.usersInside
+          : !actualUsersInside?.usersInside
+          ? i.data.maxConcurrentUsers
+          : 0,
+      );
     }
     this.userInPlaceChartData[0].data = newActualData;
     this.userInPlaceChartData[1].data = newMaxData;
