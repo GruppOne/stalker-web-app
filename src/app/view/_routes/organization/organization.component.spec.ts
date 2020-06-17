@@ -19,7 +19,7 @@ describe('OrganizationComponent', () => {
     'getOrganizationById',
   ]);
   let organizationSpy = organizationService.getOrganizationById.and.returnValue(
-    of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+    of({id: 1, data: {name: 'unipd', organizationType: 'public'}}),
   );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -58,7 +58,7 @@ describe('OrganizationComponent', () => {
 
   it('should create with organization got from http request', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', organizationType: 'public'}}),
     );
     fixture = TestBed.createComponent(OrganizationComponent);
     component = fixture.componentInstance;
@@ -78,12 +78,14 @@ describe('OrganizationComponent', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
       throwError(''),
     );
-    component.getOrganizationById(1);
+    fixture = TestBed.createComponent(OrganizationComponent);
+    component = fixture.componentInstance;
+    expect(component).toBeTruthy();
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
   });
   it('should call Organization get and handle not empty response', () => {
     organizationSpy = organizationService.getOrganizationById.and.returnValue(
-      of({id: 1, organizationData: {name: 'unipd', isPrivate: false}}),
+      of({id: 1, data: {name: 'unipd', organizationType: 'public'}}),
     );
     component.getOrganizationById(1);
     expect(organizationSpy.calls.any()).toBe(true, 'get called');
