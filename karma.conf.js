@@ -26,8 +26,8 @@ module.exports = function (config) {
       ],
       fixWebpackSourcePaths: true,
       thresholds: {
-        statements: 80,
-        /*         lines: 80,
+        /* statements: 80,
+        lines: 80,
         branches: 80,
         functions: 80, */
       },

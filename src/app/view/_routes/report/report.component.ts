@@ -167,7 +167,7 @@ export class ReportComponent implements AfterViewInit {
               this.usersInsideOrg = response;
               this.updateUsersInsidePlacesChart();
             });
-        }, 30000);
+        }, 4000);
       },
       (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
