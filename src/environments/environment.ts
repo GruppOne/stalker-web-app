@@ -9,7 +9,7 @@
 import 'zone.js/dist/zone-error';
 import {Environment} from './environment.d';
 
-const apiHost = 'localhost:11111';
+const apiHost = '109.115.64.120:11111';
 const apiUrl = `http://${apiHost}`;
 
 // default development configuration

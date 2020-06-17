@@ -91,7 +91,34 @@ export class HttpClientService {
     return (err: HttpErrorResponse) => {
       // more info about the error
       console.error(`status: ${err.status}, ${err.statusText}`);
-      return throwError(err.message);
+      if (err.status.toString() === '0') {
+        return throwError(
+          'There seems to have been problems connecting to our' +
+            ' servers, please try again later',
+        );
+      } else if (
+        err.status.toString() === '500' ||
+        err.status.toString() === '501' ||
+        err.status.toString() === '502' ||
+        err.status.toString() === '503'
+      ) {
+        return throwError(
+          'Our server has experienced some internal errors, please try again',
+        );
+      } else if (err.status.toString() === '401') {
+        return throwError('You are not logged in, please login and then try again');
+      } else if (err.status.toString() === '403') {
+        return throwError(
+          "Sorry, but you don't have enough permissions to complete this operation",
+        );
+      } else if (err.status.toString() === '404') {
+        return throwError('Sorry, we could not find the resource you were looking for');
+      } else {
+        return throwError(
+          'Ops! Seems there was an unexpected problem processing' +
+            ' your request, please try again',
+        );
+      }
     };
   }
 }

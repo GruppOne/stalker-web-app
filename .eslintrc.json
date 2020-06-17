@@ -202,7 +202,7 @@
             "ignorePattern": "^(?:import|export) *\\{.*?\\}"
           }
         ],
-        "max-params": ["error", {"max": 4}],
+        "max-params": ["error", {"max": 5}],
         "max-lines": ["warn", {"skipBlankLines": true}],
         "max-nested-callbacks": ["error", {"max": 3}],
         "new-parens": "error",

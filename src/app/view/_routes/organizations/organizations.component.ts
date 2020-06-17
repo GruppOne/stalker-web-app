@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {AdminType} from 'src/app/model/classes/administrator';
@@ -35,7 +36,10 @@ export class OrganizationsComponent implements OnInit {
     private: string;
   }[] = [];
 
-  constructor(private readonly organizationService: OrganizationService) {
+  constructor(
+    private readonly organizationService: OrganizationService,
+    private readonly snackBar: MatSnackBar,
+  ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
   }
@@ -71,7 +75,7 @@ export class OrganizationsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(Array.from(this.organizationsRoles));
       },
 
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 }

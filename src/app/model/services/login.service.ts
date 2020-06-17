@@ -66,6 +66,7 @@ export class LoginService {
   }
 
   getAdminOrganizations(): Observable<{organizationId: number; role: string}[]> {
+    console.log('called');
     return this.httpClientService
       .get<{rolesInOrganizations: {organizationId: number; role: string}[]}>(
         `/user/${localStorage.getItem('user_id')}/organizations/roles`,
@@ -83,6 +84,21 @@ export class LoginService {
             }[],
         ),
       );
+  }
+
+  getUserRole(organizationId: number): Observable<number> {
+    return this.getAdminOrganizations().pipe(
+      map((response: {organizationId: number; role: string}[]) => {
+        console.log(response);
+        let role = 1;
+        response.forEach((element: {organizationId: number; role: string}) => {
+          if (element.organizationId === organizationId) {
+            role = this.adminMapping.get(element.role);
+          }
+        });
+        return role;
+      }),
+    );
   }
 
   logout(): void {

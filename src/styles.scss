@@ -294,6 +294,20 @@ body {
   width: 480px !important;
 }
 
+.custom-snackbar {
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(#c31432, #690202);
+  color: #fff;
+
+  .mat-button {
+    color: #fff;
+  }
+
+  .mat-button:hover {
+    background-color: rgba($color: #000, $alpha: 0.4);
+  }
+}
+
 .mat-dialog-title {
   color: rgb(224, 22, 22);
   text-align: center;

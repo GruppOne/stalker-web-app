@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {forkJoin} from 'rxjs';
+import {Place} from 'src/app/model/classes/places/place';
 import {User} from 'src/app/model/classes/users/user';
-// import {PlaceService} from 'src/app/model/services/place.service';
+import {PlaceService} from 'src/app/model/services/place.service';
 import {UserService, UserMovement} from 'src/app/model/services/user.service';
 
 @Component({
@@ -22,16 +24,7 @@ export class UserReportComponent implements OnInit {
     },
   };
   timeLineLimit = 0;
-  places = [
-    {
-      placeId: 1,
-      placeName: 'Torre Archimede',
-    },
-    {
-      placeId: 2,
-      placeName: 'Complesso Paolotti',
-    },
-  ];
+  places: Place[] = [];
 
   userPlacesTime: {placeId: number; totSeconds: number}[] = [];
 
@@ -39,8 +32,9 @@ export class UserReportComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly route: ActivatedRoute,
+    private readonly snackBar: MatSnackBar,
+    private readonly placeService: PlaceService,
   ) {}
-  // private readonly placeService: PlaceService,
 
   ngOnInit(): void {
     const organizationId = +(this.route.snapshot.paramMap.get('id') as string);
@@ -55,8 +49,7 @@ export class UserReportComponent implements OnInit {
   moment(userPlacesTime[0].totSeconds,'h').toSeconds().toFixed(0);
 */
   getPlaceName(placeId: number): string {
-    return this.places.find((element) => element.placeId === placeId)
-      ?.placeName as string;
+    return this.places.find((element) => element.id === placeId)?.data.name as string;
   }
 
   getUserById(userId: number): void {
@@ -65,22 +58,24 @@ export class UserReportComponent implements OnInit {
       .subscribe((response: User) => (this.user = response));
   }
 
-  /*
   getOrgPlaces(orgId: number): void {
     this.placeService
       .getOrgPlaces(orgId)
       .subscribe((response: Place[]) => (this.places = response));
-  } */
+  }
 
   setupUserHistory(userId: number, orgId: number): void {
     forkJoin([
       this.userService.getUserHistory(userId, orgId),
-      // this.placeService.getOrgPlaces(orgId),
-    ]).subscribe((result) => {
-      this.userMovementInfo = result[0];
-      // this.places = result[1];
-      this.getPlaceStats();
-    });
+      this.placeService.getOrgPlaces(orgId),
+    ]).subscribe(
+      (result) => {
+        this.userMovementInfo = result[0];
+        this.places = result[1];
+        this.getPlaceStats();
+      },
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+    );
   }
 
   getPlaceStats(): void {
@@ -93,7 +88,7 @@ export class UserReportComponent implements OnInit {
     // Prevent segmentation fault
     for (let i = 0; i < this.places.length; i++) {
       placesData.push({
-        placeId: this.places[i].placeId,
+        placeId: this.places[i].id,
         totSeconds: 0,
       });
       if (limitedUserMovements.length) {
@@ -105,7 +100,7 @@ export class UserReportComponent implements OnInit {
         }
         for (j; j <= limitedUserMovements.length - 1; j++) {
           if (
-            limitedUserMovements[j].placeId === this.places[i].placeId &&
+            limitedUserMovements[j].placeId === this.places[i].id &&
             !limitedUserMovements[j].enter
           ) {
             /* console.log(limitedUserMovements[j].time.toLocaleString());
@@ -186,14 +181,17 @@ export class UserReportComponent implements OnInit {
     const hours = Math.trunc(+moment.duration(restAfterDays, 'seconds').asHours());
     const restAfterHours = restAfterDays - hours * 3600;
     const minutes = Math.trunc(+moment.duration(restAfterHours, 'seconds').asMinutes());
+    const restAfterMinutes = restAfterHours - minutes * 60;
+    const sec = Math.trunc(+moment.duration(restAfterMinutes, 'seconds').asSeconds());
     return (
       (days !== 0 ? (days === 1 ? `${days} day ` : `${days} days `) : '') +
       (hours !== 0 ? (hours === 1 ? `${hours} hour ` : `${hours} hours `) : '') +
-      (minutes !== 0 || hours === 0
+      (minutes !== 0
         ? minutes === 1
-          ? `${minutes} minute`
-          : `${minutes} minutes`
-        : '')
+          ? `${minutes} minute `
+          : `${minutes} minutes `
+        : '') +
+      (sec === 1 ? `${sec} second` : `${sec} seconds`)
     );
   }
 

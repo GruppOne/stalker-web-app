@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Administrator} from 'src/app/model/classes/administrator';
 import {AdministratorService} from 'src/app/model/services/administrator.service';
+import {LoginService} from 'src/app/model/services/login.service';
 import {OrganizationService} from 'src/app/model/services/organization.service';
 
 import {
@@ -21,13 +23,23 @@ export class OrganizationComponent implements OnInit {
   private readonly organizationBuilder?: OrganizationBuilder;
   administrators: Administrator[] = [];
   date: Date = new Date();
-  /* eslint-disable max-params */
+  ldapConfiguration = {
+    url: '',
+    baseDn: '',
+    bindRdn: '',
+    bindPassword: '',
+  };
+
+  userLevel = 0;
+  // eslint-disable-next-line max-params
   constructor(
     private readonly organizationService: OrganizationService,
     private readonly administratorService: AdministratorService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     public readonly dialog: MatDialog,
+    private readonly loginService: LoginService,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +47,7 @@ export class OrganizationComponent implements OnInit {
     this.getOrganizationById(organizationId);
     this.organization = this.organizationBuilder?.build();
     this.getOrgAdministrators(organizationId);
+    this.getLevel();
   }
 
   /**
@@ -47,9 +60,17 @@ export class OrganizationComponent implements OnInit {
         this.date = new Date(
           (this.organization?.data?.creationDateTime as unknown) as Date,
         );
+        if (this.organization.data.organizationType === 'private') {
+          this.ldapConfiguration = {
+            url: 'localhost',
+            baseDn: 'dc=stalker,dc=intern',
+            bindRdn: 'cn=admin',
+            bindPassword: 'adminPassword',
+          };
+        }
         console.log(this.organization);
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
   }
 
@@ -62,9 +83,12 @@ export class OrganizationComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.organizationService.deleteOrganizationById(id).subscribe(() => {
-          this.router.navigate(['/organizations']);
-        });
+        this.organizationService.deleteOrganizationById(id).subscribe(
+          () => {
+            this.router.navigate(['/organizations']);
+          },
+          (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
+        );
       }
     });
   }
@@ -76,9 +100,14 @@ export class OrganizationComponent implements OnInit {
     this.administratorService.getAdministrators(organizationId).subscribe(
       (response: Administrator[]) => {
         this.administrators = response;
-        console.log(this.administrators);
       },
-      (err: Error) => console.error(err),
+      (err: Error) => this.snackBar.open(err.toString(), 'Ok'),
     );
+  }
+
+  getLevel(): void {
+    this.loginService
+      .getUserRole(+(this.route.snapshot.paramMap.get('id') as string))
+      .subscribe((response: number) => (this.userLevel = response));
   }
 }

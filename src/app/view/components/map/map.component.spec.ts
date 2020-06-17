@@ -1,6 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute, convertToParamMap, UrlSegment, Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Polygon, LatLng} from 'leaflet';
@@ -74,7 +76,12 @@ describe('MapComponent', () => {
     urlSegment.toString.and.returnValue('organization/1');
     TestBed.configureTestingModule({
       declarations: [MapComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
+      ],
       providers: [
         {provide: HttpClient},
         {provide: UrlSegment, useValue: urlSegment},

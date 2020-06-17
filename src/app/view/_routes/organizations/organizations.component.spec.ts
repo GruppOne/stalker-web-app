@@ -1,5 +1,7 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of, throwError} from 'rxjs';
 import {AdminType} from 'src/app/model/classes/administrator';
@@ -19,7 +21,12 @@ describe('OrganizationsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OrganizationsComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
+      ],
       providers: [{provide: OrganizationService, useValue: organizationService}],
     }).compileComponents();
   }));
@@ -60,12 +67,10 @@ describe('OrganizationsComponent', () => {
     expect(getAdminOrgSpy.calls.any()).toBe(true);
   });
   it('should call getAdminOrganizations and handle error response', () => {
-    spyOn(console, 'error');
     getAdminOrgSpy = organizationService.getAdminOrganizations.and.returnValue(
       throwError(''),
     );
     component.getAdminOrganizations();
     expect(getAdminOrgSpy.calls.any()).toBe(true);
-    expect(console.error).toHaveBeenCalledWith('');
   });
 });
